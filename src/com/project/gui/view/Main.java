@@ -57,7 +57,7 @@ public class Main extends Application {
             primaryStage.setTitle("coordinator window");
         }
 
-        if(layoutChosen.get().equals("cdustomer")) {
+        if(layoutChosen.get().equals("customer")) {
             FXMLLoader loaderTeacher = new FXMLLoader();
             loaderTeacher.setLocation(getClass().getResource("CustomerView.fxml"));
             AnchorPane customerDisplay = loaderTeacher.load();
