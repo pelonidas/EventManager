@@ -1,15 +1,16 @@
 package com.project.be;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Event {
     private int ID;
-    private Timestamp dateAndTime;
+    private Date dateAndTime;  //datatype that should work smoothly with SQL datatype DATE
     private String location;
     private User participants;      //maybe later create new class Participants and use that class besides User class
     private String notes;
 
-    public Event(int ID, Timestamp dateAndTime, String location, User participants, String notes) {
+    public Event(int ID, Date dateAndTime, String location, User participants, String notes) {
         this.ID = ID;
         this.dateAndTime = dateAndTime;
         this.location = location;
@@ -17,7 +18,7 @@ public class Event {
         this.notes = notes;
     }
 
-    public Event(Timestamp dateAndTime, String location, User participants, String notes) {
+    public Event(Date dateAndTime, String location, User participants, String notes) {
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.participants = participants;
@@ -32,11 +33,11 @@ public class Event {
         this.ID = ID;
     }
 
-    public Timestamp getDateAndTime() {
+    public Date getDateAndTime() {
         return dateAndTime;
     }
 
-    public void setDateAndTime(Timestamp dateAndTime) {
+    public void setDateAndTime(Date dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
