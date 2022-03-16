@@ -5,20 +5,23 @@ import java.sql.Timestamp;
 
 public class Event {
     private int ID;
+    private String name;
     private Date dateAndTime;  //datatype that should work smoothly with SQL datatype DATE
     private String location;
     private User participants;      //maybe later create new class Participants and use that class besides User class
     private String notes;
 
-    public Event(int ID, Date dateAndTime, String location, User participants, String notes) {
+    public Event(int ID,String name, Date dateAndTime, String location, User participants, String notes) {
         this.ID = ID;
+        this.name = name;
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.participants = participants;
         this.notes = notes;
     }
 
-    public Event(Date dateAndTime, String location, User participants, String notes) {
+    public Event(String name, Date dateAndTime, String location, User participants, String notes) {
+        this.name = name;
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.participants = participants;
@@ -63,5 +66,13 @@ public class Event {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
