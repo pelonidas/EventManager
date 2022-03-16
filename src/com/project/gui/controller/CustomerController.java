@@ -8,6 +8,13 @@ import javafx.scene.control.TableView;
 
 import java.util.Date;
 
+/**
+ * - upcoming are those that customer didn't "purchased" the ticket
+ * - purchased are those that customer did "purchased" the ticket
+ * - filter (will) working just for upcoming table
+ */
+
+
 public class CustomerController {
     @FXML
     private TableView<Event> upcomingTable, purchasedTable;
