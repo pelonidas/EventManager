@@ -1,5 +1,6 @@
 package com.project.gui.view;
 
+import com.project.be.Admin;
 import com.project.gui.controller.RootLayoutController;
 import com.project.gui.controller.SignInController;
 import javafx.application.Application;
@@ -12,12 +13,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class Main extends Application {
     private Stage primaryStage;
     private StringProperty layoutChosen;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory("EventManager");
+        EntityManager em = emf.createEntityManager();
+
+        Admin a = em.find(Admin.class,4);*/
+
         this.primaryStage = primaryStage;
         layoutChosen = new SimpleStringProperty("");
         initLogin();
