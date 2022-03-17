@@ -1,11 +1,12 @@
 package com.project.gui.controller;
 
+import com.project.be.Event;
 import com.project.be.User;
+import com.project.gui.model.CustomerModel;
 import javafx.beans.property.Property;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,6 +39,8 @@ public class CustomerController {
     @FXML
     private TableColumn<Event, String> upcomingEventLocationColumn;
 
+    private CustomerModel customerModel;
+
     @FXML
     public void buyTicketOnAction(ActionEvent event) {
     }
@@ -54,5 +57,6 @@ public class CustomerController {
         upcomingEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         upcomingEventStartColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         upcomingEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        upcomingTable.setItems(customerModel.getEventObservableList());
     }
 }
