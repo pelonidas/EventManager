@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,38 +15,29 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CustomerController">
     <children>
-        <GridPane prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane layoutX="-14.0" layoutY="-10.0" prefHeight="1010.0" prefWidth="1414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="529.0" minHeight="10.0" prefHeight="517.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="259.0" minHeight="4.0" prefHeight="16.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="76.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="415.0" minHeight="0.0" prefHeight="98.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="815.0" minHeight="10.0" prefHeight="394.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="495.0" minHeight="4.0" prefHeight="68.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="495.0" minHeight="10.0" prefHeight="198.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="495.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <TableView fx:id="upcomingTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="upcomingNameEventColumn" prefWidth="130.0" text="Name of event" />
-                        <TableColumn fx:id="upcomingStartEventColumn" prefWidth="120.0" text="Start" />
-                  <TableColumn fx:id="upcomingLocationEventColumn" prefWidth="130.0" text="Location" />
-                  <TableColumn fx:id="upcomingAdditionalInfoEventColumn" prefWidth="297.60002441406255" text="Addition info" />
+                        <TableColumn fx:id="upcomingEventNameColumn" prefWidth="130.0" text="Name of event" />
+                        <TableColumn fx:id="upcomingEventStartColumn" prefWidth="120.0" text="Start" />
+                  <TableColumn fx:id="upcomingEventLocationColumn" prefWidth="130.0" text="Location" />
+                  <TableColumn fx:id="upcomingEventAdditionalInfoColumn" prefWidth="297.60002441406255" text="Addition info" />
                     </columns>
                     <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
-                    </GridPane.margin>
-                </TableView>
-                <TableView fx:id="purchasedTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <columns>
-                  <TableColumn fx:id="purchasedNameEventColumn" prefWidth="130.0" text="Name of event" />
-                  <TableColumn fx:id="purchasedStartEventColumn" prefWidth="120.0" text="Start" />
-                  <TableColumn fx:id="purchasedLocationEventColumn" prefWidth="130.0" text="Location" />
-                  <TableColumn fx:id="purchasedAdditionalInfoEventColumn" prefWidth="297.60002441406255" text="Addition info" />
-                    </columns>
-                    <GridPane.margin>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </GridPane.margin>
                 </TableView>
                 <Label text="Upcoming">
@@ -56,24 +48,47 @@
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <Label text="You are going to visit" GridPane.columnIndex="1">
+                <Label text="Additional info" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                     <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="5.0" left="10.0" />
                     </GridPane.margin>
                     <font>
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <Button fx:id="buyTicket" mnemonicParsing="false" onAction="#buyTicketOnAction" text="Buy ticket" GridPane.rowIndex="3">
+                <Button mnemonicParsing="false" onAction="#buyTicketOnAction" text="Buy ticket" GridPane.rowIndex="5">
                     <GridPane.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="10.0" left="10.0" />
                     </GridPane.margin>
                 </Button>
-                <TextField fx:id="filter" onAction="#filterOnAction" GridPane.rowIndex="1">
+                <TextField fx:id="filter" onAction="#filterOnAction" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                     <GridPane.margin>
-                        <Insets left="10.0" right="100.0" top="30.0" />
+                        <Insets bottom="10.0" left="10.0" right="100.0" />
                     </GridPane.margin>
                 </TextField>
+            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </TextArea>
+            <Label text="Other participants" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="21.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TableView fx:id="tableViewParticipantsOnClickedEvent" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <columns>
+                <TableColumn fx:id="participantsNameColumn" prefWidth="699.0" text="Name of participantes on this Event" />
+              </columns>
+            </TableView>
+            <Button mnemonicParsing="false" onAction="#purchasedEventsOnAction" text="See purchased events" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="100.0" />
+               </GridPane.margin>
+            </Button>
             </children>
             <opaqueInsets>
                 <Insets />
