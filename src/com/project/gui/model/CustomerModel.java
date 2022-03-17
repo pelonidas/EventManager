@@ -11,6 +11,9 @@ public class CustomerModel {
     private ObservableList<Event> eventObservableList;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+
+
+
     public ObservableList<Event> getEventObservableList() {
         eventObservableList = FXCollections.observableArrayList();
         eventObservableList.add(new Event("Event 1", LocalDate.now(), "Esbjerg", "notes and notes"));

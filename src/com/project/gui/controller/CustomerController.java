@@ -8,13 +8,16 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 /**
  * - upcoming are those that customer didn't "purchased" the ticket
@@ -23,7 +26,7 @@ import java.util.Date;
  */
 
 
-public class CustomerController {
+public class CustomerController implements Initializable {
     @FXML
     private TextField filter;
     @FXML
@@ -39,7 +42,16 @@ public class CustomerController {
     @FXML
     private TableColumn<Event, String> upcomingEventLocationColumn;
 
-    private CustomerModel customerModel;
+    private final CustomerModel customerModel;
+
+    public CustomerController() {
+        customerModel = new CustomerModel();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     @FXML
     public void buyTicketOnAction(ActionEvent event) {
@@ -58,5 +70,10 @@ public class CustomerController {
         upcomingEventStartColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         upcomingEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         upcomingTable.setItems(customerModel.getEventObservableList());
+    }
+
+    private void setTableViewParticipantsOnClickedEvent(){
+//        participantsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+//        tableViewParticipantsOnClickedEvent.setItems(customerModel.);
     }
 }
