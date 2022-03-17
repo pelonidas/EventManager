@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.persistence.EntityManager;
@@ -66,7 +67,7 @@ public class Main extends Application {
         if(layoutChosen.get().equals("coordinator")) {
             FXMLLoader loaderCoordinator = new FXMLLoader();
             loaderCoordinator.setLocation(getClass().getResource("CoordinatorView.fxml"));
-            AnchorPane coordinatorDisplay = loaderCoordinator.load();
+            VBox coordinatorDisplay = loaderCoordinator.load();
             rootLayout.getChildren().add(coordinatorDisplay);
             primaryStage.setTitle("coordinator window");
         }
