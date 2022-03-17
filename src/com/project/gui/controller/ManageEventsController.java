@@ -2,8 +2,13 @@ package com.project.gui.controller;
 
 import com.project.gui.view.Main;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 public class ManageEventsController {
+    @FXML
+    private TextField eventSearchFilter;
+
     Main main;
 
     public void backView(ActionEvent actionEvent) {

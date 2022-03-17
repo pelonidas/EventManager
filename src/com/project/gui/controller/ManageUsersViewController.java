@@ -2,10 +2,13 @@ package com.project.gui.controller;
 
 import com.project.gui.view.Main;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,6 +16,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ManageUsersViewController implements Initializable {
+    @FXML
+    private TextField customersSearchFilter;
+    @FXML
+    private TextField eventCoordinatorSearchFilter;
+
     Main main;
 
     public void backView(ActionEvent actionEvent) {
