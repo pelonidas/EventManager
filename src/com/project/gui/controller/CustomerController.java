@@ -37,8 +37,6 @@ public class CustomerController {
     private TableColumn<Event, Date> upcomingEventStartColumn;
     @FXML
     private TableColumn<Event, String> upcomingEventLocationColumn;
-    @FXML
-    private TableColumn<Event, String> upcomingEventAdditionalInfoColumn;
 
     @FXML
     public void buyTicketOnAction(ActionEvent event) {
@@ -56,7 +54,5 @@ public class CustomerController {
         upcomingEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         upcomingEventStartColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         upcomingEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        upcomingEventAdditionalInfoColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        upcomingEventAdditionalInfoColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 }
