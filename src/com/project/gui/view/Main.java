@@ -1,6 +1,7 @@
 package com.project.gui.view;
 
 import com.project.be.Admin;
+import com.project.gui.controller.AdminController;
 import com.project.gui.controller.RootLayoutController;
 import com.project.gui.controller.SignInController;
 import javafx.application.Application;
@@ -42,6 +43,7 @@ public class Main extends Application {
 
         SignInController controller = loader.getController();
         controller.setMainApp(this);
+
         primaryStage.setTitle("Main window");
         primaryStage.show();
     }
@@ -52,27 +54,45 @@ public class Main extends Application {
         BorderPane rootLayout = loader.load();
 
         if(layoutChosen.get().equals("admin")) {
-            FXMLLoader loaderStudent = new FXMLLoader();
-            loaderStudent.setLocation(getClass().getResource("AdminView.fxml"));
-            AnchorPane adminDisplay = loaderStudent.load();
+            FXMLLoader loaderAdmin = new FXMLLoader();
+            loaderAdmin.setLocation(getClass().getResource("AdminView.fxml"));
+            AnchorPane adminDisplay = loaderAdmin.load();
+            AdminController controller = loaderAdmin.getController();
+            controller.setMainApp(this);
             rootLayout.getChildren().add(adminDisplay);
             primaryStage.setTitle("Admin window");
 
         }
         if(layoutChosen.get().equals("coordinator")) {
-            FXMLLoader loaderTeacher = new FXMLLoader();
-            loaderTeacher.setLocation(getClass().getResource("CoordinatorView.fxml"));
-            AnchorPane coordinatorDisplay = loaderTeacher.load();
+            FXMLLoader loaderCoordinator = new FXMLLoader();
+            loaderCoordinator.setLocation(getClass().getResource("CoordinatorView.fxml"));
+            AnchorPane coordinatorDisplay = loaderCoordinator.load();
             rootLayout.getChildren().add(coordinatorDisplay);
             primaryStage.setTitle("coordinator window");
         }
 
         if(layoutChosen.get().equals("customer")) {
-            FXMLLoader loaderTeacher = new FXMLLoader();
-            loaderTeacher.setLocation(getClass().getResource("CustomerView.fxml"));
-            AnchorPane customerDisplay = loaderTeacher.load();
+            FXMLLoader loaderCustomer = new FXMLLoader();
+            loaderCustomer.setLocation(getClass().getResource("CustomerView.fxml"));
+            AnchorPane customerDisplay = loaderCustomer.load();
             rootLayout.getChildren().add(customerDisplay);
             primaryStage.setTitle("Customer window");
+        }
+
+        if(layoutChosen.get().equals("events")) {
+            FXMLLoader loaderEvent = new FXMLLoader();
+            loaderEvent.setLocation(getClass().getResource("ManageEvents.fxml"));
+            AnchorPane eventsDisplay = loaderEvent.load();
+            rootLayout.getChildren().add(eventsDisplay);
+            primaryStage.setTitle("Manage events window");
+        }
+
+        if(layoutChosen.get().equals("users")) {
+            FXMLLoader loaderUser = new FXMLLoader();
+            loaderUser.setLocation(getClass().getResource("ManageUsers.fxml"));
+            AnchorPane usersDisplay = loaderUser.load();
+            rootLayout.getChildren().add(usersDisplay);
+            primaryStage.setTitle("Manage users window");
         }
 
         // Show the scene containing the root layout.
