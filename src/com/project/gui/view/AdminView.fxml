@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.AdminController">
     <children>
-        <Button  layoutX="208.0" layoutY="188.0" mnemonicParsing="false" onAction="#manageEvents" text="Events" />
-        <Button  layoutX="293.0" layoutY="188.0" mnemonicParsing="false" onAction="#manageUsers" text="Users" />
+        <Button layoutX="208.0" layoutY="188.0" mnemonicParsing="false" onAction="#manageEvents" text="Events" />
+        <Button layoutX="293.0" layoutY="188.0" mnemonicParsing="false" onAction="#manageUsers" text="Users" />
     </children>
 </AnchorPane>
