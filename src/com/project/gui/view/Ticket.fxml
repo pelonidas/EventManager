@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.project.gui.controller.TicketController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="181.0" prefWidth="342.0" spacing="60.0">
+         <children>
+            <HBox spacing="50.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label fx:id="eventNameLabel" prefHeight="54.0" prefWidth="267.0" style="-fx-underline: true;" text="Coachella">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="eventLocationLabel" text="Empire polo club, TX" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_RIGHT" prefHeight="71.0" prefWidth="139.0">
+                     <children>
+                        <Label fx:id="dateLabel" text="19.2.22">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="timeLabel" text="19:30">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="342.0" spacing="20.0">
+               <children>
+                  <ImageView fitHeight="49.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="7">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Gate" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="6">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Row" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="13">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Seat" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="VIP">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label text="Addmission" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </HBox.margin>
+      </VBox>
+      <Line endX="-99.30709075927734" endY="200.8928985595703" startX="-100.0" style="-fx-stroke-dash-array: 10;" />
+      <VBox fx:id="qrCodeView" alignment="BOTTOM_CENTER" prefHeight="192.0" prefWidth="135.0">
+         <children>
+            <ImageView fx:id="barcodeView" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" rotate="270.0" />
+         </children>
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

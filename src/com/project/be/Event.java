@@ -2,29 +2,27 @@ package com.project.be;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class Event {
     private int ID;
     private String name;
-    private Date dateAndTime;  //datatype that should work smoothly with SQL datatype DATE
+    private LocalDate dateAndTime;  //datatype that should work smoothly with SQL datatype DATE
     private String location;
-    private User participants;      //maybe later create new class Participants and use that class besides User class
     private String notes;
 
-    public Event(int ID,String name, Date dateAndTime, String location, User participants, String notes) {
+    public Event(int ID,String name, LocalDate dateAndTime, String location, String notes) {
         this.ID = ID;
         this.name = name;
         this.dateAndTime = dateAndTime;
         this.location = location;
-        this.participants = participants;
         this.notes = notes;
     }
 
-    public Event(String name, Date dateAndTime, String location, User participants, String notes) {
+    public Event(String name, LocalDate dateAndTime, String location, String notes) {
         this.name = name;
         this.dateAndTime = dateAndTime;
         this.location = location;
-        this.participants = participants;
         this.notes = notes;
     }
 
@@ -36,11 +34,11 @@ public class Event {
         this.ID = ID;
     }
 
-    public Date getDateAndTime() {
+    public LocalDate getDateAndTime() {
         return dateAndTime;
     }
 
-    public void setDateAndTime(Date dateAndTime) {
+    public void setDateAndTime(LocalDate dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
@@ -50,14 +48,6 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public User getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(User participants) {
-        this.participants = participants;
     }
 
     public String getNotes() {
