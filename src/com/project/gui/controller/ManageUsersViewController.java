@@ -2,8 +2,12 @@ package com.project.gui.controller;
 
 import com.project.gui.view.Main;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 
-public class ManageEventsController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ManageUsersViewController implements Initializable {
     Main main;
 
     public void backView(ActionEvent actionEvent) {
@@ -17,5 +21,9 @@ public class ManageEventsController {
 
     public void setMain(Main main) {
         this.main = main;
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }

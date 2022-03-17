@@ -1,9 +1,7 @@
 package com.project.gui.view;
 
 import com.project.be.Admin;
-import com.project.gui.controller.AdminController;
-import com.project.gui.controller.RootLayoutController;
-import com.project.gui.controller.SignInController;
+import com.project.gui.controller.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -84,6 +82,8 @@ public class Main extends Application {
             FXMLLoader loaderEvent = new FXMLLoader();
             loaderEvent.setLocation(getClass().getResource("ManageEvents.fxml"));
             AnchorPane eventsDisplay = loaderEvent.load();
+            ManageEventsController controller = loaderEvent.getController();
+            controller.setMain(this);
             rootLayout.getChildren().add(eventsDisplay);
             primaryStage.setTitle("Manage events window");
         }
@@ -92,6 +92,8 @@ public class Main extends Application {
             FXMLLoader loaderUser = new FXMLLoader();
             loaderUser.setLocation(getClass().getResource("ManageUsers.fxml"));
             AnchorPane usersDisplay = loaderUser.load();
+            ManageUsersViewController controller = loaderUser.getController();
+            controller.setMain(this);
             rootLayout.getChildren().add(usersDisplay);
             primaryStage.setTitle("Manage users window");
         }
