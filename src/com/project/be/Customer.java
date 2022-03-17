@@ -10,4 +10,9 @@ public class Customer extends User{
     public Customer(String name, String email) {
         super(name, email);
     }
+
+    @Override
+    public String toString() {
+        return super.getName();
+    }
 }
