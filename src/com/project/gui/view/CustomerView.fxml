@@ -82,8 +82,11 @@
               <columns>
                 <TableColumn fx:id="participantsNameColumn" prefWidth="699.0" text="Name of participantes on this Event" />
               </columns>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#purchasedEventsOnAction" text="See purchased events" GridPane.rowIndex="5">
+            <Button mnemonicParsing="false" onAction="#purchasedEventsButtonOnAction" text="See purchased events" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="10.0" left="100.0" />
                </GridPane.margin>

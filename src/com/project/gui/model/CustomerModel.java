@@ -16,6 +16,7 @@ public class CustomerModel {
 
     public ObservableList<Event> getEventObservableList() {
         eventObservableList = FXCollections.observableArrayList();
+        //MOCK DATA
         eventObservableList.add(new Event("Event 1", LocalDate.now(), "Esbjerg", "notes and notes"));
         eventObservableList.add(new Event("Event 2", LocalDate.parse("04-03-2022", formatter), "Puchov", "notes and notes"));
         eventObservableList.add(new Event("Event 3", LocalDate.parse("12-08-2000", formatter), "Poprad", "notes and notes"));

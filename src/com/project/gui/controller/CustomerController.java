@@ -8,13 +8,18 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -34,7 +39,7 @@ public class CustomerController implements Initializable {
     @FXML
     private TableView<Event> upcomingTable;
     @FXML
-    public TableColumn<User, String> participantsNameColumn;
+    private TableColumn<User, String> participantsNameColumn;
     @FXML
     private TableColumn<Event, String> upcomingEventNameColumn;
     @FXML
@@ -50,7 +55,7 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        setTableViewUpcomingEvents();
     }
 
     @FXML
@@ -62,7 +67,15 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    public void purchasedEventsOnAction(ActionEvent event) {
+    public void purchasedEventsButtonOnAction(ActionEvent event) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/project/gui/view/CustomerPurchasedEvents.fxml"));
+        root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Participants");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     private void setTableViewUpcomingEvents(){
