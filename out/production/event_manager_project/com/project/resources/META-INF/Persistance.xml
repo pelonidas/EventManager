@@ -7,11 +7,11 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/classicmodels"/>
+            <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Event_Manager;integratedSecurity=true;"/>
             <property name="javax.persistence.jdbc.user" value="CSe21B_26"/>
             <property name="javax.persistence.jdbc.password" value="CSe21B_26"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
 
         </properties>
     </persistence-unit>
