@@ -59,11 +59,20 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    public void buyTicketOnAction(ActionEvent event) {
+    public void buyTicketOnAction(ActionEvent event) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/project/gui/view/Ticket.fxml"));
+        root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Participants");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
     public void filterOnAction(ActionEvent event) {
+        //database filter
     }
 
     @FXML
