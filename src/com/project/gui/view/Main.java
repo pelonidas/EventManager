@@ -1,6 +1,5 @@
 package com.project.gui.view;
 
-import com.project.be.Admin;
 import com.project.gui.controller.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,14 +7,12 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -23,10 +20,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory("EventManager");
-        EntityManager em = emf.createEntityManager();
-
-        Admin a = em.find(Admin.class,4);*/
 
         this.primaryStage = primaryStage;
         layoutChosen = new SimpleStringProperty("");
@@ -50,15 +43,15 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class
                 .getResource("RootLayout.fxml"));
-        BorderPane rootLayout = loader.load();
+        AnchorPane rootLayout = loader.load();
 
         if(layoutChosen.get().equals("admin")) {
             FXMLLoader loaderAdmin = new FXMLLoader();
             loaderAdmin.setLocation(getClass().getResource("AdminView.fxml"));
-            AnchorPane adminDisplay = loaderAdmin.load();
+            GridPane adminDisplay = loaderAdmin.load();
             AdminController controller = loaderAdmin.getController();
             controller.setMainApp(this);
-            rootLayout.getChildren().add(adminDisplay);
+            rootLayout.getChildren().setAll(adminDisplay);
             primaryStage.setTitle("Admin window");
 
         }
@@ -91,7 +84,7 @@ public class Main extends Application {
         if(layoutChosen.get().equals("users")) {
             FXMLLoader loaderUser = new FXMLLoader();
             loaderUser.setLocation(getClass().getResource("ManageUsers.fxml"));
-            AnchorPane usersDisplay = loaderUser.load();
+            TabPane usersDisplay = loaderUser.load();
             ManageUsersViewController controller = loaderUser.getController();
             controller.setMain(this);
             rootLayout.getChildren().add(usersDisplay);

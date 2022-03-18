@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.AdminController">
-    <children>
-        <Button layoutX="208.0" layoutY="188.0" mnemonicParsing="false" onAction="#manageEvents" text="Events" />
-        <Button layoutX="293.0" layoutY="188.0" mnemonicParsing="false" onAction="#manageUsers" text="Users" />
-    </children>
-</AnchorPane>
+<GridPane prefHeight="214.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.AdminController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="71.0" minWidth="10.0" prefWidth="51.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="77.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="64.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="10.0" prefWidth="67.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="63.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <JFXButton onAction="#manageEvents" text="Events" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <JFXButton onAction="#manageUsers" text="Users" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <Label prefHeight="17.0" prefWidth="52.0" text="Manage" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   </children>
+</GridPane>

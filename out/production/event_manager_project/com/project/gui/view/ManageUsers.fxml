@@ -3,35 +3,55 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageUsersViewController">
-   <children>
-      <TabPane layoutX="46.0" layoutY="72.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="customers">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageUsersViewController">
+  <tabs>
+    <Tab text="Customers">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="229.0" layoutY="116.0" prefHeight="368.5" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <JFXButton layoutX="79.0" layoutY="14.0" onAction="#newCustomer" text="Add customer" />
-                        <TextField fx:id="customersSearchFilter" layoutX="59.0" layoutY="90.0" />
-                        <JFXButton layoutX="32.0" layoutY="40.0" text="Search" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Event coordinators">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <JFXButton layoutX="29.0" layoutY="14.0" onAction="#newUser" text="Add coordinator" />
-                        <TextField fx:id="eventCoordinatorSearchFilter" layoutX="14.0" layoutY="50.0" prefHeight="26.0" prefWidth="128.0" />
-                        <JFXButton layoutX="54.0" layoutY="106.0" text="Search" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      <JFXButton layoutX="19.0" layoutY="178.0" onAction="#backView" text="Back" />
-   </children>
-</AnchorPane>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXButton onAction="#newCustomer" text="Add customer" />
+                              <JFXButton text="Delete" />
+                              <JFXButton text="Show history" />
+                           </children>
+                        </HBox>
+                        <TableView prefHeight="357.0" prefWidth="600.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="75.0" text="C3" />
+                              <TableColumn prefWidth="75.0" text="C4" />
+                              <TableColumn prefWidth="75.0" text="C5" />
+                              <TableColumn prefWidth="75.0" text="C6" />
+                              <TableColumn prefWidth="75.0" text="C7" />
+                              <TableColumn prefWidth="75.0" text="C8" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXButton onAction="#backView" text="Back" />
+                              <JFXButton text="Cancel" />
+                              <JFXButton text="Confirm" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Event coordinators">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
