@@ -6,12 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 public class ManageEventsController {
-    @FXML
-    private TextField eventSearchFilter;
 
     Main main;
 
-    public void backView(ActionEvent actionEvent) {
+    @FXML
+    private void backView(ActionEvent actionEvent) {
         main.setLayoutChosen("admin");
         try {
             main.initRootLayout();
