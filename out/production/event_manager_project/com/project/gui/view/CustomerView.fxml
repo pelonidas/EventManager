@@ -29,7 +29,7 @@
             <RowConstraints maxHeight="495.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TableView fx:id="upcomingTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                <TableView fx:id="upcomingTable" onMouseReleased="#tableVIewOnMouseRelease" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <columns>
                         <TableColumn fx:id="upcomingEventNameColumn" prefWidth="249.0" text="Name of event" />
                         <TableColumn fx:id="upcomingEventStartColumn" prefWidth="163.0" text="Start" />
@@ -65,7 +65,7 @@
                         <Insets bottom="10.0" left="10.0" right="100.0" />
                     </GridPane.margin>
                 </TextField>
-            <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextArea fx:id="additionalInfoTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
