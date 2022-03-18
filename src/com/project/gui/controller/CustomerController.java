@@ -4,6 +4,8 @@ import com.project.be.Event;
 import com.project.be.User;
 import com.project.gui.model.CustomerModel;
 import javafx.beans.property.Property;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -14,8 +16,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
@@ -32,6 +36,8 @@ import java.util.ResourceBundle;
 
 
 public class CustomerController implements Initializable {
+    @FXML
+    private TextArea additionalInfoTextArea;
     @FXML
     private TextField filter;
     @FXML
@@ -55,7 +61,7 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setTableViewUpcomingEvents();
+       setTableViewUpcomingEvents();
     }
 
     @FXML
@@ -95,7 +101,19 @@ public class CustomerController implements Initializable {
     }
 
     private void setTableViewParticipantsOnClickedEvent(){
-//        participantsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        tableViewParticipantsOnClickedEvent.setItems(customerModel.);
+
+    }
+
+    //putting notes into text are if event is clicked
+    //---------------------------------------------------------------------------
+    public void tableVIewOnMouseRelease(MouseEvent mouseEvent) {
+        Event selectedEvent = upcomingTable.getSelectionModel().getSelectedItem();
+        if (selectedEvent != null){
+            additionalInfoTextArea.setText(selectedEvent.getNotes());
+            participantsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            ObservableList<User> userObservableList = FXCollections.observableArrayList();
+            userObservableList.addAll(selectedEvent.getParticipants());
+            tableViewParticipantsOnClickedEvent.setItems(userObservableList);
+        }
     }
 }

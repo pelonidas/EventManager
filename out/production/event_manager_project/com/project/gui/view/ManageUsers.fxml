@@ -6,32 +6,34 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageUsersViewController">
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageUsersViewController">
    <children>
-      <TabPane layoutX="46.0" layoutY="72.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="customers">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <TabPane prefHeight="281.0" prefWidth="250.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="customers">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <JFXButton layoutX="79.0" layoutY="14.0" onAction="#newCustomer" text="Add customer" />
                         <TextField fx:id="customersSearchFilter" layoutX="59.0" layoutY="90.0" />
                         <JFXButton layoutX="32.0" layoutY="40.0" text="Search" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Event coordinators">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <JFXButton layoutX="15.0" layoutY="24.0" onAction="#backView" text="Back" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Event coordinators">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <JFXButton layoutX="29.0" layoutY="14.0" onAction="#newUser" text="Add coordinator" />
                         <TextField fx:id="eventCoordinatorSearchFilter" layoutX="14.0" layoutY="50.0" prefHeight="26.0" prefWidth="128.0" />
                         <JFXButton layoutX="54.0" layoutY="106.0" text="Search" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
       </TabPane>
-      <JFXButton layoutX="19.0" layoutY="178.0" onAction="#backView" text="Back" />
    </children>
 </AnchorPane>

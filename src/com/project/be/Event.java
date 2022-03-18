@@ -3,6 +3,8 @@ package com.project.be;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Event {
     private int ID;
@@ -10,6 +12,8 @@ public class Event {
     private LocalDate dateAndTime;  //datatype that should work smoothly with SQL datatype DATE
     private String location;
     private String notes;
+    //MOCK USERS
+    private List<User> participants;
 
     public Event(int ID,String name, LocalDate dateAndTime, String location, String notes) {
         this.ID = ID;
@@ -17,6 +21,7 @@ public class Event {
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.notes = notes;
+
     }
 
     public Event(String name, LocalDate dateAndTime, String location, String notes) {
@@ -24,6 +29,7 @@ public class Event {
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.notes = notes;
+        this.participants = new ArrayList<>();
     }
 
     public int getID() {
@@ -64,5 +70,14 @@ public class Event {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    //FOR MOCK DATA
+    public void addUser(User user){
+        participants.add(user);
     }
 }
