@@ -5,11 +5,18 @@ import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.controlsfx.control.textfield.CustomPasswordField;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -57,13 +64,31 @@ public class LogInController implements Initializable {
             main.setLayoutChosen("admin");
             main.initRootLayout();
         }
-        if (userName.getText().equals("coordinator")&&passWord.getText().equals("coordinator")){
+        else if (userName.getText().equals("coordinator")&&passWord.getText().equals("coordinator")){
             main.setLayoutChosen("coordinator");
             main.initRootLayout();
         }
-        if (userName.getText().equals("customer")&&passWord.getText().equals("customer")){
+        else if (userName.getText().equals("customer")&&passWord.getText().equals("customer")){
             main.setLayoutChosen("customer");
             main.initRootLayout();
         }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alert");
+            alert.setContentText("Please try again");
+            alert.setHeaderText("Wrong logIn infos");
+            alert.showAndWait();
+        }
+    }
+
+    public void signUp(ActionEvent actionEvent) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
+        root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Sign Up");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
