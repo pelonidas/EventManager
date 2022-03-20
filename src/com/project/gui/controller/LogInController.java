@@ -2,7 +2,6 @@ package com.project.gui.controller;
 
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,8 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.textfield.CustomPasswordField;
-
-import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,9 +36,9 @@ public class LogInController implements Initializable {
        usersIcons.setLayoutY(101);
     anchorPaneRight.getChildren().add(usersIcons);
 
-        Node keyIcon= GlyphsDude.createIcon(FontAwesomeIcons.KEY,"20px");
-        keyIcon.setLayoutX(67);
-        keyIcon.setLayoutY(263);
+        Node keyIcon= GlyphsDude.createIcon(FontAwesomeIcons.LOCK,"20px");
+        keyIcon.setLayoutX(69);
+        keyIcon.setLayoutY(253);
         anchorPaneRight.getChildren().add(keyIcon);
 
         Node userIcon= GlyphsDude.createIcon(FontAwesomeIcons.USER,"20px");
