@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,13 +26,13 @@ public class Main extends Application {
     }
     public void initLogin() throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("SingInView.fxml"));
+        loader.setLocation(getClass().getResource("LogInView.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
 
-        SignInController controller = loader.getController();
+        LogInController controller = loader.getController();
         controller.setMainApp(this);
 
         primaryStage.setTitle("Main window");
@@ -53,6 +52,8 @@ public class Main extends Application {
             controller.setMainApp(this);
             rootLayout.getChildren().setAll(adminDisplay);
             primaryStage.setTitle("Admin window");
+            primaryStage.setHeight(214);
+            primaryStage.setWidth(342);
 
         }
         if(layoutChosen.get().equals("coordinator")) {
@@ -74,11 +75,13 @@ public class Main extends Application {
         if(layoutChosen.get().equals("events")) {
             FXMLLoader loaderEvent = new FXMLLoader();
             loaderEvent.setLocation(getClass().getResource("ManageEvents.fxml"));
-            AnchorPane eventsDisplay = loaderEvent.load();
+            VBox eventsDisplay = loaderEvent.load();
             ManageEventsController controller = loaderEvent.getController();
             controller.setMain(this);
             rootLayout.getChildren().add(eventsDisplay);
             primaryStage.setTitle("Manage events window");
+            primaryStage.setHeight(430);
+            primaryStage.setWidth(490);
         }
 
         if(layoutChosen.get().equals("users")) {
@@ -89,6 +92,8 @@ public class Main extends Application {
             controller.setMain(this);
             rootLayout.getChildren().add(usersDisplay);
             primaryStage.setTitle("Manage users window");
+            primaryStage.setHeight(430);
+            primaryStage.setWidth(600);
         }
 
         // Show the scene containing the root layout.

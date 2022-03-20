@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -19,6 +20,8 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                            <children>
+                              <Label text="All customers" />
+                              <HBox prefHeight="38.0" prefWidth="281.0" />
                               <JFXButton onAction="#newCustomer" text="Add customer" />
                               <JFXButton text="Delete" />
                               <JFXButton text="Show history" />
@@ -26,18 +29,21 @@
                         </HBox>
                         <TableView prefHeight="357.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                              <TableColumn prefWidth="75.0" text="C3" />
-                              <TableColumn prefWidth="75.0" text="C4" />
-                              <TableColumn prefWidth="75.0" text="C5" />
-                              <TableColumn prefWidth="75.0" text="C6" />
-                              <TableColumn prefWidth="75.0" text="C7" />
-                              <TableColumn prefWidth="75.0" text="C8" />
+                            <TableColumn prefWidth="75.0" text="FName" />
+                            <TableColumn prefWidth="75.0" text="LName" />
+                              <TableColumn prefWidth="75.0" text="Username" />
+                              <TableColumn prefWidth="75.0" text="Password" />
+                              <TableColumn prefWidth="75.0" text="Address" />
+                              <TableColumn prefWidth="75.0" text="E-mail" />
+                              <TableColumn prefWidth="75.0" text="Phone number" />
+                              <TableColumn prefWidth="75.0" text="BirthDate" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                            <children>
+                              <JFXButton text="Show stats" />
+                              <HBox prefHeight="38.0" prefWidth="298.0" />
+                              <JFXButton fx:id="logOut" text="LogOut" />
                               <JFXButton onAction="#backView" text="Back" />
                               <JFXButton text="Cancel" />
                               <JFXButton text="Confirm" />

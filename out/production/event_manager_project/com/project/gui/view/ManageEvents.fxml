@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
    <children>
-      <JFXButton layoutX="355.0" layoutY="304.0" onAction="#backView" text="Back" />
-      <TextField fx:id="eventSearchFilter" layoutX="119.0" layoutY="102.0" />
-      <JFXButton layoutX="300.0" layoutY="103.0" text="Search" />
+      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="600.0">
+         <children>
+            <Label text="All events" />
+            <HBox prefHeight="50.0" prefWidth="207.0" />
+            <JFXButton text="Show participants" />
+            <JFXButton text="Delete" />
+            <JFXButton onAction="#newEvent" text="Add" />
+         </children>
+      </HBox>
+      <TableView prefHeight="302.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Event" />
+          <TableColumn prefWidth="75.0" text="Date" />
+            <TableColumn prefWidth="75.0" text="Location" />
+            <TableColumn prefWidth="75.0" text="Description" />
+            <TableColumn prefWidth="113.0" text="Tickets available" />
+            <TableColumn prefWidth="75.0" text="Coordinator" />
+        </columns>
+      </TableView>
+      <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="600.0">
+         <children>
+            <JFXButton onAction="#backView" text="Back" />
+            <JFXButton onAction="#logOut" text="Log out" />
+            <JFXButton text="Cancel" />
+            <JFXButton text="Confirm" />
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

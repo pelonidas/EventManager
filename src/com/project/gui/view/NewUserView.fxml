@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.NewUserViewController">
    <children>
       <GridPane layoutX="42.0" layoutY="110.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,30 +24,33 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <DatePicker GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <DatePicker GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <Label text="First name" GridPane.columnIndex="1" />
             <Label text="Last name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="User name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Phone number" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Birth date" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Gender" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Phone number" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="Birth date" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Gender" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <TextField GridPane.columnIndex="2" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <JFXButton text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <JFXButton text="Add" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <TextField GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <JFXButton text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <JFXButton text="Add" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Label text="Address" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>
