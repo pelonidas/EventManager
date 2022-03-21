@@ -1,0 +1,44 @@
+.root {
+    -fx-background-color:#848C8E;
+}
+
+.button {
+    -fx-background-color: #F1F2EE;
+    -fx-background-radius: 10;
+}
+
+.text-field {
+    -fx-background-color: #F1F2EE;
+    -fx-background-radius: 10;
+    -fx-padding: 8px 0px 8px 8px;
+
+}
+
+.text-area{
+    -fx-background-color:#F1F2EE;
+    -fx-background-radius: 10;
+    -fx-text-fill: black;
+}
+
+.list-view{
+    -fx-background-color: #F1F2EE;
+    -fx-background-radius: 10;
+
+}
+
+.list-cell{
+    -fx-background-radius: 10;
+    -fx-padding: 5 0 0 5 ;
+
+}
+
+
+
+.list-cell:selected{
+    -fx-background-color: #435058;
+    -fx-background-radius: 5;
+}
+
+.list-view.virtual-flow.scroll-bar:vertical.track{
+    -fx-background-color: black;
+}
