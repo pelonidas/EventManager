@@ -3,8 +3,8 @@ package com.project.be;
 public class TicketType {
 
     private int title;//VIP, Luxury and such
-    private String benefits;
-    private double price;
+    private String benefits; // what the customer will be getting with this ticket
+    private double price; // price for this type of ticket
 
     public TicketType(int title, String benefits, double price) {
         this.title = title;
