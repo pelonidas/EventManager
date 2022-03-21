@@ -29,14 +29,14 @@
                         </HBox>
                         <TableView prefHeight="357.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="FName" />
-                            <TableColumn prefWidth="75.0" text="LName" />
-                              <TableColumn prefWidth="75.0" text="Username" />
-                              <TableColumn prefWidth="75.0" text="Password" />
-                              <TableColumn prefWidth="75.0" text="Address" />
-                              <TableColumn prefWidth="75.0" text="E-mail" />
-                              <TableColumn prefWidth="75.0" text="Phone number" />
-                              <TableColumn prefWidth="75.0" text="BirthDate" />
+                            <TableColumn fx:id="FNameColumn" prefWidth="75.0" text="FName" />
+                            <TableColumn fx:id="LNameColumn" prefWidth="75.0" text="LName" />
+                              <TableColumn fx:id="UNameColumn" prefWidth="75.0" text="Username" />
+                              <TableColumn fx:id="PassWordColumn" prefWidth="75.0" text="Password" />
+                              <TableColumn fx:id="AddressColumn" prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="EmailColumn" prefWidth="75.0" text="E-mail" />
+                              <TableColumn fx:id="PNumberColumn" prefWidth="75.0" text="Phone number" />
+                              <TableColumn fx:id="BDateColumn" prefWidth="75.0" text="BirthDate" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">

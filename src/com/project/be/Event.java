@@ -7,37 +7,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
-    private int ID;
-    private String name;
-    private LocalDate dateAndTime;  //datatype that should work smoothly with SQL datatype DATE
+    private int id;
+    private String title;
+    private LocalDate dateAndTime;
     private String location;
-    private String notes;
-    //MOCK USERS
+    private String description;
     private List<User> participants;
+    private int maxCapacity;
+    private int seatsAvailable;
 
-    public Event(int ID,String name, LocalDate dateAndTime, String location, String notes) {
-        this.ID = ID;
-        this.name = name;
+
+    public Event(int id,String title, LocalDate dateAndTime, String location, String description) {
+        this.id = id;
+        this.title = title;
         this.dateAndTime = dateAndTime;
         this.location = location;
-        this.notes = notes;
+        this.description = description;
 
     }
 
-    public Event(String name, LocalDate dateAndTime, String location, String notes) {
-        this.name = name;
+    public Event(String name, LocalDate dateAndTime, String location, String des) {
+        this.title = name;
         this.dateAndTime = dateAndTime;
         this.location = location;
-        this.notes = notes;
+        this.description = des;
         this.participants = new ArrayList<>();
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDate getDateAndTime() {
@@ -56,28 +66,35 @@ public class Event {
         this.location = location;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getDescription() {
+        return description;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<User> getParticipants() {
         return participants;
     }
 
-    //FOR MOCK DATA
-    public void addUser(User user){
-        participants.add(user);
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int getSeatsAvailable() {
+        return seatsAvailable;
+    }
+
+    public void setSeatsAvailable(int seatsAvailable) {
+        this.seatsAvailable = seatsAvailable;
     }
 }

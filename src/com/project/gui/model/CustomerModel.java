@@ -11,13 +11,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class CustomerModel {
-    private ObservableList<Event> eventObservableList;
+    /*private ObservableList<Event> eventObservableList;
     private ObservableList<User> userObservableList;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-
-
-
 
 
 
@@ -54,5 +50,5 @@ public class CustomerModel {
 
 
         return eventObservableList;
-    }
+    }*/
 }

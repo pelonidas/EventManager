@@ -97,7 +97,7 @@ public class CustomerController implements Initializable {
         upcomingEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         upcomingEventStartColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         upcomingEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        upcomingTable.setItems(customerModel.getEventObservableList());
+        //upcomingTable.setItems(customerModel.getEventObservableList());
     }
 
     private void setTableViewParticipantsOnClickedEvent(){
@@ -109,7 +109,7 @@ public class CustomerController implements Initializable {
     public void tableVIewOnMouseRelease(MouseEvent mouseEvent) {
         Event selectedEvent = upcomingTable.getSelectionModel().getSelectedItem();
         if (selectedEvent != null){
-            additionalInfoTextArea.setText(selectedEvent.getNotes());
+            //additionalInfoTextArea.setText(selectedEvent.getNotes());
             participantsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             ObservableList<User> userObservableList = FXCollections.observableArrayList();
             userObservableList.addAll(selectedEvent.getParticipants());

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox stylesheets="@/ManageEvents.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="490.0" stylesheets="@/ManageEvents.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="600.0">
          <children>
@@ -18,14 +18,14 @@
             <JFXButton onAction="#newEvent" text="Add" />
          </children>
       </HBox>
-      <TableView prefHeight="302.0" prefWidth="600.0">
+      <TableView fx:id="eventsTable" prefHeight="302.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Event" />
-          <TableColumn prefWidth="75.0" text="Date" />
-            <TableColumn prefWidth="75.0" text="Location" />
-            <TableColumn prefWidth="75.0" text="Description" />
-            <TableColumn prefWidth="113.0" text="Tickets available" />
-            <TableColumn prefWidth="75.0" text="Coordinator" />
+          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Event" />
+          <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="ticketsAvailableColumn" prefWidth="113.0" text="Tickets available" />
+            <TableColumn fx:id="coordinatorColumn" prefWidth="75.0" text="Coordinator" />
         </columns>
       </TableView>
       <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="600.0">
