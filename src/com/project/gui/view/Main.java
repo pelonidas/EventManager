@@ -31,6 +31,9 @@ public class Main extends Application {
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
+        primaryStage.centerOnScreen();
+        primaryStage.setWidth(700);
+        primaryStage.setHeight(442);
 
         LogInController controller = loader.getController();
         controller.setMainApp(this);
@@ -52,8 +55,8 @@ public class Main extends Application {
             controller.setMainApp(this);
             rootLayout.getChildren().setAll(adminDisplay);
             primaryStage.setTitle("Admin window");
-            primaryStage.setHeight(214);
-            primaryStage.setWidth(342);
+            primaryStage.setHeight(228);
+            primaryStage.setWidth(318);
 
         }
         if(layoutChosen.get().equals("coordinator")) {
@@ -99,6 +102,7 @@ public class Main extends Application {
         // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+        primaryStage.centerOnScreen();
 
         // Give the controller access to the main app.
         RootLayoutController controller = loader.getController();

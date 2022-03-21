@@ -1,15 +1,23 @@
 package com.project.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.project.gui.view.Main;
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AdminController {
+public class AdminController implements Initializable{
+    @FXML
+    private HBox eventsBox;
+    @FXML
+    private HBox usersBox;
     private Main main;
 
 
@@ -33,5 +41,15 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        eventsBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR));
+        usersBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.USERS));
+    }
+
+    public void logOut(ActionEvent actionEvent) throws Exception {
+        main.initLogin();
     }
 }
