@@ -1,6 +1,7 @@
 package com.project.be;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public abstract class User {
     private int id;
@@ -11,9 +12,9 @@ public abstract class User {
     private String email;
     private String address;
     private int phoneNumber;
-    private LocalDate birthDate;
+    private Date birthDate;
 
-    public User(int id, String firstName, String lastName,String userName,String passWord, String email,String address,int phoneNumber,LocalDate birthDate) {
+    public User(int id, String firstName, String lastName,String userName,String passWord, String email,String address,int phoneNumber,Date birthDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -89,11 +90,11 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 }
