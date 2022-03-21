@@ -1,37 +1,17 @@
 package com.project.be;
 
 public class Ticket {
-    private int seat,row;
     private Event event;
+    Customer customer;
+    int id ;
 
     private String code; //the code used for generating barcode and qr code
 
-    public Ticket(Event event,int seat, int row,String code){
+    public Ticket(int id, Event event,Customer customer,String code){
         this.event=event;
-        this.seat=seat;
-        this.row=row;
+        this.id=id;
+        this.customer= customer;
         this.code = code;
-    }
-
-    public Ticket(Event event, String code) {
-        this.event = event;
-        this.code = code;
-    }
-
-    public int getSeat() {
-        return seat;
-    }
-
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
     }
 
     public Event getEvent() {
@@ -45,5 +25,25 @@ public class Ticket {
 
     public String getCode() {
         return code;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
