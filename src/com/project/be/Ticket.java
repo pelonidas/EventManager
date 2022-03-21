@@ -4,11 +4,15 @@ public class Ticket {
     private int seat,row;
     private Event event;
     private int unitPrice;
-    public Ticket(Event event,int seat, int row, int unitPrice){
+
+    private String code; //the code used for generating barcode and qr code
+
+    public Ticket(Event event,int seat, int row, int unitPrice,String code){
         this.event=event;
         this.seat=seat;
         this.row=row;
         this.unitPrice=unitPrice;
+        this.code = code;
     }
 
     public int getSeat() {
@@ -41,5 +45,9 @@ public class Ticket {
 
     public void setUnitPrice(int unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getCode() {
+        return code;
     }
 }
