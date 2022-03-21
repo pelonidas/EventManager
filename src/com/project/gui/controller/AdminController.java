@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,8 +47,14 @@ public class AdminController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        eventsBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR));
-        usersBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.USERS));
+        Text calendarIcon = GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR);
+        calendarIcon.setFill(Paint.valueOf("white"));
+        eventsBox.getChildren().add(calendarIcon);
+
+        Text usersIcon = GlyphsDude.createIcon(FontAwesomeIcons.USERS);
+        usersIcon.setFill(Paint.valueOf("white"));
+        usersBox.getChildren().add(usersIcon);
+
     }
 
     public void logOut(ActionEvent actionEvent) throws Exception {

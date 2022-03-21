@@ -33,7 +33,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
         primaryStage.setWidth(700);
-        primaryStage.setHeight(442);
+        primaryStage.setHeight(452);
 
         LogInController controller = loader.getController();
         controller.setMainApp(this);

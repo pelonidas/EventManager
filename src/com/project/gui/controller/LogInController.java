@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.CustomPasswordField;
 
@@ -38,22 +40,26 @@ public class LogInController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       Node usersIcons= GlyphsDude.createIcon(FontAwesomeIcons.USERS,"35px");
+       Text usersIcons= GlyphsDude.createIcon(FontAwesomeIcons.USERS,"35px");
+       usersIcons.setFill(Paint.valueOf("#0598ff"));
        usersIcons.setLayoutX(152);
        usersIcons.setLayoutY(101);
     anchorPaneRight.getChildren().add(usersIcons);
 
-        Node keyIcon= GlyphsDude.createIcon(FontAwesomeIcons.LOCK,"20px");
+        Text keyIcon= GlyphsDude.createIcon(FontAwesomeIcons.LOCK,"20px");
+        keyIcon.setFill(Paint.valueOf("#0598ff"));
         keyIcon.setLayoutX(69);
         keyIcon.setLayoutY(253);
         anchorPaneRight.getChildren().add(keyIcon);
 
-        Node userIcon= GlyphsDude.createIcon(FontAwesomeIcons.USER,"20px");
+        Text userIcon= GlyphsDude.createIcon(FontAwesomeIcons.USER,"20px");
+        userIcon.setFill(Paint.valueOf("#0598ff"));
         userIcon.setLayoutX(70);
         userIcon.setLayoutY(200);
         anchorPaneRight.getChildren().add(userIcon);
 
-        Node calendarIcon= GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR,"35px");
+        Text calendarIcon= GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR,"35px");
+        calendarIcon.setFill(Paint.valueOf("white"));
         calendarIcon.setLayoutX(153);
         calendarIcon.setLayoutY(101);
         anchorPaneLeft.getChildren().add(calendarIcon);
