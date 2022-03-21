@@ -27,7 +27,7 @@
     <orderEntry type="library" name="jfoenix" level="project" />
     <orderEntry type="library" name="google.zxing.core" level="project" />
     <orderEntry type="library" name="controlsfx" level="project" />
-    <orderEntry type="library" name="fontawesomefx-8.2" level="project" />
     <orderEntry type="library" name="google.zxing.javase" level="project" />
+    <orderEntry type="library" name="de.jensd.fontawesomefx" level="project" />
   </component>
 </module>
