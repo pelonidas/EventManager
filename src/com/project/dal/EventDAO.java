@@ -31,7 +31,7 @@ public class EventDAO {
         }
         return allEvents;
     }
-    public Event createEvent(String title, Date dateAndTime, String location, String description) throws SQLException{
+    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException{
         Event event = null;
         try (Connection connection = dbConnector.getConnection()){
             String sql = "INSERT INTO events VALUES(?,?,?,?,?)";
@@ -40,6 +40,7 @@ public class EventDAO {
             preparedStatement.setDate(2, (java.sql.Date) dateAndTime);
             preparedStatement.setString(3,location);
             preparedStatement.setString(4,description);
+            preparedStatement.setInt(5,seatsAvailable);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
               event = new Event(resultSet.getInt(1),title,dateAndTime,location,description)  ;
@@ -57,7 +58,7 @@ public class EventDAO {
     }
     public Event editEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException{
         try (Connection connection = dbConnector.getConnection()){
-            String sql = "UPDATE users SET title = ?, date = ?,location = ?, description= ? ,[seats availble] = ?,WHERE id = ?";
+            String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats availble] = ?   WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,title);
             preparedStatement.setDate(2, (java.sql.Date) dateAndTime);

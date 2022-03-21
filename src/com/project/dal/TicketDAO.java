@@ -51,12 +51,12 @@ public class TicketDAO {
     public Ticket createTicket (Customer customer, Event event,String qr_code, int ticketCategory)throws SQLException{
         Ticket ticket=null;
         try (Connection connection = dbConnector.getConnection()){
-          String sql = "INSERT INTO tickets VALUES (?,?,?,?,?,?)";
+          String sql = "INSERT INTO tickets VALUES (?,?,?,?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
           preparedStatement.setInt(1,event.getId());
           preparedStatement.setInt(2,customer.getId());
-          preparedStatement.setString(3,qr_code);
-          preparedStatement.setInt(4,ticketCategory);
+          preparedStatement.setString(4,qr_code);
+          preparedStatement.setInt(3,ticketCategory);
           ResultSet resultSet = preparedStatement.executeQuery();
           while (resultSet.next()){
               ticket= new Ticket(resultSet.getInt(1),event,customer,qr_code);
