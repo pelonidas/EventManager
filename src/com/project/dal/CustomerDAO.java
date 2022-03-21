@@ -17,19 +17,17 @@ public class CustomerDAO {
     public List<Customer> getAllCustomers() throws SQLException {
         List<Customer>allCustomers= new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()){
-            String sql="SELECT * FROM users";
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()){
-                int id = resultSet.getInt("category");
-                String sql0 = "SELECT * FROM categories_users WHERE id=?";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql0);
-                preparedStatement.setInt(1,id);
-                ResultSet resultSet1 = preparedStatement.getResultSet();
-                while (resultSet1.next()){
-                    String category = resultSet1.getString("category");
-                    if (category.equals("customer"))
+            String sql0 = "SELECT * FROM categories_users WHERE category=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql0);
+            preparedStatement.setString(1,"customer");
+            ResultSet resultSet1 = preparedStatement.executeQuery();
+            while (resultSet1.next()){
+                int id = resultSet1.getInt("id");
+                String sql="SELECT * FROM users WHERE category = ?";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql);
+                preparedStatement1.setInt(1,id);
+                ResultSet resultSet = preparedStatement1.executeQuery();
+                while (resultSet.next()){
                         allCustomers.add(new Customer(resultSet.getInt("id"),
                                 resultSet.getString("first_name"),
                                 resultSet.getString("last_name"),
@@ -37,15 +35,16 @@ public class CustomerDAO {
                                 resultSet.getString("password"),
                                 resultSet.getString("email"),
                                 resultSet.getString("address"),
-                                resultSet.getInt("phone_number"),
-                                resultSet.getDate("birth_date")));
+                                resultSet.getString("phone_number"),
+                                resultSet.getDate("birth_date"),
+                                id));
                 }
             }
         }
         return allCustomers;
     }
 
-    public Customer createCoordinator(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
+    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
         Customer customer = null;
         int idCategory=0;
         try (Connection connection= dbConnector.getConnection()){
@@ -71,7 +70,7 @@ public class CustomerDAO {
             ResultSet resultSet1= preparedStatement.getGeneratedKeys();
             while (resultSet1.next()){
                 int id = resultSet1.getInt(1);
-                customer = new Customer(id,firstName,lastName,userName,passWord,email,address,phoneNumber,birthDate);
+                customer = new Customer(id,firstName,lastName,userName,passWord,email,address,String.valueOf(phoneNumber),birthDate);
             }
         }
         return customer;
@@ -84,7 +83,7 @@ public class CustomerDAO {
             preparedStatement.executeUpdate();
         }
     }
-    public Customer editCoordinator(Customer customer,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
+    public Customer editCustomer(Customer customer,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
         try (Connection connection = dbConnector.getConnection()){
             String sql = "UPDATE users SET first_name = ?, last_name = ?,user_name = ?, password= ? ,email = ?, address = ?, phone_number = ?, birth_date = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -104,7 +103,7 @@ public class CustomerDAO {
             customer.setPassWord(passWord);
             customer.setEmail(email);
             customer.setAddress(address);
-            customer.setPhoneNumber(phoneNumber);
+            customer.setPhoneNumber(String.valueOf(phoneNumber));
             customer.setBirthDate(birthDate);
 
             preparedStatement.executeUpdate();

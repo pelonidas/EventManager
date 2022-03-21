@@ -16,19 +16,18 @@ public class CoordinatorDAO {
     public List<Coordinator> getAllCoordinators() throws SQLException {
         List<Coordinator>allCoordinators= new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()){
-            String sql="SELECT * FROM users";
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-            ResultSet resultSet = statement.getResultSet();
-            while (resultSet.next()){
-            int id = resultSet.getInt("category");
-            String sql0 = "SELECT * FROM categories_users WHERE id=?";
+            String sql0 = "SELECT * FROM categories_users WHERE category=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql0);
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet1 = preparedStatement.getResultSet();
+            preparedStatement.setString(1,"coordinator");
+            ResultSet resultSet1 = preparedStatement.executeQuery();
             while (resultSet1.next()){
-                String category = resultSet1.getString("category");
-                if (category.equals("coordinator"))
+                int id = resultSet1.getInt("id");
+
+                String sql="SELECT * FROM users WHERE category = ?";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setInt(1,id);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()){
                     allCoordinators.add(new Coordinator(resultSet.getInt("id"),
                             resultSet.getString("first_name"),
                             resultSet.getString("last_name"),
@@ -39,6 +38,9 @@ public class CoordinatorDAO {
                             resultSet.getInt("phone_number"),
                             resultSet.getDate("birth_date")));
             }
+
+
+
             }
         }
         return allCoordinators;
@@ -102,7 +104,7 @@ public class CoordinatorDAO {
             coordinator.setPassWord(passWord);
             coordinator.setEmail(email);
             coordinator.setAddress(address);
-            coordinator.setPhoneNumber(phoneNumber);
+            coordinator.setPhoneNumber(String.valueOf(phoneNumber));
             coordinator.setBirthDate(birthDate);
 
             preparedStatement.executeUpdate();

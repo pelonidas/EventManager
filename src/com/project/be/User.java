@@ -11,10 +11,10 @@ public abstract class User {
     private String passWord;
     private String email;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
     private Date birthDate;
 
-    public User(int id, String firstName, String lastName,String userName,String passWord, String email,String address,int phoneNumber,Date birthDate) {
+    public User(int id, String firstName, String lastName,String userName,String passWord, String email,String address,String phoneNumber,Date birthDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -82,11 +82,11 @@ public abstract class User {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
