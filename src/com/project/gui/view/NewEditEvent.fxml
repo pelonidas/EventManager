@@ -6,8 +6,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -46,7 +44,7 @@
                   <VBox>
                      <children>
                         <Label text="Date" />
-                        <DatePicker fx:id="eventDate" />
+                        <DatePicker fx:id="eventDate" prefHeight="26.0" prefWidth="170.0" />
                      </children>
                   </VBox>
                   <VBox>
@@ -55,10 +53,10 @@
                         <TextField fx:id="eventTime" />
                      </children>
                   </VBox>
-                  <VBox>
+                  <VBox prefHeight="21.0" prefWidth="98.0">
                      <children>
-                        <Label text="Duration" />
-                        <Spinner fx:id="eventDurationTxt" />
+                        <Label text="Capacity" />
+                        <TextField fx:id="eventCapacityTxt" />
                      </children>
                   </VBox>
                </children>
@@ -66,21 +64,25 @@
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <VBox fx:id="box1">
-               <children>
-                  <Label text="Location" />
-                  <TextField fx:id="eventLocationTxt" />
-               </children>
+            <HBox spacing="10.0">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
-            </VBox>
+               <children>
+                  <VBox fx:id="box1" prefHeight="43.0" prefWidth="434.0">
+                     <children>
+                        <Label text="Location" />
+                        <TextField fx:id="eventLocationTxt" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
             <HBox prefHeight="95.0" prefWidth="430.0" spacing="10.0">
                <children>
-                  <VBox prefHeight="95.0" prefWidth="429.0">
+                  <VBox prefHeight="66.0" prefWidth="430.0">
                      <children>
                         <Label text="Notes" />
-                        <TextArea fx:id="eventNotesTxt" prefHeight="80.0" prefWidth="265.0" />
+                        <TextField prefHeight="47.0" prefWidth="430.0" />
                      </children>
                   </VBox>
                </children>
@@ -92,14 +94,19 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="77.0" prefWidth="195.0" spacing="5.0">
                      <children>
-                        <TextField fx:id="ticketTypeTxt" promptText="Ticket type" />
-                        <TextArea fx:id="ticketBenefitsTxt" promptText="Benefits" />
+                        <HBox prefHeight="28.0" prefWidth="185.0" spacing="5.0">
+                           <children>
+                              <TextField fx:id="ticketTypeTxt" promptText="Ticket type" />
+                              <TextField fx:id="ticketPriceTxt" prefHeight="26.0" prefWidth="104.0" promptText="price" />
+                           </children>
+                        </HBox>
+                        <TextField fx:id="ticketBenefitsTxt" prefHeight="47.0" prefWidth="185.0" promptText="ticket benefits" />
                      </children>
                   </VBox>
                   <VBox fx:id="ticketManagementButtons" alignment="CENTER" prefHeight="98.0" prefWidth="70.0" spacing="10.0" />
                   <VBox prefHeight="200.0" prefWidth="195.0">
                      <children>
-                        <ListView fx:id="ticketTypeList" prefHeight="200.0" prefWidth="200.0" />
+                        <ListView fx:id="ticketTypeList" prefHeight="200.0" prefWidth="291.0" />
                      </children>
                   </VBox>
                </children>

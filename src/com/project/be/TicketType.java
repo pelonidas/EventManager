@@ -2,21 +2,21 @@ package com.project.be;
 
 public class TicketType {
 
-    private int title;//VIP, Luxury and such
+    private String title;//VIP, Luxury and such
     private String benefits; // what the customer will be getting with this ticket
     private double price; // price for this type of ticket
 
-    public TicketType(int title, String benefits, double price) {
+    public TicketType(String title, String benefits, double price) {
         this.title = title;
         this.benefits = benefits;
         this.price = price;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(int title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -34,5 +34,10 @@ public class TicketType {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }
