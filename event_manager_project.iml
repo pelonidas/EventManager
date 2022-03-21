@@ -29,5 +29,8 @@
     <orderEntry type="library" name="controlsfx" level="project" />
     <orderEntry type="library" name="google.zxing.javase" level="project" />
     <orderEntry type="library" name="de.jensd.fontawesomefx" level="project" />
+    <orderEntry type="library" name="de.jensd.fontawesomefx.commons" level="project" />
+    <orderEntry type="library" name="de.jensd.fontawesomefx.icons525" level="project" />
+    <orderEntry type="library" name="de.jensd.fontawesomefx.materialdesignfont" level="project" />
   </component>
 </module>
