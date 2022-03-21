@@ -19,7 +19,7 @@ public class BarCodeGen {
     private final int BARCODE_WIDTH = 100;
 
 
-    public Image generateQRCode() throws WriterException {
+    public Image generateRandomQRCode() throws WriterException {
         String uniqueID = UUID.randomUUID().toString();
 
         QRCodeWriter qrWriter = new QRCodeWriter();
@@ -29,11 +29,29 @@ public class BarCodeGen {
         return SwingFXUtils.toFXImage(qrImage,null);
     }
 
-    public Image generateBarCode() throws WriterException {
+    public Image generateRandomBarCode() throws WriterException {
         String uniqueID = UUID.randomUUID().toString();
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         BitMatrix bitMatrix = multiFormatWriter.encode(uniqueID, BarcodeFormat.CODE_39,BARCODE_WIDTH,BARCODE_HEIGHT);
+
+        BufferedImage barcodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+        return SwingFXUtils.toFXImage(barcodeImage,null);
+    }
+
+    public Image generateBarCode(String information) throws WriterException {
+
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        BitMatrix bitMatrix = multiFormatWriter.encode(information, BarcodeFormat.CODE_39,BARCODE_WIDTH,BARCODE_HEIGHT);
+
+        BufferedImage barcodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+        return SwingFXUtils.toFXImage(barcodeImage,null);
+
+    }
+
+    public Image generateQRCode(String information) throws WriterException {
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        BitMatrix bitMatrix = multiFormatWriter.encode(information, BarcodeFormat.CODE_39,BARCODE_WIDTH,BARCODE_HEIGHT);
 
         BufferedImage barcodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
         return SwingFXUtils.toFXImage(barcodeImage,null);

@@ -31,7 +31,7 @@ public class ManageEventsController {
     public void newEvent(ActionEvent actionEvent) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/project/gui/view/NewEvent.fxml"));
+        loader.setLocation(getClass().getResource("/com/project/gui/view/NewEditEvent.fxml"));
         root = loader.load();
         Stage stage = new Stage();
         stage.setTitle("New Event");
