@@ -41,7 +41,6 @@ public class Ticket {
     public void setEvent(Event event) {
         this.event = event;
     }
-    
 
     public String getCode() {
         return code;
