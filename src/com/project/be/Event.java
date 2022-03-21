@@ -1,15 +1,15 @@
 package com.project.be;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Event {
     private int id;
     private String title;
-    private LocalDate dateAndTime;
+    private Date dateAndTime;
     private String location;
     private String description;
     private List<User> participants;
@@ -17,7 +17,7 @@ public class Event {
     private int seatsAvailable;
 
 
-    public Event(int id,String title, LocalDate dateAndTime, String location, String description) {
+    public Event(int id, String title, Date dateAndTime, String location, String description) {
         this.id = id;
         this.title = title;
         this.dateAndTime = dateAndTime;
@@ -26,7 +26,7 @@ public class Event {
 
     }
 
-    public Event(String name, LocalDate dateAndTime, String location, String des) {
+    public Event(String name, Date dateAndTime, String location, String des) {
         this.title = name;
         this.dateAndTime = dateAndTime;
         this.location = location;
@@ -34,6 +34,15 @@ public class Event {
         this.participants = new ArrayList<>();
     }
 
+    public Event(int id, String title, Date dateAndTime, String location, String description,int seatsAvailable) {
+        this.id = id;
+        this.title = title;
+        this.dateAndTime = dateAndTime;
+        this.location = location;
+        this.description = description;
+        this.seatsAvailable= seatsAvailable;
+
+    }
     public int getId() {
         return id;
     }
@@ -50,11 +59,11 @@ public class Event {
         this.title = title;
     }
 
-    public LocalDate getDateAndTime() {
+    public Date getDateAndTime() {
         return dateAndTime;
     }
 
-    public void setDateAndTime(LocalDate dateAndTime) {
+    public void setDateAndTime(Date dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
