@@ -31,17 +31,14 @@ public class ManageUsersViewController implements Initializable {
     @FXML
     private TableView<Coordinator> coordinatorsTable;
     @FXML
-    private TableColumn<Coordinator,String> FNameCoordinatorColumn,LNameCoordinatorColumn,UNameCoordinatorColumn,PassWordCoordinatorColumn,AddressCoordinatorColumn,EmailCoordinatorColumn;
-    @FXML
-    private TableColumn<Coordinator,Integer> PNumberCoordinatorColumn;
+    private TableColumn<Coordinator,String> FNameCoordinatorColumn,LNameCoordinatorColumn,UNameCoordinatorColumn,PassWordCoordinatorColumn,EmailCoordinatorColumn;
+
     @FXML
     private TableColumn<Customer,LocalDate> BDateCoordinatorColumn;
     @FXML
     private TableView<Customer> customersTable;
     @FXML
-    private TableColumn<Customer,String> FNameColumn, LNameColumn, UNameColumn,PassWordColumn,AddressColumn,EmailColumn;
-    @FXML
-    private TableColumn<Customer,Integer> PNumberColumn;
+    private TableColumn<Customer,String> FNameColumn, LNameColumn, UNameColumn,PassWordColumn,EmailColumn;
     @FXML
     private TableColumn<Customer, LocalDate> BDateColumn;
 
@@ -67,9 +64,7 @@ public class ManageUsersViewController implements Initializable {
         LNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         UNameColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         PassWordColumn.setCellValueFactory(new PropertyValueFactory<>("passWord"));
-        AddressColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        EmailColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        PNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        EmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         BDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
 
@@ -82,9 +77,7 @@ public class ManageUsersViewController implements Initializable {
         LNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         UNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
         PassWordCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("passWord"));
-        AddressCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        EmailCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        PNumberCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        EmailCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         BDateCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
 

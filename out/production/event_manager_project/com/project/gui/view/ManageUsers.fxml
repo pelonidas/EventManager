@@ -32,13 +32,11 @@
                         </HBox>
                         <TableView fx:id="customersTable" prefHeight="357.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn fx:id="FNameColumn" prefWidth="75.0" text="FName" />
-                            <TableColumn fx:id="LNameColumn" prefWidth="75.0" text="LName" />
+                            <TableColumn fx:id="FNameColumn" prefWidth="75.0" text="first name" />
+                            <TableColumn fx:id="LNameColumn" prefWidth="75.0" text="last name" />
                               <TableColumn fx:id="UNameColumn" prefWidth="75.0" text="Username" />
                               <TableColumn fx:id="PassWordColumn" prefWidth="75.0" text="Password" />
-                              <TableColumn fx:id="AddressColumn" prefWidth="75.0" text="Address" />
                               <TableColumn fx:id="EmailColumn" prefWidth="75.0" text="E-mail" />
-                              <TableColumn fx:id="PNumberColumn" prefWidth="75.0" text="Phone number" />
                               <TableColumn fx:id="BDateColumn" prefWidth="75.0" text="BirthDate" />
                           </columns>
                         </TableView>
@@ -74,14 +72,12 @@
                         </HBox>
                         <TableView fx:id="coordinatorsTable" prefHeight="298.0" prefWidth="600.0">
                           <columns>
-                              <TableColumn fx:id="FNameCoordinatorColumn" prefWidth="75.0" text="FName" />
-                              <TableColumn fx:id="LNameCoordinatorColumn" prefWidth="75.0" text="LName" />
+                              <TableColumn fx:id="FNameCoordinatorColumn" prefWidth="75.0" text="first name" />
+                              <TableColumn fx:id="LNameCoordinatorColumn" prefWidth="75.0" text="last name" />
                               <TableColumn fx:id="UNameCoordinatorColumn" prefWidth="75.0" text="Username" />
                               <TableColumn fx:id="PassWordCoordinatorColumn" prefWidth="75.0" text="Password" />
-                              <TableColumn fx:id="AddressCoordinatorColumn" prefWidth="75.0" text="Address" />
                               <TableColumn fx:id="EmailCoordinatorColumn" prefWidth="75.0" text="E-mail" />
-                              <TableColumn fx:id="PNumberCoordinatorColumn" prefWidth="75.0" text="Phone number" />
-                              <TableColumn fx:id="BDateCoordinatorColumn" prefWidth="75.0" text="BirthDate" />
+                              <TableColumn fx:id="BDateCoordinatorColumn" prefWidth="71.0" text="BirthDate" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="600.0">

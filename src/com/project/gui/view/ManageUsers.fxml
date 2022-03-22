@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageUsersViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="479.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageUsersViewController">
   <tabs>
     <Tab text="Customers">
       <content>
@@ -24,7 +24,7 @@
                               <Label text="Search" />
                               <HBox prefHeight="38.0" prefWidth="21.0" />
                               <TextField fx:id="searchFilterCustomer" />
-                              <HBox prefHeight="38.0" prefWidth="130.0" />
+                              <HBox prefHeight="38.0" prefWidth="22.0" />
                               <JFXButton onAction="#newCustomer" text="Add customer" />
                               <JFXButton onAction="#deleteCustomer" text="Delete" />
                               <JFXButton text="Show history" />
@@ -32,20 +32,18 @@
                         </HBox>
                         <TableView fx:id="customersTable" prefHeight="357.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn fx:id="FNameColumn" prefWidth="75.0" text="FName" />
-                            <TableColumn fx:id="LNameColumn" prefWidth="75.0" text="LName" />
+                            <TableColumn fx:id="FNameColumn" prefWidth="75.0" text="first name" />
+                            <TableColumn fx:id="LNameColumn" prefWidth="75.0" text="last name" />
                               <TableColumn fx:id="UNameColumn" prefWidth="75.0" text="Username" />
                               <TableColumn fx:id="PassWordColumn" prefWidth="75.0" text="Password" />
-                              <TableColumn fx:id="AddressColumn" prefWidth="75.0" text="Address" />
                               <TableColumn fx:id="EmailColumn" prefWidth="75.0" text="E-mail" />
-                              <TableColumn fx:id="PNumberColumn" prefWidth="75.0" text="Phone number" />
                               <TableColumn fx:id="BDateColumn" prefWidth="75.0" text="BirthDate" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <JFXButton text="Show stats" />
-                              <HBox prefHeight="38.0" prefWidth="418.0" />
+                              <HBox prefHeight="38.0" prefWidth="298.0" />
                               <JFXButton onAction="#logOut" text="LogOut" />
                               <JFXButton onAction="#backView" text="Back" />
                            </children>
@@ -66,7 +64,7 @@
                               <Label text="Search" />
                               <HBox prefHeight="38.0" prefWidth="21.0" />
                               <TextField fx:id="filterSearchCoordinator" />
-                              <HBox prefHeight="37.0" prefWidth="117.0" />
+                              <HBox prefHeight="38.0" prefWidth="9.0" />
                               <JFXButton onAction="#newCoordinator" text="Add coordinator" />
                               <JFXButton onAction="#deleteCoordinator" text="Delete" />
                               <JFXButton text="Show activity" />
@@ -74,20 +72,18 @@
                         </HBox>
                         <TableView fx:id="coordinatorsTable" prefHeight="298.0" prefWidth="600.0">
                           <columns>
-                              <TableColumn fx:id="FNameCoordinatorColumn" prefWidth="75.0" text="FName" />
-                              <TableColumn fx:id="LNameCoordinatorColumn" prefWidth="75.0" text="LName" />
+                              <TableColumn fx:id="FNameCoordinatorColumn" prefWidth="75.0" text="first name" />
+                              <TableColumn fx:id="LNameCoordinatorColumn" prefWidth="75.0" text="last name" />
                               <TableColumn fx:id="UNameCoordinatorColumn" prefWidth="75.0" text="Username" />
                               <TableColumn fx:id="PassWordCoordinatorColumn" prefWidth="75.0" text="Password" />
-                              <TableColumn fx:id="AddressCoordinatorColumn" prefWidth="75.0" text="Address" />
                               <TableColumn fx:id="EmailCoordinatorColumn" prefWidth="75.0" text="E-mail" />
-                              <TableColumn fx:id="PNumberCoordinatorColumn" prefWidth="75.0" text="Phone number" />
-                              <TableColumn fx:id="BDateCoordinatorColumn" prefWidth="75.0" text="BirthDate" />
+                              <TableColumn fx:id="BDateCoordinatorColumn" prefWidth="71.0" text="BirthDate" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="600.0">
                            <children>
                               <JFXButton text="Show stats" />
-                              <HBox prefHeight="38.0" prefWidth="418.0" />
+                              <HBox prefHeight="36.0" prefWidth="298.0" />
                               <JFXButton onAction="#logOut" text="LogOut" />
                               <JFXButton onAction="#backView" text="Back" />
                            </children>

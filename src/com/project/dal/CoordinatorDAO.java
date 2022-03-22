@@ -38,7 +38,6 @@ public class CoordinatorDAO {
                             resultSet.getString("user_name"),
                             resultSet.getString("password"),
                             resultSet.getString("email"),
-
                             resultSet.getDate("birth_date")));
             }
 
