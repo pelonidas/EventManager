@@ -21,6 +21,5 @@ public class TempMain extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         //setUserAgentStylesheet("com/project/MainCSS.css");
-
     }
 }

@@ -26,6 +26,10 @@ import java.util.ResourceBundle;
 public class EditEventController implements Initializable {
 
     @FXML
+    private ComboBox hoursBox;
+    @FXML
+    private ComboBox minutesBox;
+    @FXML
     private TextField ticketBenefitsTxt;
     @FXML
     private TextField eventCapacityTxt;
@@ -39,9 +43,6 @@ public class EditEventController implements Initializable {
 
     @FXML
     private DatePicker eventDate;
-
-    @FXML
-    private TextField eventTime;
 
     @FXML
     private Spinner<?> eventDurationTxt;
@@ -83,8 +84,35 @@ public class EditEventController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initIcons();
         initValidators();
+        initTimeBoxes();
+    }
 
+    private void initTimeBoxes() {
+        /*Integer[] hoursOfTheDay = new Integer[24];
+        Integer[] minutesInAnHour = new Integer[60];
+        for (int i = 0; i < hoursOfTheDay.length; i++) {
+            hoursOfTheDay[i] = i;
+        }
+        for (int i = 0; i < minutesInAnHour.length ; i++) {
+            minutesInAnHour[i] = i;
+        }
+        hoursBox.getItems().setAll(hoursOfTheDay);
+        minutesBox.getItems().setAll(minutesInAnHour);
+         */
 
+        String[] hoursOfTheDay = {"00","01","02","03","04","05","06","07",
+                                  "08","09","10","11","12","13","14","15","16"
+                                  ,"17","18","19","20","21","22","23"};
+        String[] minutesInAnHour = {"00","01","02","03","04","05","06","07","08"
+                                    ,"09","10","11","12","13","14","15","16","17"
+                                    ,"18","19","20","21","22","23","24","25","26",
+                                    "27","28","29","30","31","32","33","34","35",
+                                    "36","37","38","39","40","41","42","43","44",
+                                    "45","46","47","48","49","50","51","52","53",
+                                    "54","55","56","57","58","59"};
+
+        hoursBox.getItems().setAll(hoursOfTheDay);
+        minutesBox.getItems().setAll(minutesInAnHour);
 
     }
 
@@ -144,7 +172,12 @@ public class EditEventController implements Initializable {
 
     public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {
         String date = eventDate.getValue().toString();
-        String time = eventTime.getText();
+
+        String hours = hoursBox.getSelectionModel().getSelectedItem().toString();
+        String minutes = minutesBox.getSelectionModel().getSelectedItem().toString();
+
+        String time = hours+":"+minutes;
+        System.out.println(time);
 
         String eventTitle = eventTitleTxt.getText();
         Date dateAndTime = model.parse_convertDateTime(date + " " + time);
