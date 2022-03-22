@@ -34,15 +34,17 @@ public class CreateEventViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        System.out.println(coordinatorModel.getAllEvents());
     }
 
     public void handleOkButton(ActionEvent event) {
         Event e = new Event(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()));
+
         coordinatorModel.addEvent(e);
+        System.out.println(eventInput.getText());
         System.out.println(coordinatorModel.getAllEvents());
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         coordinatorController.refreshTable();
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 }
