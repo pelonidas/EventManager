@@ -3,6 +3,7 @@ package com.project.dal;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.bll.exceptions.UserException;
+import com.project.bll.util.CheckInput;
 import com.project.dal.connectorDAO.DBConnector;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -20,8 +21,10 @@ import java.util.regex.Pattern;
 
 public class CustomerDAO {
     DBConnector dbConnector;
+    CheckInput checkInput ;
     public CustomerDAO() throws IOException {
         dbConnector = new DBConnector();
+        checkInput = new CheckInput();
     }
     public List<Customer> getAllCustomers() throws SQLException {
         List<Customer>allCustomers= new ArrayList<>();
@@ -122,12 +125,12 @@ public class CustomerDAO {
             throw new UserException("Please enter your first name.",new Exception());
         if (lastName.isEmpty())
             throw new UserException("Please enter your last name.",new Exception());
-        if (!isValidName(firstName)){
+        if (!checkInput.isValidName(firstName)){
             UserException userException = new UserException("Please find a valid first name",new Exception());
             userException.setInstructions("A valid name is only composed of Alphabet characters");
             throw userException;
         }
-        if (!isValidName(lastName)){
+        if (!checkInput.isValidName(lastName)){
             UserException userException = new UserException("Please find a valid last name",new Exception());
             userException.setInstructions("A correct name is only composed of Alphabet characters");
             throw userException;
@@ -136,12 +139,12 @@ public class CustomerDAO {
             throw new UserException("Please find a username.",new Exception());
 
         if (userNameTaken(userName)){
-            UserException userException = new UserException("userName already exists.",new Exception());
+            UserException userException = new UserException("user name already exists.",new Exception());
             userException.setInstructions("Please find another one and try again.");
             throw userException;
         }
 
-        if (isPasswordValid(passWord)) {
+        if (CheckInput.isPasswordValid(passWord)) {
                 UserException userException = new UserException("Please find a correct password.",new Exception());
                 userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
                 throw userException;
@@ -149,19 +152,9 @@ public class CustomerDAO {
         if(email.isEmpty())
             throw new UserException("Please enter your email.",new Exception());
 
-        if (!isValidEmailAddress(email))
+        if (!CheckInput.isValidEmailAddress(email))
             throw new UserException("Please enter a valid email.",new Exception());
         }
-
-    public static boolean isValidEmailAddress(String email) {
-        boolean stricterFilter = true;
-        String stricterFilterString = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-        String laxString = ".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
-        String emailRegex = stricterFilter ? stricterFilterString : laxString;
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(emailRegex);
-        java.util.regex.Matcher m = p.matcher(email);
-        return m.matches();
-    }
 
     private Boolean userNameTaken(String userName) throws UserException {
         try (Connection connection = dbConnector.getConnection()){
@@ -176,37 +169,6 @@ public class CustomerDAO {
             throw  new UserException("Something went wrong in the database",new Exception());
         }
         return false;
-    }
-
-    private static boolean isPasswordValid(String password) {
-        int digitCounter = 0;
-
-        if (password.length() >= 10 ) {
-            for(int index = 0; index < password.length(); index++) {
-                char passChar = password.charAt(index);
-                if (!Character.isLetterOrDigit(passChar)) {
-                    return false;
-                }
-                else {
-                    if (Character.isDigit(passChar)) {
-                        digitCounter++;
-                    }
-                }
-            }
-        }
-        if(digitCounter < 2) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean isValidName(String s) {
-        if (s == null || s.trim().isEmpty()) {
-            return false;
-        }
-        Pattern p = Pattern.compile("[^A-Za-z0-9]");
-        Matcher m = p.matcher(s);
-        return !m.find();
     }
 
 }

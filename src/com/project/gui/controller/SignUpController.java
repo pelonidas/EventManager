@@ -66,10 +66,6 @@ public class SignUpController implements Initializable {
     @FXML
     private HBox emailHBox;
     @FXML
-    private HBox addressHBox;
-    @FXML
-    private HBox pNHBox;
-    @FXML
     private HBox genderHBox;
 
     private boolean customer = true;
@@ -84,9 +80,7 @@ public class SignUpController implements Initializable {
         userNameHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.USER));
         passwordHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.LOCK));
         emailHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.ENVELOPE));
-        addressHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.HOME));
-        pNHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.PHONE_SQUARE));
-        genderHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.TRANSGENDER));
+        genderHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.USERS));
 
         categoryComboBox.getItems().addAll(items);
 
@@ -149,9 +143,17 @@ public class SignUpController implements Initializable {
                 }
             }
             else {
-                coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),address.getText(), Integer.parseInt(phoneNumber.getText()),birthDate.getValue());
-                Stage stage = (Stage) closeWindow.getScene().getWindow();
-                stage.close();
+                try {
+                    coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),birthDate.getValue());
+                    Stage stage = (Stage) closeWindow.getScene().getWindow();
+                    stage.close();
+                }catch (UserException userException){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText(userException.getExceptionMessage());
+                    alert.setContentText(userException.getInstructions());
+                    alert.showAndWait();
+                }
             }
         }catch (NullPointerException ignored){
             try {
@@ -176,8 +178,7 @@ public class SignUpController implements Initializable {
                 alert.setHeaderText("Please select your date of birth.");
                 alert.showAndWait();
             }
-        }
-    }
+    }}
     private void setLimitsDatePicker(DatePicker datePicker) {
         datePicker.setDayCellFactory(new Callback<DatePicker, DateCell>() {
             @Override

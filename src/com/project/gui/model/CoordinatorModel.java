@@ -2,6 +2,7 @@ package com.project.gui.model;
 
 import com.project.be.Coordinator;
 import com.project.be.Event;
+import com.project.bll.exceptions.UserException;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ public class CoordinatorModel {
         return allCoordinators;
     }
 
-    public void createCoordinator(String firstName, String lastName, String userName, String password, String email, String address, int phoneNumber, LocalDate birthDate) throws SQLException {
-        EMFacade.createCoordinator(firstName,lastName,userName,password,email,address,phoneNumber,java.sql.Date.valueOf(birthDate));
+    public void createCoordinator(String firstName, String lastName, String userName, String password, String email, LocalDate birthDate) throws SQLException, UserException {
+        EMFacade.createCoordinator(firstName,lastName,userName,password,email,java.sql.Date.valueOf(birthDate));
     }
 }

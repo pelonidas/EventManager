@@ -70,8 +70,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
-        return coordinatorDAO.createCoordinator(firstName,lastName,userName,passWord,email,address,phoneNumber,birthDate);
+    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, java.sql.Date birthDate) throws UserException {
+        return coordinatorDAO.createCoordinator(firstName,lastName,userName,passWord,email,birthDate);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.project.dal;
 
 import com.project.be.Coordinator;
+import com.project.bll.exceptions.UserException;
+import com.project.bll.util.CheckInput;
 import com.project.dal.connectorDAO.DBConnector;
 
 import java.io.IOException;
@@ -10,8 +12,10 @@ import java.util.List;
 
 public class CoordinatorDAO {
     DBConnector dbConnector;
+    CheckInput checkInput;
     public CoordinatorDAO() throws IOException {
         dbConnector = new DBConnector();
+        checkInput = new CheckInput();
     }
     public List<Coordinator> getAllCoordinators() throws SQLException {
         List<Coordinator>allCoordinators= new ArrayList<>();
@@ -44,7 +48,8 @@ public class CoordinatorDAO {
         }
         return allCoordinators;
     }
-    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
+    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, Date birthDate) throws  UserException {
+        exceptionCreation(firstName,lastName,userName,passWord,email,birthDate);
         Coordinator coordinator = null;
         int idCategory=0;
         try (Connection connection= dbConnector.getConnection()){
@@ -62,8 +67,6 @@ public class CoordinatorDAO {
             preparedStatement.setString(3,userName);
             preparedStatement.setString(4,passWord);
             preparedStatement.setString(5,email);
-            preparedStatement.setString(6,address);
-            preparedStatement.setString(7,String.valueOf(phoneNumber));
             preparedStatement.setDate(8,birthDate);
             preparedStatement.setInt(9,idCategory);
             preparedStatement.executeUpdate();
@@ -72,6 +75,8 @@ public class CoordinatorDAO {
                 int id = resultSet1.getInt(1);
                 coordinator = new Coordinator(id,firstName,lastName,userName,passWord,email,birthDate);
             }
+        }catch (SQLException sqlException){
+            throw new UserException("Something went wrong in the database",new Exception());
         }
         return coordinator;
     }
@@ -108,5 +113,56 @@ public class CoordinatorDAO {
             preparedStatement.executeUpdate();
         }
         return coordinator;
+    }
+
+    private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email, Date birthDate) throws UserException {
+        if (firstName.isEmpty())
+            throw new UserException("Please enter your first name.",new Exception());
+        if (lastName.isEmpty())
+            throw new UserException("Please enter your last name.",new Exception());
+        if (!checkInput.isValidName(firstName)){
+            UserException userException = new UserException("Please find a valid first name",new Exception());
+            userException.setInstructions("A valid name is only composed of Alphabet characters");
+            throw userException;
+        }
+        if (!checkInput.isValidName(lastName)){
+            UserException userException = new UserException("Please find a valid last name",new Exception());
+            userException.setInstructions("A correct name is only composed of Alphabet characters");
+            throw userException;
+        }
+        if (userName.isEmpty())
+            throw new UserException("Please find a username.",new Exception());
+
+        if (userNameTaken(userName)){
+            UserException userException = new UserException("user name already exists.",new Exception());
+            userException.setInstructions("Please find another one and try again.");
+            throw userException;
+        }
+
+        if (CheckInput.isPasswordValid(passWord)) {
+            UserException userException = new UserException("Please find a correct password.",new Exception());
+            userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
+            throw userException;
+        }
+        if(email.isEmpty())
+            throw new UserException("Please enter your email.",new Exception());
+
+        if (!CheckInput.isValidEmailAddress(email))
+            throw new UserException("Please enter a valid email.",new Exception());
+    }
+
+    private Boolean userNameTaken(String userName) throws UserException {
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM Users WHERE user_name=? ";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,userName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return true;
+            }
+        }catch (SQLException sqlException){
+            throw  new UserException("Something went wrong in the database",new Exception());
+        }
+        return false;
     }
 }

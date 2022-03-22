@@ -28,7 +28,7 @@ public interface IEventManager {
      * Coordinator
      */
     List<Coordinator> getAllCoordinators () throws SQLException;
-    Coordinator createCoordinator (String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
+    Coordinator createCoordinator (String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException, UserException;
     void deleteCoordinator(Coordinator coordinator) throws SQLException;
     Coordinator editCoordinator(Coordinator coordinator,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
 

@@ -79,8 +79,8 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
-        return dalController.createCoordinator(firstName, lastName, userName, passWord, email, address, phoneNumber, birthDate);
+    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws UserException {
+        return dalController.createCoordinator(firstName, lastName, userName, passWord, email, birthDate);
     }
 
     @Override
