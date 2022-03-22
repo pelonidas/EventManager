@@ -1,10 +1,12 @@
 package com.project.gui.controller;
 
 import com.project.be.Event;
+import com.project.gui.model.CoordinatorModel;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,8 +14,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,63 +34,60 @@ public class CoordinatorController implements Initializable {
     private TableColumn<Event, String> name, attendance, location, date;
     @FXML
     private Button createButton, editButton, deleteButton, manageButton;
-    private ObservableList<Event> allEvents = FXCollections.observableArrayList();
+    private final CoordinatorModel coordinatorModel;
+    private CreateEventViewController createEventViewController;
+    public CoordinatorController() {
+        coordinatorModel = new CoordinatorModel();
+        createEventViewController = new CreateEventViewController();
+
+    }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Date d = new Date();
-        Event e1 = new Event("test1", d, "poprad", "lorem lorem ipsum");
-        Event e2 = new Event("test2", d, "Piestany", "lorem lorem ipsum");
-        Event e3 = new Event("test3", d, "kosice", "lorem lorem ipsum");
-        Event e4 = new Event("test4", d, "presov", "lorem lorem ipsum");
-        Event e5 = new Event("test5", d, "Trnava", "lorem lorem ipsum");
-        Event e6 = new Event("test6", d, "Trencin", "lorem lorem ipsum");
-
-        allEvents.add(e1);
-        allEvents.add(e2);
-        allEvents.add(e3);
-        allEvents.add(e4);
-        allEvents.add(e5);
-        allEvents.add(e6);
-
         refreshTable();
 
-        handleNewDialog(createButton, "../view/CreateEventView.fxml", "Create a new Event");
-        handleNewDialog(editButton, "../view/EditEventView.fxml", "Edit the event");
+//        handleNewDialog(createButton, , "Create a new Event");
+//        handleNewDialog(editButton, "../view/EditEventView.fxml", "Edit the event");
 
         manageButton.setOnAction(event -> {
             refreshTable();
         });
+        deleteButton.setOnAction(event -> {
+            coordinatorModel.deleteEvent(coordinatorTableView.getSelectionModel().getSelectedItem());
+            refreshTable();
+            System.out.println(coordinatorModel.getAllEvents());
+        });
     }
 
     public void refreshTable() {
+        coordinatorTableView.getItems().clear();
+        coordinatorTableView.refresh();
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         this.location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        coordinatorTableView.setItems(allEvents);
+        coordinatorTableView.getItems().setAll(coordinatorModel.getAllEvents());
     }
 
-    private void handleNewDialog(Button btn, String path, String title) {
-        btn.setOnAction(event -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
-                Parent root1 = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle(title);
-                stage.setScene(new Scene(root1));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public void handleCreateEvent(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("com/project/gui/view/CreateEventView.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        CreateEventViewController alertDialogController = loader.getController();
+        alertDialogController.setCoordinatorController(this);
+
+        Stage stage = new Stage();
+        stage.setTitle("New/Edit Song");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
-    public ObservableList<Event> getAllEvents() {
-        return allEvents;
-    }
 }
 

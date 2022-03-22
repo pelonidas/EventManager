@@ -2,6 +2,8 @@ package com.project.gui.controller;
 
 
 import com.project.be.Event;
+import com.project.gui.model.CoordinatorModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -20,22 +22,27 @@ public class CreateEventViewController implements Initializable {
     private TextField eventInput, dateInput, descriptionInput, locationInput, seatsInput;
     @FXML
     private Button okButton, cancelButton;
-    private final CoordinatorController coordinatorController;
-
+    private final CoordinatorModel coordinatorModel;
+    private CoordinatorController coordinatorController;
     public CreateEventViewController() {
-        coordinatorController = new CoordinatorController();
+        coordinatorModel = new CoordinatorModel();
+    }
+    public void setCoordinatorController(CoordinatorController coordinatorController){
+        this.coordinatorController = coordinatorController;
+        System.out.println("heh");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        okButton.setOnAction(event -> {
-            Event e = new Event(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()));
-            coordinatorController.getAllEvents().add(e);
-            System.out.println(coordinatorController.getAllEvents());
-            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-            stage.close();
-        });
+    }
 
+    public void handleOkButton(ActionEvent event) {
+        Event e = new Event(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()));
+        coordinatorModel.addEvent(e);
+        System.out.println(coordinatorModel.getAllEvents());
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        coordinatorController.refreshTable();
+        stage.close();
     }
 }
