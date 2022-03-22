@@ -60,7 +60,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
           <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
-            <Button fx:id="okButton" mnemonicParsing="false" text="OK" />
+            <Button fx:id="okButton" mnemonicParsing="false" onAction="#handleOkButton" text="OK" />
         </buttons>
       </ButtonBar>
    </children>

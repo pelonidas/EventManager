@@ -45,7 +45,7 @@ public class Event {
     }
 
     //sulinel messi
-    public Event( String title, Date dateAndTime, String location, String description,int seatsAvailable) {
+    public Event(String title, Date dateAndTime, String location, String description, int seatsAvailable) {
         this.title = title;
         this.dateAndTime = dateAndTime;
         this.location = location;
