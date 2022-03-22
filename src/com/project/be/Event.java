@@ -32,6 +32,8 @@ public class Event {
         this.participants = new ArrayList<>();
     }
 
+
+
     public Event(int id, String title, Date dateAndTime, String location, String description,int seatsAvailable) {
         this.id = id;
         this.title = title;
