@@ -110,8 +110,9 @@ public class EditEventController implements Initializable {
             String ticketTypeName = ticketTypeTxt.getText();
             double ticketTypePrice = Double.parseDouble(ticketPriceTxt.getText());
             String ticketTypeBenefits = ticketBenefitsTxt.getText();
+            int seatsAvailable = 10;
 
-            ticketTypeList.getItems().add(new TicketType(ticketTypeName,ticketTypeBenefits,ticketTypePrice));
+            ticketTypeList.getItems().add(new TicketType(1,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
         }
     };
 
