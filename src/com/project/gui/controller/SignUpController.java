@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,6 +35,9 @@ public class SignUpController implements Initializable {
     @FXML
     private HBox genderHBox;
 
+    private boolean customer = true;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -43,5 +47,23 @@ public class SignUpController implements Initializable {
         addressHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.HOME));
         pNHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.PHONE_SQUARE));
         genderHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.TRANSGENDER));
+    }
+
+    public boolean isCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(boolean customer) {
+        this.customer = customer;
+    }
+
+    public void setHbLabel (){
+        siLabel.setFont(new javafx.scene.text.Font(12));
+        if (customer)
+            siLabel.setText("New customer");
+        else{
+            siLabel.setFont(new javafx.scene.text.Font(10));
+            siLabel.setText("New coordinator");}
+
     }
 }

@@ -111,21 +111,12 @@ public class ManageUsersViewController implements Initializable {
     public void newCustomer(ActionEvent actionEvent) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/project/gui/view/NewUserView.fxml"));
+        loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
+        SignUpController controller = loader.getController();
+        controller.setHbLabel();
         Stage stage = new Stage();
         stage.setTitle("New customer");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
-    public void newUser(ActionEvent actionEvent) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/project/gui/view/NewUserView.fxml"));
-        root = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("New user");
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -134,5 +125,22 @@ public class ManageUsersViewController implements Initializable {
     }
 
     public void logOut(ActionEvent actionEvent) {
+    }
+
+    public void newCoordinator(ActionEvent actionEvent) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
+        root = loader.load();
+        SignUpController controller = loader.getController();
+        controller.setCustomer(false);
+        controller.setHbLabel();
+        Stage stage = new Stage();
+        stage.setTitle("New Coordinator");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void deleteCoordinator(ActionEvent actionEvent) {
     }
 }

@@ -67,8 +67,8 @@
                               <HBox prefHeight="38.0" prefWidth="21.0" />
                               <TextField fx:id="filterSearchCoordinator" />
                               <HBox prefHeight="37.0" prefWidth="117.0" />
-                              <JFXButton text="Add coordinator" />
-                              <JFXButton text="Delete" />
+                              <JFXButton onAction="#newCoordinator" text="Add coordinator" />
+                              <JFXButton onAction="#deleteCoordinator" text="Delete" />
                               <JFXButton text="Show activity" />
                            </children>
                         </HBox>
