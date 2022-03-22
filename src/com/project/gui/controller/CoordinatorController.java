@@ -29,7 +29,7 @@ public class CoordinatorController implements Initializable {
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
     @FXML
-    private Button createButton, editButton, deleteButton;
+    private Button createButton, editButton, deleteButton, manageButton;
     private ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
 
@@ -54,9 +54,13 @@ public class CoordinatorController implements Initializable {
 
         handleNewDialog(createButton, "../view/CreateEventView.fxml", "Create a new Event");
         handleNewDialog(editButton, "../view/EditEventView.fxml", "Edit the event");
+
+        manageButton.setOnAction(event -> {
+            refreshTable();
+        });
     }
 
-    private void refreshTable() {
+    public void refreshTable() {
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         this.location.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -69,7 +73,7 @@ public class CoordinatorController implements Initializable {
         btn.setOnAction(event -> {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
-                Parent root1 = (Parent) fxmlLoader.load();
+                Parent root1 = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle(title);

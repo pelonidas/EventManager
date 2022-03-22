@@ -58,7 +58,7 @@
                <bottom>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Manage users" />
+                      <Button fx:id="manageButton" mnemonicParsing="false" text="Manage users" />
                     </buttons>
                      <BorderPane.margin>
                         <Insets bottom="25.0" />
