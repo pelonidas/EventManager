@@ -1,13 +1,10 @@
 package com.project.gui.controller;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import com.project.be.Customer;
 import com.project.be.Event;
-import com.project.be.User;
 import com.project.gui.model.CustomerModel;
-import javafx.beans.property.Property;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import com.project.gui.model.ManageEventsModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -41,11 +39,13 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField filter;
     @FXML
-    private TableView<User> tableViewParticipantsOnClickedEvent;
+    private TableView<Customer> tableViewParticipantsOnClickedEvent;
     @FXML
     private TableView<Event> upcomingTable;
     @FXML
-    private TableColumn<User, String> participantsNameColumn;
+    private TableColumn<Customer, String> firstNameColumn;
+    @FXML
+    private TableColumn<Customer, String> secondNameColumn;
     @FXML
     private TableColumn<Event, String> upcomingEventNameColumn;
     @FXML
@@ -53,15 +53,21 @@ public class CustomerController implements Initializable {
     @FXML
     private TableColumn<Event, String> upcomingEventLocationColumn;
 
-    //private final CustomerModel customerModel;
+    private final ManageEventsModel manageEventsModel;
+    private final CustomerModel customerModel;
 
-    public CustomerController() {
-        //customerModel = new CustomerModel();
+    public CustomerController() throws IOException {
+       this.manageEventsModel = new ManageEventsModel();
+       this.customerModel = new CustomerModel();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       setTableViewUpcomingEvents();
+        try {
+            setTableViewUpcomingEvents();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -93,11 +99,11 @@ public class CustomerController implements Initializable {
         stage.show();
     }
 
-    private void setTableViewUpcomingEvents(){
-        upcomingEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    private void setTableViewUpcomingEvents() throws SQLException {
+        upcomingEventNameColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         upcomingEventStartColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         upcomingEventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        //upcomingTable.setItems(customerModel.getEventObservableList());
+        upcomingTable.setItems(manageEventsModel.getAllEvents());
     }
 
     private void setTableViewParticipantsOnClickedEvent(){
@@ -106,14 +112,14 @@ public class CustomerController implements Initializable {
 
     //putting notes into text are if event is clicked
     //---------------------------------------------------------------------------
-    public void tableVIewOnMouseRelease(MouseEvent mouseEvent) {
+    public void tableVIewOnMouseRelease(MouseEvent mouseEvent) throws SQLServerException {
         Event selectedEvent = upcomingTable.getSelectionModel().getSelectedItem();
+        int idOfSelectedItem = selectedEvent.getId();
         if (selectedEvent != null){
-            //additionalInfoTextArea.setText(selectedEvent.getNotes());
-            participantsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-            ObservableList<User> userObservableList = FXCollections.observableArrayList();
-            userObservableList.addAll(selectedEvent.getParticipants());
-            tableViewParticipantsOnClickedEvent.setItems(userObservableList);
+            additionalInfoTextArea.setText(selectedEvent.getDescription());
+            firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            secondNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            tableViewParticipantsOnClickedEvent.setItems(customerModel.getAllCustomersOnSameEvent(selectedEvent.getId()));
         }
     }
 }

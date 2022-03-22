@@ -1,5 +1,6 @@
 package com.project.dal.facadeDAO;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.*;
 import com.project.dal.*;
 
@@ -61,6 +62,11 @@ public class DALController implements IDALFacade {
     @Override
     public Customer editCustomer(Customer customer, String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
         return customerDAO.editCustomer(customer,firstName,lastName,userName,passWord,email,address,phoneNumber,birthDate);
+    }
+
+    @Override
+    public List<Customer> getAllCustomersFromSameEvent(int eventId) throws SQLServerException {
+        return customerDAO.getAllCustomersFromSameEvent(eventId);
     }
 
     @Override

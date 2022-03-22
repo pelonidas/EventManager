@@ -1,5 +1,6 @@
 package com.project.dal;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.dal.connectorDAO.DBConnector;
@@ -109,5 +110,39 @@ public class CustomerDAO {
             preparedStatement.executeUpdate();
         }
         return customer;
+    }
+
+    public List<Customer> getAllCustomersFromSameEvent(int eventId) throws SQLServerException {
+        List<Customer> allCustomersFromSameEvent = new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * " +
+                         "  FROM users " +
+                         "  JOIN tickets ON users.id = tickets.customer_id " +
+                         "  WHERE tickets.event_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, eventId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String userName = resultSet.getString("user_name");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                String address = resultSet.getString("address");
+                String phoneNumber = resultSet.getString("phone_Number");
+                Date birthDay = resultSet.getDate("birth_date");
+                int category = resultSet.getInt("category");
+
+                Customer customer = new Customer(id, firstName, lastName, userName, password, email,
+                                                address, phoneNumber, birthDay, category);
+                allCustomersFromSameEvent.add(customer);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allCustomersFromSameEvent;
     }
 }

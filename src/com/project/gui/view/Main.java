@@ -75,6 +75,8 @@ public class Main extends Application {
             AnchorPane customerDisplay = loaderCustomer.load();
             rootLayout.getChildren().add(customerDisplay);
             primaryStage.setTitle("Customer window");
+            primaryStage.setHeight(750);
+            primaryStage.setWidth(1400);
         }
 
         if(layoutChosen.get().equals("events")) {

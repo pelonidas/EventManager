@@ -1,5 +1,6 @@
 package com.project.bll;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.*;
 
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ public interface IEventManager {
     Customer createCustomer (String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
     void deleteCustomer(Customer customer) throws SQLException;
     Customer editCustomer(Customer customer,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
+    List<Customer> getAllCustomersOnSameEvent(int eventId) throws SQLServerException;
 
     /**
      * Coordinator

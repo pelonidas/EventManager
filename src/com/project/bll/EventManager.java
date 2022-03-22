@@ -1,5 +1,6 @@
 package com.project.bll;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.*;
 import com.project.dal.facadeDAO.DALController;
 
@@ -70,6 +71,11 @@ public class EventManager implements IEventManager{
         if (customer != null)
             return dalController.editCustomer(customer, firstName, lastName, userName, passWord, email, address, phoneNumber, birthDate);
         return null;
+    }
+
+    @Override
+    public List<Customer> getAllCustomersOnSameEvent(int eventId) throws SQLServerException {
+        return dalController.getAllCustomersFromSameEvent(eventId);
     }
 
     @Override
