@@ -1,15 +1,24 @@
 package com.project.gui.controller;
 
 import com.project.be.Event;
+import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -19,6 +28,8 @@ public class CoordinatorController implements Initializable {
     private TableView<Event> coordinatorTableView;
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
+    @FXML
+    private Button createButton, editButton, deleteButton;
     private ObservableList<Event> allEvents = FXCollections.observableArrayList();
 
 
@@ -39,6 +50,13 @@ public class CoordinatorController implements Initializable {
         allEvents.add(e5);
         allEvents.add(e6);
 
+        refreshTable();
+
+        handleNewDialog(createButton, "../view/CreateEventView.fxml", "Create a new Event");
+        handleNewDialog(editButton, "../view/EditEventView.fxml", "Edit the event");
+    }
+
+    private void refreshTable() {
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         this.location.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -46,4 +64,25 @@ public class CoordinatorController implements Initializable {
 
         coordinatorTableView.setItems(allEvents);
     }
+
+    private void handleNewDialog(Button btn, String path, String title) {
+        btn.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle(title);
+                stage.setScene(new Scene(root1));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public ObservableList<Event> getAllEvents() {
+        return allEvents;
+    }
 }
+
