@@ -1,28 +1,26 @@
 package com.project.gui.controller;
 
 import com.project.be.TicketType;
-import de.jensd.fx.glyphs.GlyphIcon;
+import com.project.bll.util.DateTimeConverter;
+import com.project.gui.model.EditEventModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import javax.swing.event.ChangeEvent;
+import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditEventController implements Initializable {
@@ -67,6 +65,15 @@ public class EditEventController implements Initializable {
     @FXML
     private ListView<TicketType> ticketTypeList;
 
+
+    private EditEventModel model;
+
+
+    public EditEventController() throws IOException {
+        model = new EditEventModel();
+    }
+
+
     @FXML
     void backView(ActionEvent event) {
 
@@ -76,6 +83,8 @@ public class EditEventController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initIcons();
         initValidators();
+
+
 
     }
 
@@ -133,5 +142,17 @@ public class EditEventController implements Initializable {
     });
 
 
+    public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {
+        String date = eventDate.getValue().toString();
+        String time = eventTime.getText();
 
+        String eventTitle = eventTitleTxt.getText();
+        Date dateAndTime = model.parse_convertDateTime(date + " " + time);
+        Integer capacity = Integer.parseInt(eventCapacityTxt.getText());
+        String location = eventLocationTxt.getText();
+        String description = eventNotesTxt.getText();
+        List<TicketType> ticketTypes = ticketTypeList.getItems();
+
+        model.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+    }
 }

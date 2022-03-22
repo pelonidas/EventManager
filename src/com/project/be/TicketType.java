@@ -16,6 +16,10 @@ public class TicketType {
         this.id=id;
     }
 
+    public TicketType(String title,String benefits,double price){
+        this(0,title,benefits,price,10);
+    }
+
     public String getTitle() {
         return title;
     }
