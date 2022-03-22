@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -11,11 +12,13 @@
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="600.0">
          <children>
-            <Label text="All events" />
-            <HBox prefHeight="50.0" prefWidth="207.0" />
+            <Label text="Search" />
+            <HBox prefHeight="50.0" prefWidth="11.0" />
+            <TextField fx:id="searchFilterEvents" alignment="CENTER" prefHeight="26.0" prefWidth="152.0" />
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="38.0" />
+            <JFXButton onAction="#deleteEvent" text="Delete" />
+            <JFXButton onAction="#newEvent" text="Add event" />
             <JFXButton text="Show participants" />
-            <JFXButton text="Delete" />
-            <JFXButton onAction="#newEvent" text="Add" />
          </children>
       </HBox>
       <TableView fx:id="eventsTable" prefHeight="302.0" prefWidth="600.0">
@@ -30,10 +33,10 @@
       </TableView>
       <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="600.0">
          <children>
+            <JFXButton text="Show stats" />
+            <HBox prefHeight="49.0" prefWidth="291.0" />
             <JFXButton onAction="#backView" text="Back" />
             <JFXButton onAction="#logOut" text="Log out" />
-            <JFXButton text="Cancel" />
-            <JFXButton text="Confirm" />
          </children>
       </HBox>
    </children>

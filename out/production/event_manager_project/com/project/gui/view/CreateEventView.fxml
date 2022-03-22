@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="387.0" prefWidth="476.0" spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CreateEventViewController">
    <children>
       <BorderPane>
@@ -48,11 +47,11 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" GridPane.rowIndex="3" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seats available" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="eventInput" GridPane.columnIndex="1" />
+            <TextField fx:id="dateInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="locationInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="descriptionInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="seatsInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
          <VBox.margin>
             <Insets />
@@ -60,8 +59,8 @@
       </GridPane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Cancel" />
-            <Button mnemonicParsing="false" text="OK" />
+          <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="okButton" mnemonicParsing="false" onAction="#handleOkButton" text="OK" />
         </buttons>
       </ButtonBar>
    </children>
