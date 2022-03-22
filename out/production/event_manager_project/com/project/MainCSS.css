@@ -32,8 +32,6 @@
 
 }
 
-
-
 .list-cell:selected{
     -fx-background-color: #435058;
     -fx-background-radius: 5;
