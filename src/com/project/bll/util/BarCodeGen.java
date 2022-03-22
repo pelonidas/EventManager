@@ -14,9 +14,9 @@ import java.util.UUID;
 
 public class BarCodeGen {
 
-    private final int QR_SIZE = 150;
-    private final int BARCODE_HEIGHT = 100;
-    private final int BARCODE_WIDTH = 100;
+    private final int QR_SIZE = 300;
+    private final int BARCODE_HEIGHT = 200;
+    private final int BARCODE_WIDTH = 5;
 
 
     public Image generateRandomQRCode() throws WriterException {
@@ -51,7 +51,7 @@ public class BarCodeGen {
 
     public Image generateQRCode(String information) throws WriterException {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-        BitMatrix bitMatrix = multiFormatWriter.encode(information, BarcodeFormat.CODE_39,BARCODE_WIDTH,BARCODE_HEIGHT);
+        BitMatrix bitMatrix = multiFormatWriter.encode(information, BarcodeFormat.QR_CODE,QR_SIZE,QR_SIZE);
 
         BufferedImage barcodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
         return SwingFXUtils.toFXImage(barcodeImage,null);
