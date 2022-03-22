@@ -36,7 +36,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField promptText="First name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="firstName" promptText="First name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <HBox fx:id="hbLabel" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
          <children>
             <Label fx:id="siLabel" alignment="CENTER" prefHeight="28.0" prefWidth="74.0" text="Sign up" textFill="#0598ff">
@@ -46,20 +46,20 @@
             </Label>
          </children>
       </HBox>
-      <TextField promptText="Phone number" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <TextField promptText="Address" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <TextField promptText="User name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <TextField promptText="Last name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="phoneNumber" promptText="Phone number" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <TextField fx:id="address" promptText="Address" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <TextField fx:id="userName" promptText="User name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="lastName" promptText="Last name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <PasswordField style="-fx-background-color: transparent;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <TextField promptText="E-mail" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <PasswordField promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <JFXComboBox prefHeight="26.0" prefWidth="158.0" promptText="Category" unFocusColor="#0598ff" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-      <DatePicker editable="false" promptText="Birth date" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <JFXCheckBox checkedColor="#0598ff" text="I accept terms &amp; conditions" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-      <JFXButton style="-fx-background-color: #0598ff;" text="Sign Up" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="11" />
+      <TextField fx:id="email" promptText="E-mail" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <PasswordField fx:id="password" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <JFXComboBox fx:id="categoryComboBox" prefHeight="26.0" prefWidth="158.0" promptText="Category" unFocusColor="#0598ff" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <DatePicker fx:id="birthDate" editable="false" promptText="Birth date" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <JFXCheckBox fx:id="termsConditions" checkedColor="#0598ff" text="I accept terms &amp; conditions" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <JFXButton onAction="#signUp" style="-fx-background-color: #0598ff;" text="Sign Up" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="11" />
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="11">
          <children>
-            <JFXButton style="-fx-background-color: #0598ff;" text="Close" textFill="WHITE" />
+            <JFXButton fx:id="closeWindow" onAction="#closeWindow" style="-fx-background-color: #0598ff;" text="Close" textFill="WHITE" />
          </children>
       </HBox>
       <HBox fx:id="userNameHBox" alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
