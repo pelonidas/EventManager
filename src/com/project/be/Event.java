@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Event {
+
     private int id;
     private String title;
     private Date dateAndTime;
@@ -41,8 +42,18 @@ public class Event {
         this.location = location;
         this.description = description;
         this.seatsAvailable= seatsAvailable;
-
     }
+
+    //sulinel messi
+    public Event( String title, Date dateAndTime, String location, String description,int seatsAvailable) {
+        this.title = title;
+        this.dateAndTime = dateAndTime;
+        this.location = location;
+        this.description = description;
+        this.seatsAvailable= seatsAvailable;
+    }
+
+
     public int getId() {
         return id;
     }

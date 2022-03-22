@@ -19,12 +19,12 @@
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin></Text>
-            <TableView prefHeight="507.0" prefWidth="431.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="coordinatorTableView" prefHeight="507.0" prefWidth="431.0" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Name of the event" />
-                  <TableColumn prefWidth="75.0" text="Attendance" />
-                  <TableColumn prefWidth="75.0" text="Location" />
-                  <TableColumn prefWidth="75.0" text="Date" />
+                  <TableColumn fx:id="name" prefWidth="75.0" text="Name of the event" />
+                  <TableColumn fx:id="attendance" prefWidth="75.0" text="Attendance" />
+                  <TableColumn fx:id="location" prefWidth="75.0" text="Location" />
+                  <TableColumn fx:id="date" prefWidth="116.5" text="Date" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -32,9 +32,9 @@
             </TableView>
             <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <Button mnemonicParsing="false" text="Create Event" />
-                  <Button mnemonicParsing="false" text="Edit Event" />
-                  <Button mnemonicParsing="false" text="Delete Event" />
+                  <Button fx:id="createButton" mnemonicParsing="false" text="Create Event" />
+                  <Button fx:id="editButton" mnemonicParsing="false" text="Edit Event" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete Event" />
                   <Button mnemonicParsing="false" text="Buy a ticket" />
                </buttons>
                <VBox.margin>
@@ -53,12 +53,12 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Text>
-            <TextArea prefHeight="300.0" prefWidth="200.0" />
+            <TextArea fx:id="detailsTextfield" prefHeight="300.0" prefWidth="200.0" />
             <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <bottom>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <buttons>
-                      <Button mnemonicParsing="false" text="Manage users" />
+                      <Button fx:id="manageButton" mnemonicParsing="false" text="Manage users" />
                     </buttons>
                      <BorderPane.margin>
                         <Insets bottom="25.0" />
