@@ -53,10 +53,10 @@ public class CustomerController implements Initializable {
     @FXML
     private TableColumn<Event, String> upcomingEventLocationColumn;
 
-    private final CustomerModel customerModel;
+    //private final CustomerModel customerModel;
 
     public CustomerController() {
-        customerModel = new CustomerModel();
+        //customerModel = new CustomerModel();
     }
 
     @Override

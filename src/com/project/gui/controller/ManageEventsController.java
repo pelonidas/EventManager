@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageEventsController implements Initializable {
+    @FXML
+    private TextField searchFilterEvents;
     @FXML
     private TableColumn<Event,String> titleColumn,locationColumn,descriptionColumn;
     @FXML
@@ -83,5 +86,8 @@ public class ManageEventsController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    public void deleteEvent(ActionEvent actionEvent) {
     }
 }

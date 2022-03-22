@@ -1,9 +1,9 @@
 package com.project.gui.controller;
 
+import com.project.be.Coordinator;
 import com.project.be.Customer;
-import com.project.be.User;
-import com.project.gui.model.ManageCustomerModel;
-import com.project.gui.model.ManageUsersModel;
+import com.project.gui.model.CoordinatorModel;
+import com.project.gui.model.CustomerModel;
 import com.project.gui.view.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,15 +24,18 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ManageUsersViewController implements Initializable {
-    public TableView coordinatorsTable;
-    public TableColumn FNameColumn1;
-    public TableColumn LNameColumn1;
-    public TableColumn UNameColumn1;
-    public TableColumn PassWordColumn1;
-    public TableColumn AddressColumn1;
-    public TableColumn EmailColumn1;
-    public TableColumn PNumberColumn1;
-    public TableColumn BDateColumn1;
+    @FXML
+    private TextField filterSearchCoordinator;
+    @FXML
+    private TextField searchFilterCustomer;
+    @FXML
+    private TableView<Coordinator> coordinatorsTable;
+    @FXML
+    private TableColumn<Coordinator,String> FNameCoordinatorColumn,LNameCoordinatorColumn,UNameCoordinatorColumn,PassWordCoordinatorColumn,AddressCoordinatorColumn,EmailCoordinatorColumn;
+    @FXML
+    private TableColumn<Coordinator,Integer> PNumberCoordinatorColumn;
+    @FXML
+    private TableColumn<Customer,LocalDate> BDateCoordinatorColumn;
     @FXML
     private TableView<Customer> customersTable;
     @FXML
@@ -50,8 +52,8 @@ public class ManageUsersViewController implements Initializable {
     private TextField eventCoordinatorSearchFilter;
 
     Main main;
-    ManageUsersModel manageUsersModel;
-
+    private CoordinatorModel coordinatorModel;
+    private CustomerModel customerModel;
     public void backView(ActionEvent actionEvent) {
         main.setLayoutChosen("admin");
         try {
@@ -71,22 +73,22 @@ public class ManageUsersViewController implements Initializable {
         BDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
 
-        customersTable.setItems(manageUsersModel.getAllCustomers());
+        customersTable.setItems(customerModel.getAllCustomers());
 
     }
 
     private void populateCoordinatorsTableView() throws SQLException {
-        FNameColumn1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        LNameColumn1.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        UNameColumn1.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        PassWordColumn1.setCellValueFactory(new PropertyValueFactory<>("passWord"));
-        AddressColumn1.setCellValueFactory(new PropertyValueFactory<>("email"));
-        EmailColumn1.setCellValueFactory(new PropertyValueFactory<>("address"));
-        PNumberColumn1.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        BDateColumn1.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        FNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        LNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        UNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        PassWordCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        AddressCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        EmailCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        PNumberCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        BDateCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 
 
-        coordinatorsTable.setItems(manageUsersModel.getAllCoordinators());
+        coordinatorsTable.setItems(coordinatorModel.getAllCoordinators());
 
     }
 
@@ -96,7 +98,8 @@ public class ManageUsersViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            manageUsersModel = new ManageUsersModel();
+            coordinatorModel = new CoordinatorModel();
+            customerModel = new CustomerModel();
             populateCustomersTableView();
             populateCoordinatorsTableView();
         } catch (IOException | SQLException e) {
@@ -125,5 +128,11 @@ public class ManageUsersViewController implements Initializable {
         stage.setTitle("New user");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void deleteCustomer(ActionEvent actionEvent) {
+    }
+
+    public void logOut(ActionEvent actionEvent) {
     }
 }

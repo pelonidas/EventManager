@@ -74,14 +74,14 @@
                         </HBox>
                         <TableView fx:id="coordinatorsTable" prefHeight="298.0" prefWidth="600.0">
                           <columns>
-                              <TableColumn fx:id="FNameColumn1" prefWidth="75.0" text="FName" />
-                              <TableColumn fx:id="LNameColumn1" prefWidth="75.0" text="LName" />
-                              <TableColumn fx:id="UNameColumn1" prefWidth="75.0" text="Username" />
-                              <TableColumn fx:id="PassWordColumn1" prefWidth="75.0" text="Password" />
-                              <TableColumn fx:id="AddressColumn1" prefWidth="75.0" text="Address" />
-                              <TableColumn fx:id="EmailColumn1" prefWidth="75.0" text="E-mail" />
-                              <TableColumn fx:id="PNumberColumn1" prefWidth="75.0" text="Phone number" />
-                              <TableColumn fx:id="BDateColumn1" prefWidth="75.0" text="BirthDate" />
+                              <TableColumn fx:id="FNameCoordinatorColumn" prefWidth="75.0" text="FName" />
+                              <TableColumn fx:id="LNameCoordinatorColumn" prefWidth="75.0" text="LName" />
+                              <TableColumn fx:id="UNameCoordinatorColumn" prefWidth="75.0" text="Username" />
+                              <TableColumn fx:id="PassWordCoordinatorColumn" prefWidth="75.0" text="Password" />
+                              <TableColumn fx:id="AddressCoordinatorColumn" prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="EmailCoordinatorColumn" prefWidth="75.0" text="E-mail" />
+                              <TableColumn fx:id="PNumberCoordinatorColumn" prefWidth="75.0" text="Phone number" />
+                              <TableColumn fx:id="BDateCoordinatorColumn" prefWidth="75.0" text="BirthDate" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="600.0">

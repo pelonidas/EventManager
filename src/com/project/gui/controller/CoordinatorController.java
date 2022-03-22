@@ -25,7 +25,7 @@ public class CoordinatorController implements Initializable {
     private TableView<Event> coordinatorTableView;
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
-    private CoordinatorModel coordinatorModel=  new CoordinatorModel();;
+    //private CoordinatorModel coordinatorModel=  new CoordinatorModel();;
     private CreateEventViewController createEventViewController;
     public CoordinatorController() {
 
@@ -47,7 +47,7 @@ public class CoordinatorController implements Initializable {
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
-        coordinatorTableView.setItems(coordinatorModel.getAllEvents());
+       // coordinatorTableView.setItems(coordinatorModel.getAllEvents());
     }
 
 

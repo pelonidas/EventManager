@@ -22,10 +22,10 @@ public class CreateEventViewController implements Initializable {
     private TextField eventInput, dateInput, descriptionInput, locationInput, seatsInput;
     @FXML
     private Button okButton, cancelButton;
-    private final CoordinatorModel coordinatorModel;
+    //private final CoordinatorModel coordinatorModel;
     private CoordinatorController coordinatorController;
     public CreateEventViewController() {
-        coordinatorModel = new CoordinatorModel();
+        //coordinatorModel = new CoordinatorModel();
     }
     public void setCoordinatorController(CoordinatorController coordinatorController){
         this.coordinatorController = coordinatorController;
@@ -34,15 +34,15 @@ public class CreateEventViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(coordinatorModel.getAllEvents());
+        //System.out.println(coordinatorModel.getAllEvents());
     }
 
     public void handleOkButton(ActionEvent event) {
         Event e = new Event(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()));
 
-        coordinatorModel.addEvent(e);
+        //coordinatorModel.addEvent(e);
         System.out.println(eventInput.getText());
-        System.out.println(coordinatorModel.getAllEvents());
+        //System.out.println(coordinatorModel.getAllEvents());
         coordinatorController.refreshTable();
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
