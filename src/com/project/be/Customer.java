@@ -17,11 +17,9 @@ public class Customer extends User{
         this.category=category;
     }
 
-
     public ArrayList<Event> getMyEvents() {
         return myEvents;
     }
-
     public void setMyEvents(ArrayList<Event> myEvents) {
         this.myEvents = myEvents;
     }

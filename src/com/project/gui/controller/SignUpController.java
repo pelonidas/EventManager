@@ -147,29 +147,36 @@ public class SignUpController implements Initializable {
                     alert.setContentText(userException.getInstructions());
                     alert.showAndWait();
                 }
-                try {
-                    if (categoryComboBox.getSelectionModel().getSelectedItem().isEmpty());
-                }catch (NullPointerException npe){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Alert");
-                    alert.setHeaderText("Please find which category of user you are.");
-                    alert.setContentText("Select choice from combo box");
-                    alert.showAndWait();
-                }
-                if (!termsConditions.isSelected()){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Alert");
-                    alert.setHeaderText("Please make sure to accept our terms & conditions.");
-                    alert.setContentText("Please check the check box.");
-                    alert.showAndWait();
-                }
             }
             else {
                 coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),address.getText(), Integer.parseInt(phoneNumber.getText()),birthDate.getValue());
                 Stage stage = (Stage) closeWindow.getScene().getWindow();
                 stage.close();
             }
-        }catch (NullPointerException ignored){}
+        }catch (NullPointerException ignored){
+            try {
+                if (categoryComboBox.getSelectionModel().getSelectedItem().isEmpty());
+            }catch (NullPointerException npe){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText("Please find which category of user you are.");
+                alert.setContentText("Select choice from combo box");
+                alert.showAndWait();
+            }
+            if (!termsConditions.isSelected()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText("Please make sure to accept our terms & conditions.");
+                alert.setContentText("Please check the check box.");
+                alert.showAndWait();
+            }
+            if (birthDate.getValue()==null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText("Please select your date of birth.");
+                alert.showAndWait();
+            }
+        }
     }
     private void setLimitsDatePicker(DatePicker datePicker) {
         datePicker.setDayCellFactory(new Callback<DatePicker, DateCell>() {
