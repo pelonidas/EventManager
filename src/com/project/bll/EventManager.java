@@ -133,4 +133,9 @@ public class EventManager implements IEventManager{
     public void deleteTicketType(TicketType ticketType) throws SQLException {
         dalController.deleteTicketType(ticketType);
     }
+
+    @Override
+    public void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException {
+        dalController.createMultipleTicketTypes(ticketTypes, id);
+    }
 }
