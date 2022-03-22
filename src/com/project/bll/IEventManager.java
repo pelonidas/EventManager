@@ -11,7 +11,7 @@ public interface IEventManager {
      * Events
      */
     List<Event> getAllEvents () throws SQLException;
-    Event createEvent (String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
+    Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException;
     void deleteEvent(Event event) throws SQLException;
     Event editEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
 

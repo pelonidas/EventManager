@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketCategoryDAO {
+public class TicketCategoryDAO  {
     DBConnector dbConnector;
     public TicketCategoryDAO() throws IOException {
         dbConnector = new DBConnector();
@@ -79,7 +79,14 @@ public class TicketCategoryDAO {
         }
     }
 
-    public void createMultipleTicketTypes(List<TicketType> ticketTypes) throws SQLException {
+
+    /**
+     * TODO make it create these ticket types for this specific event only
+     * @param ticketTypes
+     * @param id
+     * @throws SQLException
+     */
+    public void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException {
         try (Connection connection = dbConnector.getConnection()){
             String sql = "INSERT INTO categories_ticket VALUES(?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

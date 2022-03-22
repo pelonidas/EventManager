@@ -9,10 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 public class EventManager implements IEventManager{
+
     private static EventManager eventManager;
 
+    DALController dalController;
+
     private EventManager() throws IOException {
-        DALController dalController = new DALController();
+        dalController = new DALController();
     }
 
     public static EventManager getInstance() throws IOException {
@@ -28,7 +31,10 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
+    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
+        Event event = dalController.createEvent(title,dateAndTime,location,description,seatsAvailable);
+        if (event!=null)
+            dalController.createMultipleTicketTypes(ticketTypes,event.getId());
         return null;
     }
 

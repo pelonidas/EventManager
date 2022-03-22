@@ -14,11 +14,11 @@
          <children>
             <Label text="Search" />
             <HBox prefHeight="50.0" prefWidth="11.0" />
-            <TextField alignment="CENTER" prefHeight="26.0" prefWidth="152.0" />
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="48.0" />
+            <TextField fx:id="searchFilterEvents" alignment="CENTER" prefHeight="26.0" prefWidth="152.0" />
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="38.0" />
+            <JFXButton onAction="#deleteEvent" text="Delete" />
+            <JFXButton onAction="#newEvent" text="Add event" />
             <JFXButton text="Show participants" />
-            <JFXButton text="Delete" />
-            <JFXButton onAction="#newEvent" text="Add" />
          </children>
       </HBox>
       <TableView fx:id="eventsTable" prefHeight="302.0" prefWidth="600.0">
@@ -33,10 +33,10 @@
       </TableView>
       <HBox alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="600.0">
          <children>
+            <JFXButton text="Show stats" />
+            <HBox prefHeight="49.0" prefWidth="291.0" />
             <JFXButton onAction="#backView" text="Back" />
             <JFXButton onAction="#logOut" text="Log out" />
-            <JFXButton text="Cancel" />
-            <JFXButton text="Confirm" />
          </children>
       </HBox>
    </children>

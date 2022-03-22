@@ -118,4 +118,11 @@ public class DALController implements IDALFacade {
     public void deleteTicketType(TicketType ticketType) throws SQLException {
         ticketCategoryDAO.deleteTicketType(ticketType);
     }
+
+    @Override
+    public void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException {
+        ticketCategoryDAO.createMultipleTicketTypes(ticketTypes,id);
+    }
+
+
 }
