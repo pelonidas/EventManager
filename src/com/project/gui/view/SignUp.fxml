@@ -53,7 +53,7 @@
       <PasswordField style="-fx-background-color: transparent;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <TextField promptText="E-mail" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <PasswordField promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <JFXComboBox prefHeight="26.0" prefWidth="158.0" promptText="Gender" unFocusColor="#0598ff" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <JFXComboBox prefHeight="26.0" prefWidth="158.0" promptText="Category" unFocusColor="#0598ff" GridPane.columnIndex="2" GridPane.rowIndex="9" />
       <DatePicker editable="false" promptText="Birth date" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="8" />
       <JFXCheckBox checkedColor="#0598ff" text="I accept terms &amp; conditions" GridPane.columnIndex="2" GridPane.rowIndex="10" />
       <JFXButton style="-fx-background-color: #0598ff;" text="Sign Up" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="11" />

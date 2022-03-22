@@ -23,10 +23,10 @@
                            <children>
                               <Label text="Search" />
                               <HBox prefHeight="38.0" prefWidth="21.0" />
-                              <TextField />
+                              <TextField fx:id="searchFilterCustomer" />
                               <HBox prefHeight="38.0" prefWidth="130.0" />
                               <JFXButton onAction="#newCustomer" text="Add customer" />
-                              <JFXButton text="Delete" />
+                              <JFXButton onAction="#deleteCustomer" text="Delete" />
                               <JFXButton text="Show history" />
                            </children>
                         </HBox>
@@ -46,7 +46,7 @@
                            <children>
                               <JFXButton text="Show stats" />
                               <HBox prefHeight="38.0" prefWidth="418.0" />
-                              <JFXButton fx:id="logOut" text="LogOut" />
+                              <JFXButton onAction="#logOut" text="LogOut" />
                               <JFXButton onAction="#backView" text="Back" />
                            </children>
                         </HBox>
@@ -65,10 +65,10 @@
                            <children>
                               <Label text="Search" />
                               <HBox prefHeight="38.0" prefWidth="21.0" />
-                              <TextField />
+                              <TextField fx:id="filterSearchCoordinator" />
                               <HBox prefHeight="37.0" prefWidth="117.0" />
-                              <JFXButton text="Add coordinator" />
-                              <JFXButton text="Delete" />
+                              <JFXButton onAction="#newCoordinator" text="Add coordinator" />
+                              <JFXButton onAction="#deleteCoordinator" text="Delete" />
                               <JFXButton text="Show activity" />
                            </children>
                         </HBox>
@@ -88,7 +88,7 @@
                            <children>
                               <JFXButton text="Show stats" />
                               <HBox prefHeight="38.0" prefWidth="418.0" />
-                              <JFXButton fx:id="logOut1" text="LogOut" />
+                              <JFXButton onAction="#logOut" text="LogOut" />
                               <JFXButton onAction="#backView" text="Back" />
                            </children>
                         </HBox>
