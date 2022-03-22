@@ -1,7 +1,5 @@
 package com.project.be;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +14,6 @@ public class Event {
     private List<User> participants;
     private int maxCapacity;
     private int seatsAvailable;
-
 
     public Event(int id, String title, Date dateAndTime, String location, String description) {
         this.id = id;

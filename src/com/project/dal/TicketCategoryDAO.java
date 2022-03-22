@@ -1,5 +1,6 @@
 package com.project.dal;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
 import com.project.dal.connectorDAO.DBConnector;
@@ -77,4 +78,22 @@ public class TicketCategoryDAO {
             preparedStatement.executeUpdate();
         }
     }
+
+    public void createMultipleTicketTypes(List<TicketType> ticketTypes) throws SQLException {
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "INSERT INTO categories_ticket VALUES(?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (TicketType ticketType : ticketTypes) {
+                preparedStatement.setString(1,ticketType.getTitle());
+                preparedStatement.setDouble(2,ticketType.getPrice());
+                preparedStatement.setString(3,ticketType.getBenefits());
+                preparedStatement.setInt(4,ticketType.getSeatsAvailable());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+
+        }
+    }
+
+
 }

@@ -37,7 +37,7 @@ public class EventDAO {
             String sql = "INSERT INTO events VALUES(?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1,title);
-            preparedStatement.setDate(2, (java.sql.Date) dateAndTime);
+            preparedStatement.setDate(2,new java.sql.Date(dateAndTime.getTime()));
             preparedStatement.setString(3,location);
             preparedStatement.setString(4,description);
             preparedStatement.setInt(5,seatsAvailable);
