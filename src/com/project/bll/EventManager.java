@@ -1,6 +1,7 @@
 package com.project.bll;
 
 import com.project.be.*;
+import com.project.bll.exceptions.UserException;
 import com.project.dal.facadeDAO.DALController;
 
 import java.io.IOException;
@@ -56,8 +57,8 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
-        return dalController.createCustomer(firstName, lastName, userName, passWord, email, address, phoneNumber, birthDate);
+    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email, java.sql.Date birthDate) throws UserException {
+        return dalController.createCustomer(firstName, lastName, userName, passWord, email, birthDate);
     }
 
     @Override

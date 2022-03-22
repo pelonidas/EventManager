@@ -2,12 +2,21 @@ package com.project.dal;
 
 import com.project.be.Coordinator;
 import com.project.be.Customer;
+import com.project.bll.exceptions.UserException;
 import com.project.dal.connectorDAO.DBConnector;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.util.Callback;
+
 
 import java.io.IOException;
+import java.io.PipedReader;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CustomerDAO {
     DBConnector dbConnector;
@@ -34,8 +43,6 @@ public class CustomerDAO {
                                 resultSet.getString("user_name"),
                                 resultSet.getString("password"),
                                 resultSet.getString("email"),
-                                resultSet.getString("address"),
-                                resultSet.getString("phone_number"),
                                 resultSet.getDate("birth_date"),
                                 id));
                 }
@@ -44,7 +51,8 @@ public class CustomerDAO {
         return allCustomers;
     }
 
-    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
+    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email, Date birthDate) throws UserException {
+        exceptionCreation(firstName,lastName,userName,passWord,email,birthDate);
         Customer customer = null;
         int idCategory=0;
         try (Connection connection= dbConnector.getConnection()){
@@ -62,16 +70,16 @@ public class CustomerDAO {
             preparedStatement.setString(3,userName);
             preparedStatement.setString(4,passWord);
             preparedStatement.setString(5,email);
-            preparedStatement.setString(6,address);
-            preparedStatement.setString(7,String.valueOf(phoneNumber));
             preparedStatement.setDate(8,birthDate);
             preparedStatement.setInt(9,idCategory);
             preparedStatement.executeUpdate();
             ResultSet resultSet1= preparedStatement.getGeneratedKeys();
             while (resultSet1.next()){
                 int id = resultSet1.getInt(1);
-                customer = new Customer(id,firstName,lastName,userName,passWord,email,address,String.valueOf(phoneNumber),birthDate);
+                customer = new Customer(id,firstName,lastName,userName,passWord,email,birthDate);
             }
+        }catch (SQLException sqlException){
+            throw new UserException("something went wrong in the database",new Exception());
         }
         return customer;
     }
@@ -102,12 +110,103 @@ public class CustomerDAO {
             customer.setUserName(userName);
             customer.setPassWord(passWord);
             customer.setEmail(email);
-            customer.setAddress(address);
-            customer.setPhoneNumber(String.valueOf(phoneNumber));
             customer.setBirthDate(birthDate);
 
             preparedStatement.executeUpdate();
         }
         return customer;
     }
+
+    private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email, Date birthDate) throws UserException {
+        if (firstName.isEmpty())
+            throw new UserException("Please enter your first name.",new Exception());
+        if (lastName.isEmpty())
+            throw new UserException("Please enter your last name.",new Exception());
+        if (!isValidName(firstName)){
+            UserException userException = new UserException("Please find a valid first name",new Exception());
+            userException.setInstructions("A valid name is only composed of Alphabet characters");
+            throw userException;
+        }
+        if (!isValidName(lastName)){
+            UserException userException = new UserException("Please find a valid last name",new Exception());
+            userException.setInstructions("A correct name is only composed of Alphabet characters");
+            throw userException;
+        }
+        if (userName.isEmpty())
+            throw new UserException("Please find a username.",new Exception());
+
+        if (userNameTaken(userName)){
+            UserException userException = new UserException("userName already exists.",new Exception());
+            userException.setInstructions("Please find another one and try again.");
+            throw userException;
+        }
+
+        if (isPasswordValid(passWord)) {
+                UserException userException = new UserException("Please find a correct password.",new Exception());
+                userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
+                throw userException;
+            }
+        if(email.isEmpty())
+            throw new UserException("Please enter your email.",new Exception());
+
+        if (!isValidEmailAddress(email))
+            throw new UserException("Please enter a valid email.",new Exception());
+        }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean stricterFilter = true;
+        String stricterFilterString = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+        String laxString = ".+@.+\\.[A-Za-z]{2}[A-Za-z]*";
+        String emailRegex = stricterFilter ? stricterFilterString : laxString;
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(emailRegex);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    private Boolean userNameTaken(String userName) throws UserException {
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM Users WHERE user_name=? ";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,userName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return true;
+            }
+        }catch (SQLException sqlException){
+            throw  new UserException("Something went wrong in the database",new Exception());
+        }
+        return false;
+    }
+
+    private static boolean isPasswordValid(String password) {
+        int digitCounter = 0;
+
+        if (password.length() >= 10 ) {
+            for(int index = 0; index < password.length(); index++) {
+                char passChar = password.charAt(index);
+                if (!Character.isLetterOrDigit(passChar)) {
+                    return false;
+                }
+                else {
+                    if (Character.isDigit(passChar)) {
+                        digitCounter++;
+                    }
+                }
+            }
+        }
+        if(digitCounter < 2) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isValidName(String s) {
+        if (s == null || s.trim().isEmpty()) {
+            return false;
+        }
+        Pattern p = Pattern.compile("[^A-Za-z0-9]");
+        Matcher m = p.matcher(s);
+        return !m.find();
+    }
+
 }

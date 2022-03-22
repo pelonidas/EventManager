@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.project.be.User;
+import com.project.bll.exceptions.UserException;
 import com.project.gui.model.CoordinatorModel;
 import com.project.gui.model.CustomerModel;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -19,11 +20,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.hibernate.mapping.Value;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -76,6 +79,7 @@ public class SignUpController implements Initializable {
     private CustomerModel customerModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setLimitsDatePicker(birthDate);
 
         userNameHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.USER));
         passwordHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.LOCK));
@@ -129,14 +133,56 @@ public class SignUpController implements Initializable {
     }
 
     public void signUp(ActionEvent actionEvent) throws SQLException {
-        if(categoryComboBox.getSelectionModel().getSelectedItem().equals("Customer")){
-            customerModel.createCustomer(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),address.getText(), Integer.parseInt(phoneNumber.getText()),birthDate.getValue());
-            Stage stage = (Stage) closeWindow.getScene().getWindow();
-            stage.close();}
-        else {
-            coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),address.getText(), Integer.parseInt(phoneNumber.getText()),birthDate.getValue());
-            Stage stage = (Stage) closeWindow.getScene().getWindow();
-            stage.close();
-        }
+
+        try {
+            if(categoryComboBox.getSelectionModel().getSelectedItem().equals("Customer")){
+                try {
+                    customerModel.createCustomer(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),birthDate.getValue());
+                    Stage stage = (Stage) closeWindow.getScene().getWindow();
+                    stage.close();
+                }catch (UserException userException){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText(userException.getExceptionMessage());
+                    alert.setContentText(userException.getInstructions());
+                    alert.showAndWait();
+                }
+                try {
+                    if (categoryComboBox.getSelectionModel().getSelectedItem().isEmpty());
+                }catch (NullPointerException npe){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Please find which category of user you are.");
+                    alert.setContentText("Select choice from combo box");
+                    alert.showAndWait();
+                }
+                if (!termsConditions.isSelected()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Please make sure to accept our terms & conditions.");
+                    alert.setContentText("Please check the check box.");
+                    alert.showAndWait();
+                }
+            }
+            else {
+                coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),address.getText(), Integer.parseInt(phoneNumber.getText()),birthDate.getValue());
+                Stage stage = (Stage) closeWindow.getScene().getWindow();
+                stage.close();
+            }
+        }catch (NullPointerException ignored){}
+    }
+    private void setLimitsDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(empty || item.compareTo(LocalDate.now()) > 0);
+                    }
+                };
+            }
+        });
     }
 }

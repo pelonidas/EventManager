@@ -34,8 +34,7 @@ public class CoordinatorDAO {
                             resultSet.getString("user_name"),
                             resultSet.getString("password"),
                             resultSet.getString("email"),
-                            resultSet.getString("address"),
-                            resultSet.getInt("phone_number"),
+
                             resultSet.getDate("birth_date")));
             }
 
@@ -71,7 +70,7 @@ public class CoordinatorDAO {
             ResultSet resultSet1= preparedStatement.getGeneratedKeys();
             while (resultSet1.next()){
                 int id = resultSet1.getInt(1);
-                coordinator = new Coordinator(id,firstName,lastName,userName,passWord,email,address,phoneNumber,birthDate);
+                coordinator = new Coordinator(id,firstName,lastName,userName,passWord,email,birthDate);
             }
         }
         return coordinator;
@@ -103,8 +102,7 @@ public class CoordinatorDAO {
             coordinator.setUserName(userName);
             coordinator.setPassWord(passWord);
             coordinator.setEmail(email);
-            coordinator.setAddress(address);
-            coordinator.setPhoneNumber(String.valueOf(phoneNumber));
+
             coordinator.setBirthDate(birthDate);
 
             preparedStatement.executeUpdate();

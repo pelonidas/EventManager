@@ -10,19 +10,15 @@ public abstract class User {
     private String userName;
     private String passWord;
     private String email;
-    private String address;
-    private String phoneNumber;
     private Date birthDate;
 
-    public User(int id, String firstName, String lastName,String userName,String passWord, String email,String address,String phoneNumber,Date birthDate) {
+    public User(int id, String firstName, String lastName,String userName,String passWord, String email,Date birthDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName=userName;
         this.passWord=passWord;
         this.email=email;
-        this.address=address;
-        this.phoneNumber=phoneNumber;
         this.birthDate = birthDate;
     }
 
@@ -72,22 +68,6 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public Date getBirthDate() {

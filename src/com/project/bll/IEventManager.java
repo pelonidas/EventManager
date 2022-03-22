@@ -1,6 +1,7 @@
 package com.project.bll;
 
 import com.project.be.*;
+import com.project.bll.exceptions.UserException;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -19,7 +20,7 @@ public interface IEventManager {
      * Customer
      */
     List<Customer> getAllCustomers () throws SQLException;
-    Customer createCustomer (String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
+    Customer createCustomer (String firstName, String lastName, String userName, String passWord, String email, java.sql.Date birthDate) throws SQLException, UserException;
     void deleteCustomer(Customer customer) throws SQLException;
     Customer editCustomer(Customer customer,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
 
