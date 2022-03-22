@@ -64,7 +64,7 @@ public class ManageEventsController implements Initializable {
     public void logOut(ActionEvent actionEvent) throws Exception {
         main.initLogin();
     }
-    public void populateEventsTableView() throws SQLException {
+    private void populateEventsTableView() throws SQLException {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
