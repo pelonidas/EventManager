@@ -2,6 +2,7 @@ package com.project.gui.controller;
 
 import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.be.TicketType;
 import com.project.be.User;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
@@ -40,6 +41,16 @@ import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
     @FXML
+    private TableView<TicketType> ticketTypeTable;
+    @FXML
+    private TableColumn ticketTypeTitleColumn;
+    @FXML
+    private TableColumn ticketTypePriceColumn;
+    @FXML
+    private TableColumn ticketTypeBenefitsColumn;
+    @FXML
+    private TableColumn ticketTypeSeatsColumn;
+    @FXML
     private TextArea additionalInfoTextArea;
     @FXML
     private TextField filter;
@@ -70,9 +81,17 @@ public class CustomerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             setTableViewUpcomingEvents();
+            setTableViewTicketTypes();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setTableViewTicketTypes() {
+        ticketTypeBenefitsColumn.setCellValueFactory(new PropertyValueFactory<>("benefits"));
+        ticketTypePriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        ticketTypeSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("seatsAvailable"));
+        ticketTypeTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
     }
 
     @FXML
@@ -125,6 +144,11 @@ public class CustomerController implements Initializable {
             firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
             secondNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
             tableViewParticipantsOnClickedEvent.setItems(customerModel.getAllCustomersOnSameEvent(idOfSelectedItem));
+            displayAvailableTicketTypes(selectedEvent);
         }
+    }
+
+    private void displayAvailableTicketTypes(Event selectedEvent) throws SQLException {
+        ticketTypeTable.setItems(customerModel.getAllTicketTypesForEvent(selectedEvent));
     }
 }

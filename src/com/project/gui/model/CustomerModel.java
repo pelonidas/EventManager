@@ -1,9 +1,6 @@
 package com.project.gui.model;
 
-import com.project.be.Coordinator;
-import com.project.be.Customer;
-import com.project.be.Event;
-import com.project.be.User;
+import com.project.be.*;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
@@ -21,6 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class CustomerModel {
     IDALFacade EMFacade;//DELETE THIS LATER
@@ -50,4 +48,8 @@ public class CustomerModel {
     }
 
 
+    public ObservableList<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException {
+        List<TicketType> ticketTypes = eventManager.getAllTicketTypesForEvent(selectedEvent);
+        return FXCollections.observableArrayList(ticketTypes);
+    }
 }

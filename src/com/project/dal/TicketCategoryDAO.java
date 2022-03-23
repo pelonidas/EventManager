@@ -1,6 +1,7 @@
 package com.project.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import com.project.be.Event;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
 import com.project.dal.connectorDAO.DBConnector;
@@ -103,4 +104,26 @@ public class TicketCategoryDAO  {
     }
 
 
+    public List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException {
+        List<TicketType> ticketsForEvent = new ArrayList<>();
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM categories_ticket\n" +
+                    "WHERE event_ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,selectedEvent.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+            String title = resultSet.getString("title");
+            String benefits = resultSet.getString("benefits");
+            double price = resultSet.getDouble("price");
+            int seatsAvaible = resultSet.getInt("seats_available");
+            int id = resultSet.getInt("id");
+
+            TicketType ticketType = new TicketType(id,title,benefits,price,seatsAvaible);
+            ticketsForEvent.add(ticketType);
+            }
+            return ticketsForEvent;
+        }
+    }
 }

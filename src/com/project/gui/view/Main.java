@@ -55,10 +55,8 @@ public class Main extends Application {
             GridPane adminDisplay = loaderAdmin.load();
             AdminController controller = loaderAdmin.getController();
             controller.setMainApp(this);
-            rootLayout.getChildren().setAll(adminDisplay);
+            rootLayout.getChildren().add(adminDisplay);
             primaryStage.setTitle("Admin window");
-            primaryStage.setHeight(228);
-            primaryStage.setWidth(318);
 
         }
         if(layoutChosen.get().equals("coordinator")) {

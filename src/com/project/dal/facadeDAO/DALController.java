@@ -147,5 +147,10 @@ public class DALController implements IDALFacade {
         return adminDAO.logInAdminCredentials(userName);
     }
 
+    @Override
+    public List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException {
+        return ticketCategoryDAO.getAllTicketTypesForEvent(selectedEvent);
+    }
+
 
 }
