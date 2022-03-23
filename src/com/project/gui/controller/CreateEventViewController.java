@@ -60,6 +60,8 @@ public class CreateEventViewController implements Initializable {
 
 
     public void backView(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
     //
