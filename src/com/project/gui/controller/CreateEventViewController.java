@@ -167,10 +167,15 @@ public class CreateEventViewController implements Initializable {
 
         model.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
         coordinatorController.refreshTable();
-        
+        final Node source = (Node) actionEvent.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     private void backView(ActionEvent actionEvent) {
+        final Node source = (Node) actionEvent.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }
