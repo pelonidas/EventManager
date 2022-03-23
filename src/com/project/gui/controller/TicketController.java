@@ -44,6 +44,8 @@ public class TicketController {
         qrCodeView.setImage(model.getRandomQRCode());
     }
 
+
+    //TODO make change the actualy ticket
     public void setFields(Customer selectedUser, Event selectedEvent) throws SQLException {
         Ticket ticket = model.getTicket(selectedUser,selectedEvent);
     }

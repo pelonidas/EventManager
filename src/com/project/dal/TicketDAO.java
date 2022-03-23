@@ -94,7 +94,7 @@ public class TicketDAO {
             String benefits = resultSet.getString("benefits");
             double price =resultSet.getDouble("price");
             int seats_available = resultSet.getInt("seats_available");
-            
+
             TicketType ticketType = new TicketType(ticketTypeId,ticketTypeTitle,benefits,price,seats_available);
             ticket = new Ticket(selectedEvent,selectedUser,ticketId,ticketType,qrCode);
             }
