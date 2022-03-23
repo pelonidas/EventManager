@@ -44,12 +44,22 @@ public class EditEventController implements Initializable {
 
 
     private EditEventModel model;
-
+    com.project.be.Event e;
+    CoordinatorController coordinatorController;
 
     public EditEventController() throws IOException {
         model = new EditEventModel();
     }
 
+    public void setCoordinatorController(CoordinatorController coordinatorController){
+        this.coordinatorController = coordinatorController;
+    }
+    public void setEventToBeUpdated(com.project.be.Event e) {
+        this.e = e;
+        eventTitleTxt.setText(e.getTitle());
+        eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
+
+    }
 
     @FXML
     void backView(ActionEvent event) {
@@ -58,6 +68,8 @@ public class EditEventController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        com.project.be.Event e = coordinatorController.getSelectedEvent();
+//        eventTitleTxt.setText(e.getTitle());
         initIcons();
         initValidators();
         initTimeBoxes();
@@ -162,6 +174,6 @@ public class EditEventController implements Initializable {
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
-        model.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+
     }
 }

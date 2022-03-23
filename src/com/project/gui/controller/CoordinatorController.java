@@ -117,10 +117,22 @@ public class CoordinatorController implements Initializable {
             System.out.println(e);
         }
 
+        EditEventController editEventController = loader.getController();
+        editEventController.setCoordinatorController(this);
+        try {
+            editEventController.setEventToBeUpdated(getSelectedEvent());
+        } catch (Exception exception) {
+            System.out.println(exception);
+        }
+
+
         Stage stage = new Stage();
         stage.setTitle("New/Edit Song");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+    public Event getSelectedEvent(){
+       return coordinatorTableView.getSelectionModel().getSelectedItem();
     }
 }
 
