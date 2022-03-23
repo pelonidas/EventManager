@@ -24,7 +24,7 @@ public class AdminDAO {
             preparedStatement.setString(1,userName);
             preparedStatement.setInt(2,1);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            if (resultSet.next()){
                 return new Admin(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -34,8 +34,6 @@ public class AdminDAO {
                         resultSet.getDate(7));
             }
         }
-        UserException userException= new UserException("This user_name does not exist",new Exception());
-        userException.setInstructions("Try to SignUp first so you can logIn");
-        throw userException;
+        return null;
     }
     }

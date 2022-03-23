@@ -170,8 +170,6 @@ public class CoordinatorDAO {
             if (userName.equals(coordinator.getUserName()))
                 return coordinator;
         }
-        UserException userException= new UserException("This user_name does not exist",new Exception());
-        userException.setInstructions("Try to SignUp first so you can logIn");
-        throw userException;
+        return null;
     }
 }

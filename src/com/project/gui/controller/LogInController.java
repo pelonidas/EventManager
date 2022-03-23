@@ -1,5 +1,8 @@
 package com.project.gui.controller;
 
+import com.project.be.Admin;
+import com.project.be.Coordinator;
+import com.project.be.Customer;
 import com.project.bll.exceptions.UserException;
 import com.project.gui.model.LogInModel;
 import com.project.gui.view.Main;
@@ -39,8 +42,9 @@ public class LogInController implements Initializable {
     LogInModel logInModel;
 
     private Main main;
+
     public void setMainApp(Main main) {
-        this.main=main;
+        this.main = main;
     }
 
     @Override
@@ -50,59 +54,79 @@ public class LogInController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Text usersIcons= GlyphsDude.createIcon(FontAwesomeIcons.USERS,"35px");
-       usersIcons.setFill(Paint.valueOf("#0598ff"));
-       usersIcons.setLayoutX(152);
-       usersIcons.setLayoutY(101);
-    anchorPaneRight.getChildren().add(usersIcons);
+        Text usersIcons = GlyphsDude.createIcon(FontAwesomeIcons.USERS, "35px");
+        usersIcons.setFill(Paint.valueOf("#0598ff"));
+        usersIcons.setLayoutX(152);
+        usersIcons.setLayoutY(101);
+        anchorPaneRight.getChildren().add(usersIcons);
 
-        Text keyIcon= GlyphsDude.createIcon(FontAwesomeIcons.LOCK,"20px");
+        Text keyIcon = GlyphsDude.createIcon(FontAwesomeIcons.LOCK, "20px");
         keyIcon.setFill(Paint.valueOf("#0598ff"));
         keyIcon.setLayoutX(69);
         keyIcon.setLayoutY(253);
         anchorPaneRight.getChildren().add(keyIcon);
 
-        Text userIcon= GlyphsDude.createIcon(FontAwesomeIcons.USER,"20px");
+        Text userIcon = GlyphsDude.createIcon(FontAwesomeIcons.USER, "20px");
         userIcon.setFill(Paint.valueOf("#0598ff"));
         userIcon.setLayoutX(70);
         userIcon.setLayoutY(200);
         anchorPaneRight.getChildren().add(userIcon);
 
-        Text calendarIcon= GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR,"35px");
+        Text calendarIcon = GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR, "35px");
         calendarIcon.setFill(Paint.valueOf("white"));
         calendarIcon.setLayoutX(153);
         calendarIcon.setLayoutY(101);
         anchorPaneLeft.getChildren().add(calendarIcon);
     }
 
-    public void logIn(ActionEvent actionEvent) throws Exception {
+    public void logIn(ActionEvent actionEvent) throws Exception, UserException {
 
-            try {
-                if (passWord.getText().equals(logInModel.logInAdminCredentials(userName.getText()).getPassWord())){
-                    main.setLayoutChosen("admin");
-                    main.initRootLayout();}
-                }catch(UserException ue){
-                try {
-                    if (passWord.getText().equals(logInModel.logInCustomerCredentials(userName.getText()).getPassWord())){
-                        main.setLayoutChosen("customer");
-                        main.initRootLayout();
-                    }
-                }catch (UserException userException){
-                try {
-                    if (passWord.getText().equals(logInModel.logInCoordinatorCredentials(userName.getText()).getPassWord())){
-                    }
-                        main.setLayoutChosen("coordinator");
-                        main.initRootLayout();
-                    }catch (UserException userException1){
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Alert");
-                    alert.setHeaderText("Wrong credentials");
-                    alert.setContentText("Please try again.");
-                    alert.showAndWait();
-                }
-                }
-            }
+        Admin admin = logInModel.logInAdminCredentials(userName.getText());
+        Customer customer = logInModel.logInCustomerCredentials(userName.getText());
+        Coordinator coordinator = logInModel.logInCoordinatorCredentials(userName.getText());
+
+        if (admin == null && customer == null && coordinator == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alert");
+            alert.setHeaderText("User name not found");
+            alert.setContentText("Please try to sign up before you can be able to log in.");
+            alert.showAndWait();
         }
+        if(admin!=null){
+        if (passWord.getText().equals(admin.getPassWord())) {
+            main.setLayoutChosen("admin");
+            main.initRootLayout();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alert");
+            alert.setHeaderText("wrong credentials");
+            alert.setContentText("Please try again.");
+            alert.showAndWait();
+        }}
+        if(customer!=null){
+        if (passWord.getText().equals(customer.getPassWord())) {
+            main.setLayoutChosen("customer");
+            main.initRootLayout();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alert");
+            alert.setHeaderText("wrong credentials");
+            alert.setContentText("Please try again.");
+            alert.showAndWait();
+        }}
+if (coordinator!=null){
+        if (passWord.getText().equals(coordinator.getPassWord())) {
+            main.setLayoutChosen("coordinator");
+            main.initRootLayout();
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Alert");
+            alert.setHeaderText("wrong credentials");
+            alert.setContentText("Please try again.");
+            alert.showAndWait();
+        }}
+    }
+
 
 
     public void signUp(ActionEvent actionEvent) throws IOException {
