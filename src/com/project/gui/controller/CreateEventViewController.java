@@ -166,6 +166,8 @@ public class CreateEventViewController implements Initializable {
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
         model.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+        coordinatorController.refreshTable();
+        
     }
 
     @FXML
