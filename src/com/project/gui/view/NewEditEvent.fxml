@@ -45,7 +45,7 @@
                   <VBox>
                      <children>
                         <Label text="Date" />
-                        <DatePicker fx:id="eventPicker" prefHeight="26.0" prefWidth="170.0" />
+                        <DatePicker fx:id="eventDate" prefHeight="26.0" prefWidth="170.0" />
                      </children>
                   </VBox>
                   <VBox>
