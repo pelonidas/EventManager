@@ -4,6 +4,8 @@ import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.User;
+import com.project.bll.EventManager;
+import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
@@ -21,11 +23,14 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class CustomerModel {
-    IDALFacade EMFacade;
-    ObservableList<com.project.be.Customer> allCustomers ;
+    IDALFacade EMFacade;//DELETE THIS LATER
+    IEventManager eventManager;
+    ObservableList<com.project.be.Customer> allCustomers;
+    ObservableList<com.project.be.Customer> sameEventCustomers;
 
     public CustomerModel() throws IOException {
-        EMFacade = new DALController();
+        EMFacade = new DALController();//DELETE THIS LATER
+        eventManager = EventManager.getInstance();
     }
 
     public ObservableList<com.project.be.Customer> getAllCustomers() throws SQLException {
@@ -37,4 +42,12 @@ public class CustomerModel {
     public void createCustomer(String firstName, String lastName, String userName, String password, String email, LocalDate birthDate) throws SQLException, UserException {
         EMFacade.createCustomer(firstName,lastName,userName,password,email, java.sql.Date.valueOf(birthDate));
     }
+
+    public ObservableList<com.project.be.Customer> getAllCustomersOnSameEvent(int id) throws Exception {
+        sameEventCustomers = FXCollections.observableArrayList();
+        sameEventCustomers.addAll(eventManager.getAllCustomersFromSameEvent(id));
+        return sameEventCustomers;
+    }
+
+
 }

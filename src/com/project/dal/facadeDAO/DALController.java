@@ -67,6 +67,11 @@ public class DALController implements IDALFacade {
     }
 
     @Override
+    public List<Customer> getAllCustomersFromSameEvent(int eventId) throws Exception {
+        return customerDAO.getAllCustomersFromSameEvent(eventId);
+    }
+
+    @Override
     public List<Coordinator> getAllCoordinators() throws SQLException {
         return coordinatorDAO.getAllCoordinators();
     }

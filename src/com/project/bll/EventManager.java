@@ -74,6 +74,11 @@ public class EventManager implements IEventManager{
     }
 
     @Override
+    public List<Customer> getAllCustomersFromSameEvent(int eventId) throws Exception {
+        return dalController.getAllCustomersFromSameEvent(eventId);
+    }
+
+    @Override
     public List<Coordinator> getAllCoordinators() throws SQLException {
         return dalController.getAllCoordinators();
     }
