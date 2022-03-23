@@ -1,5 +1,6 @@
 package com.project.gui.controller;
 
+import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.User;
 import com.project.gui.model.CustomerModel;
@@ -41,11 +42,13 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField filter;
     @FXML
-    private TableView<User> tableViewParticipantsOnClickedEvent;
+    private TableView<Customer> tableViewParticipantsOnClickedEvent;
+    @FXML
+    private TableColumn<Customer, String> firstNameColumn;
+    @FXML
+    private TableColumn<Customer, String> secondNameColumn;
     @FXML
     private TableView<Event> upcomingTable;
-    @FXML
-    private TableColumn<User, String> participantsNameColumn;
     @FXML
     private TableColumn<Event, String> upcomingEventNameColumn;
     @FXML
@@ -109,11 +112,12 @@ public class CustomerController implements Initializable {
     public void tableVIewOnMouseRelease(MouseEvent mouseEvent) {
         Event selectedEvent = upcomingTable.getSelectionModel().getSelectedItem();
         if (selectedEvent != null){
-            //additionalInfoTextArea.setText(selectedEvent.getNotes());
-            participantsNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+            additionalInfoTextArea.setText(selectedEvent.getDescription());
+            firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            secondNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
             ObservableList<User> userObservableList = FXCollections.observableArrayList();
             userObservableList.addAll(selectedEvent.getParticipants());
-            tableViewParticipantsOnClickedEvent.setItems(userObservableList);
+            //tableViewParticipantsOnClickedEvent.setItems(userObservableList);
         }
     }
 }

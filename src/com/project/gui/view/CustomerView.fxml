@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CustomerController">
+<AnchorPane prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CustomerController">
     <children>
         <GridPane layoutX="-14.0" layoutY="-10.0" prefHeight="1010.0" prefWidth="1414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -31,9 +31,9 @@
             <children>
                 <TableView fx:id="upcomingTable" onMouseReleased="#tableVIewOnMouseRelease" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn fx:id="upcomingEventNameColumn" prefWidth="249.0" text="Name of event" />
-                        <TableColumn fx:id="upcomingEventStartColumn" prefWidth="163.0" text="Start" />
-                  <TableColumn fx:id="upcomingEventLocationColumn" prefWidth="267.0" text="Location" />
+                        <TableColumn fx:id="upcomingEventNameColumn" prefWidth="183.0" text="Title" />
+                        <TableColumn fx:id="upcomingEventStartColumn" prefWidth="184.0" text="Start" />
+                  <TableColumn fx:id="upcomingEventLocationColumn" prefWidth="212.0" text="Location" />
                     </columns>
                     <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -80,7 +80,8 @@
             </Label>
             <TableView fx:id="tableViewParticipantsOnClickedEvent" prefHeight="155.0" prefWidth="387.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <columns>
-                <TableColumn fx:id="participantsNameColumn" prefWidth="437.59997560977934" text="Participant names" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="294.0" text="First name" />
+                  <TableColumn fx:id="secondNameColumn" prefWidth="285.0" text="Second names" />
               </columns>
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
