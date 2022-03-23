@@ -8,16 +8,10 @@ import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CustomerModel {
@@ -54,6 +48,6 @@ public class CustomerModel {
     }
 
     public void buyTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
-        eventManager.buyTicket(ticketType,user,selectedEvent);
+        eventManager.createTicket(ticketType,user,selectedEvent);
     }
 }
