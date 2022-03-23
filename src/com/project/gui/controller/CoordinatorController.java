@@ -31,9 +31,7 @@ public class CoordinatorController implements Initializable {
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
     private ManageEventsModel manageEventsModel;
-    @FXML
-    private TextArea detailsTextarea;
-    private DateTimeConverter dateTimeConverter= new DateTimeConverter();
+
     public CoordinatorController() throws IOException {
        manageEventsModel = new ManageEventsModel();
     }
