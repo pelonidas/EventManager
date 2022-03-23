@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -33,9 +34,10 @@ public class CoordinatorController implements Initializable {
     private ManageEventsModel manageEventsModel;
     @FXML
     private TextArea detailsTextarea;
-    private DateTimeConverter dateTimeConverter= new DateTimeConverter();
+    private DateTimeConverter dateTimeConverter = new DateTimeConverter();
+
     public CoordinatorController() throws IOException {
-       manageEventsModel = new ManageEventsModel();
+        manageEventsModel = new ManageEventsModel();
     }
 
 
@@ -43,8 +45,6 @@ public class CoordinatorController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             refreshTable();
-            int i = coordinatorTableView.getSelectionModel().getSelectedIndex();
-            System.out.println(i);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,17 +82,20 @@ public class CoordinatorController implements Initializable {
     }
 
     public void handleManageButton(ActionEvent event) throws SQLException {
-//        refreshTable();
-
-    }
-    public Event getSelectedEvent() {
-        return coordinatorTableView.getSelectionModel().getSelectedItem();
     }
 
     public void handleTableview(MouseEvent mouseEvent) {
+
         Event e = coordinatorTableView.getSelectionModel().getSelectedItem();
-        dateTimeConverter.
-        detailsTextarea.setText("Event title: " + e.getTitle() + "\n" + "Event location: " + e.getLocation() + "\n" + "Event attendance: " + e.getParticipants());
+
+        detailsTextarea.setText
+                (
+                        "Event title: " + e.getTitle() + "\n"
+                        + "Event location: " + e.getLocation() + "\n"
+                        + "Event attendance: " + e.getParticipants() + "\n"
+                        + "Date: " + e.getDateAndTime().toString() + "\n"
+                        + "Description: " + e.getDescription() + "\n"
+                );
     }
 }
 
