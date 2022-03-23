@@ -15,7 +15,7 @@
    <children>
       <VBox prefHeight="550.0" prefWidth="500.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="My events">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All events">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin></Text>

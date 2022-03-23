@@ -2,6 +2,8 @@ package com.project.gui.controller;
 
 
 import com.project.be.Event;
+import com.project.be.Ticket;
+import com.project.be.TicketType;
 import com.project.gui.model.CoordinatorModel;
 import com.project.gui.model.EditEventModel;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.stage.Window;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,7 +36,6 @@ public class CreateEventViewController implements Initializable {
     }
     public void setCoordinatorController(CoordinatorController coordinatorController){
         this.coordinatorController = coordinatorController;
-//        System.out.println("heh");
     }
 
     @Override
@@ -42,11 +44,9 @@ public class CreateEventViewController implements Initializable {
     }
 
     public void handleOkButton(ActionEvent event) throws SQLException {
+        List<TicketType> ticketList = new ArrayList<>();
 
-//        editEventModel.createEvent(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()));
-        //coordinatorModel.addEvent(e);
-        System.out.println(eventInput.getText());
-        //System.out.println(coordinatorModel.getAllEvents());
+        editEventModel.createEvent(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()), ticketList);
         coordinatorController.refreshTable();
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
