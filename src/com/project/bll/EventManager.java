@@ -114,6 +114,11 @@ public class EventManager implements IEventManager{
     }
 
     @Override
+    public Ticket getTicket(Customer selectedUser, Event selectedEvent) throws SQLException {
+        return dalController.getTicket(selectedUser,selectedEvent);
+    }
+
+    @Override
     public List<TicketType> getAllTicketTypes() throws SQLException {
         return dalController.getAllTicketTypes();
     }

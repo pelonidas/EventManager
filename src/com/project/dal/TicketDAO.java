@@ -1,9 +1,7 @@
 package com.project.dal;
 
-import com.project.be.Customer;
-import com.project.be.Event;
-import com.project.be.Ticket;
-import com.project.be.User;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import com.project.be.*;
 import com.project.dal.connectorDAO.DBConnector;
 
 import java.io.IOException;
@@ -71,6 +69,36 @@ public class TicketDAO {
             preparedStatement.setInt(1,ticket.getCustomer().getId());
             preparedStatement.setInt(2,ticket.getEvent().getId());
             preparedStatement.executeUpdate();
+        }
+    }
+
+    public Ticket getTicket(Customer selectedUser, Event selectedEvent) throws SQLException {
+        Ticket ticket = null;
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * \n" +
+                        "FROM tickets t \n" +
+                        "JOIN categories_ticket ct\n" +
+                        "\tON t.ticket_category_id = ct.id\n" +
+                        "\t\tWHERE t.customer_id = ? And t.event_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,selectedUser.getId());
+            preparedStatement.setInt(2,selectedEvent.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+            int ticketId = resultSet.getInt("id");
+            String qrCode = resultSet.getString("qr_code");
+
+            int ticketTypeId = resultSet.getInt("ticket_category_id");
+            String ticketTypeTitle = resultSet.getString("title");
+            String benefits = resultSet.getString("benefits");
+            double price =resultSet.getDouble("price");
+            int seats_available = resultSet.getInt("seats_available");
+            
+            TicketType ticketType = new TicketType(ticketTypeId,ticketTypeTitle,benefits,price,seats_available);
+            ticket = new Ticket(selectedEvent,selectedUser,ticketId,ticketType,qrCode);
+            }
+            return ticket;
         }
     }
 }

@@ -1,7 +1,10 @@
 package com.project.gui.controller;
 
 import com.google.zxing.WriterException;
+import com.project.be.Admin;
+import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.be.User;
 import com.project.bll.util.DateTimeConverter;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -22,9 +25,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
+import java.sql.SQLException;
 import java.util.Date;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -36,7 +38,7 @@ public class CustomerPurchasedEventsController implements Initializable {
     @FXML
     private HBox mainPane;
     @FXML
-    private TableView<Event> eventsTable;
+    private TableView<User> eventsTable;
     @FXML
     private VBox buttonPane;
     @FXML
@@ -48,26 +50,34 @@ public class CustomerPurchasedEventsController implements Initializable {
     @FXML
     private TableColumn capacityColumn;
 
+    private Event event;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initIcons();
         initTable();
+
     }
+
+
 
 
     //TODO make actually work
     private void initTable() {
         Date date = DateTimeConverter.parse_convertDateTime("2002-09-21 21:30");
-        Event event1 = new Event(1,"Concert",date,"1600 Pennsylvania Avenue NW","Micheal Jackson concert",200);
-        Event event2 = new Event(1,"Theater",date,"1681 Broadway New York City","Premiere of Cinderella",1000);
-        Event event3 = new Event(1,"Festival",date,"Belgium","A little festival in belgium",20000);
 
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        capacityColumn.setCellValueFactory(new PropertyValueFactory<>("seatsAvailable"));
+        User user = new Customer(1,"Amine","Aouina","Silamin","Poop","easv@Amin.com",date);
+        User user1 = new Customer(2,"Oliver","Souc","Olly","Password","Mail@Mail.de",date);
+        User user2 = new Customer(3,"Renars","Mednieks","Renaldinho","123","Mail@Bussiness.com",date);
 
-        eventsTable.getItems().setAll(new Event[]{event1,event2,event3});
+        event = new Event(2,"event",date,"NEw York","Description");
+
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+
+        eventsTable.getItems().setAll(new User[]{user,user1,user2});
     }
 
     private void initIcons() {
@@ -89,19 +99,19 @@ public class CustomerPurchasedEventsController implements Initializable {
 
     EventHandler viewTicketAction = new EventHandler() {
         @Override
-        public void handle(javafx.event.Event event) {
-            Event selectedEvent = eventsTable.getSelectionModel().getSelectedItem();
-            if(selectedEvent==null)
+        public void handle(javafx.event.Event actionEvent) {
+            User selectedUser = eventsTable.getSelectionModel().getSelectedItem();
+            if(selectedUser==null)
                 return;
             try {
-                openTicket(selectedEvent);
-            } catch (IOException | WriterException e) {
+                openTicket(selectedUser,event);
+            } catch (IOException | WriterException | SQLException e) {
                 e.printStackTrace();
             }
         }
     };
 
-    private void openTicket(Event selectedEvent) throws IOException, WriterException {
+    private void openTicket(User selectedUser,Event event) throws IOException, WriterException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Ticket.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -110,33 +120,33 @@ public class CustomerPurchasedEventsController implements Initializable {
 
         TicketController ticketController = loader.getController();
         ticketController.setRandomCodes();
-        ticketController.setFields(selectedEvent);
+        ticketController.setFields(((Customer) selectedUser),event);
 
         stage.show();
     }
 
     EventHandler printTicketAction = new EventHandler() {
         @Override
-        public void handle(javafx.event.Event event) {
-            Event selectedEvent = eventsTable.getSelectionModel().getSelectedItem();
-            if(selectedEvent==null)
+        public void handle(javafx.event.Event actionEvent) {
+            User selectedUser = eventsTable.getSelectionModel().getSelectedItem();
+            if(selectedUser==null)
                 return;
             try {
-                printTicket(selectedEvent);
-            } catch (IOException | WriterException e) {
+                printTicket(((Customer) selectedUser),event);
+            } catch (IOException | WriterException | SQLException e) {
                 e.printStackTrace();
 
         }
     };
 
-    private void printTicket(Event selectedEvent) throws IOException, WriterException {
+    private void printTicket(Customer selectedUser,Event selectedEvent) throws IOException, WriterException, SQLException {
         PrinterJob printer = PrinterJob.createPrinterJob();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/Ticket.fxml"));
         Parent root = loader.load();
 
         TicketController ticketController = loader.getController();
-        ticketController.setFields(selectedEvent);
+        ticketController.setFields(selectedUser, selectedEvent);
         ticketController.setRandomCodes();
         HBox rootNode = ticketController.getRoot();
 
@@ -148,4 +158,5 @@ public class CustomerPurchasedEventsController implements Initializable {
     }
 
 };
+
 }

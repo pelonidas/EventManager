@@ -103,6 +103,11 @@ public class DALController implements IDALFacade {
     }
 
     @Override
+    public Ticket getTicket(Customer selectedUser, Event selectedEvent) throws SQLException {
+        return ticketDAO.getTicket(selectedUser,selectedEvent);
+    }
+
+    @Override
     public List<TicketType> getAllTicketTypes() throws SQLException {
         return ticketCategoryDAO.getAllTicketTypes();
     }

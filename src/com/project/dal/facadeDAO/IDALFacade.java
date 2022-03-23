@@ -42,6 +42,7 @@ public interface IDALFacade {
     List<Ticket>getAllTickets(Customer customer)throws SQLException;
     Ticket createTicket(Customer customer, Event event,String qr_code, int ticketCategory) throws SQLException;
     void deleteTicket(Ticket ticket)throws SQLException;
+    Ticket getTicket(Customer selectedUser, Event selectedEvent) throws SQLException;
 
     /**
      * TicketCategoryDao

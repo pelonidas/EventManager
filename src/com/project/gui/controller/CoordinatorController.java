@@ -91,7 +91,7 @@ public class CoordinatorController implements Initializable {
 
     public void handleTableview(MouseEvent mouseEvent) {
         Event e = coordinatorTableView.getSelectionModel().getSelectedItem();
-        dateTimeConverter.
+
         detailsTextarea.setText("Event title: " + e.getTitle() + "\n" + "Event location: " + e.getLocation() + "\n" + "Event attendance: " + e.getParticipants());
     }
 }
