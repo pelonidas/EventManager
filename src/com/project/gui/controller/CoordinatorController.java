@@ -92,7 +92,7 @@ public class CoordinatorController implements Initializable {
                 (
                         "Event title: " + e.getTitle() + "\n"
                         + "Event location: " + e.getLocation() + "\n"
-                        + "Event attendance: " + e.getParticipants() + "\n"
+                        + "Seats available: " + e.getSeatsAvailable() + "\n"
                         + "Date: " + e.getDateAndTime().toString() + "\n"
                         + "Description: " + e.getDescription() + "\n"
                 );

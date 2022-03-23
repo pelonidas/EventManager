@@ -28,7 +28,10 @@ public class EventDAO {
                         resultSet.getString("title"),
                         resultSet.getDate("date"),
                         resultSet.getString("location"),
-                        resultSet.getString("description")));
+                        resultSet.getString("description"),
+                        resultSet.getInt("seats availble")
+                ));
+
             }
         }
         return allEvents;
