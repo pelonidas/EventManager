@@ -40,7 +40,6 @@ public class CoordinatorController implements Initializable {
         manageEventsModel = new ManageEventsModel();
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -85,9 +84,7 @@ public class CoordinatorController implements Initializable {
     }
 
     public void handleTableview(MouseEvent mouseEvent) {
-
         Event e = coordinatorTableView.getSelectionModel().getSelectedItem();
-
         detailsTextarea.setText
                 (
                         "Event title: " + e.getTitle() + "\n"
