@@ -31,6 +31,8 @@ public class CoordinatorModel {
         return allCoordinators;
     }
 
+
+
     public void createCoordinator(String firstName, String lastName, String userName, String password, String email, LocalDate birthDate) throws SQLException, UserException {
         EMFacade.createCoordinator(firstName,lastName,userName,password,email,java.sql.Date.valueOf(birthDate));
     }

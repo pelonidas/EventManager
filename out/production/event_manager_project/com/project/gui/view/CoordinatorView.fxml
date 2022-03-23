@@ -19,7 +19,7 @@
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin></Text>
-            <TableView fx:id="coordinatorTableView" prefHeight="507.0" prefWidth="431.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="coordinatorTableView" onMouseClicked="#handleTableview" prefHeight="507.0" prefWidth="431.0" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="name" prefWidth="75.0" text="Name of the event" />
                   <TableColumn fx:id="attendance" prefWidth="75.0" text="Attendance" />
@@ -53,7 +53,7 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Text>
-            <TextArea fx:id="detailsTextfield" prefHeight="300.0" prefWidth="200.0" />
+            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="300.0" prefWidth="200.0" />
             <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <bottom>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">

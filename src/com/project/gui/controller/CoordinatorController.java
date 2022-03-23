@@ -1,7 +1,9 @@
 package com.project.gui.controller;
 
 import com.project.be.Event;
+import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.CoordinatorModel;
+import com.project.gui.model.ManageEventsModel;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -14,10 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CoordinatorController implements Initializable {
@@ -25,29 +30,35 @@ public class CoordinatorController implements Initializable {
     private TableView<Event> coordinatorTableView;
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
-    //private CoordinatorModel coordinatorModel=  new CoordinatorModel();;
-    private CreateEventViewController createEventViewController;
-    public CoordinatorController() {
-
-        createEventViewController = new CreateEventViewController();
-
+    private ManageEventsModel manageEventsModel;
+    @FXML
+    private TextArea detailsTextarea;
+    private DateTimeConverter dateTimeConverter= new DateTimeConverter();
+    public CoordinatorController() throws IOException {
+       manageEventsModel = new ManageEventsModel();
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        refreshTable();
+        try {
+            refreshTable();
+            int i = coordinatorTableView.getSelectionModel().getSelectedIndex();
+            System.out.println(i);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void refreshTable() {
+    public void refreshTable() throws SQLException {
         coordinatorTableView.getItems().clear();
         coordinatorTableView.refresh();
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
-       // coordinatorTableView.setItems(coordinatorModel.getAllEvents());
+        coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
 
 
@@ -70,9 +81,18 @@ public class CoordinatorController implements Initializable {
         stage.show();
     }
 
-    public void handleManageButton(ActionEvent event) {
-        refreshTable();
+    public void handleManageButton(ActionEvent event) throws SQLException {
+//        refreshTable();
 
+    }
+    public Event getSelectedEvent() {
+        return coordinatorTableView.getSelectionModel().getSelectedItem();
+    }
+
+    public void handleTableview(MouseEvent mouseEvent) {
+        Event e = coordinatorTableView.getSelectionModel().getSelectedItem();
+        dateTimeConverter.
+        detailsTextarea.setText("Event title: " + e.getTitle() + "\n" + "Event location: " + e.getLocation() + "\n" + "Event attendance: " + e.getParticipants());
     }
 }
 
