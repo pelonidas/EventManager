@@ -1,9 +1,6 @@
 package com.project.dal;
 
-import com.project.be.Customer;
-import com.project.be.Event;
-import com.project.be.Ticket;
-import com.project.be.User;
+import com.project.be.*;
 import com.project.dal.connectorDAO.DBConnector;
 
 import java.io.IOException;
@@ -48,7 +45,7 @@ public class TicketDAO {
         return allTickets;
     }
 
-    public Ticket createTicket (Customer customer, Event event,String qr_code, int ticketCategory)throws SQLException{
+    public Ticket createTicket (Customer customer, Event event,String qr_code,TicketType ticketType)throws SQLException{
         Ticket ticket=null;
         try (Connection connection = dbConnector.getConnection()){
           String sql = "INSERT INTO tickets VALUES (?,?,?,?)";
@@ -56,7 +53,7 @@ public class TicketDAO {
           preparedStatement.setInt(1,event.getId());
           preparedStatement.setInt(2,customer.getId());
           preparedStatement.setString(4,qr_code);
-          preparedStatement.setInt(3,ticketCategory);
+          preparedStatement.setInt(3,ticketType.getId());
           ResultSet resultSet = preparedStatement.executeQuery();
           while (resultSet.next()){
               ticket= new Ticket(resultSet.getInt(1),event,customer,qr_code);
@@ -73,4 +70,5 @@ public class TicketDAO {
             preparedStatement.executeUpdate();
         }
     }
+
 }

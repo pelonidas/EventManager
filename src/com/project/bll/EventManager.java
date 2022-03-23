@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class EventManager implements IEventManager{
 
@@ -106,12 +107,6 @@ public class EventManager implements IEventManager{
         return dalController.getAllTickets(customer);
     }
 
-    @Override
-    public Ticket createTicket(Customer customer, Event event, String qr_code, int ticketCategory) throws SQLException {
-        if (customer != null)
-            dalController.createTicket(customer, event, qr_code, ticketCategory);
-        return null;
-    }
 
     @Override
     public void deleteTicket(Ticket ticket) throws SQLException {
@@ -123,10 +118,6 @@ public class EventManager implements IEventManager{
         return dalController.getAllTicketTypes();
     }
 
-    @Override
-    public TicketType createTicketType(String title, double price, String benefits, int seatsAvailable) throws SQLException {
-        return dalController.createTicketType(title, price, benefits, seatsAvailable);
-    }
 
     @Override
     public TicketType editTicketType(TicketType ticketType, String title, double price, String benefits, int seatsAvailable) throws SQLException {
@@ -148,5 +139,10 @@ public class EventManager implements IEventManager{
     @Override
     public List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException {
         return dalController.getAllTicketTypesForEvent(selectedEvent);
+    }
+
+    @Override
+    public void buyTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException{
+        dalController.createTicket(ticketType,user,selectedEvent);
     }
 }

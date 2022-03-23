@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class DALController implements IDALFacade {
     CoordinatorDAO coordinatorDAO ;
@@ -98,13 +99,14 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Ticket createTicket(Customer customer, Event event, String qr_code, int ticketCategory) throws SQLException {
-        return ticketDAO.createTicket(customer,event,qr_code,ticketCategory);
+    public void deleteTicket(Ticket ticket) throws SQLException {
+        ticketDAO.deleteTicket(ticket);
     }
 
     @Override
-    public void deleteTicket(Ticket ticket) throws SQLException {
-        ticketDAO.deleteTicket(ticket);
+    public void createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
+        String uniqueID = UUID.randomUUID().toString();
+        ticketDAO.createTicket(((Customer) user),selectedEvent,uniqueID,ticketType);
     }
 
     @Override
@@ -112,10 +114,6 @@ public class DALController implements IDALFacade {
         return ticketCategoryDAO.getAllTicketTypes();
     }
 
-    @Override
-    public TicketType createTicketType(String title, double price, String benefits, int seatsAvailable) throws SQLException {
-        return ticketCategoryDAO.createTicketType(title,price,benefits,seatsAvailable);
-    }
 
     @Override
     public TicketType editTicketType(TicketType ticketType, String title, double price, String benefits, int seatsAvailable) throws SQLException{

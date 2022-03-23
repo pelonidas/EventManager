@@ -52,4 +52,8 @@ public class CustomerModel {
         List<TicketType> ticketTypes = eventManager.getAllTicketTypesForEvent(selectedEvent);
         return FXCollections.observableArrayList(ticketTypes);
     }
+
+    public void buyTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
+        eventManager.buyTicket(ticketType,user,selectedEvent);
+    }
 }

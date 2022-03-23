@@ -4,6 +4,7 @@ import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.TicketType;
 import com.project.be.User;
+import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
 import javafx.beans.property.Property;
@@ -72,6 +73,8 @@ public class CustomerController implements Initializable {
     private final ManageEventsModel manageEventsModel;
     private final CustomerModel customerModel;
 
+    private User user;
+
     public CustomerController() throws Exception {
         this.manageEventsModel = new ManageEventsModel();
         this.customerModel = new CustomerModel();
@@ -82,6 +85,10 @@ public class CustomerController implements Initializable {
         try {
             setTableViewUpcomingEvents();
             setTableViewTicketTypes();
+
+
+            Date date = DateTimeConverter.parse_convertDateTime("2002-09-21 21:30");
+            user = new Customer(1,"Bob","Tester","Test customer","password","bob@mail.com",date);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -95,15 +102,12 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    public void buyTicketOnAction(ActionEvent event) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/project/gui/view/Ticket.fxml"));
-        root = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Participants");
-        stage.setScene(new Scene(root));
-        stage.show();
+    public void buyTicketOnAction(ActionEvent event) throws IOException, SQLException {
+        TicketType ticketType = ticketTypeTable.getSelectionModel().getSelectedItem();
+        Event selectedEvent = upcomingTable.getSelectionModel().getSelectedItem();
+        if (ticketType==null || selectedEvent==null)
+            return;
+        customerModel.buyTicket(ticketType,user,selectedEvent);
     }
 
     @FXML

@@ -41,14 +41,14 @@ public interface IDALFacade {
      * Tickets Dao
      */
     List<Ticket>getAllTickets(Customer customer)throws SQLException;
-    Ticket createTicket(Customer customer, Event event,String qr_code, int ticketCategory) throws SQLException;
     void deleteTicket(Ticket ticket)throws SQLException;
+    void createTicket(TicketType ticketType, User user,Event selectedEvent) throws SQLException;
+
 
     /**
      * TicketCategoryDao
      */
     List<TicketType> getAllTicketTypes ()throws SQLException;
-    TicketType createTicketType (String title,double price, String benefits,int seatsAvailable )throws SQLException;
     TicketType editTicketType(TicketType ticketType,String title,double price, String benefits,int seatsAvailable) throws SQLException;
     void deleteTicketType(TicketType ticketType)throws SQLException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
