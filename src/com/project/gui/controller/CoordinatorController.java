@@ -63,7 +63,7 @@ public class CoordinatorController implements Initializable {
 
     public void handleCreateEvent(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getClassLoader().getResource("com/project/gui/view/CreateEventView.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("com/project/gui/view/NewEditEvent.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -85,11 +85,12 @@ public class CoordinatorController implements Initializable {
 
     public void handleTableview(MouseEvent mouseEvent) {
         Event e = coordinatorTableView.getSelectionModel().getSelectedItem();
+        String seatsAvailable = String.valueOf(e.getSeatsAvailable());
         detailsTextarea.setText
                 (
                         "Event title: " + e.getTitle() + "\n"
                         + "Event location: " + e.getLocation() + "\n"
-                        + "Event attendance: " + e.getSeatsAvailable() + "\n"
+                        + "Event attendance: " + seatsAvailable + "\n"
                         + "Date: " + e.getDateAndTime().toString() + "\n"
                         + "Description: " + e.getDescription() + "\n"
                 );

@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreateEventViewController implements Initializable {
-    @FXML
-    private TextField eventInput, dateInput, descriptionInput, locationInput, seatsInput;
+//    @FXML
+//    private TextField eventInput, dateInput, descriptionInput, locationInput, seatsInput;
 
 
     private CoordinatorController coordinatorController;
@@ -43,14 +43,19 @@ public class CreateEventViewController implements Initializable {
 
     }
 
-    public void handleOkButton(ActionEvent event) throws SQLException {
-        List<TicketType> ticketList = new ArrayList<>();
+//    public void handleOkButton(ActionEvent event) throws SQLException {
+//        List<TicketType> ticketList = new ArrayList<>();
+//
+//        editEventModel.createEvent(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()), ticketList);
+//        coordinatorController.refreshTable();
+//        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+//        stage.close();
+//    }
 
-        editEventModel.createEvent(eventInput.getText(), new Date(), locationInput.getText(), descriptionInput.getText(), Integer.parseInt(seatsInput.getText()), ticketList);
-        coordinatorController.refreshTable();
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+
+    public void backView(ActionEvent event) {
     }
 
-
+    public void handleSaveEvent(ActionEvent event) {
+    }
 }
