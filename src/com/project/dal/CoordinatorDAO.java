@@ -1,6 +1,7 @@
 package com.project.dal;
 
 import com.project.be.Coordinator;
+import com.project.be.User;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.CheckInput;
 import com.project.dal.connectorDAO.DBConnector;
@@ -163,5 +164,14 @@ public class CoordinatorDAO {
             throw  new UserException("Something went wrong in the database",new Exception());
         }
         return false;
+    }
+    public Coordinator logInCredentials(String userName)throws SQLException,UserException{
+        for (Coordinator coordinator: getAllCoordinators()){
+            if (userName.equals(coordinator.getUserName()))
+                return coordinator;
+        }
+        UserException userException= new UserException("This user_name does not exist",new Exception());
+        userException.setInstructions("Try to SignUp first so you can logIn");
+        throw userException;
     }
 }

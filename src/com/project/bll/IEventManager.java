@@ -47,4 +47,12 @@ public interface IEventManager {
     TicketType editTicketType(TicketType ticketType,String title,double price, String benefits,int seatsAvailable) throws SQLException;
     void deleteTicketType(TicketType ticketType)throws SQLException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
+
+    /**
+     * logIn credentials
+     * @param userName
+     * @return
+     * @throws SQLException
+     * @throws UserException
+     */
 }

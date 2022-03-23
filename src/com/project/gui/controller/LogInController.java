@@ -1,5 +1,7 @@
 package com.project.gui.controller;
 
+import com.project.bll.exceptions.UserException;
+import com.project.gui.model.LogInModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -11,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -33,6 +36,8 @@ public class LogInController implements Initializable {
     @FXML
     private CustomPasswordField passWord;
 
+    LogInModel logInModel;
+
     private Main main;
     public void setMainApp(Main main) {
         this.main=main;
@@ -40,7 +45,12 @@ public class LogInController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       Text usersIcons= GlyphsDude.createIcon(FontAwesomeIcons.USERS,"35px");
+        try {
+            logInModel = new LogInModel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Text usersIcons= GlyphsDude.createIcon(FontAwesomeIcons.USERS,"35px");
        usersIcons.setFill(Paint.valueOf("#0598ff"));
        usersIcons.setLayoutX(152);
        usersIcons.setLayoutY(101);
@@ -66,26 +76,34 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
-        if (userName.getText().equals("admin")&&passWord.getText().equals("admin")){
-            main.setLayoutChosen("admin");
-            main.initRootLayout();
+
+            try {
+                if (passWord.getText().equals(logInModel.logInAdminCredentials(userName.getText()).getPassWord())){
+                    main.setLayoutChosen("admin");
+                    main.initRootLayout();}
+                }catch(UserException ue){
+                try {
+                    if (passWord.getText().equals(logInModel.logInCustomerCredentials(userName.getText()).getPassWord())){
+                        main.setLayoutChosen("customer");
+                        main.initRootLayout();
+                    }
+                }catch (UserException userException){
+                try {
+                    if (passWord.getText().equals(logInModel.logInCoordinatorCredentials(userName.getText()).getPassWord())){
+                    }
+                        main.setLayoutChosen("coordinator");
+                        main.initRootLayout();
+                    }catch (UserException userException1){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Wrong credentials");
+                    alert.setContentText("Please try again.");
+                    alert.showAndWait();
+                }
+                }
+            }
         }
-        else if (userName.getText().equals("coordinator")&&passWord.getText().equals("coordinator")){
-            main.setLayoutChosen("coordinator");
-            main.initRootLayout();
-        }
-        else if (userName.getText().equals("customer")&&passWord.getText().equals("customer")){
-            main.setLayoutChosen("customer");
-            main.initRootLayout();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alert");
-            alert.setContentText("Please try again");
-            alert.setHeaderText("Wrong logIn infos");
-            alert.showAndWait();
-        }
-    }
+
 
     public void signUp(ActionEvent actionEvent) throws IOException {
         Parent root;

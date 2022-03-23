@@ -170,5 +170,13 @@ public class CustomerDAO {
         }
         return false;
     }
-
+    public Customer logInCredentials(String userName)throws SQLException,UserException{
+        for (Customer customer: getAllCustomers()){
+            if (userName.equals(customer.getUserName()))
+                return customer;
+        }
+        UserException userException= new UserException("This user_name does not exist",new Exception());
+        userException.setInstructions("Try to SignUp first so you can logIn");
+        throw userException;
+    }
 }

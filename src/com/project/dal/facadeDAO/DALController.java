@@ -14,10 +14,12 @@ public class DALController implements IDALFacade {
     CustomerDAO customerDAO ;
     EventDAO eventDAO ;
     TicketDAO ticketDAO;
+    AdminDAO adminDAO;
     TicketCategoryDAO ticketCategoryDAO;
 
     public DALController() throws IOException {
         eventDAO = new EventDAO();
+        adminDAO= new AdminDAO();
         customerDAO =  new CustomerDAO();
         coordinatorDAO = new CoordinatorDAO();
         ticketDAO = new TicketDAO();
@@ -123,6 +125,21 @@ public class DALController implements IDALFacade {
     @Override
     public void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException {
         ticketCategoryDAO.createMultipleTicketTypes(ticketTypes,id);
+    }
+
+    @Override
+    public Customer logInCustomerCredentials(String userName) throws SQLException, UserException {
+        return customerDAO.logInCredentials(userName);
+    }
+
+    @Override
+    public Coordinator logInCoordinatorCredentials(String userName) throws SQLException, UserException {
+        return coordinatorDAO.logInCredentials(userName);
+    }
+
+    @Override
+    public Admin logInAdminCredentials(String userName) throws SQLException, UserException {
+        return adminDAO.logInAdminCredentials(userName);
     }
 
 
