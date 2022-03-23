@@ -1,5 +1,6 @@
 package com.project.gui.model;
 
+import com.project.be.Event;
 import com.project.be.TicketType;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
@@ -24,6 +25,15 @@ public class EditEventModel {
     }
 
     public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
-        eventManager.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+        eventManager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
+    }
+
+    public void deleteEvent(Event e) {
+        try {
+            eventManager.deleteEvent(e);
+        } catch (Exception exception) {
+            System.out.println(e);
+        }
+
     }
 }

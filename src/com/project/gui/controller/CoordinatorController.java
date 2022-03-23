@@ -3,6 +3,7 @@ package com.project.gui.controller;
 import com.project.be.Event;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.CoordinatorModel;
+import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,12 +33,14 @@ public class CoordinatorController implements Initializable {
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
     private ManageEventsModel manageEventsModel;
+    private EditEventModel editEventModel;
     @FXML
     private TextArea detailsTextarea;
     private DateTimeConverter dateTimeConverter = new DateTimeConverter();
 
     public CoordinatorController() throws IOException {
         manageEventsModel = new ManageEventsModel();
+        editEventModel = new EditEventModel();
     }
 
     @Override
@@ -93,6 +96,16 @@ public class CoordinatorController implements Initializable {
                         + "Date: " + e.getDateAndTime().toString() + "\n"
                         + "Description: " + e.getDescription() + "\n"
                 );
+    }
+
+    public void handleDeleteButton(ActionEvent event) {
+        try {
+            editEventModel.deleteEvent(coordinatorTableView.getSelectionModel().getSelectedItem());
+            refreshTable();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 }
 
