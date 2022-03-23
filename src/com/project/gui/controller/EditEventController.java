@@ -26,40 +26,16 @@ import java.util.ResourceBundle;
 public class EditEventController implements Initializable {
 
     @FXML
-    private ComboBox hoursBox;
+    private ComboBox hoursBox, minutesBox;
     @FXML
-    private ComboBox minutesBox;
-    @FXML
-    private TextField ticketBenefitsTxt;
-    @FXML
-    private TextField eventCapacityTxt;
-    @FXML
-    private TextField ticketPriceTxt;
-    @FXML
-    private VBox box;
-
-    @FXML
-    private TextField eventTitleTxt;
+    private TextField ticketBenefitsTxt, eventCapacityTxt, ticketPriceTxt, eventTitleTxt, eventLocationTxt, eventNotesTxt, ticketTypeTxt;
 
     @FXML
     private DatePicker eventDate;
 
     @FXML
     private Spinner<?> eventDurationTxt;
-
-    @FXML
-    private VBox box1;
-
-    @FXML
-    private TextField eventLocationTxt;
-
-    @FXML
-    private TextField eventNotesTxt;
-
-    @FXML
-    private TextField ticketTypeTxt;
-
-
+    
     @FXML
     private VBox ticketManagementButtons;
 

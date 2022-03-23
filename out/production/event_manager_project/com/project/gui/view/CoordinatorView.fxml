@@ -33,7 +33,7 @@
             <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
                   <Button fx:id="createButton" mnemonicParsing="false" onAction="#handleCreateEvent" text="Create Event" />
-                  <Button fx:id="editButton" mnemonicParsing="false" text="Edit Event" />
+                  <Button mnemonicParsing="false" onAction="#handleEditButton" text="Edit Event" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete Event" />
                   <Button mnemonicParsing="false" text="Buy a ticket" />
                </buttons>

@@ -105,7 +105,22 @@ public class CoordinatorController implements Initializable {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
 
+    public void handleEditButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getClassLoader().getResource("com/project/gui/view/EditEventView.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("New/Edit Song");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
 

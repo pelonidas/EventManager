@@ -46,7 +46,9 @@ public class CreateEventViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        initIcons();
+        initValidators();
+        initTimeBoxes();
     }
 
 //    public void handleOkButton(ActionEvent event) throws SQLException {
@@ -73,4 +75,5 @@ public class CreateEventViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
 }

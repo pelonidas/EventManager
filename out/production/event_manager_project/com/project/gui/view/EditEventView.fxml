@@ -23,7 +23,7 @@
             <children>
                 <VBox>
                     <children>
-                        <Label text="Create event">
+                        <Label text="Edit event">
                             <font>
                                 <Font size="32.0" />
                             </font>
