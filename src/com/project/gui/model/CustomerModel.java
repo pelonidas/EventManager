@@ -58,4 +58,8 @@ public class CustomerModel {
     public void editCustomer(Customer customer) throws SQLException {
         eventManager.editCustomer(customer);
     }
+
+    public void editCoordinator(Coordinator coordinator) throws SQLException {
+        eventManager.editCoordinator(coordinator);
+    }
 }

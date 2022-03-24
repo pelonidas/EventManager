@@ -89,8 +89,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Coordinator editCoordinator(Coordinator coordinator, String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
-        return coordinatorDAO.editCoordinator(coordinator,firstName,lastName,userName,passWord,email,address,phoneNumber,birthDate);
+    public Coordinator editCoordinator(Coordinator coordinator) throws SQLException {
+        return coordinatorDAO.editCoordinator(coordinator);
     }
 
     @Override

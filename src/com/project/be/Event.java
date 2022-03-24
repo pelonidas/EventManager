@@ -124,4 +124,8 @@ public class Event {
         return allCoordinatorsString;
     }
 
+    @Override
+    public String toString() {
+        return "title= " + title;
+    }
 }

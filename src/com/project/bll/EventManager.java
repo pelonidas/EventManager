@@ -96,9 +96,9 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Coordinator editCoordinator(Coordinator coordinator, String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
+    public Coordinator editCoordinator(Coordinator coordinator) throws SQLException {
         if (coordinator != null)
-            return dalController.editCoordinator(coordinator, firstName, lastName, userName, passWord, email, address, phoneNumber, birthDate);
+            return dalController.editCoordinator(coordinator);
         return null;
     }
 

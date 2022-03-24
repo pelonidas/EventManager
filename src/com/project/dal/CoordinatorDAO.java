@@ -43,9 +43,6 @@ public class CoordinatorDAO {
                             resultSet.getString("email"),
                             resultSet.getDate("birth_date")));
             }
-
-
-
             }
         }
         return allCoordinators;
@@ -94,27 +91,17 @@ public class CoordinatorDAO {
             preparedStatement.executeUpdate();
         }
     }
-    public Coordinator editCoordinator(Coordinator coordinator,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
+    public Coordinator editCoordinator(Coordinator coordinator) throws SQLException{
         try (Connection connection = dbConnector.getConnection()){
-            String sql = "UPDATE users SET first_name = ?, last_name = ?,user_name = ?, password= ? ,email = ?, address = ?, phone_number = ?, birth_date = ? WHERE id = ?";
+            String sql = "UPDATE users SET first_name = ?, last_name = ?,user_name = ?, password= ? ,email = ?, birth_date = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,firstName);
-            preparedStatement.setString(2,lastName);
-            preparedStatement.setString(3,userName);
-            preparedStatement.setString(4,passWord);
-            preparedStatement.setString(5,email);
-            preparedStatement.setString(6,address);
-            preparedStatement.setString(7, String.valueOf(phoneNumber));
-            preparedStatement.setDate(8,birthDate);
-            preparedStatement.setInt(9,coordinator.getId());
-
-            coordinator.setFirstName(firstName);
-            coordinator.setLastName(lastName);
-            coordinator.setUserName(userName);
-            coordinator.setPassWord(passWord);
-            coordinator.setEmail(email);
-
-            coordinator.setBirthDate(birthDate);
+            preparedStatement.setString(1,coordinator.getFirstName());
+            preparedStatement.setString(2, coordinator.getLastName());
+            preparedStatement.setString(3, coordinator.getUserName());
+            preparedStatement.setString(4, coordinator.getPassWord());
+            preparedStatement.setString(5, coordinator.getEmail());
+            preparedStatement.setDate(6, (Date) coordinator.getBirthDate());
+            preparedStatement.setInt(7,coordinator.getId());
 
             preparedStatement.executeUpdate();
         }
