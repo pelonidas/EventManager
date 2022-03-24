@@ -14,6 +14,8 @@ public class Event {
     private List<User> participants;
     private int maxCapacity;
     private int seatsAvailable;
+    List<Coordinator>allCoordinators;
+    String allCoordinatorsString;
 
     public Event(int id, String title, Date dateAndTime, String location, String description) {
         this.id = id;
@@ -106,4 +108,20 @@ public class Event {
     public void setSeatsAvailable(int seatsAvailable) {
         this.seatsAvailable = seatsAvailable;
     }
+
+    public List<Coordinator> getAllCoordinators() {
+        return allCoordinators;
+    }
+
+    public void setAllCoordinators(List<Coordinator> allCoordinators) {
+        this.allCoordinators = allCoordinators;
+    }
+
+    public String getAllCoordinatorsString(){
+        for (Coordinator coordinator:allCoordinators){
+                allCoordinatorsString = allCoordinatorsString+", "+coordinator.getFirstName()+" "+coordinator.getLastName();
+        }
+        return allCoordinatorsString;
+    }
+
 }

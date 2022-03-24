@@ -1,6 +1,8 @@
 package com.project.dal;
 
 import com.project.be.Coordinator;
+import com.project.be.Customer;
+import com.project.be.Event;
 import com.project.be.User;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.CheckInput;

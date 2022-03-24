@@ -15,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageEventsController implements Initializable {
+    public VBox mainBox;
     @FXML
     private TextField searchFilterEvents;
     @FXML
@@ -33,7 +36,7 @@ public class ManageEventsController implements Initializable {
     @FXML
     private TableColumn<Event,Integer> ticketsAvailableColumn;
     @FXML
-    private TableColumn<Event, List<Coordinator>> coordinatorColumn;
+    private TableColumn<Event, String> coordinatorColumn;
     @FXML
     private TableView<com.project.be.Event> eventsTable;
     Main main;
@@ -73,6 +76,7 @@ public class ManageEventsController implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         ticketsAvailableColumn.setCellValueFactory(new PropertyValueFactory<>("seatsAvailable"));
+        coordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("allCoordinatorsString"));
 
         eventsTable.setItems(manageEventsModel.getAllEvents());
     }

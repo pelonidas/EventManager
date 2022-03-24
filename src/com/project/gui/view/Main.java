@@ -53,6 +53,8 @@ public class Main extends Application {
             FXMLLoader loaderAdmin = new FXMLLoader();
             loaderAdmin.setLocation(getClass().getResource("AdminView.fxml"));
             GridPane adminDisplay = loaderAdmin.load();
+            adminDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
+            adminDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             AdminController controller = loaderAdmin.getController();
             controller.setMainApp(this);
             rootLayout.getChildren().add(adminDisplay);
@@ -63,6 +65,8 @@ public class Main extends Application {
             FXMLLoader loaderCoordinator = new FXMLLoader();
             loaderCoordinator.setLocation(getClass().getResource("CoordinatorView.fxml"));
             HBox coordinatorDisplay = loaderCoordinator.load();
+            coordinatorDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
+            coordinatorDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(coordinatorDisplay);
             primaryStage.setTitle("coordinator window");
         }
@@ -71,6 +75,8 @@ public class Main extends Application {
             FXMLLoader loaderCustomer = new FXMLLoader();
             loaderCustomer.setLocation(getClass().getResource("CustomerView.fxml"));
             AnchorPane customerDisplay = loaderCustomer.load();
+            customerDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
+            customerDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(customerDisplay);
             primaryStage.setTitle("Customer window");
         }
@@ -80,6 +86,8 @@ public class Main extends Application {
             loaderEvent.setLocation(getClass().getResource("ManageEvents.fxml"));
             VBox eventsDisplay = loaderEvent.load();
             ManageEventsController controller = loaderEvent.getController();
+            eventsDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
+            eventsDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             controller.setMain(this);
             rootLayout.getChildren().add(eventsDisplay);
             primaryStage.setTitle("Manage events window");
@@ -92,6 +100,8 @@ public class Main extends Application {
             loaderUser.setLocation(getClass().getResource("ManageUsers.fxml"));
             TabPane usersDisplay = loaderUser.load();
             ManageUsersViewController controller = loaderUser.getController();
+            usersDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
+            usersDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             controller.setMain(this);
             rootLayout.getChildren().add(usersDisplay);
             primaryStage.setTitle("Manage users window");

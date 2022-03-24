@@ -1,23 +1,15 @@
 package com.project.dal;
-
 import com.project.be.Coordinator;
 import com.project.be.Customer;
+import com.project.be.Event;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.CheckInput;
 import com.project.dal.connectorDAO.DBConnector;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.util.Callback;
-
-
 import java.io.IOException;
-import java.io.PipedReader;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class CustomerDAO {
     DBConnector dbConnector;
@@ -40,14 +32,16 @@ public class CustomerDAO {
                 preparedStatement1.setInt(1,id);
                 ResultSet resultSet = preparedStatement1.executeQuery();
                 while (resultSet.next()){
-                        allCustomers.add(new Customer(resultSet.getInt("id"),
-                                resultSet.getString("first_name"),
-                                resultSet.getString("last_name"),
-                                resultSet.getString("user_name"),
-                                resultSet.getString("password"),
-                                resultSet.getString("email"),
-                                resultSet.getDate("birth_date"),
-                                id));
+                    Customer customer = new Customer(resultSet.getInt("id"),
+                            resultSet.getString("first_name"),
+                            resultSet.getString("last_name"),
+                            resultSet.getString("user_name"),
+                            resultSet.getString("password"),
+                            resultSet.getString("email"),
+                            resultSet.getDate("birth_date"),
+                            id);
+                    customer.setEventHistory(getCustomerEventHistory(customer));
+                        allCustomers.add(customer);
                 }
             }
         }
@@ -208,4 +202,30 @@ public class CustomerDAO {
         }
         return allCustomersFromSameEvent;
     }
+    private List<Event> getCustomerEventHistory(Customer customer)throws SQLException{
+        List<Event>customerEventHistory= new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM tickets WHERE customer_id = ?";
+            PreparedStatement preparedStatement= connection.prepareStatement(sql);
+            preparedStatement.setInt(1,customer.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int eventId =resultSet.getInt("event_id");
+                String sql1= "SELECT * FROM events WHERE id= ?";
+                PreparedStatement preparedStatement1= connection.prepareStatement(sql1);
+                preparedStatement1.setInt(1,eventId);
+                ResultSet resultSet1= preparedStatement1.executeQuery();
+                while (resultSet1.next()){
+                    customerEventHistory.add(new Event(resultSet1.getInt(1),
+                            resultSet1.getString(2),
+                            resultSet1.getDate(3),
+                            resultSet1.getString(4),
+                            resultSet1.getString(5),
+                            resultSet1.getInt(6)));
+                }
+            }
+        }
+        return customerEventHistory;
+    }
+
 }

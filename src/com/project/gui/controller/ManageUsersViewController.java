@@ -5,7 +5,10 @@ import com.project.be.Customer;
 import com.project.gui.model.CoordinatorModel;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.view.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,12 +18,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManageUsersViewController implements Initializable {
@@ -42,6 +49,27 @@ public class ManageUsersViewController implements Initializable {
     @FXML
     private TableColumn<Customer, LocalDate> BDateColumn;
 
+    private final ObservableList <Customer>allCustomer=FXCollections.observableArrayList();
+    private final ObservableList <Coordinator>allCoordinators=FXCollections.observableArrayList();
+
+    private Customer selectedCustomer;
+    private Coordinator selectedCoordinator;
+
+    public Customer getSelectedCustomer() {
+        return selectedCustomer;
+    }
+
+    public void setSelectedCustomer(Customer selectedCustomer) {
+        this.selectedCustomer = selectedCustomer;
+    }
+
+    public Coordinator getSelectedCoordinator() {
+        return selectedCoordinator;
+    }
+
+    public void setSelectedCoordinator(Coordinator selectedCoordinator) {
+        this.selectedCoordinator = selectedCoordinator;
+    }
 
     @FXML
     private TextField customersSearchFilter;
@@ -90,15 +118,41 @@ public class ManageUsersViewController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         try {
             coordinatorModel = new CoordinatorModel();
             customerModel = new CustomerModel();
+            allCustomer.setAll(customerModel.getAllCustomers());
+            allCoordinators.setAll(coordinatorModel.getAllCoordinators());
             populateCustomersTableView();
             populateCoordinatorsTableView();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
+        searchFilterCustomer.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                ObservableList<Customer>search = FXCollections.observableArrayList();
+                for(Customer customer : allCustomer){
+                    if (customer.getFirstName().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)))
+                        search.add(customer);}
+                    customersTable.setItems(search);
 
+            }
+        });
+
+        filterSearchCoordinator.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                ObservableList<Coordinator>search = FXCollections.observableArrayList();
+                for(Coordinator coordinator : allCoordinators){
+                    if (coordinator.getFirstName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getLastName().toLowerCase(Locale.ROOT).contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)))
+                        search.add(coordinator);}
+                coordinatorsTable.setItems(search);
+
+            }
+        });
     }
 
     public void newCustomer(ActionEvent actionEvent) throws IOException {
@@ -134,6 +188,11 @@ public class ManageUsersViewController implements Initializable {
         stage.show();
     }
 
-    public void deleteCoordinator(ActionEvent actionEvent) {
+    public void deleteCoordinator(ActionEvent actionEvent) throws SQLException {
+        setSelectedCoordinator(coordinatorsTable.getSelectionModel().getSelectedItem());
+        coordinatorModel.deleteCoordinator(getSelectedCoordinator());
+        allCustomer.remove(getSelectedCustomer());
+        populateCoordinatorsTableView();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.project.dal;
 
+import com.project.be.Coordinator;
 import com.project.be.Event;
 import com.project.dal.connectorDAO.DBConnector;
 
@@ -24,13 +25,14 @@ public class EventDAO {
             statement.execute(sql);
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
-                allEvents.add(new Event(resultSet.getInt("id"),
+                Event event = new Event(resultSet.getInt("id"),
                         resultSet.getString("title"),
                         resultSet.getDate("date"),
                         resultSet.getString("location"),
                         resultSet.getString("description"),
-                        resultSet.getInt("seats availble")
-                ));
+                        resultSet.getInt("seats availble"));
+                event.setAllCoordinators(getAllCoordinatorsEvent(event));
+                allEvents.add(event);
 
             }
         }
@@ -83,5 +85,31 @@ public class EventDAO {
             preparedStatement.executeUpdate();
         }
         return event;
+    }
+    private List<Coordinator>getAllCoordinatorsEvent(Event event)throws SQLException{
+        List<Coordinator>allCoordinatorsEvent = new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM event_coordinator WHERE event_id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,event.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int coordinatorId=resultSet.getInt("coordinator_id");
+                String sql0= "SELECT * FROM users WHERE id =? ";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql0);
+                preparedStatement1.setInt(1,coordinatorId);
+                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                while (resultSet1.next()){
+                    allCoordinatorsEvent.add( new Coordinator(resultSet1.getInt("id"),
+                            resultSet1.getString("first_name"),
+                            resultSet1.getString("last_name"),
+                            resultSet1.getString("user_name"),
+                            resultSet1.getString("password"),
+                            resultSet1.getString("email"),
+                            resultSet1.getDate("birth_date")));
+                }
+            }
+        }
+        return allCoordinatorsEvent;
     }
 }
