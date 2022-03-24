@@ -84,6 +84,10 @@ public class CoordinatorDAO {
     }
     public void deleteCoordinator (Coordinator coordinator)throws SQLException{
         try (Connection connection= dbConnector.getConnection()){
+            String sql0 = "DELETE FROM event_coordinator WHERE coordinator_id = ?";
+            PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+            preparedStatement0.setInt(1,coordinator.getId());
+            preparedStatement0.executeUpdate();
             String sql = "DELETE FROM users WHERE id= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,coordinator.getId());

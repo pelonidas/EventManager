@@ -168,10 +168,15 @@ public class ManageUsersViewController implements Initializable {
         stage.show();
     }
 
-    public void deleteCustomer(ActionEvent actionEvent) {
+    public void deleteCustomer(ActionEvent actionEvent) throws SQLException {
+        setSelectedCustomer(customersTable.getSelectionModel().getSelectedItem());
+        customerModel.deleteCustomer(getSelectedCustomer());
+        allCustomer.remove(getSelectedCustomer());
+        populateCustomersTableView();
     }
 
-    public void logOut(ActionEvent actionEvent) {
+    public void logOut(ActionEvent actionEvent) throws SQLException {
+
     }
 
     public void newCoordinator(ActionEvent actionEvent) throws IOException {

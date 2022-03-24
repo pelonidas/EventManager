@@ -50,4 +50,8 @@ public class CustomerModel {
     public void buyTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
         eventManager.createTicket(ticketType,user,selectedEvent);
     }
+
+    public void deleteCustomer(Customer selectedCustomer) throws SQLException {
+        eventManager.deleteCustomer(selectedCustomer);
+    }
 }
