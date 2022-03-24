@@ -10,9 +10,11 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +46,7 @@ public class EditEventController implements Initializable {
 
 
     private EditEventModel model;
-    com.project.be.Event e;
+    private com.project.be.Event e;
     CoordinatorController coordinatorController;
 
     public EditEventController() throws IOException {
@@ -60,20 +62,19 @@ public class EditEventController implements Initializable {
         eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
         eventLocationTxt.setText(e.getLocation());
         eventNotesTxt.setText(e.getDescription());
-//        eventDate.
         String localDate = e.getDateAndTime().toString();
         eventDate.setValue(DateTimeConverter.parseDate(localDate));
     }
 
     @FXML
     void backView(ActionEvent event) {
-
+        final Node source = (Node) event.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        com.project.be.Event e = coordinatorController.getSelectedEvent();
-//        eventTitleTxt.setText(e.getTitle());
         initIcons();
         initValidators();
         initTimeBoxes();
@@ -177,7 +178,14 @@ public class EditEventController implements Initializable {
         String location = eventLocationTxt.getText();
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
+        
+        java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
+        model.updateEvent(e, eventTitle, sqlDate, location, description, capacity);
+        coordinatorController.refreshTable();
 
 
+        final Node source = (Node) actionEvent.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

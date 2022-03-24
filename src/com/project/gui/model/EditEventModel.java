@@ -27,6 +27,9 @@ public class EditEventModel {
     public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
         eventManager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
     }
+    public void updateEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
+        eventManager.editEvent(event, title ,dateAndTime, location, description, seatsAvailable);
+    }
 
     public void deleteEvent(Event e) {
         try {
