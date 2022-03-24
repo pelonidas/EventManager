@@ -58,7 +58,11 @@ public class EditEventController implements Initializable {
         this.e = e;
         eventTitleTxt.setText(e.getTitle());
         eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
-
+        eventLocationTxt.setText(e.getLocation());
+        eventNotesTxt.setText(e.getDescription());
+//        eventDate.
+        String localDate = e.getDateAndTime().toString();
+        eventDate.setValue(DateTimeConverter.parseDate(localDate));
     }
 
     @FXML
