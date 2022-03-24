@@ -178,7 +178,7 @@ public class EditEventController implements Initializable {
         String location = eventLocationTxt.getText();
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
-        
+
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
         model.updateEvent(e, eventTitle, sqlDate, location, description, capacity);
         coordinatorController.refreshTable();

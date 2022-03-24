@@ -1,12 +1,23 @@
-.root {
-    -fx-background-color:#848C8E;
+/*.root {*/
+/*    -fx-background-color:#848C8E;*/
+/*}*/
+.border-primary {
+    -fx-border-color: #0598ff;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
 }
 
 .button {
-    -fx-background-color: #F1F2EE;
-    -fx-background-radius: 10;
+    -fx-background-color:  #0598ff;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
 }
-
+/*caf0f8*/
+.text-xl {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #005f73;
+}
 .text-field {
     -fx-background-color: #F1F2EE;
     -fx-background-radius: 10;
@@ -43,4 +54,34 @@
     -fx-background-color: black;
 }
 
---If youre doing css feel free to change this, too lazy to finish.
+
+/*.table-view {*/
+/*    -fx-border-radius: 10px;*/
+/*    -fx-background-color: white;*/
+/*}*/
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #0598ff;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #0598ff;
+    -fx-text-fill: white;
+
+}
+.table-row-cell {
+    -fx-background: white;
+    -fx-border-width: 0;
+}
+
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+/*primary: #0598ff*/
+

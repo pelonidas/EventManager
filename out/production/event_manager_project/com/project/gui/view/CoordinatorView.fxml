@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" stylesheets="@../../MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <children>
       <VBox prefHeight="550.0" prefWidth="500.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All events">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All events">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin></Text>
@@ -48,12 +48,12 @@
       </VBox>
       <VBox prefHeight="550.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Details">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Text>
-            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="300.0" prefWidth="200.0" />
+            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="300.0" prefWidth="200.0" styleClass="border-primary" />
             <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <bottom>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
