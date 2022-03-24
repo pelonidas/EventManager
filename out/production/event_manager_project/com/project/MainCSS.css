@@ -6,7 +6,9 @@
     -fx-border-width: 2px;
     -fx-border-style: solid;
 }
-
+.text-secondary {
+    -fx-text-fill: #005f73;
+}
 .button {
     -fx-background-color:  #0598ff;
     -fx-background-radius: 10px;
@@ -16,7 +18,7 @@
 .text-xl {
     -fx-font-size: 20px;
     -fx-font-weight: 700;
-    -fx-text-fill: #005f73;
+
 }
 .text-field {
     -fx-background-color: #F1F2EE;

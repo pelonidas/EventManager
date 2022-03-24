@@ -92,26 +92,17 @@ public class CustomerDAO {
             preparedStatement.executeUpdate();
         }
     }
-    public Customer editCustomer(Customer customer,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, Date birthDate) throws SQLException{
+    public Customer editCustomer(Customer customer) throws SQLException{
         try (Connection connection = dbConnector.getConnection()){
-            String sql = "UPDATE users SET first_name = ?, last_name = ?,user_name = ?, password= ? ,email = ?, address = ?, phone_number = ?, birth_date = ? WHERE id = ?";
+            String sql = "UPDATE users SET first_name = ?, last_name = ?,user_name = ?, password= ? ,email = ?, birth_date = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,firstName);
-            preparedStatement.setString(2,lastName);
-            preparedStatement.setString(3,userName);
-            preparedStatement.setString(4,passWord);
-            preparedStatement.setString(5,email);
-            preparedStatement.setString(6,address);
-            preparedStatement.setString(7, String.valueOf(phoneNumber));
-            preparedStatement.setDate(8,birthDate);
-            preparedStatement.setInt(9,customer.getId());
-
-            customer.setFirstName(firstName);
-            customer.setLastName(lastName);
-            customer.setUserName(userName);
-            customer.setPassWord(passWord);
-            customer.setEmail(email);
-            customer.setBirthDate(birthDate);
+            preparedStatement.setString(1, customer.getFirstName());
+            preparedStatement.setString(2, customer.getLastName());
+            preparedStatement.setString(3, customer.getUserName());
+            preparedStatement.setString(4, customer.getPassWord());
+            preparedStatement.setString(5, customer.getEmail());
+            preparedStatement.setDate(6, (Date) customer.getBirthDate());
+            preparedStatement.setInt(7,customer.getId());
 
             preparedStatement.executeUpdate();
         }

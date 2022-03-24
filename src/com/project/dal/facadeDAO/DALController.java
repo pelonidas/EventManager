@@ -63,8 +63,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Customer editCustomer(Customer customer, String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
-        return customerDAO.editCustomer(customer,firstName,lastName,userName,passWord,email,address,phoneNumber,birthDate);
+    public Customer editCustomer(Customer customer) throws SQLException {
+        return customerDAO.editCustomer(customer);
     }
 
     @Override

@@ -22,7 +22,7 @@ public interface IEventManager {
     List<Customer> getAllCustomers () throws SQLException;
     Customer createCustomer (String firstName, String lastName, String userName, String passWord, String email, java.sql.Date birthDate) throws SQLException, UserException;
     void deleteCustomer(Customer customer) throws SQLException;
-    Customer editCustomer(Customer customer,String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException;
+    Customer editCustomer(Customer customer) throws SQLException;
     List<Customer> getAllCustomersFromSameEvent(int eventId) throws Exception;
     /**
      * Coordinator

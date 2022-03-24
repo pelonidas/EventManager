@@ -54,4 +54,8 @@ public class CustomerModel {
     public void deleteCustomer(Customer selectedCustomer) throws SQLException {
         eventManager.deleteCustomer(selectedCustomer);
     }
+
+    public void editCustomer(Customer customer) throws SQLException {
+        eventManager.editCustomer(customer);
+    }
 }

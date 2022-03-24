@@ -68,9 +68,9 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Customer editCustomer(Customer customer, String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws SQLException {
+    public Customer editCustomer(Customer customer) throws SQLException {
         if (customer != null)
-            return dalController.editCustomer(customer, firstName, lastName, userName, passWord, email, address, phoneNumber, birthDate);
+            return dalController.editCustomer(customer);
         return null;
     }
 

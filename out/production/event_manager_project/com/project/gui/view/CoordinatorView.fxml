@@ -9,16 +9,20 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" stylesheets="@../../MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <children>
       <VBox prefHeight="550.0" prefWidth="500.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All events">
+            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All events">
                <VBox.margin>
                   <Insets bottom="15.0" />
-               </VBox.margin></Text>
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Text>
             <TableView fx:id="coordinatorTableView" onMouseClicked="#handleTableview" prefHeight="507.0" prefWidth="431.0" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="name" prefWidth="75.0" text="Name of the event" />
@@ -48,7 +52,7 @@
       </VBox>
       <VBox prefHeight="550.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
+            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
