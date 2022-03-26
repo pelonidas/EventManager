@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.net.PasswordAuthentication;
 import java.sql.SQLException;
+import java.util.List;
 
 public class LogInModel {
     IDALFacade EMFacade;
@@ -18,15 +19,11 @@ public class LogInModel {
     public LogInModel() throws IOException {
         EMFacade = new DALController();
     }
-    public Coordinator logInCoordinatorCredentials(String userName) throws SQLException, UserException {
-        return EMFacade.logInCoordinatorCredentials(userName);
+    public List<Coordinator> getAllCoordinators() throws SQLException, UserException {
+        return EMFacade.getAllCoordinators();
     }
 
-    public Customer logInCustomerCredentials(String text) throws SQLException, UserException {
-        return EMFacade.logInCustomerCredentials(text);
-    }
-
-    public Admin logInAdminCredentials(String text) throws SQLException, UserException {
-        return EMFacade.logInAdminCredentials(text);
+    public List<Customer> getAllCustomers() throws SQLException, UserException {
+        return EMFacade.getAllCustomers();
     }
 }

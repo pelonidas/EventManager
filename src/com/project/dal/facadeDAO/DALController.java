@@ -15,12 +15,12 @@ public class DALController implements IDALFacade {
     CustomerDAO customerDAO ;
     EventDAO eventDAO ;
     TicketDAO ticketDAO;
-    AdminDAO adminDAO;
+    UsersDAO adminDAO;
     TicketCategoryDAO ticketCategoryDAO;
 
     public DALController() throws IOException {
         eventDAO = new EventDAO();
-        adminDAO= new AdminDAO();
+        adminDAO= new UsersDAO();
         customerDAO =  new CustomerDAO();
         coordinatorDAO = new CoordinatorDAO();
         ticketDAO = new TicketDAO();

@@ -1,9 +1,7 @@
 package com.project.dal;
 
 import com.project.be.Admin;
-import com.project.be.Coordinator;
 import com.project.bll.exceptions.UserException;
-import com.project.bll.util.CheckInput;
 import com.project.dal.connectorDAO.DBConnector;
 
 import java.io.IOException;
@@ -12,9 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdminDAO {
+public class UsersDAO {
     DBConnector dbConnector;
-    public AdminDAO() throws IOException {
+    public UsersDAO() throws IOException {
         dbConnector = new DBConnector();
     }
     public Admin logInAdminCredentials(String userName)throws SQLException, UserException {
