@@ -1,5 +1,6 @@
 package com.project.dal;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Coordinator;
 import com.project.be.Event;
 import com.project.dal.connectorDAO.DBConnector;
@@ -30,7 +31,7 @@ public class EventDAO {
                         resultSet.getDate("date"),
                         resultSet.getString("location"),
                         resultSet.getString("description"),
-                        resultSet.getInt("seats availble"));
+                        resultSet.getInt("seats_available"));
                 event.setAllCoordinators(getAllCoordinatorsEvent(event));
                 allEvents.add(event);
 
@@ -49,10 +50,37 @@ public class EventDAO {
             preparedStatement.setString(3, location);
             preparedStatement.setString(4, description);
             preparedStatement.setInt(5, seatsAvailable);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                event = new Event(resultSet.getInt(1), title, dateAndTime, location, description);
+            //ResultSet resultSet = preparedStatement.executeQuery();
+            int affectedRows = preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+            while (resultSet.next()){
+                event = getEventByID(resultSet.getInt(1));
             }
+
+        }
+        System.out.println(event);
+        return event;
+    }
+
+    private Event getEventByID(int id) {
+        Event event = null;
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM events WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                event = new Event(
+                        id,
+                        resultSet.getString("title"),
+                        resultSet.getDate("date"),
+                        resultSet.getString("location"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("seats_available"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return event;
     }
@@ -68,7 +96,7 @@ public class EventDAO {
 
     public Event editEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
         try (Connection connection = dbConnector.getConnection()) {
-            String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats availble] = ?   WHERE id = ?";
+            String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?   WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, title);
             preparedStatement.setDate(2, (java.sql.Date) dateAndTime);
@@ -112,4 +140,6 @@ public class EventDAO {
         }
         return allCoordinatorsEvent;
     }
+
+
 }

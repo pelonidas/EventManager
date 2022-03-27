@@ -3,6 +3,7 @@ package com.project.be;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Event {
 
@@ -26,14 +27,14 @@ public class Event {
 
     }
 
-    public Event(String name, Date dateAndTime, String location, String des) {
-        this.title = name;
+
+    public Event(String title, Date dateAndTime, String location, String des) {
+        this.title = title;
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.description = des;
         this.participants = new ArrayList<>();
     }
-
 
 
     public Event(int id, String title, Date dateAndTime, String location, String description,int seatsAvailable) {
@@ -127,5 +128,18 @@ public class Event {
     @Override
     public String toString() {
         return "title= " + title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return title.equals(event.title) && location.equals(event.location) && description.equals(event.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, location, description);
     }
 }
