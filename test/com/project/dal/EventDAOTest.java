@@ -7,42 +7,54 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EventDAOTest {
-
-
-
-
+    
     @Test
-    void crud() throws IOException {
+    void crud() throws IOException, SQLException {
         //Triple A pattern
 
         //Arrangement - setup of necessary objects for test
         EventDAO eventDAO = new EventDAO();
 
+        //Creation of event
         String eventName = "A test event :)";
         Date date = DateTimeConverter.convertToDate(LocalDate.now());
         String location = "Beverly hills 101";
         String description = "A little event just for testing purposes";
         int seatCount = 10;
+        Event eventExpected = new Event(1,eventName,date,location,description,seatCount);
 
-        Event event = new Event(1,eventName,date,location,description,seatCount);
+        //Updating of event
+        String updatedTitle = "A different test event name";
+        String updatedLocation = "Esbjerg";
+        String updatedDescription = "updated description";
 
-        //No idea wheere to store expected values
+        Event updatedEventExpected = new Event(1,updatedTitle,date,updatedLocation,updatedDescription,seatCount);
+
+        updatedEventExpected.setTitle(updatedTitle);
+
+        //Deletion of event
+        Event deletedEventExpected = null;
 
 
         //Act - the method run
-
-
+        Event eventActual = eventDAO.createEvent(eventName,date,location,description,seatCount);
+        Event updatedEventActual = eventDAO.editEvent(eventActual, updatedTitle, date, updatedLocation, updatedDescription, seatCount);
+        eventDAO.deleteEvent(updatedEventActual);
+        Event deletedEventActual = eventDAO.getEventByID(eventActual.getId());
 
         //Assertion - check if expected values match actual values
 
         assertAll("Test the CRUD operations of the event data access object",
-                () -> assertEquals(event,eventDAO.createEvent(eventName,date,location,description,seatCount)));
+                () -> assertEquals(eventExpected,eventActual),
+                () -> assertEquals(updatedEventExpected,updatedEventActual),
+                () -> assertEquals(null,deletedEventActual));
 
     }
 }

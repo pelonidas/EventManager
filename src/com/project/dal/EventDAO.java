@@ -55,15 +55,15 @@ public class EventDAO {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
             while (resultSet.next()){
-                event = getEventByID(resultSet.getInt(1));
+                int generatedID = resultSet.getInt(1);
+                event = getEventByID(generatedID);
             }
 
         }
-        System.out.println(event);
         return event;
     }
 
-    private Event getEventByID(int id) {
+    public Event getEventByID(int id) {
         Event event = null;
         try(Connection connection = dbConnector.getConnection()){
             String sql = "SELECT * FROM events WHERE id = ?";
@@ -96,21 +96,18 @@ public class EventDAO {
 
     public Event editEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
         try (Connection connection = dbConnector.getConnection()) {
-            String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?   WHERE id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?  WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, title);
-            preparedStatement.setDate(2, (java.sql.Date) dateAndTime);
+            preparedStatement.setDate(2, new java.sql.Date(dateAndTime.getTime()));
             preparedStatement.setString(3, location);
             preparedStatement.setString(4, description);
             preparedStatement.setInt(5, seatsAvailable);
             preparedStatement.setInt(6, event.getId());
 
-            event.setTitle(title);
-            event.setDateAndTime(dateAndTime);
-            event.setLocation(location);
-            event.setDescription(description);
+            preparedStatement.execute();
 
-            preparedStatement.executeUpdate();
+            event = getEventByID(event.getId());
         }
         return event;
     }
