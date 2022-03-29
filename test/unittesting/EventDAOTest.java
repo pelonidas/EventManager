@@ -1,9 +1,8 @@
-package com.project.dal;
+package unittesting;
 
 import com.project.be.Event;
 import com.project.bll.util.DateTimeConverter;
-import com.project.dal.connectorDAO.DBConnector;
-import org.junit.jupiter.api.BeforeEach;
+import com.project.dal.EventDAO;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
