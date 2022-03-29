@@ -36,7 +36,6 @@
 .list-view{
     -fx-background-color: #F1F2EE;
     -fx-background-radius: 10;
-
 }
 
 .list-cell{
@@ -83,6 +82,8 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+
 
 
 /*primary: #0598ff*/

@@ -37,6 +37,8 @@
     -fx-background-color: #F1F2EE;
     -fx-background-radius: 10;
 
+    -fx-border-color: #0598ff;
+    -fx-border-width: 2;
 }
 
 .list-cell{
@@ -83,6 +85,8 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+
 
 
 /*primary: #0598ff*/

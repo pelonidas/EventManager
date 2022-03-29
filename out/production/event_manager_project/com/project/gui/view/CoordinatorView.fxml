@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" stylesheets="@../../MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" spacing="5.0" stylesheets="@../../MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <children>
       <VBox prefHeight="550.0" prefWidth="500.0">
          <children>
@@ -50,15 +51,42 @@
             <Insets bottom="25.0" left="25.0" top="25.0" />
          </padding>
       </VBox>
-      <VBox prefHeight="550.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+      <VBox prefHeight="550.0" prefWidth="262.0">
+         <children>
+            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
+            </Text>
+            <TableView prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Ticket types">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Text>
+            <ListView prefHeight="175.0" prefWidth="258.0" style="-fx-background-color: white;" />
+         </children>
+         <padding>
+            <Insets bottom="25.0" top="25.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="550.0" prefWidth="240.0" HBox.hgrow="ALWAYS">
          <children>
             <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Text>
-            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="300.0" prefWidth="200.0" styleClass="border-primary" />
-            <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="421.0" prefWidth="206.0" styleClass="border-primary" />
+            <BorderPane prefHeight="79.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
                <bottom>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <buttons>
@@ -72,7 +100,7 @@
             </BorderPane>
          </children>
          <HBox.margin>
-            <Insets left="25.0" />
+            <Insets />
          </HBox.margin>
          <padding>
             <Insets right="25.0" top="25.0" />
