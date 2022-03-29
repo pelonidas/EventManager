@@ -2,6 +2,10 @@ package com.project.gui.model;
 
 
 import com.project.be.Event;
+import com.project.be.TicketType;
+import com.project.be.User;
+import com.project.bll.EventManager;
+import com.project.bll.IEventManager;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
 import javafx.collections.FXCollections;
@@ -11,16 +15,32 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class ManageEventsModel {
-    IDALFacade EMFacade;
+
+    IEventManager manager;
     ObservableList<com.project.be.Event> allEvents ;
+    ObservableList<User> allUsers;
 
     public ManageEventsModel() throws IOException {
-        EMFacade = new DALController();
+        manager = EventManager.getInstance();
+        loadData();
+    }
+
+    private void loadData() {
+        allEvents = FXCollections.observableArrayList();
+        allUsers = FXCollections.observableArrayList();
     }
 
     public ObservableList<com.project.be.Event> getAllEvents() throws SQLException {
-        allEvents= FXCollections.observableArrayList();
-        allEvents.addAll(EMFacade.getAllEvents());
+        allEvents.addAll(manager.getAllEvents());
         return allEvents;
+    }
+
+    public ObservableList getAllUsers() throws SQLException {
+        allUsers.addAll(manager.getAllCustomers());
+        return allUsers;
+    }
+
+    public ObservableList getTicketsForEvent(Event e) throws SQLException {
+        return FXCollections.observableArrayList(manager.getAllTicketTypesForEvent(e));
     }
 }

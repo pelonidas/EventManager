@@ -37,10 +37,10 @@
             </TableView>
             <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <Button fx:id="createButton" mnemonicParsing="false" onAction="#handleCreateEvent" text="Create Event" />
+                  <Button mnemonicParsing="false" onAction="#handleCreateEvent" text="Create Event" />
                   <Button mnemonicParsing="false" onAction="#handleEditButton" text="Edit Event" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete Event" />
-                  <Button mnemonicParsing="false" text="Buy a ticket" />
+                  <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Buy a ticket" />
                </buttons>
                <VBox.margin>
                   <Insets top="25.0" />
@@ -51,20 +51,21 @@
             <Insets bottom="25.0" left="25.0" top="25.0" />
          </padding>
       </VBox>
-      <VBox prefHeight="550.0" prefWidth="262.0">
+      <VBox prefHeight="550.0" prefWidth="279.0">
          <children>
-            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers">
+            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers" wrappingWidth="127.353515625">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="15.0" />
+                  <Insets bottom="12.0" />
                </VBox.margin>
             </Text>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="userTable" prefHeight="202.0" prefWidth="258.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="nameColumn" prefWidth="100.79999083280563" text="Name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="84.0" text="Last name" />
+                  <TableColumn fx:id="emailColumn" prefWidth="79.99992370605469" text="Email" />
               </columns>
             </TableView>
             <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Ticket types">
@@ -72,7 +73,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Text>
-            <ListView prefHeight="175.0" prefWidth="258.0" style="-fx-background-color: white;" />
+            <ListView fx:id="ticketTypeList" prefHeight="184.0" prefWidth="258.0" />
          </children>
          <padding>
             <Insets bottom="25.0" top="25.0" />
@@ -85,7 +86,7 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Text>
-            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="421.0" prefWidth="206.0" styleClass="border-primary" />
+            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="414.0" prefWidth="211.0" styleClass="border-primary" />
             <BorderPane prefHeight="79.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
                <bottom>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">

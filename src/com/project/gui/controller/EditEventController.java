@@ -19,8 +19,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -181,7 +179,7 @@ public class EditEventController implements Initializable {
 
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
         model.updateEvent(e, eventTitle, sqlDate, location, description, capacity);
-        coordinatorController.refreshTable();
+        coordinatorController.refreshEventTable();
 
 
         final Node source = (Node) actionEvent.getSource();
