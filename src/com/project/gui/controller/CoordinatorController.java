@@ -2,6 +2,7 @@ package com.project.gui.controller;
 
 import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.be.TicketType;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -27,9 +29,9 @@ import java.util.ResourceBundle;
 
 public class CoordinatorController implements Initializable {
     @FXML
-    private TableView userTable;
+    private TableView<Customer> userTable;
     @FXML
-    private ListView ticketTypeList;
+    private ListView<TicketType> ticketTypeList;
     @FXML
     private TableColumn<Customer,String> nameColumn,lastNameColumn,emailColumn;
     @FXML
@@ -169,6 +171,36 @@ public class CoordinatorController implements Initializable {
     }
 
     public void handleBuyTicket(ActionEvent actionEvent) {
+        Event selectedEvent = getSelectedEvent();
+        Customer selectedCustomer = getSelectedCustomer();
+        TicketType selectedTicketType = getSelectedTicketType();
+
+        if (selectedEvent!=null && selectedCustomer!=null && selectedTicketType!=null)
+            buyTicket(selectedEvent,selectedCustomer,selectedTicketType);
+    }
+
+    private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType) {
+        System.out.println("Buy ticket for " + selectedCustomer + " for event " + selectedEvent + " with tickettype of " + selectedTicketType);
+    }
+
+    private TicketType getSelectedTicketType() {
+        return ticketTypeList.getSelectionModel().getSelectedItem();
+    }
+
+    private Customer getSelectedCustomer() {
+        return userTable.getSelectionModel().getSelectedItem();
+    }
+
+    public void searchUser(KeyEvent keyEvent) {
+        /**
+         * TODO implement filter
+         */
+    }
+
+    public void searchEvent(KeyEvent keyEvent) {
+        /**
+         * TODO implement filter
+         */
     }
 }
 
