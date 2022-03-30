@@ -77,7 +77,7 @@
                                     <TableColumn fx:id="FNameColumn" prefWidth="75.0" text="first name" />
                                     <TableColumn fx:id="LNameColumn" prefWidth="75.0" text="last name" />
                                     <TableColumn fx:id="EmailColumn" prefWidth="75.0" text="E-mail" />
-                                    <TableColumn fx:id="BDateColumn" prefWidth="89.0" text="Phone number" />
+                                    <TableColumn fx:id="phoneNumberColumn" prefWidth="89.0" text="Phone number" />
                                  </columns>
                               </TableView>
                            </children>
@@ -167,7 +167,7 @@
                                     <TableColumn fx:id="UNameCoordinatorColumn" prefWidth="75.0" text="Username" />
                                     <TableColumn fx:id="PassWordCoordinatorColumn" prefWidth="75.0" text="Password" />
                                     <TableColumn fx:id="EmailCoordinatorColumn" prefWidth="75.0" text="E-mail" />
-                                    <TableColumn fx:id="BDateCoordinatorColumn" prefWidth="87.0" text="Phone number" />
+                                    <TableColumn fx:id="phoneNumberCoordinatorColumn" prefWidth="87.0" text="Phone number" />
                                  </columns>
                               </TableView>
                            </children>

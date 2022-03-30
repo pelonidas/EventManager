@@ -108,7 +108,7 @@ public class CoordinatorDAO {
     }
     public Coordinator editCoordinators(Coordinator coordinator) throws SQLException{
         try (Connection connection = dbConnector.getConnection()){
-            String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, WHERE id = ?";
+            String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, coordinator.getFirstName());
             preparedStatement.setString(2, coordinator.getLastName());
@@ -118,11 +118,12 @@ public class CoordinatorDAO {
 
             preparedStatement.executeUpdate();
 
-            String sql1 = "UPDATE credentials SET user_name = ?, password = ?, WHERE user_id = ?";
+            String sql1 = "UPDATE credentials SET user_name = ?, password = ? WHERE user_id = ?";
             PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
             preparedStatement1.setString(1,coordinator.getUserName());
             preparedStatement1.setString(2,coordinator.getPassWord());
             preparedStatement1.setInt(3,coordinator.getId());
+            preparedStatement1.executeUpdate();
         }
         return coordinator;
     }

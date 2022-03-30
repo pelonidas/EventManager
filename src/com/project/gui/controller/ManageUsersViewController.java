@@ -20,12 +20,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.hibernate.mapping.Column;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.*;
 
 public class ManageUsersViewController implements Initializable {
@@ -41,13 +39,13 @@ public class ManageUsersViewController implements Initializable {
     private TableColumn<Coordinator,String> FNameCoordinatorColumn,LNameCoordinatorColumn,UNameCoordinatorColumn,PassWordCoordinatorColumn,EmailCoordinatorColumn;
 
     @FXML
-    private TableColumn<Customer,LocalDate> BDateCoordinatorColumn;
+    private TableColumn<Customer,Integer> phoneNumberCoordinatorColumn;
     @FXML
     private TableView<Customer> customersTable;
     @FXML
     private TableColumn<Customer,String> FNameColumn, LNameColumn,EmailColumn;
     @FXML
-    private TableColumn<Customer, LocalDate> BDateColumn;
+    private TableColumn<Customer, Integer> phoneNumberColumn;
 
     private final ObservableList <Customer>allCustomer=FXCollections.observableArrayList();
     private final ObservableList <Coordinator>allCoordinators=FXCollections.observableArrayList();
@@ -180,20 +178,10 @@ public class ManageUsersViewController implements Initializable {
     }
 
     private void setUpCustomersTable() throws SQLException {
-        List<TableColumn<Customer,String>>allColumns=new ArrayList<>();
-        FNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        LNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        EmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        BDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-
-        allColumns.add(FNameColumn);
-        allColumns.add(LNameColumn);
-        allColumns.add(EmailColumn);
         customersTable.setEditable(true);
-
-        for (TableColumn<Customer,String> tableColumn : allColumns){
-            tableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-            tableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
+        FNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        FNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        FNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Customer, String> event) {
                 Customer customer = event.getRowValue();
@@ -204,42 +192,139 @@ public class ManageUsersViewController implements Initializable {
                     e.printStackTrace();
                 }
             }
-        });}
+        });
+        LNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        LNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        LNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Customer, String> event) {
+                Customer customer = event.getRowValue();
+                customer.setLastName(event.getNewValue());
+                try {
+                    customerModel.editCustomer(customer);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        EmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        EmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        EmailColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Customer, String> event) {
+                Customer customer = event.getRowValue();
+                customer.setEmail(event.getNewValue());
+                try {
+                    customerModel.editCustomer(customer);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        /*phoneNumberColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Customer, Integer> event) {
+                Customer customer = event.getRowValue();
+                customer.setPhoneNumber(event.getNewValue());
+                try {
+                    customerModel.editCustomer(customer);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
         customersTable.setItems(customerModel.getAllCustomers());
     }
     private void setUpCoordinatorsTable() throws SQLException {
-        List<TableColumn<Coordinator,String>>allColumns=new ArrayList<>();
-
-        FNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        LNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        UNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        PassWordCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("passWord"));
-        EmailCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        BDateCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-
-        allColumns.add(FNameCoordinatorColumn);
-        allColumns.add(LNameCoordinatorColumn);
-        allColumns.add(UNameCoordinatorColumn);
-        allColumns.add(PassWordCoordinatorColumn);
-        allColumns.add(EmailCoordinatorColumn);
 
         coordinatorsTable.setEditable(true);
 
-        for (TableColumn<Coordinator,String> tableColumn : allColumns){
-            tableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-            tableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Coordinator, String>>() {
-                @Override
-                public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
-                    Coordinator coordinator = event.getRowValue();
-                    coordinator.setFirstName(event.getNewValue());
-                    try {
-                        customerModel.editCoordinator(coordinator);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+        FNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        FNameCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        FNameCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
+                Coordinator coordinator = event.getRowValue();
+                coordinator.setFirstName(event.getNewValue());
+                try {
+                    customerModel.editCoordinator(coordinator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
+        LNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        LNameCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        LNameCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
+                Coordinator coordinator = event.getRowValue();
+                coordinator.setLastName(event.getNewValue());
+                try {
+                    customerModel.editCoordinator(coordinator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        UNameCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        UNameCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        UNameCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
+                Coordinator coordinator = event.getRowValue();
+                coordinator.setUserName(event.getNewValue());
+                try {
+                    customerModel.editCoordinator(coordinator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        PassWordCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        PassWordCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        PassWordCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
+                Coordinator coordinator = event.getRowValue();
+                coordinator.setPassWord(event.getNewValue());
+                try {
+                    customerModel.editCoordinator(coordinator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        EmailCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        EmailCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        EmailCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
+                Coordinator coordinator = event.getRowValue();
+                coordinator.setEmail(event.getNewValue());
+                try {
+                    customerModel.editCoordinator(coordinator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        phoneNumberCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        /*phoneNumberCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        phoneNumberCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
+                Coordinator coordinator = event.getRowValue();
+                coordinator.setFirstName(event.getNewValue());
+                try {
+                    customerModel.editCoordinator(coordinator);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
         coordinatorsTable.setItems(coordinatorModel.getAllCoordinators());
     }
-}
 }
