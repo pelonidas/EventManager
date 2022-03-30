@@ -33,7 +33,7 @@ public interface IDALFacade {
      * Coordinator dao
      */
     List<Coordinator> getAllCoordinators () throws SQLException;
-    Coordinator createCoordinator (String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws UserException;
+    Coordinator createCoordinator (String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws UserException, SQLException;
     void deleteCoordinator(Coordinator coordinator) throws SQLException;
     Coordinator editCoordinator(Coordinator coordinator) throws SQLException;
 
