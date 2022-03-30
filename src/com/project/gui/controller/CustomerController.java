@@ -134,9 +134,6 @@ public class CustomerController implements Initializable {
         upcomingTable.setItems(manageEventsModel.getAllEvents());
     }
 
-    private void setTableViewParticipantsOnClickedEvent(){
-
-    }
 
     //putting notes into text are if event is clicked
     //---------------------------------------------------------------------------

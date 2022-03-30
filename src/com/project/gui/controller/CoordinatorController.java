@@ -1,5 +1,6 @@
 package com.project.gui.controller;
 
+import com.google.zxing.WriterException;
 import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.Ticket;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -21,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -171,18 +174,35 @@ public class CoordinatorController implements Initializable {
        return coordinatorTableView.getSelectionModel().getSelectedItem();
     }
 
-    public void handleBuyTicket(ActionEvent actionEvent) throws SQLException {
+    public void handleBuyTicket(ActionEvent actionEvent) throws SQLException, IOException, WriterException {
         Event selectedEvent = getSelectedEvent();
         Customer selectedCustomer = getSelectedCustomer();
         TicketType selectedTicketType = getSelectedTicketType();
 
         if (selectedEvent!=null && selectedCustomer!=null && selectedTicketType!=null)
-            buyTicket(selectedEvent,selectedCustomer,selectedTicketType);
+            buyTicket(selectedEvent,selectedCustomer,selectedTicketType,selectedEvent);
     }
 
-    private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType) throws SQLException {
+    private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType, Event event) throws SQLException, IOException, WriterException {
         Ticket createdTicket = manageEventsModel.buyTicketForUser(selectedEvent,selectedTicketType,selectedCustomer);
-        System.out.println(createdTicket.getEvent());
+        printTicket(createdTicket,selectedCustomer,selectedTicketType,event);
+    }
+
+    private void printTicket(Ticket createdTicket, Customer selectedCustomer, TicketType selectedTicketType, Event selectedEvent) throws IOException, WriterException {
+        PrinterJob printer = PrinterJob.createPrinterJob();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/TicketRedesign.fxml"));
+        loader.load();
+
+        TicketController ticketController = loader.getController();
+        ticketController.setFields(createdTicket,selectedCustomer,selectedTicketType,selectedEvent);
+        HBox rootNode = ticketController.getRoot();
+
+        if (printer!=null){
+            printer.showPrintDialog(ticketTypeList.getScene().getWindow());
+            printer.printPage(rootNode);
+            printer.endJob();
+        }
     }
 
     private TicketType getSelectedTicketType() {

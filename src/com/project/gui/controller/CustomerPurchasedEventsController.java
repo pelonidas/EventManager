@@ -109,8 +109,7 @@ public class CustomerPurchasedEventsController implements Initializable {
         stage.setScene(scene);
 
         TicketController ticketController = loader.getController();
-        ticketController.setRandomCodes();
-        ticketController.setFields(selectedEvent);
+        //ticketController.setFields(selectedEvent);
 
         stage.show();
     }
@@ -136,8 +135,8 @@ public class CustomerPurchasedEventsController implements Initializable {
         Parent root = loader.load();
 
         TicketController ticketController = loader.getController();
-        ticketController.setFields(selectedEvent);
-        ticketController.setRandomCodes();
+        //.setFields(selectedEvent);
+        //ticketController.setRandomCodes();
         HBox rootNode = ticketController.getRoot();
 
         if (printer!=null){
