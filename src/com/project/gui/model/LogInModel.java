@@ -26,4 +26,8 @@ public class LogInModel {
     public List<Customer> getAllCustomers() throws SQLException, UserException {
         return EMFacade.getAllCustomers();
     }
+
+    public List<Admin> getAllAdmins() throws SQLException, UserException {
+        return EMFacade.getAllAdmins();
+    }
 }

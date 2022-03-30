@@ -58,8 +58,10 @@ public class LogInController implements Initializable {
     private Admin admin;
     // to be implemented : List<User>allUsers;
 
-    private List<Customer>  allCustomers;
+    private List<Customer> allCustomers;
     private List<Coordinator> allCoordinators;
+    private List<Admin> allAdmins;
+    private boolean connected= false;
 
     public void setMainApp(Main main) {
         this.main = main;
@@ -77,6 +79,7 @@ public class LogInController implements Initializable {
         try {
             allCustomers= logInModel.getAllCustomers();
             allCoordinators= logInModel.getAllCoordinators();
+            allAdmins= logInModel.getAllAdmins();
         } catch (SQLException | UserException e) {
             e.printStackTrace();
         }
@@ -107,10 +110,12 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
+
         try {
-            for (Customer customer : allCustomers){
-                if (customer.getUserName().equals(userName.getText())&& customer.getPassWord().equals(passWord.getText())){
-                    main.setLayoutChosen("customer");
+            for (Admin admin: allAdmins){
+                if (admin.getUserName().equals(userName.getText())&&admin.getPassWord().equals(passWord.getText())){
+                    main.setLayoutChosen("admin");
+                    connected=true;
                     try {
                         main.initRootLayout();
                     } catch (Exception e) {
@@ -118,18 +123,27 @@ public class LogInController implements Initializable {
                     }
                 }
             }
-        }catch (NullPointerException ignored){}
-        for (Coordinator coordinator:
-             allCoordinators) {
-            if (coordinator.getUserName().equals(userName.getText())&& coordinator.getPassWord().equals(passWord.getText())){
-                main.setLayoutChosen("coordinator");
-                try {
-                    main.initRootLayout();
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+            for (Coordinator coordinator: allCoordinators) {
+                if (coordinator.getUserName().equals(userName.getText())&& coordinator.getPassWord().equals(passWord.getText())){
+                    main.setLayoutChosen("coordinator");
+                    connected= true;
+                    try {
+                        main.initRootLayout();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
+            if (!connected){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText("Wrong credentials.");
+                alert.setContentText("Please try again.");
+                alert.showAndWait();
+            }
+        }catch (NullPointerException ignored){}
+
     }
 
 

@@ -57,4 +57,6 @@ public interface IDALFacade {
     Coordinator logInCoordinatorCredentials(String userName)throws SQLException,UserException;
     Admin logInAdminCredentials(String userName)throws SQLException,UserException;
     List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException;
+
+    List<Admin>getAllAdmins() throws SQLException, UserException;
 }
