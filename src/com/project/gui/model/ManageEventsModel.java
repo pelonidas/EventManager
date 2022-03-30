@@ -1,9 +1,7 @@
 package com.project.gui.model;
 
 
-import com.project.be.Event;
-import com.project.be.TicketType;
-import com.project.be.User;
+import com.project.be.*;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
 import com.project.dal.facadeDAO.DALController;
@@ -42,5 +40,9 @@ public class ManageEventsModel {
 
     public ObservableList getTicketsForEvent(Event e) throws SQLException {
         return FXCollections.observableArrayList(manager.getAllTicketTypesForEvent(e));
+    }
+
+    public Ticket buyTicketForUser(Event selectedEvent, TicketType selectedTicketType, Customer selectedCustomer) throws SQLException {
+        return manager.createTicket(selectedTicketType,selectedCustomer,selectedEvent);
     }
 }

@@ -104,9 +104,9 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public void createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
+    public Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
         String uniqueID = UUID.randomUUID().toString();
-        ticketDAO.createTicket(((Customer) user),selectedEvent,uniqueID,ticketType);
+        return ticketDAO.createTicket(((Customer) user),selectedEvent,uniqueID,ticketType);
     }
 
     @Override

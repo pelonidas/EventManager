@@ -37,7 +37,7 @@ public interface IEventManager {
      */
     List<Ticket>getAllTickets(Customer customer)throws SQLException;
     void deleteTicket(Ticket ticket)throws SQLException;
-    void createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException;
+    Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException;
 
     /**
      * Ticket Category

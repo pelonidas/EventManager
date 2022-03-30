@@ -2,6 +2,7 @@ package com.project.gui.controller;
 
 import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.be.Ticket;
 import com.project.be.TicketType;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
@@ -170,7 +171,7 @@ public class CoordinatorController implements Initializable {
        return coordinatorTableView.getSelectionModel().getSelectedItem();
     }
 
-    public void handleBuyTicket(ActionEvent actionEvent) {
+    public void handleBuyTicket(ActionEvent actionEvent) throws SQLException {
         Event selectedEvent = getSelectedEvent();
         Customer selectedCustomer = getSelectedCustomer();
         TicketType selectedTicketType = getSelectedTicketType();
@@ -179,8 +180,9 @@ public class CoordinatorController implements Initializable {
             buyTicket(selectedEvent,selectedCustomer,selectedTicketType);
     }
 
-    private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType) {
-        System.out.println("Buy ticket for " + selectedCustomer + " for event " + selectedEvent + " with tickettype of " + selectedTicketType);
+    private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType) throws SQLException {
+        Ticket createdTicket = manageEventsModel.buyTicketForUser(selectedEvent,selectedTicketType,selectedCustomer);
+        System.out.println(createdTicket.getEvent());
     }
 
     private TicketType getSelectedTicketType() {

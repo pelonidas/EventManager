@@ -142,7 +142,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public void createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException{
-        dalController.createTicket(ticketType,user,selectedEvent);
+    public Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException{
+        return dalController.createTicket(ticketType,user,selectedEvent);
     }
 }
