@@ -131,7 +131,7 @@ public class EventDAO {
                             resultSet1.getString("user_name"),
                             resultSet1.getString("password"),
                             resultSet1.getString("email"),
-                            resultSet1.getDate("birth_date")));
+                            resultSet1.getInt("phone_number")));
                 }
             }
         }

@@ -131,7 +131,7 @@ public class SignUpController implements Initializable {
         try {
             if(categoryComboBox.getSelectionModel().getSelectedItem().equals("Customer")){
                 try {
-                    customerModel.createCustomer(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),birthDate.getValue());
+                    customerModel.createCustomer(firstName.getText(),lastName.getText(),email.getText(),000);
                     Stage stage = (Stage) closeWindow.getScene().getWindow();
                     stage.close();
                 }catch (UserException userException){
@@ -144,7 +144,7 @@ public class SignUpController implements Initializable {
             }
             else {
                 try {
-                    coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),birthDate.getValue());
+                    coordinatorModel.createCoordinator(firstName.getText(),lastName.getText(),userName.getText(),password.getText(),email.getText(),999);
                     Stage stage = (Stage) closeWindow.getScene().getWindow();
                     stage.close();
                 }catch (UserException userException){

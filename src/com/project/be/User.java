@@ -12,6 +12,8 @@ public abstract class User {
     private String email;
     private Date birthDate;
 
+    private int phoneNumber;
+
     public User(int id, String firstName, String lastName,String userName,String passWord, String email,Date birthDate) {
         this.id = id;
         this.firstName = firstName;
@@ -20,6 +22,23 @@ public abstract class User {
         this.passWord=passWord;
         this.email=email;
         this.birthDate = birthDate;
+    }
+
+    public User(int id, String firstName, String lastName, String email,int phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email=email;
+        this.phoneNumber = phoneNumber;
+    }
+    public User(int id, String firstName, String lastName,String userName,String passWord, String email,int phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName=userName;
+        this.passWord=passWord;
+        this.email=email;
+        this.phoneNumber = phoneNumber;
     }
 
     public int getId() {
@@ -76,5 +95,13 @@ public abstract class User {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

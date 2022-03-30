@@ -107,16 +107,18 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
-        for (Customer customer : allCustomers){
-            if (customer.getUserName().equals(userName.getText())&& customer.getPassWord().equals(passWord.getText())){
-                main.setLayoutChosen("customer");
-                try {
-                    main.initRootLayout();
-                } catch (Exception e) {
-                    e.printStackTrace();
+        try {
+            for (Customer customer : allCustomers){
+                if (customer.getUserName().equals(userName.getText())&& customer.getPassWord().equals(passWord.getText())){
+                    main.setLayoutChosen("customer");
+                    try {
+                        main.initRootLayout();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }
+        }catch (NullPointerException ignored){}
         for (Coordinator coordinator:
              allCoordinators) {
             if (coordinator.getUserName().equals(userName.getText())&& coordinator.getPassWord().equals(passWord.getText())){

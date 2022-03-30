@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class DALController implements IDALFacade {
-    CoordinatorDAO coordinatorDAO ;
     CustomerDAO customerDAO ;
+    CoordinatorDAO coordinatorDAO ;
     EventDAO eventDAO ;
     TicketDAO ticketDAO;
     UsersDAO adminDAO;
@@ -53,8 +53,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email,  java.sql.Date birthDate) throws  UserException {
-        return customerDAO.createCustomer(firstName,lastName,userName,passWord,email,birthDate);
+    public Customer createCustomer(String firstName, String lastName, String email,  int phoneNumber) throws  UserException {
+        return customerDAO.createCustomer(firstName,lastName,email,phoneNumber);
     }
 
     @Override
@@ -78,8 +78,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, java.sql.Date birthDate) throws UserException {
-        return coordinatorDAO.createCoordinator(firstName,lastName,userName,passWord,email,birthDate);
+    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws UserException {
+        return coordinatorDAO.createCoordinator(firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class DALController implements IDALFacade {
 
     @Override
     public Coordinator editCoordinator(Coordinator coordinator) throws SQLException {
-        return coordinatorDAO.editCoordinator(coordinator);
+        return coordinatorDAO.editCoordinators(coordinator);
     }
 
     @Override

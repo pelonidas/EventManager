@@ -33,8 +33,8 @@ public class CoordinatorModel {
 
 
 
-    public void createCoordinator(String firstName, String lastName, String userName, String password, String email, LocalDate birthDate) throws SQLException, UserException {
-        EMFacade.createCoordinator(firstName,lastName,userName,password,email,java.sql.Date.valueOf(birthDate));
+    public void createCoordinator(String firstName, String lastName, String userName, String password, String email, int phoneNumber) throws SQLException, UserException {
+        EMFacade.createCoordinator(firstName,lastName,userName,password,email,phoneNumber);
     }
 
     public void deleteCoordinator(Coordinator selectedCoordinator) throws SQLException {

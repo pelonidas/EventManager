@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class EventManager implements IEventManager{
 
@@ -58,8 +57,8 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Customer createCustomer(String firstName, String lastName, String userName, String passWord, String email, java.sql.Date birthDate) throws UserException {
-        return dalController.createCustomer(firstName, lastName, userName, passWord, email, birthDate);
+    public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws UserException {
+        return dalController.createCustomer(firstName, lastName, email, phoneNumber);
     }
 
     @Override
@@ -85,8 +84,8 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, String address, int phoneNumber, java.sql.Date birthDate) throws UserException {
-        return dalController.createCoordinator(firstName, lastName, userName, passWord, email, birthDate);
+    public Coordinator createCoordinator(String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws UserException {
+        return dalController.createCoordinator(firstName, lastName, userName, passWord, email, phoneNumber);
     }
 
     @Override

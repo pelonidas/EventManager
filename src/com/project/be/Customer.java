@@ -22,6 +22,9 @@ public class Customer extends User{
         super(id, firstName, lastName, userName, passWord, email, birthDate);
         this.eventHistory=eventHistory;
     }
+    public Customer(int id, String firstName, String lastName, String email, int phoneNumber) {
+        super(id, firstName, lastName, email, phoneNumber);
+    }
 
     public ArrayList<Event> getMyEvents() {
         return myEvents;
