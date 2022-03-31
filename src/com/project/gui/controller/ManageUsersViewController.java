@@ -166,6 +166,8 @@ public class ManageUsersViewController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
+        SignUpController controller = loader.getController();
+        controller.setManageUsersViewController(this);
         Stage stage = new Stage();
         stage.setTitle("New Coordinator");
         stage.setScene(new Scene(root));

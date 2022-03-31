@@ -151,10 +151,8 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
                 coordinatorModel.editCoordinator(coordinator);
-                try {
-                    manageUsersViewController.getAllCoordinators().add(coordinator);
-                    manageUsersViewController.setUpCoordinatorsTable();
-                }catch (NullPointerException ignored){}
+                manageUsersViewController.getAllCoordinators().add(coordinator);
+                manageUsersViewController.setUpCoordinatorsTable();
              }
         }
         else {
