@@ -1,5 +1,6 @@
 package com.project.gui.controller;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.project.be.Admin;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
@@ -9,6 +10,9 @@ import com.project.gui.model.LogInModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,12 +23,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -39,6 +43,38 @@ import java.util.ResourceBundle;
 
 
 public class LogInController implements Initializable {
+    @FXML
+    private Hyperlink forgotPassword;
+    @FXML
+    private JFXCheckBox rememberMe;
+    @FXML
+    private HBox signUpBox;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private Label welcomeLabel0;
+    @FXML
+    private Label welcomeLabel1;
+    @FXML
+    private Label welcomeLabel2;
+    @FXML
+    private Label welcomeLabel3;
+    @FXML
+    private Label dhaLabel;
+    @FXML
+    private Text userLogInLabel;
+    @FXML
+    private Label eventManagementLabel;
+    @FXML
+    private GridPane rightPane;
+    @FXML
+    private GridPane leftPane;
+    @FXML
+    private HBox bigBox;
+    @FXML
+    private VBox leftBigBox;
+    @FXML
+    private VBox rightBigBox;
     @FXML
     private HBox calenderIcon;
     @FXML
@@ -65,13 +101,19 @@ public class LogInController implements Initializable {
     private ObservableList<Admin> allAdmins;
     private boolean connected= false;
 
+    private final DoubleProperty fontSizeBigLabel = new SimpleDoubleProperty(22);
+    private final DoubleProperty fontSizeDhaLabel = new SimpleDoubleProperty(20);
+    private final DoubleProperty fontSizeSmallLabel = new SimpleDoubleProperty(13);
+
+
+
+
     public void setMainApp(Main main) {
         this.main = main;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         try {
             logInModel = new LogInModel();
         } catch (IOException e) {
@@ -91,27 +133,54 @@ public class LogInController implements Initializable {
 
         Text usersIcons = GlyphsDude.createIcon(FontAwesomeIcons.USERS, "35px");
         usersIcons.setFill(Paint.valueOf("#0598ff"));
-        usersIcons.setLayoutX(152);
-        usersIcons.setLayoutY(101);
         usersIcon.getChildren().add(usersIcons);
 
         Text keyIcon = GlyphsDude.createIcon(FontAwesomeIcons.LOCK, "20px");
         keyIcon.setFill(Paint.valueOf("#0598ff"));
-        keyIcon.setLayoutX(69);
-        keyIcon.setLayoutY(253);
         passwordICon.getChildren().add(keyIcon);
 
         Text userIcon = GlyphsDude.createIcon(FontAwesomeIcons.USER, "20px");
         userIcon.setFill(Paint.valueOf("#0598ff"));
-        userIcon.setLayoutX(70);
-        userIcon.setLayoutY(200);
         userNameIcon.getChildren().add(userIcon);
 
         Text calendarIcon = GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR, "35px");
         calendarIcon.setFill(Paint.valueOf("white"));
-        calendarIcon.setLayoutX(153);
-        calendarIcon.setLayoutY(101);
         calenderIcon.getChildren().add(calendarIcon);
+
+
+
+        leftBigBox.prefWidthProperty().bind(bigBox.widthProperty().multiply(55).divide(100));
+        rightBigBox.prefWidthProperty().bind(bigBox.widthProperty().multiply(45).divide(100));
+        leftPane.prefHeightProperty().bind(bigBox.heightProperty());
+        rightPane.prefHeightProperty().bind(bigBox.heightProperty());
+
+        fontSizeBigLabel.bind(leftPane.heightProperty().divide(100000).multiply(5128));
+        fontSizeDhaLabel.bind(leftPane.heightProperty().divide(100000).multiply(4662));
+        fontSizeSmallLabel.bind(leftPane.heightProperty().divide(100).multiply(3));
+
+
+        eventManagementLabel.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeBigLabel.asString()));
+        userLogInLabel.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeBigLabel.asString()));
+        dhaLabel.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeDhaLabel.asString()));
+
+        welcomeLabel0.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeSmallLabel.asString()));
+        welcomeLabel1.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeSmallLabel.asString()));
+        welcomeLabel2.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeSmallLabel.asString()));
+        welcomeLabel3.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSizeSmallLabel.asString()));
+
+        userName.prefHeightProperty().bind(rightPane.heightProperty().divide(1000).multiply(63));
+        userName.prefWidthProperty().bind(rightPane.widthProperty().divide(100).multiply(70));
+
+        passwordICon.prefHeightProperty().bind(rightPane.heightProperty().divide(1000).multiply(63));
+        userName.prefWidthProperty().bind(rightPane.widthProperty().divide(100).multiply(70));
+
+
+
+
+        //signUpButton.prefHeightProperty().bind(leftPane.heightProperty().divide(100000).multiply(246));
+        ///signUpButton.prefWidthProperty().bind(leftPane.widthProperty().divide(1000000).multiply(678));
+
+
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
