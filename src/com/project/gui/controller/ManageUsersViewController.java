@@ -1,4 +1,5 @@
 package com.project.gui.controller;
+import com.project.be.Admin;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.Event;
@@ -47,8 +48,9 @@ public class ManageUsersViewController implements Initializable {
     @FXML
     private TableColumn<Customer, Integer> phoneNumberColumn;
 
-    private final ObservableList <Customer>allCustomer=FXCollections.observableArrayList();
-    private final ObservableList <Coordinator>allCoordinators=FXCollections.observableArrayList();
+    private  ObservableList <Customer> allCustomers =FXCollections.observableArrayList();
+    private  ObservableList <Coordinator>allCoordinators=FXCollections.observableArrayList();
+    private ObservableList<Admin> allAdmins= FXCollections.observableArrayList();
 
     private Customer selectedCustomer;
     private Coordinator selectedCoordinator;
@@ -95,11 +97,7 @@ public class ManageUsersViewController implements Initializable {
         try {
             coordinatorModel = new CoordinatorModel();
             customerModel = new CustomerModel();
-            allCustomer.setAll(customerModel.getAllCustomers());
-            allCoordinators.setAll(coordinatorModel.getAllCoordinators());
-            setUpCoordinatorsTable();
-            setUpCustomersTable();
-        } catch (IOException | SQLException e) {
+        } catch (IOException  e) {
             e.printStackTrace();
         }
         customersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -116,7 +114,7 @@ public class ManageUsersViewController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
-                for(Customer customer : allCustomer){
+                for(Customer customer : allCustomers){
                     if (customer.getFirstName().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)))
                         search.add(customer);}
                     customersTable.setItems(search);
@@ -151,7 +149,7 @@ public class ManageUsersViewController implements Initializable {
     public void deleteCustomer(ActionEvent actionEvent) throws SQLException {
         setSelectedCustomer(customersTable.getSelectionModel().getSelectedItem());
         customerModel.deleteCustomer(getSelectedCustomer());
-        allCustomer.remove(getSelectedCustomer());
+        allCustomers.remove(getSelectedCustomer());
         setUpCustomersTable();
     }
 
@@ -173,11 +171,11 @@ public class ManageUsersViewController implements Initializable {
     public void deleteCoordinator(ActionEvent actionEvent) throws SQLException {
         setSelectedCoordinator(coordinatorsTable.getSelectionModel().getSelectedItem());
         coordinatorModel.deleteCoordinator(getSelectedCoordinator());
-        allCustomer.remove(getSelectedCustomer());
+        allCustomers.remove(getSelectedCustomer());
         setUpCoordinatorsTable();
     }
 
-    private void setUpCustomersTable() throws SQLException {
+    public void setUpCustomersTable() throws SQLException {
         customersTable.setEditable(true);
         FNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         FNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -235,9 +233,9 @@ public class ManageUsersViewController implements Initializable {
                 }
             }
         });*/
-        customersTable.setItems(customerModel.getAllCustomers());
+        customersTable.setItems(getAllCustomers());
     }
-    private void setUpCoordinatorsTable() throws SQLException {
+    public void setUpCoordinatorsTable() throws SQLException {
 
         coordinatorsTable.setEditable(true);
 
@@ -325,6 +323,30 @@ public class ManageUsersViewController implements Initializable {
                 }
             }
         });*/
-        coordinatorsTable.setItems(coordinatorModel.getAllCoordinators());
+        coordinatorsTable.setItems(getAllCoordinators());
+    }
+
+    public ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+
+    public void setAllCustomers(ObservableList<Customer> allCustomers) {
+        this.allCustomers = allCustomers;
+    }
+
+    public ObservableList<Coordinator> getAllCoordinators() {
+        return allCoordinators;
+    }
+
+    public void setAllCoordinators(ObservableList<Coordinator> allCoordinators) {
+        this.allCoordinators = allCoordinators;
+    }
+
+    public ObservableList<Admin> getAllAdmins() {
+        return allAdmins;
+    }
+
+    public void setAllAdmins(ObservableList<Admin> allAdmins) {
+        this.allAdmins = allAdmins;
     }
 }

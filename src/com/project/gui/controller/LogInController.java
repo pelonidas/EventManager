@@ -9,6 +9,8 @@ import com.project.gui.model.LogInModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -58,9 +60,9 @@ public class LogInController implements Initializable {
     private Admin admin;
     // to be implemented : List<User>allUsers;
 
-    private List<Customer> allCustomers;
-    private List<Coordinator> allCoordinators;
-    private List<Admin> allAdmins;
+    private ObservableList<Customer> allCustomers;
+    private ObservableList<Coordinator> allCoordinators;
+    private ObservableList<Admin> allAdmins;
     private boolean connected= false;
 
     public void setMainApp(Main main) {
@@ -77,9 +79,12 @@ public class LogInController implements Initializable {
         }
 
         try {
-            allCustomers= logInModel.getAllCustomers();
-            allCoordinators= logInModel.getAllCoordinators();
-            allAdmins= logInModel.getAllAdmins();
+            allCustomers= FXCollections.observableArrayList();
+            allCustomers.setAll(logInModel.getAllCustomers());
+            allCoordinators= FXCollections.observableArrayList();
+            allCoordinators.setAll(logInModel.getAllCoordinators());
+            allAdmins= FXCollections.observableArrayList();
+            allAdmins.setAll(logInModel.getAllAdmins());
         } catch (SQLException | UserException e) {
             e.printStackTrace();
         }
@@ -159,5 +164,27 @@ public class LogInController implements Initializable {
         stage.show();
     }
 
+    public ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
 
+    public void setAllCustomers(ObservableList<Customer> allCustomers) {
+        this.allCustomers = allCustomers;
+    }
+
+    public ObservableList<Coordinator> getAllCoordinators() {
+        return allCoordinators;
+    }
+
+    public void setAllCoordinators(ObservableList<Coordinator> allCoordinators) {
+        this.allCoordinators = allCoordinators;
+    }
+
+    public ObservableList<Admin> getAllAdmins() {
+        return allAdmins;
+    }
+
+    public void setAllAdmins(ObservableList<Admin> allAdmins) {
+        this.allAdmins = allAdmins;
+    }
 }

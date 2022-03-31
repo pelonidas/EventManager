@@ -1,9 +1,14 @@
 package com.project.gui.view;
 
+import com.project.be.Admin;
+import com.project.be.Coordinator;
+import com.project.be.Customer;
 import com.project.gui.controller.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +23,9 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private StringProperty layoutChosen;
+    private ObservableList<Customer>allCustomers;
+    private ObservableList<Coordinator>allCoordinators;
+    private ObservableList<Admin>allAdmins;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -38,6 +46,13 @@ public class Main extends Application {
 
         LogInController controller = loader.getController();
         controller.setMainApp(this);
+        allCustomers= FXCollections.observableArrayList();
+        allCoordinators= FXCollections.observableArrayList();
+        allAdmins= FXCollections.observableArrayList();
+
+        allCoordinators.setAll(controller.getAllCoordinators());
+        allAdmins.setAll(controller.getAllAdmins());
+        allCustomers.setAll(controller.getAllCustomers());
 
         primaryStage.setTitle("Main window");
         primaryStage.show();
@@ -104,6 +119,11 @@ public class Main extends Application {
             usersDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             usersDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             controller.setMain(this);
+            controller.setAllCustomers(allCustomers);
+            controller.setAllCoordinators(allCoordinators);
+            controller.setAllAdmins(allAdmins);
+            controller.setUpCoordinatorsTable();
+            controller.setUpCustomersTable();
             rootLayout.getChildren().add(usersDisplay);
             primaryStage.setTitle("Manage users window");
             primaryStage.setHeight(426);

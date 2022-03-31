@@ -1,8 +1,13 @@
 package com.project.gui.controller;
 
+import com.project.be.Admin;
+import com.project.be.Coordinator;
+import com.project.be.Customer;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +24,7 @@ public class AdminController implements Initializable{
     @FXML
     private HBox usersBox;
     private Main main;
+
 
 
     public void setMainApp(Main main) {
