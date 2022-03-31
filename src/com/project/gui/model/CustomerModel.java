@@ -31,8 +31,8 @@ public class CustomerModel {
         return allCustomers;
     }
 
-    public void createCustomer(String firstName, String lastName, String email, int phoneNumber) throws SQLException, UserException {
-        EMFacade.createCustomer(firstName,lastName,email,phoneNumber);
+    public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws SQLException, UserException {
+        return EMFacade.createCustomer(firstName,lastName,email,phoneNumber);
     }
 
     public ObservableList<com.project.be.Customer> getAllCustomersOnSameEvent(int id) throws Exception {

@@ -53,7 +53,6 @@ public interface IDALFacade {
     void deleteTicketType(TicketType ticketType)throws SQLException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
 
-    Customer logInCustomerCredentials(String userName)throws SQLException,UserException;
     Coordinator logInCoordinatorCredentials(String userName)throws SQLException,UserException;
     Admin logInAdminCredentials(String userName)throws SQLException,UserException;
     List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException;

@@ -43,7 +43,9 @@ public class CustomerDAO {
         }
         return allCustomers;
     }
+
     public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws  UserException {
+        exceptionCreation(firstName,lastName,email,phoneNumber);
         Customer customer = null;
         int idCategory=0;
         try (Connection connection= dbConnector.getConnection()){
@@ -99,7 +101,7 @@ public class CustomerDAO {
         return customer;
     }
 
-    private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email, Date birthDate) throws UserException {
+    private void exceptionCreation(String firstName, String lastName, String email, int phoneNumber) throws UserException {
         if (firstName.isEmpty())
             throw new UserException("Please enter your first name.",new Exception());
         if (lastName.isEmpty())
@@ -114,20 +116,6 @@ public class CustomerDAO {
             userException.setInstructions("A correct name is only composed of Alphabet characters");
             throw userException;
         }
-        if (userName.isEmpty())
-            throw new UserException("Please find a username.",new Exception());
-
-        if (userNameTaken(userName)){
-            UserException userException = new UserException("user name already exists.",new Exception());
-            userException.setInstructions("Please find another one and try again.");
-            throw userException;
-        }
-
-        if (CheckInput.isPasswordValid(passWord)) {
-            UserException userException = new UserException("Please find a correct password.",new Exception());
-            userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
-            throw userException;
-        }
         if(email.isEmpty())
             throw new UserException("Please enter your email.",new Exception());
 
@@ -135,27 +123,7 @@ public class CustomerDAO {
             throw new UserException("Please enter a valid email.",new Exception());
     }
 
-    private Boolean userNameTaken(String userName) throws UserException {
-        try (Connection connection = dbConnector.getConnection()){
-            String sql = "SELECT * FROM Users WHERE user_name=? ";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,userName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
-                return true;
-            }
-        }catch (SQLException sqlException){
-            throw  new UserException("Something went wrong in the database",new Exception());
-        }
-        return false;
-    }
-    public Customer logInCredentials(String userName)throws SQLException,UserException{
-        for (Customer customer: getAllCustomers()){
-            if (userName.equals(customer.getUserName()))
-                return customer;
-        }
-        return null;
-    }
+
     public List<Customer> getAllCustomersFromSameEvent(int eventId) throws Exception {
         List<Customer> allCustomersFromSameEvent = new ArrayList<>();
         try (Connection connection = dbConnector.getConnection()){

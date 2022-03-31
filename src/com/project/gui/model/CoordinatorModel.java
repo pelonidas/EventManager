@@ -33,11 +33,15 @@ public class CoordinatorModel {
 
 
 
-    public void createCoordinator(String firstName, String lastName, String userName, String password, String email, int phoneNumber) throws SQLException, UserException {
-        EMFacade.createCoordinator(firstName,lastName,userName,password,email,phoneNumber);
+    public Coordinator createCoordinator(String firstName, String lastName, String userName, String password, String email, int phoneNumber) throws SQLException, UserException {
+       return EMFacade.createCoordinator(firstName,lastName,userName,password,email,phoneNumber);
     }
 
     public void deleteCoordinator(Coordinator selectedCoordinator) throws SQLException {
         EMFacade.deleteCoordinator(selectedCoordinator);
+    }
+
+    public void editCoordinator(Coordinator coordinator) throws SQLException {
+        EMFacade.editCoordinator(coordinator);
     }
 }

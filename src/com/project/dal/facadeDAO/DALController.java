@@ -130,10 +130,7 @@ public class DALController implements IDALFacade {
         ticketCategoryDAO.createMultipleTicketTypes(ticketTypes,id);
     }
 
-    @Override
-    public Customer logInCustomerCredentials(String userName) throws SQLException, UserException {
-        return customerDAO.logInCredentials(userName);
-    }
+
 
     @Override
     public Coordinator logInCoordinatorCredentials(String userName) throws SQLException, UserException {
