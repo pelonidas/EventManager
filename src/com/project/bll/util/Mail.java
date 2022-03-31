@@ -1,11 +1,9 @@
 package com.project.bll.util;
 
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 public class Mail {
     public static void sendMail (String recipient) throws Exception {
