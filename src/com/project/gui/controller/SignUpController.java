@@ -76,6 +76,11 @@ public class SignUpController implements Initializable {
     private HBox emailHBox;
     @FXML
     private HBox genderHBox;
+    private ManageUsersViewController manageUsersViewController;
+
+    public void setManageUsersViewController(ManageUsersViewController manageUsersViewController) {
+        this.manageUsersViewController = manageUsersViewController;
+    }
 
     private boolean coordinator = true;
 
@@ -146,6 +151,10 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
                 coordinatorModel.editCoordinator(coordinator);
+                try {
+                    manageUsersViewController.getAllCoordinators().add(coordinator);
+                    manageUsersViewController.setUpCoordinatorsTable();
+                }catch (NullPointerException ignored){}
              }
         }
         else {
@@ -168,6 +177,8 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
                 customerModel.editCustomer(customer);
+                manageUsersViewController.getAllCustomers().add(customer);
+                manageUsersViewController.setUpCustomersTable();
         }
 }
         if(coordinator!=null || customer!=null){
@@ -189,4 +200,8 @@ public class SignUpController implements Initializable {
         password.setDisable(true);
         siLabel.setText("New customer");
     }
+
+
+
+
 }

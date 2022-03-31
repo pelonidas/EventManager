@@ -143,6 +143,7 @@ public class ManageUsersViewController implements Initializable {
         SignUpController controller = loader.getController();
         controller.setCoordinator(false);
         controller.disableUsernamePassword();
+        controller.setManageUsersViewController(this);
         Stage stage = new Stage();
         stage.setTitle("New customer");
         stage.setScene(new Scene(root));

@@ -51,7 +51,7 @@ public class CustomerDAO {
         try (Connection connection= dbConnector.getConnection()){
             String sql0="SELECT * FROM categories_users WHERE category=?";
             PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
-            preparedStatement0.setString(1,"coordinator");
+            preparedStatement0.setString(1,"customer");
             ResultSet resultSet = preparedStatement0.executeQuery();
             while (resultSet.next()){
                 idCategory = resultSet.getInt("id");
