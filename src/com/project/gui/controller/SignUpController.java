@@ -136,9 +136,17 @@ public class SignUpController implements Initializable {
                  alert.setContentText(ue.getInstructions());
                  alert.showAndWait();
              }
-            assert coordinator != null;
-            coordinator.setPhoneNumber(Integer.parseInt(phoneNumber.getText()));
-             coordinatorModel.editCoordinator(coordinator);
+            if (coordinator!=null){
+                try {
+                    coordinator.setPhoneNumber(Integer.parseInt(phoneNumber.getText()));
+                }catch (NumberFormatException nfe){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Please find a number for coordinator");
+                    alert.showAndWait();
+                }
+                coordinatorModel.editCoordinator(coordinator);
+             }
         }
         else {
             try {
@@ -150,14 +158,23 @@ public class SignUpController implements Initializable {
                 alert.setContentText(ue.getInstructions());
                 alert.showAndWait();
             }
-            assert customer != null;
-            customer.setPhoneNumber(Integer.parseInt(phoneNumber.getText()));
-            customerModel.editCustomer(customer);
+            if(customer!=null){
+                try {
+                    customer.setPhoneNumber(Integer.parseInt(phoneNumber.getText()));
+                }catch (NumberFormatException nfe){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Please find a number for customer");
+                    alert.showAndWait();
+                }
+                customerModel.editCustomer(customer);
         }
-
-        Stage stage = (Stage) closeWindow.getScene().getWindow();
-        stage.close();
 }
+        if(coordinator!=null || customer!=null){
+            Stage stage = (Stage) closeWindow.getScene().getWindow();
+            stage.close();
+        }
+    }
 
     public boolean isCoordinator() {
         return coordinator;

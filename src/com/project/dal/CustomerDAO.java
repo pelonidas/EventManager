@@ -104,18 +104,20 @@ public class CustomerDAO {
     private void exceptionCreation(String firstName, String lastName, String email, int phoneNumber) throws UserException {
         if (firstName.isEmpty())
             throw new UserException("Please enter your first name.",new Exception());
-        if (lastName.isEmpty())
-            throw new UserException("Please enter your last name.",new Exception());
-        if (!checkInput.isValidName(firstName)){
+        if (!(firstName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))){
             UserException userException = new UserException("Please find a valid first name",new Exception());
             userException.setInstructions("A valid name is only composed of Alphabet characters");
-            throw userException;
-        }
-        if (!checkInput.isValidName(lastName)){
+            throw userException;}
+
+        if (lastName.isEmpty())
+            throw new UserException("Please enter your last name.",new Exception());
+
+        if (!(lastName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))){
             UserException userException = new UserException("Please find a valid last name",new Exception());
             userException.setInstructions("A correct name is only composed of Alphabet characters");
             throw userException;
         }
+
         if(email.isEmpty())
             throw new UserException("Please enter your email.",new Exception());
 
