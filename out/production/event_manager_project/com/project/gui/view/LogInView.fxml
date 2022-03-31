@@ -116,7 +116,7 @@
                   <HBox fx:id="passwordICon" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <children>
-                        <Hyperlink fx:id="forgotPassword" text="Forgot your password ?" />
+                        <Hyperlink fx:id="forgotPassword" onAction="#sendMail" text="Forgot your password ?" />
                      </children>
                   </HBox>
                </children>

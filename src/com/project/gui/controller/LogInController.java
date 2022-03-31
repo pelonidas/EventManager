@@ -6,6 +6,7 @@ import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.User;
 import com.project.bll.exceptions.UserException;
+import com.project.bll.util.Mail;
 import com.project.gui.model.LogInModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -255,5 +256,9 @@ public class LogInController implements Initializable {
 
     public void setAllAdmins(ObservableList<Admin> allAdmins) {
         this.allAdmins = allAdmins;
+    }
+
+    public void sendMail(ActionEvent actionEvent) throws Exception {
+        Mail.sendMail("amine.aouina.lp.4@gmail.com");
     }
 }
