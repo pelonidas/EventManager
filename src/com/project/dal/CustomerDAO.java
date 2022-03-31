@@ -44,7 +44,7 @@ public class CustomerDAO {
         return allCustomers;
     }
 
-    public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws  UserException {
+    public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws  UserException,SQLException {
         exceptionCreation(firstName,lastName,email,phoneNumber);
         Customer customer = null;
         int idCategory=0;
@@ -56,7 +56,7 @@ public class CustomerDAO {
             while (resultSet.next()){
                 idCategory = resultSet.getInt("id");
             }
-            String sql= "INSERT INTO users VALUES(?,?,?,?,?,?,?)";
+            String sql= "INSERT INTO users VALUES(?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1,firstName);
             preparedStatement.setString(2,lastName);
@@ -69,8 +69,6 @@ public class CustomerDAO {
                 int id = resultSet1.getInt(1);
                 customer = new Customer(id,firstName,lastName,email,phoneNumber);
             }
-        }catch (SQLException sqlException){
-            throw new UserException("Something went wrong in the database",new Exception());
         }
         return customer;
     }

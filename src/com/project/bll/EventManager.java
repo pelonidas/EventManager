@@ -57,7 +57,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws UserException {
+    public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws UserException, SQLException {
         return dalController.createCustomer(firstName, lastName, email, phoneNumber);
     }
 
