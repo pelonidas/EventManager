@@ -33,7 +33,7 @@
       <TextField fx:id="firstName" promptText="First name" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <HBox fx:id="hbLabel" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
          <children>
-            <Label fx:id="siLabel" alignment="CENTER" prefHeight="28.0" prefWidth="74.0" text="Sign up" textFill="#0598ff">
+            <Label fx:id="siLabel" alignment="CENTER" prefHeight="28.0" prefWidth="179.0" text="New coordinator" textFill="#0598ff">
                <font>
                   <Font size="22.0" />
                </font>
