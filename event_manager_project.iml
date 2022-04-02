@@ -35,6 +35,6 @@
     <orderEntry type="library" name="de.jensd.fontawesomefx.materialdesignfont" level="project" />
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="sun.xml.bind.jaxb.impl" level="project" />
-    <orderEntry type="library" name="javax.mail-1.6.2" level="project" />
+    <orderEntry type="library" name="javax.mail.api" level="project" />
   </component>
 </module>
