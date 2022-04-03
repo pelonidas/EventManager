@@ -60,8 +60,13 @@ public class EditEventController implements Initializable {
         eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
         eventLocationTxt.setText(e.getLocation());
         eventNotesTxt.setText(e.getDescription());
-        String localDate = e.getDateAndTime().toString();
-        eventDate.setValue(DateTimeConverter.parseDate(localDate));
+
+        String[] splitDateTime = e.getDateAndTime().toString().split(" ");
+        String[] splitTime = splitDateTime[1].split(":");
+        hoursBox.setValue(splitTime[0]);
+        minutesBox.setValue(splitTime[1]);
+
+        eventDate.setValue(DateTimeConverter.parseDate(splitDateTime[0]));
     }
 
     @FXML

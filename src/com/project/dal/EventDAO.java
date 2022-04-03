@@ -28,7 +28,7 @@ public class EventDAO {
             while (resultSet.next()) {
                 Event event = new Event(resultSet.getInt("id"),
                         resultSet.getString("title"),
-                        resultSet.getDate("date"),
+                        resultSet.getTimestamp("date"),
                         resultSet.getString("location"),
                         resultSet.getString("description"),
                         resultSet.getInt("seats_available"));
@@ -46,12 +46,12 @@ public class EventDAO {
             String sql = "INSERT INTO events VALUES(?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, title);
-            preparedStatement.setDate(2, new java.sql.Date(dateAndTime.getTime()));
+            preparedStatement.setTimestamp(2,new Timestamp(dateAndTime.getTime()));
             preparedStatement.setString(3, location);
             preparedStatement.setString(4, description);
             preparedStatement.setInt(5, seatsAvailable);
             //ResultSet resultSet = preparedStatement.executeQuery();
-            int affectedRows = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
             while (resultSet.next()){
@@ -99,7 +99,7 @@ public class EventDAO {
             String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?  WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, title);
-            preparedStatement.setDate(2, new java.sql.Date(dateAndTime.getTime()));
+            preparedStatement.setTimestamp(2,new Timestamp(dateAndTime.getTime()));
             preparedStatement.setString(3, location);
             preparedStatement.setString(4, description);
             preparedStatement.setInt(5, seatsAvailable);

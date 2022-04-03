@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -152,7 +153,6 @@ public class CreateEventViewController implements Initializable {
         String minutes = minutesBox.getSelectionModel().getSelectedItem().toString();
 
         String time = hours+":"+minutes;
-        System.out.println(time);
 
         String eventTitle = eventTitleTxt.getText();
         Date dateAndTime = model.parse_convertDateTime(date + " " + time);
