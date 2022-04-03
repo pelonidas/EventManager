@@ -54,7 +54,7 @@ public class EditEventController implements Initializable {
     public void setCoordinatorController(CoordinatorController coordinatorController){
         this.coordinatorController = coordinatorController;
     }
-    public void setEventToBeUpdated(com.project.be.Event e) {
+    public void setEventToBeUpdated(com.project.be.Event e) throws SQLException {
         this.e = e;
         eventTitleTxt.setText(e.getTitle());
         eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
@@ -66,7 +66,9 @@ public class EditEventController implements Initializable {
         hoursBox.setValue(splitTime[0]);
         minutesBox.setValue(splitTime[1]);
 
-        eventDate.setValue(DateTimeConverter.parseDate(splitDateTime[0]));
+        eventDate.setValue(model.parseDate(splitDateTime[0]));
+
+        ticketTypeList.setItems(model.getTicketTypesForEvent(e));
     }
 
     @FXML
@@ -183,7 +185,7 @@ public class EditEventController implements Initializable {
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
-        model.updateEvent(e, eventTitle, sqlDate, location, description, capacity);
+        model.updateEvent(e, eventTitle, sqlDate, location, description, capacity,ticketTypes);
         coordinatorController.refreshEventTable();
 
 

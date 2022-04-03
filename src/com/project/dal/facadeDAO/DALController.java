@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class DALController implements IDALFacade {
-    CustomerDAO customerDAO ;
-    CoordinatorDAO coordinatorDAO ;
-    EventDAO eventDAO ;
-    TicketDAO ticketDAO;
-    AdminDAO adminDAO;
-    TicketCategoryDAO ticketCategoryDAO;
+    private CustomerDAO customerDAO ;
+    private CoordinatorDAO coordinatorDAO ;
+    private EventDAO eventDAO ;
+    private TicketDAO ticketDAO;
+    private AdminDAO adminDAO;
+    private TicketCategoryDAO ticketCategoryDAO;
 
     public DALController() throws IOException {
         eventDAO = new EventDAO();
@@ -151,6 +151,11 @@ public class DALController implements IDALFacade {
     @Override
     public List<Admin> getAllAdmins() throws SQLException, UserException {
         return adminDAO.getAllAdmins();
+    }
+
+    @Override
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+        ticketCategoryDAO.editTicketTypesForEvent(event,ticketTypes);
     }
 
 

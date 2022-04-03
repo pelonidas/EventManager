@@ -5,9 +5,12 @@ import com.project.be.TicketType;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
 import com.project.bll.util.DateTimeConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +27,16 @@ public class EditEventModel {
         return DateTimeConverter.parse_convertDateTime(dateTime);
     }
 
+    public LocalDate parseDate(String date){
+        return DateTimeConverter.parseDate(date);
+    }
+
     public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
         eventManager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
     }
-    public void updateEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
+    public void updateEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
         eventManager.editEvent(event, title ,dateAndTime, location, description, seatsAvailable);
+        eventManager.editTicketTypesForEvent(event,ticketTypes);
     }
 
     public void deleteEvent(Event e) {
@@ -38,5 +46,9 @@ public class EditEventModel {
             System.out.println(e);
         }
 
+    }
+
+    public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
+        return FXCollections.observableArrayList(eventManager.getAllTicketTypesForEvent(e));
     }
 }

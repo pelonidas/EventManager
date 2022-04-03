@@ -52,10 +52,13 @@ public interface IDALFacade {
     TicketType editTicketType(TicketType ticketType,String title,double price, String benefits,int seatsAvailable) throws SQLException;
     void deleteTicketType(TicketType ticketType)throws SQLException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
+    void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException;
+
 
     Coordinator logInCoordinatorCredentials(String userName)throws SQLException,UserException;
     Admin logInAdminCredentials(String userName)throws SQLException,UserException;
     List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException;
 
     List<Admin>getAllAdmins() throws SQLException, UserException;
+
 }

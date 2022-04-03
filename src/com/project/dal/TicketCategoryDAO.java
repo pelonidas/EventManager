@@ -127,4 +127,28 @@ public class TicketCategoryDAO  {
             return ticketsForEvent;
         }
     }
+
+
+    //TODO make work
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) {
+    }
+
+
+    /*
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypesUpdated) throws SQLException {
+        List<TicketType> ticketTypesForEventOutdated = getAllTicketTypesForEvent(event);
+        List<TicketType> matchingTickets = new ArrayList<>();
+        List<TicketType> notMatchingTickets = new ArrayList<>();
+
+        for (TicketType ticketType : ticketTypesForEventOutdated) {
+            for (TicketType type : ticketTypesUpdated) {
+                if (ticketType.equals(type))
+                    matchingTickets.add(type);
+                else
+                    notMatchingTickets.add(type);
+            }
+        }
+    }
+
+     */
 }

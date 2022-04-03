@@ -1,5 +1,6 @@
 package com.project.dal;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.*;
 import com.project.dal.connectorDAO.DBConnector;
 
@@ -70,5 +71,6 @@ public class TicketDAO {
             preparedStatement.executeUpdate();
         }
     }
+
 
 }
