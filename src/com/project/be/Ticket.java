@@ -2,8 +2,8 @@ package com.project.be;
 
 public class Ticket {
     private Event event;
-    Customer customer;
-    int id ;
+    private Customer customer;
+    private int id ;
 
     private String code; //the code used for generating barcode and qr code
 

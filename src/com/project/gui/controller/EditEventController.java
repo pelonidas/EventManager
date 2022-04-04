@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 public class EditEventController implements Initializable {
 
     @FXML
+    private TextField ticketTypeCount;
+    @FXML
     private ComboBox hoursBox, minutesBox;
     @FXML
     private TextField ticketBenefitsTxt, eventCapacityTxt, ticketPriceTxt, eventTitleTxt, eventLocationTxt, eventNotesTxt, ticketTypeTxt;
@@ -117,15 +119,23 @@ public class EditEventController implements Initializable {
 
     /**
      * Initializes input validators for different fields to check if the correct value is input
+     * Also sets up event handlers
      */
     private void initValidators() {
         eventCapacityTxt.setTextFormatter(intFormatter);
+        ticketPriceTxt.setTextFormatter(intFormatter1);
+        ticketTypeCount.setTextFormatter(intFormatter2);
+
+        ticketTypeList.setOnMouseClicked(selectTicketType);
         //TODO setup validators for both time field and price field
     }
 
     private void initIcons() {
         Text addTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.ARROW_RIGHT,"24");
         addTypeButton.setOnMouseClicked(addTicketType);
+
+        Text editTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.PENCIL_SQUARE,"24");
+        editTypeButton.setOnMouseClicked(editTicketType);
 
         //addTypeButton.setFill(Paint.valueOf("BLACK"));
 
@@ -135,19 +145,20 @@ public class EditEventController implements Initializable {
 
         ticketManagementButtons.getChildren().add(addTypeButton);
         ticketManagementButtons.getChildren().add(deleteTypeButton);
+        ticketManagementButtons.getChildren().add(editTypeButton);
     }
 
     EventHandler addTicketType = new EventHandler() {
         @Override
         public void handle(Event event) {
-            if (ticketTypeTxt.getText().isBlank() || ticketBenefitsTxt.getText().isBlank() || ticketPriceTxt.getText().isBlank())
+            if (ticketTypeTxt.getText().isBlank() || ticketBenefitsTxt.getText().isBlank() || ticketPriceTxt.getText().isBlank() || ticketTypeCount.getText().isBlank())
                 return;
             String ticketTypeName = ticketTypeTxt.getText();
             double ticketTypePrice = Double.parseDouble(ticketPriceTxt.getText());
             String ticketTypeBenefits = ticketBenefitsTxt.getText();
-            int seatsAvailable = 10;
+            int seatsAvailable = Integer.parseInt(ticketTypeCount.getText());
 
-            ticketTypeList.getItems().add(new TicketType(1,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
+            ticketTypeList.getItems().add(new TicketType(0,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
         }
     };
 
@@ -161,7 +172,46 @@ public class EditEventController implements Initializable {
         }
     };
 
+    EventHandler editTicketType = new EventHandler() {
+        @Override
+        public void handle(Event event) {
+            TicketType selectedTicketType = ticketTypeList.getSelectionModel().getSelectedItem();
+            if (ticketTypeTxt.getText().isBlank() || ticketBenefitsTxt.getText().isBlank() ||
+                    ticketPriceTxt.getText().isBlank() || ticketTypeCount.getText().isBlank() || selectedTicketType == null)
+                return;
+            selectedTicketType.setTitle(ticketTypeTxt.getText());
+            selectedTicketType.setBenefits(ticketBenefitsTxt.getText());
+            selectedTicketType.setPrice(Double.parseDouble(ticketPriceTxt.getText()));
+            selectedTicketType.setSeatsAvailable(Integer.parseInt(ticketTypeCount.getText()));
+        }
+    };
+
+    EventHandler selectTicketType = new EventHandler() {
+        @Override
+        public void handle(Event event) {
+            TicketType selectedTicketType = ticketTypeList.getSelectionModel().getSelectedItem();
+            if (selectedTicketType==null)
+                return;
+            ticketTypeTxt.setText(selectedTicketType.getTitle());
+            ticketPriceTxt.setText(String.valueOf(selectedTicketType.getPrice()));
+            ticketTypeCount.setText(String.valueOf(selectedTicketType.getSeatsAvailable()));
+            ticketBenefitsTxt.setText(selectedTicketType.getBenefits());
+        }
+    };
+
     TextFormatter intFormatter = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("[0-9]*"))
+            return change;
+        return null;
+    });
+
+    TextFormatter intFormatter1 = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("[0-9]*"))
+            return change;
+        return null;
+    });
+
+    TextFormatter intFormatter2 = new TextFormatter<Object>(change -> {
         if (change.getText().matches("[0-9]*"))
             return change;
         return null;

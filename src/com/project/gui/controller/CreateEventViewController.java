@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 
 public class CreateEventViewController implements Initializable {
     @FXML
+    private TextField ticketTypeCount;
+    @FXML
     private ComboBox hoursBox, minutesBox;
     @FXML
     private TextField ticketBenefitsTxt, eventCapacityTxt, ticketPriceTxt, eventTitleTxt, eventLocationTxt, eventNotesTxt, ticketTypeTxt;
@@ -98,6 +100,9 @@ public class CreateEventViewController implements Initializable {
      */
     private void initValidators() {
         eventCapacityTxt.setTextFormatter(intFormatter);
+        ticketPriceTxt.setTextFormatter(intFormatter1);
+        ticketTypeCount.setTextFormatter(intFormatter2);
+        //ticketTypeTxt.setTextFormatter(ticketTypeFormatter);
         //TODO setup validators for both time field and price field
     }
 
@@ -118,14 +123,14 @@ public class CreateEventViewController implements Initializable {
     EventHandler addTicketType = new EventHandler() {
         @Override
         public void handle(javafx.event.Event event) {
-            if (ticketTypeTxt.getText().isBlank() || ticketBenefitsTxt.getText().isBlank() || ticketPriceTxt.getText().isBlank())
+            if (ticketTypeTxt.getText().isBlank() || ticketBenefitsTxt.getText().isBlank() || ticketPriceTxt.getText().isBlank() || ticketTypeCount.getText().isBlank())
                 return;
             String ticketTypeName = ticketTypeTxt.getText();
             double ticketTypePrice = Double.parseDouble(ticketPriceTxt.getText());
             String ticketTypeBenefits = ticketBenefitsTxt.getText();
-            int seatsAvailable = 10;
+            int seatsAvailable = Integer.parseInt(ticketTypeCount.getText());
 
-            ticketTypeList.getItems().add(new TicketType(1,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
+            ticketTypeList.getItems().add(new TicketType(0,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
         }
     };
 
@@ -144,6 +149,20 @@ public class CreateEventViewController implements Initializable {
             return change;
         return null;
     });
+
+    TextFormatter intFormatter1 = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("[0-9]*"))
+            return change;
+        return null;
+    });
+
+    TextFormatter intFormatter2 = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("[0-9]*"))
+            return change;
+        return null;
+    });
+
+
 
 
     public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {

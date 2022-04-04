@@ -26,7 +26,7 @@
                               <VBox alignment="BOTTOM_CENTER" prefHeight="109.0" prefWidth="82.0">
                                  <children>
                                     <Label text="Admission type" />
-                                    <Label fx:id="admissionTypeLabel" text="VIP">
+                                    <Label fx:id="admissionTypeLabel" alignment="CENTER" prefHeight="47.0" prefWidth="78.0" text="VIP" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="32.0" />
                                        </font>

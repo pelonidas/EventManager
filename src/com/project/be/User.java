@@ -11,7 +11,6 @@ public abstract class User {
     private String passWord;
     private String email;
     private Date birthDate;
-
     private int phoneNumber;
 
     public User(int id, String firstName, String lastName,String userName,String passWord, String email,Date birthDate) {

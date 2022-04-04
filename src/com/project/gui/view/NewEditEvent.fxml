@@ -107,17 +107,18 @@
                      <children>
                         <HBox prefHeight="28.0" prefWidth="185.0" spacing="5.0">
                            <children>
-                              <TextField fx:id="ticketTypeTxt" promptText="Ticket type" />
-                              <TextField fx:id="ticketPriceTxt" prefHeight="26.0" prefWidth="104.0" promptText="price" />
+                              <TextField fx:id="ticketTypeTxt" prefHeight="26.0" prefWidth="98.0" promptText="Ticket type" />
+                              <TextField fx:id="ticketPriceTxt" prefHeight="26.0" prefWidth="55.0" promptText="price" />
+                              <TextField fx:id="ticketTypeCount" prefHeight="26.0" prefWidth="62.0" promptText="count" />
                            </children>
                         </HBox>
-                        <TextField fx:id="ticketBenefitsTxt" prefHeight="47.0" prefWidth="185.0" promptText="ticket benefits" />
+                        <TextField fx:id="ticketBenefitsTxt" prefHeight="26.0" prefWidth="196.0" promptText="ticket benefits" />
                      </children>
                   </VBox>
-                  <VBox fx:id="ticketManagementButtons" alignment="CENTER" prefHeight="98.0" prefWidth="70.0" spacing="10.0" />
+                  <VBox fx:id="ticketManagementButtons" alignment="CENTER" prefHeight="56.0" prefWidth="41.0" spacing="10.0" />
                   <VBox prefHeight="200.0" prefWidth="195.0">
                      <children>
-                        <ListView fx:id="ticketTypeList" prefHeight="200.0" prefWidth="291.0" />
+                        <ListView fx:id="ticketTypeList" prefHeight="56.0" prefWidth="184.0" />
                      </children>
                   </VBox>
                </children>

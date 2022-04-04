@@ -84,15 +84,11 @@ public class CoordinatorController implements Initializable {
     }
 
 
-    public void handleCreateEvent(ActionEvent event) {
+    public void handleCreateEvent(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("com/project/gui/view/NewEditEvent.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        Parent root = loader.load();
+
 
         CreateEventViewController alertDialogController = loader.getController();
         alertDialogController.setCoordinatorController(this);
@@ -141,19 +137,15 @@ public class CoordinatorController implements Initializable {
         }
     }
 
-    public void handleEditButton(ActionEvent event) {
+    public void handleEditButton(ActionEvent event) throws IOException {
         Event selectedEvent = getSelectedEvent();
         if (selectedEvent==null)
             return;
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource("com/project/gui/view/EditEventView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        Parent root = loader.load();
+
 
         EditEventController editEventController = loader.getController();
         editEventController.setCoordinatorController(this);

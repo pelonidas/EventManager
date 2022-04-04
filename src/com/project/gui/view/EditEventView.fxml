@@ -109,12 +109,13 @@
                                     <children>
                                         <TextField fx:id="ticketTypeTxt" promptText="Ticket type" />
                                         <TextField fx:id="ticketPriceTxt" prefHeight="26.0" prefWidth="104.0" promptText="price" />
+                              <TextField fx:id="ticketTypeCount" prefHeight="26.0" prefWidth="118.0" promptText="count" />
                                     </children>
                                 </HBox>
-                                <TextField fx:id="ticketBenefitsTxt" prefHeight="47.0" prefWidth="185.0" promptText="ticket benefits" />
+                                <TextField fx:id="ticketBenefitsTxt" prefHeight="26.0" prefWidth="166.0" promptText="ticket benefits" />
                             </children>
                         </VBox>
-                        <VBox fx:id="ticketManagementButtons" alignment="CENTER" prefHeight="98.0" prefWidth="70.0" spacing="10.0" />
+                        <VBox fx:id="ticketManagementButtons" alignment="CENTER" prefHeight="56.0" prefWidth="42.0" spacing="10.0" />
                         <VBox prefHeight="200.0" prefWidth="195.0">
                             <children>
                                 <ListView fx:id="ticketTypeList" prefHeight="200.0" prefWidth="291.0" />

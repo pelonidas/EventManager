@@ -61,11 +61,5 @@ public class TicketType {
         return id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this.title.equals(((TicketType) o).title) && this.price == ((TicketType) o).price)
-            return true;
-        return false;
-    }
     
 }

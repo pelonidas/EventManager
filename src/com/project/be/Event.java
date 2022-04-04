@@ -15,8 +15,8 @@ public class Event {
     private List<User> participants;
     private int maxCapacity;
     private int seatsAvailable;
-    List<Coordinator>allCoordinators;
-    String allCoordinatorsString;
+    private List<Coordinator>allCoordinators;
+    private String allCoordinatorsString;
 
     public Event(int id, String title, Date dateAndTime, String location, String description) {
         this.id = id;

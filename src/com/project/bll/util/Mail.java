@@ -25,12 +25,9 @@ public class Mail {
         Message message = prepareMessage(session,myAccountEmail,recipient);
         Transport.send(message);
         System.out.println("Message sent successfully");
-
-
     }
 
     private static Message prepareMessage(Session session, String myAccountEmail,String recipient) throws Exception {
-
             Message message =  new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO,new InternetAddress(recipient));

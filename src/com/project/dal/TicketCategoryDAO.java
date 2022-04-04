@@ -131,6 +131,9 @@ public class TicketCategoryDAO  {
 
     //TODO make work
     public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) {
+        for (TicketType ticketType : ticketTypes) {
+            System.out.println(ticketType.getId());
+        }
     }
 
 
