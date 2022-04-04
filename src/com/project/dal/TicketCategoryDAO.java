@@ -130,10 +130,57 @@ public class TicketCategoryDAO  {
 
 
     //TODO make work
-    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) {
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+        List<TicketType> newTicketTypes = new ArrayList<>();
+        List<TicketType> outDatedTicketTypes = getAllTicketTypesForEvent(event);
+        List<TicketType> toBeDeleted = new ArrayList<>();
+        List<TicketType> toBeUpdated = new ArrayList<>();
+
         for (TicketType ticketType : ticketTypes) {
-            System.out.println(ticketType.getId());
+            if (ticketType.getId()==0)
+                newTicketTypes.add(ticketType);
+            else if(ticketAlreadyExists(ticketType,outDatedTicketTypes))
+                toBeUpdated.add(ticketType);
         }
+
+        for (TicketType outDatedTicketType : outDatedTicketTypes) {
+            if (!ticketAlreadyExists(outDatedTicketType,ticketTypes))
+                toBeDeleted.add(outDatedTicketType);
+        }
+
+        for (TicketType ticketType : toBeDeleted) {
+            deleteTicketType(ticketType);
+        }
+
+        for (TicketType ticketType : toBeUpdated) {
+            updateTicketType(ticketType);
+        }
+
+        createMultipleTicketTypes(newTicketTypes,event.getId());
+
+
+    }
+
+    private void updateTicketType(TicketType ticketType) throws SQLException {
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "UPDATE categories_ticket SET title = ?, price = ?,benefits = ?,seats_available = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,ticketType.getTitle());
+            preparedStatement.setDouble(2,ticketType.getPrice());
+            preparedStatement.setString(3, ticketType.getBenefits());
+            preparedStatement.setInt(4,ticketType.getSeatsAvailable());
+            preparedStatement.setInt(5,ticketType.getId());
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    private boolean ticketAlreadyExists(TicketType ticketType, List<TicketType> outDatedTicketTypes) {
+        for (TicketType outDatedTicketType : outDatedTicketTypes) {
+            if (ticketType.getId()==outDatedTicketType.getId())
+                return true;
+        }
+        return false;
     }
 
 

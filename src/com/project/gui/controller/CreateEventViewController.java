@@ -110,6 +110,9 @@ public class CreateEventViewController implements Initializable {
         Text addTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.ARROW_RIGHT,"24");
         addTypeButton.setOnMouseClicked(addTicketType);
 
+        Text editTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.PENCIL_SQUARE,"24");
+        editTypeButton.setOnMouseClicked(editTicketType);
+
         //addTypeButton.setFill(Paint.valueOf("BLACK"));
 
         Text deleteTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.TRASH,"24");
@@ -118,6 +121,7 @@ public class CreateEventViewController implements Initializable {
 
         ticketManagementButtons.getChildren().add(addTypeButton);
         ticketManagementButtons.getChildren().add(deleteTypeButton);
+        ticketManagementButtons.getChildren().add(editTypeButton);
     }
 
     EventHandler addTicketType = new EventHandler() {
@@ -131,6 +135,20 @@ public class CreateEventViewController implements Initializable {
             int seatsAvailable = Integer.parseInt(ticketTypeCount.getText());
 
             ticketTypeList.getItems().add(new TicketType(0,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
+        }
+    };
+
+    EventHandler editTicketType = new EventHandler() {
+        @Override
+        public void handle(Event event) {
+            TicketType selectedTicketType = ticketTypeList.getSelectionModel().getSelectedItem();
+            if (ticketTypeTxt.getText().isBlank() || ticketBenefitsTxt.getText().isBlank() ||
+                    ticketPriceTxt.getText().isBlank() || ticketTypeCount.getText().isBlank() || selectedTicketType == null)
+                return;
+            selectedTicketType.setTitle(ticketTypeTxt.getText());
+            selectedTicketType.setBenefits(ticketBenefitsTxt.getText());
+            selectedTicketType.setPrice(Double.parseDouble(ticketPriceTxt.getText()));
+            selectedTicketType.setSeatsAvailable(Integer.parseInt(ticketTypeCount.getText()));
         }
     };
 

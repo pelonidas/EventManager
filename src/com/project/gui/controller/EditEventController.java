@@ -1,7 +1,6 @@
 package com.project.gui.controller;
 
 import com.project.be.TicketType;
-import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -123,8 +122,8 @@ public class EditEventController implements Initializable {
      */
     private void initValidators() {
         eventCapacityTxt.setTextFormatter(intFormatter);
-        ticketPriceTxt.setTextFormatter(intFormatter1);
-        ticketTypeCount.setTextFormatter(intFormatter2);
+        ticketPriceTxt.setTextFormatter(priceFormatter);
+        ticketTypeCount.setTextFormatter(intFormatter1);
 
         ticketTypeList.setOnMouseClicked(selectTicketType);
         //TODO setup validators for both time field and price field
@@ -192,6 +191,7 @@ public class EditEventController implements Initializable {
             TicketType selectedTicketType = ticketTypeList.getSelectionModel().getSelectedItem();
             if (selectedTicketType==null)
                 return;
+            System.out.println(selectedTicketType.getPrice());
             ticketTypeTxt.setText(selectedTicketType.getTitle());
             ticketPriceTxt.setText(String.valueOf(selectedTicketType.getPrice()));
             ticketTypeCount.setText(String.valueOf(selectedTicketType.getSeatsAvailable()));
@@ -211,8 +211,8 @@ public class EditEventController implements Initializable {
         return null;
     });
 
-    TextFormatter intFormatter2 = new TextFormatter<Object>(change -> {
-        if (change.getText().matches("[0-9]*"))
+    TextFormatter priceFormatter = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("\\d[\\d\\,\\.]+"))
             return change;
         return null;
     });
