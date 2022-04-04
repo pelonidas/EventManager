@@ -177,7 +177,12 @@ public class CoordinatorController implements Initializable {
 
     private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType, Event event) throws SQLException, IOException, WriterException {
         Ticket createdTicket = manageEventsModel.buyTicketForUser(selectedEvent,selectedTicketType,selectedCustomer);
-        printTicket(createdTicket,selectedCustomer,selectedTicketType,event);
+
+        if (createdTicket!=null)
+            printTicket(createdTicket,selectedCustomer,selectedTicketType,event);
+        else
+            System.out.println("tickettype sold out");
+        //TODO handle tickets ran out
     }
 
     private void printTicket(Ticket createdTicket, Customer selectedCustomer, TicketType selectedTicketType, Event selectedEvent) throws IOException, WriterException {
@@ -195,6 +200,8 @@ public class CoordinatorController implements Initializable {
             printer.printPage(rootNode);
             printer.endJob();
         }
+
+
     }
 
     private TicketType getSelectedTicketType() {

@@ -48,6 +48,8 @@ public class TicketDAO {
 
     public Ticket createTicket (Customer customer, Event event,String qr_code,TicketType ticketType)throws SQLException{
         Ticket ticket=null;
+        if(!ticketsStillAvailable(ticketType))
+            return ticket;
         try (Connection connection = dbConnector.getConnection()){
           String sql = "INSERT INTO tickets VALUES (?,?,?,?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -62,6 +64,26 @@ public class TicketDAO {
         }
         return ticket;
     }
+
+    private boolean ticketsStillAvailable(TicketType ticketType) throws SQLException {
+        int seatsSold = 0;
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT COUNT(*) as tickets_sold\n" +
+                         "FROM tickets\n" +
+                         "WHERE ticket_category_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,ticketType.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                seatsSold = resultSet.getInt("tickets_sold");
+
+
+            if (seatsSold<ticketType.getSeatsAvailable())
+                return true;
+            return false;
+        }
+    }
+
     public void deleteTicket(Ticket ticket)throws SQLException{
         try (Connection connection = dbConnector.getConnection()){
             String sql = "DELETE * FROM tickets WHERE customer_id= ? AND event_id= ?";
