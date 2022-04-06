@@ -40,7 +40,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public void deleteEvent(Event event) throws SQLException {
+    public void deleteEvent(Event event) throws SQLException, UserException {
         dalController.deleteEvent(event);
     }
 

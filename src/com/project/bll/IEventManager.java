@@ -13,7 +13,7 @@ public interface IEventManager {
      */
     List<Event> getAllEvents () throws SQLException;
     Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException;
-    void deleteEvent(Event event) throws SQLException;
+    void deleteEvent(Event event) throws SQLException, UserException;
     Event editEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
 
     /**

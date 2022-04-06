@@ -38,7 +38,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public void deleteEvent(Event event) throws SQLException {
+    public void deleteEvent(Event event) throws SQLException, UserException {
+        ticketDAO.checkIfTicketsSold(event);
         eventDAO.deleteEvent(event);
     }
 

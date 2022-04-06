@@ -25,7 +25,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Text>
-            <TextField onKeyPressed="#searchEvent" />
+            <TextField fx:id="eventSearchField" onKeyPressed="#searchEvent" />
             <TableView fx:id="coordinatorTableView" onMouseClicked="#handleTableview" prefHeight="507.0" prefWidth="431.0" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="name" prefWidth="75.0" text="Name of the event" />
@@ -63,7 +63,7 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Text>
-            <TextField onKeyPressed="#searchUser" />
+            <TextField fx:id="userSearchField" onKeyPressed="#searchUser" />
             <TableView fx:id="userTable" prefHeight="202.0" prefWidth="258.0">
               <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="100.79999083280563" text="Name" />

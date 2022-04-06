@@ -15,7 +15,7 @@ public interface IDALFacade {
      */
      List<Event> getAllEvents () throws SQLException;
      Event createEvent (String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
-     void deleteEvent(Event event) throws SQLException;
+     void deleteEvent(Event event) throws SQLException, UserException;
      Event editEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
 
     /**

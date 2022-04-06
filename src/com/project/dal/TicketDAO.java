@@ -2,6 +2,7 @@ package com.project.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.*;
+import com.project.bll.exceptions.UserException;
 import com.project.dal.connectorDAO.DBConnector;
 
 import java.io.IOException;
@@ -95,4 +96,17 @@ public class TicketDAO {
     }
 
 
+    public void checkIfTicketsSold(Event event) throws SQLException, UserException {
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * \n" +
+                    "FROM tickets\n" +
+                    "WHERE event_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,event.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                throw new UserException("Ticket's to event have been sold \n" +
+                                        "Could not delete event",new Exception());
+        }
+    }
 }

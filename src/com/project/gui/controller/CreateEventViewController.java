@@ -3,6 +3,7 @@ package com.project.gui.controller;
 
 import com.project.be.TicketType;
 import com.project.gui.model.EditEventModel;
+import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.event.ActionEvent;
@@ -46,10 +47,12 @@ public class CreateEventViewController implements Initializable {
 
 
     private EditEventModel model;
+    private ManageEventsModel manageEventsModel;
     CoordinatorController coordinatorController;
 
 
-    public CreateEventViewController() throws IOException {
+    public CreateEventViewController() throws IOException, SQLException {
+        manageEventsModel = new ManageEventsModel();
         model = new EditEventModel();
     }
     public void setCoordinatorController(CoordinatorController coordinatorController){
@@ -202,6 +205,8 @@ public class CreateEventViewController implements Initializable {
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
         model.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+
+
         coordinatorController.refreshEventTable();
         final Node source = (Node) actionEvent.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
