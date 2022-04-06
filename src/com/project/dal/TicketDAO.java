@@ -106,7 +106,17 @@ public class TicketDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
                 throw new UserException("Ticket's to event have been sold \n" +
-                                        "Could not delete event",new Exception());
+                                        "Click continue to delete anyways",new Exception());
+        }
+    }
+
+    public void deleteTicketsForEvent(Event event) throws SQLException {
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "DELETE FROM tickets\n" +
+                    "WHERE event_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,event.getId());
+            preparedStatement.executeUpdate();
         }
     }
 }

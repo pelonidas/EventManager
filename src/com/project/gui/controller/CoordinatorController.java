@@ -5,6 +5,7 @@ import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
+import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
@@ -27,10 +28,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CoordinatorController implements Initializable {
     @FXML
@@ -130,15 +128,25 @@ public class CoordinatorController implements Initializable {
                 );
     }
 
-    public void handleDeleteButton(ActionEvent event) {
+    public void handleDeleteButton(ActionEvent event) throws SQLException {
         Event selectedEvent = getSelectedEvent();
         if (selectedEvent==null)
             return;
         try {
-            editEventModel.deleteEvent(selectedEvent);
+            editEventModel.checkIfTicketsSold(selectedEvent);
             //refreshEventTable();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (UserException e) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(e.getExceptionMessage());
+            ButtonType continueButton = new ButtonType("Continue");
+            ButtonType cancelButton = new ButtonType("Cancel");
+            alert.getButtonTypes().setAll(continueButton,cancelButton);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == continueButton)
+                editEventModel.deleteEvent(selectedEvent);
         }
     }
 

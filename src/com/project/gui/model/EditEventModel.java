@@ -63,4 +63,8 @@ public class EditEventModel {
 
         return totalSeatCount;
     }
+
+    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
+        eventManager.checkIfTicketsSold(selectedEvent);
+    }
 }

@@ -183,22 +183,14 @@ public class TicketCategoryDAO  {
         return false;
     }
 
-
-    /*
-    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypesUpdated) throws SQLException {
-        List<TicketType> ticketTypesForEventOutdated = getAllTicketTypesForEvent(event);
-        List<TicketType> matchingTickets = new ArrayList<>();
-        List<TicketType> notMatchingTickets = new ArrayList<>();
-
-        for (TicketType ticketType : ticketTypesForEventOutdated) {
-            for (TicketType type : ticketTypesUpdated) {
-                if (ticketType.equals(type))
-                    matchingTickets.add(type);
-                else
-                    notMatchingTickets.add(type);
-            }
+    public void deleteTicketTypesForEvent(Event event) throws SQLException {
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "DELETE FROM categories_ticket\n" +
+                    "WHERE event_ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,event.getId());
+            preparedStatement.executeUpdate();
         }
     }
 
-     */
 }

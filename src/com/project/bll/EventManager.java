@@ -149,4 +149,9 @@ public class EventManager implements IEventManager{
     public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
         dalController.editTicketTypesForEvent(event,ticketTypes);
     }
+
+    @Override
+    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
+        dalController.checkIfTicketsSold(selectedEvent);
+    }
 }

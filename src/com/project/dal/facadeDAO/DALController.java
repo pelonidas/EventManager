@@ -39,7 +39,8 @@ public class DALController implements IDALFacade {
 
     @Override
     public void deleteEvent(Event event) throws SQLException, UserException {
-        ticketDAO.checkIfTicketsSold(event);
+        ticketDAO.deleteTicketsForEvent(event);
+        ticketCategoryDAO.deleteTicketTypesForEvent(event);
         eventDAO.deleteEvent(event);
     }
 
@@ -108,6 +109,11 @@ public class DALController implements IDALFacade {
     public Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException {
         String uniqueID = UUID.randomUUID().toString();
         return ticketDAO.createTicket(((Customer) user),selectedEvent,uniqueID,ticketType);
+    }
+
+    @Override
+    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
+        ticketDAO.checkIfTicketsSold(selectedEvent);
     }
 
     @Override
