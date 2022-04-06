@@ -40,4 +40,10 @@ public class Customer extends User{
     public void setEventHistory(List<Event> eventHistory) {
         this.eventHistory = eventHistory;
     }
+
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName() + " " + getUserName()
+                + " " + getEmail() + " " + getPhoneNumber();
+    }
 }

@@ -2,6 +2,7 @@ package com.project.gui.controller;
 
 import com.project.be.TicketType;
 import com.project.gui.model.EditEventModel;
+import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.event.ActionEvent;
@@ -48,7 +49,7 @@ public class EditEventController implements Initializable {
     private com.project.be.Event e;
     CoordinatorController coordinatorController;
 
-    public EditEventController() throws IOException {
+    public EditEventController() throws IOException{
         model = new EditEventModel();
     }
 
@@ -122,8 +123,8 @@ public class EditEventController implements Initializable {
      */
     private void initValidators() {
         eventCapacityTxt.setTextFormatter(intFormatter);
-        ticketPriceTxt.setTextFormatter(priceFormatter);
-        ticketTypeCount.setTextFormatter(intFormatter1);
+        //ticketPriceTxt.setTextFormatter(priceFormatter);
+        //ticketTypeCount.setTextFormatter(intFormatter1);
 
         ticketTypeList.setOnMouseClicked(selectTicketType);
         //TODO setup validators for both time field and price field
@@ -225,7 +226,6 @@ public class EditEventController implements Initializable {
         String minutes = minutesBox.getSelectionModel().getSelectedItem().toString();
 
         String time = hours+":"+minutes;
-        System.out.println(time);
 
         String eventTitle = eventTitleTxt.getText();
         Date dateAndTime = model.parse_convertDateTime(date + " " + time);
@@ -236,6 +236,7 @@ public class EditEventController implements Initializable {
 
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
         model.updateEvent(e, eventTitle, sqlDate, location, description, capacity,ticketTypes);
+
         coordinatorController.refreshEventTable();
 
 

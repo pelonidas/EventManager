@@ -5,10 +5,12 @@ import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
+import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -29,9 +28,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CoordinatorController implements Initializable {
+    @FXML
+    private TextField userSearchField;
+    @FXML
+    private TextField eventSearchField;
     @FXML
     private TableView<Customer> userTable;
     @FXML
@@ -48,7 +51,7 @@ public class CoordinatorController implements Initializable {
     private TextArea detailsTextarea;
     private DateTimeConverter dateTimeConverter = new DateTimeConverter();
 
-    public CoordinatorController() throws IOException {
+    public CoordinatorController() throws IOException, SQLException {
         manageEventsModel = new ManageEventsModel();
         editEventModel = new EditEventModel();
     }
@@ -74,7 +77,7 @@ public class CoordinatorController implements Initializable {
     }
 
     public void refreshEventTable() throws SQLException {
-        coordinatorTableView.getItems().clear();
+        //coordinatorTableView.getItems().clear();
         coordinatorTableView.refresh();
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
@@ -125,15 +128,25 @@ public class CoordinatorController implements Initializable {
                 );
     }
 
-    public void handleDeleteButton(ActionEvent event) {
+    public void handleDeleteButton(ActionEvent event) throws SQLException {
         Event selectedEvent = getSelectedEvent();
         if (selectedEvent==null)
             return;
         try {
-            editEventModel.deleteEvent(selectedEvent);
-            refreshEventTable();
-        } catch (Exception e) {
-            System.out.println(e);
+            editEventModel.checkIfTicketsSold(selectedEvent);
+            //refreshEventTable();
+        } catch (UserException e) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText(e.getExceptionMessage());
+            ButtonType continueButton = new ButtonType("Continue");
+            ButtonType cancelButton = new ButtonType("Cancel");
+            alert.getButtonTypes().setAll(continueButton,cancelButton);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == continueButton)
+                editEventModel.deleteEvent(selectedEvent);
         }
     }
 
@@ -212,16 +225,22 @@ public class CoordinatorController implements Initializable {
         return userTable.getSelectionModel().getSelectedItem();
     }
 
-    public void searchUser(KeyEvent keyEvent) {
-        /**
-         * TODO implement filter
-         */
+    public void searchUser(KeyEvent keyEvent) throws SQLException {
+        List<Customer> customers = new ArrayList<>();
+        for (Customer customer : manageEventsModel.getAllUsers()) {
+            if (customer.toString().toLowerCase(Locale.ROOT).contains(userSearchField.getText().toLowerCase(Locale.ROOT)))
+                customers.add(customer);
+        }
+        userTable.setItems(FXCollections.observableArrayList(customers));
     }
 
-    public void searchEvent(KeyEvent keyEvent) {
-        /**
-         * TODO implement filter
-         */
+    public void searchEvent(KeyEvent keyEvent) throws SQLException {
+        List<Event> events = new ArrayList<>();
+        for (Event event : manageEventsModel.getAllEvents()) {
+            if (event.toString().toLowerCase(Locale.ROOT).contains(eventSearchField.getText().toLowerCase(Locale.ROOT)))
+                events.add(event);
+        }
+        coordinatorTableView.setItems(FXCollections.observableArrayList(events));
     }
 }
 

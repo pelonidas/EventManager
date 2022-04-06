@@ -16,25 +16,30 @@ public class ManageEventsModel {
 
     IEventManager manager;
     ObservableList<com.project.be.Event> allEvents ;
-    ObservableList<User> allUsers;
+    ObservableList<Customer> allUsers;
 
-    public ManageEventsModel() throws IOException {
+    public ManageEventsModel() throws IOException, SQLException {
         manager = EventManager.getInstance();
         loadData();
     }
 
-    private void loadData() {
+    private void loadData() throws SQLException {
         allEvents = FXCollections.observableArrayList();
+        allEvents.setAll(manager.getAllEvents());
+
         allUsers = FXCollections.observableArrayList();
+        allUsers.setAll(manager.getAllCustomers());
     }
 
-    public ObservableList<com.project.be.Event> getAllEvents() throws SQLException {
-        allEvents.addAll(manager.getAllEvents());
+    public ObservableList<Event> getAllEvents() throws SQLException {
         return allEvents;
     }
 
-    public ObservableList getAllUsers() throws SQLException {
-        allUsers.addAll(manager.getAllCustomers());
+    public void addEvent(Event event){
+        allEvents.add(event);
+    }
+
+    public ObservableList<Customer> getAllUsers() throws SQLException {
         return allUsers;
     }
 

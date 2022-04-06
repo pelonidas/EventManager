@@ -40,7 +40,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public void deleteEvent(Event event) throws SQLException {
+    public void deleteEvent(Event event) throws SQLException, UserException {
         dalController.deleteEvent(event);
     }
 
@@ -148,5 +148,10 @@ public class EventManager implements IEventManager{
     @Override
     public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
         dalController.editTicketTypesForEvent(event,ticketTypes);
+    }
+
+    @Override
+    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
+        dalController.checkIfTicketsSold(selectedEvent);
     }
 }

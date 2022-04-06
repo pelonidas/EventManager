@@ -15,7 +15,7 @@ public interface IDALFacade {
      */
      List<Event> getAllEvents () throws SQLException;
      Event createEvent (String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
-     void deleteEvent(Event event) throws SQLException;
+     void deleteEvent(Event event) throws SQLException, UserException;
      Event editEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
 
     /**
@@ -43,6 +43,7 @@ public interface IDALFacade {
     List<Ticket>getAllTickets(Customer customer)throws SQLException;
     void deleteTicket(Ticket ticket)throws SQLException;
     Ticket createTicket(TicketType ticketType, User user,Event selectedEvent) throws SQLException;
+    void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException;
 
 
     /**

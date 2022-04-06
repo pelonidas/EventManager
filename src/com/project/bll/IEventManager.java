@@ -13,7 +13,7 @@ public interface IEventManager {
      */
     List<Event> getAllEvents () throws SQLException;
     Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException;
-    void deleteEvent(Event event) throws SQLException;
+    void deleteEvent(Event event) throws SQLException, UserException;
     Event editEvent(Event event,String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException;
 
     /**
@@ -39,6 +39,7 @@ public interface IEventManager {
     void deleteTicket(Ticket ticket)throws SQLException;
     Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException;
     void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException;
+    void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException;
     /**
      * Ticket Category
      */
@@ -47,6 +48,7 @@ public interface IEventManager {
     void deleteTicketType(TicketType ticketType)throws SQLException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
     List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException;
+
 
 
     /**

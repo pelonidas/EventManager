@@ -4,9 +4,11 @@ import com.project.be.Event;
 import com.project.be.TicketType;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
+import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -42,13 +44,27 @@ public class EditEventModel {
     public void deleteEvent(Event e) {
         try {
             eventManager.deleteEvent(e);
-        } catch (Exception exception) {
-            System.out.println(e);
+        } catch (Exception | UserException exception) {
+            System.out.println(exception);
         }
 
     }
 
     public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
         return FXCollections.observableArrayList(eventManager.getAllTicketTypesForEvent(e));
+    }
+
+    public int getTotalSeatCount(ObservableList<TicketType> items, int seatsAvailable) {
+        int totalSeatCount = 0;
+        for (TicketType item : items) {
+            totalSeatCount+=item.getSeatsAvailable();
+        }
+        totalSeatCount+=seatsAvailable;
+
+        return totalSeatCount;
+    }
+
+    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
+        eventManager.checkIfTicketsSold(selectedEvent);
     }
 }
