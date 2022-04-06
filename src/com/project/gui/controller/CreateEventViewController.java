@@ -134,7 +134,10 @@ public class CreateEventViewController implements Initializable {
             String ticketTypeBenefits = ticketBenefitsTxt.getText();
             int seatsAvailable = Integer.parseInt(ticketTypeCount.getText());
 
+            eventCapacityTxt.setText(String.valueOf(model.getTotalSeatCount(ticketTypeList.getItems(),seatsAvailable)));
+
             ticketTypeList.getItems().add(new TicketType(0,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
+
         }
     };
 

@@ -7,6 +7,7 @@ import com.project.bll.IEventManager;
 import com.project.bll.util.DateTimeConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -50,5 +51,15 @@ public class EditEventModel {
 
     public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
         return FXCollections.observableArrayList(eventManager.getAllTicketTypesForEvent(e));
+    }
+
+    public int getTotalSeatCount(ObservableList<TicketType> items, int seatsAvailable) {
+        int totalSeatCount = 0;
+        for (TicketType item : items) {
+            totalSeatCount+=item.getSeatsAvailable();
+        }
+        totalSeatCount+=seatsAvailable;
+
+        return totalSeatCount;
     }
 }
