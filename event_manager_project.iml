@@ -36,5 +36,11 @@
     <orderEntry type="library" name="junit.jupiter" level="project" />
     <orderEntry type="library" name="sun.xml.bind.jaxb.impl" level="project" />
     <orderEntry type="library" name="javax.mail.api" level="project" />
+    <orderEntry type="library" name="github.sarxos.webcam.capture" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.7.24" level="project" />
+    <orderEntry type="library" name="slf4j-jdk14-1.7.24" level="project" />
+    <orderEntry type="library" name="webcam-capture-driver-ipcam-0.3.11" level="project" />
+    <orderEntry type="library" name="github.sarxos.webcam.capture.driver.v4l4j" level="project" />
+    <orderEntry type="library" name="github.sarxos.fasm.compiler.plugin" level="project" />
   </component>
 </module>

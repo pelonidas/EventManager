@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="slf4j-jdk14-1.7.24">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/jar_files-7/slf4j-jdk14-1.7.24.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
