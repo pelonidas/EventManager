@@ -59,30 +59,36 @@ public class CoordinatorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            refreshEventTable();
-            refreshUserTable();
+            initializeEventTable();
+            initializeUserTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void refreshUserTable() throws SQLException {
-        userTable.getItems().clear();
-        userTable.refresh();
+    private void initializeUserTable() throws SQLException {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        userTable.setItems(manageEventsModel.getAllUsers());
+
+        refreshUserTable();
     }
 
-    public void refreshEventTable() throws SQLException {
-        coordinatorTableView.getItems().clear();
-        coordinatorTableView.refresh();
+    private void initializeEventTable() throws SQLException {
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        refreshEventTable();
+    }
+
+    private void refreshUserTable() throws SQLException {
+        userTable.setItems(manageEventsModel.getAllUsers());
+    }
+
+    public void refreshEventTable() throws SQLException {
         coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
 
@@ -103,6 +109,7 @@ public class CoordinatorController implements Initializable {
     }
 
     public void handleManageButton(ActionEvent event) throws SQLException {
+
     }
 
     public void handleTableview(MouseEvent mouseEvent) throws SQLException {
@@ -133,8 +140,7 @@ public class CoordinatorController implements Initializable {
         if (selectedEvent==null)
             return;
         try {
-            editEventModel.checkIfTicketsSold(selectedEvent);
-            refreshEventTable();
+            editEventModel.tryToDeleteEvent(selectedEvent);
         } catch (UserException e) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Error");
@@ -148,6 +154,7 @@ public class CoordinatorController implements Initializable {
             if (result.get() == continueButton)
                 editEventModel.deleteEvent(selectedEvent);
         }
+        refreshEventTable();
     }
 
     public void handleEditButton(ActionEvent event) throws IOException {

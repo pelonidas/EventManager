@@ -8,12 +8,10 @@ import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +62,7 @@ public class EditEventModel {
         return totalSeatCount;
     }
 
-    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
-        eventManager.checkIfTicketsSold(selectedEvent);
+    public void tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException {
+        eventManager.tryToDeleteEvent(selectedEvent);
     }
 }

@@ -158,6 +158,8 @@ public class EditEventController implements Initializable {
             String ticketTypeBenefits = ticketBenefitsTxt.getText();
             int seatsAvailable = Integer.parseInt(ticketTypeCount.getText());
 
+            eventCapacityTxt.setText(String.valueOf(model.getTotalSeatCount(ticketTypeList.getItems(),seatsAvailable)));
+
             ticketTypeList.getItems().add(new TicketType(0,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
         }
     };
@@ -183,6 +185,8 @@ public class EditEventController implements Initializable {
             selectedTicketType.setBenefits(ticketBenefitsTxt.getText());
             selectedTicketType.setPrice(Double.parseDouble(ticketPriceTxt.getText()));
             selectedTicketType.setSeatsAvailable(Integer.parseInt(ticketTypeCount.getText()));
+
+            eventCapacityTxt.setText(String.valueOf(model.getTotalSeatCount(ticketTypeList.getItems(),0)));
         }
     };
 
