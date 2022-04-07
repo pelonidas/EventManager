@@ -146,6 +146,7 @@ public class ManageUsersViewController implements Initializable {
         root = loader.load();
         SignUpController controller = loader.getController();
         controller.setCoordinator(false);
+        controller.checkTheBox();
         controller.disableUsernamePassword();
         controller.setManageUsersViewController(this);
         Stage stage = new Stage();
@@ -172,6 +173,7 @@ public class ManageUsersViewController implements Initializable {
         root = loader.load();
         SignUpController controller = loader.getController();
         controller.setManageUsersViewController(this);
+        controller.checkTheBox();
         Stage stage = new Stage();
         stage.setTitle("New Coordinator");
         stage.setScene(new Scene(root));

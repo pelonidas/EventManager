@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -185,7 +186,43 @@ public class LogInController implements Initializable {
 
          */
 
+        passWord.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    if (userName.getText().isEmpty()){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Alert");
+                        alert.setHeaderText("Please enter a username");
+                        alert.showAndWait();}
+                    else
+                        try {
+                            logIn(new ActionEvent());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                }
+            }
+        });
 
+        userName.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    if (passWord.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Please enter a password");
+                    alert.showAndWait();}
+                    else
+                    try {
+                        logIn(new ActionEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {

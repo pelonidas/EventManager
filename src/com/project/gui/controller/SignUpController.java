@@ -200,6 +200,8 @@ public class SignUpController implements Initializable {
     }
 
 
-
-
+    public void checkTheBox() {
+        termsConditions.setSelected(true);
+        termsConditions.setDisable(true);
+    }
 }
