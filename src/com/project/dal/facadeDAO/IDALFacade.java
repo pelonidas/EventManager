@@ -43,7 +43,7 @@ public interface IDALFacade {
     List<Ticket>getAllTickets(Customer customer)throws SQLException;
     void deleteTicket(Ticket ticket)throws SQLException;
     Ticket createTicket(TicketType ticketType, User user,Event selectedEvent) throws SQLException;
-    void tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException;
+    boolean tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException;
 
 
     /**

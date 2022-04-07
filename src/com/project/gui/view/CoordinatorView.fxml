@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="0.0" prefWidth="12.0" />
@@ -60,6 +60,7 @@
             <Button mnemonicParsing="false" onAction="#handleCreateEvent" text="Create Event" />
             <Button mnemonicParsing="false" onAction="#handleEditButton" text="Edit Event" />
             <Button mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete Event" />
+            <HBox fx:id="buttonBox" alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="100.0" />
          </buttons>
       </ButtonBar>
       <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Participants" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -97,7 +98,7 @@
                <columns>
                   <TableColumn fx:id="nameColumn" prefWidth="100.79999083280563" text="First name" />
                   <TableColumn fx:id="lastNameColumn" minWidth="0.0" prefWidth="82.0" text="Last name" />
-                  <TableColumn prefWidth="112.0" text="Email" />
+                  <TableColumn fx:id="emailColumn" prefWidth="112.0" text="Email" />
                </columns>
             </TableView>
             <GridPane prefHeight="105.0" prefWidth="293.0" GridPane.rowIndex="1">

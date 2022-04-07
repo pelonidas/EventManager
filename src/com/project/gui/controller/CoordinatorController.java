@@ -9,9 +9,12 @@ import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -63,11 +67,30 @@ public class CoordinatorController implements Initializable {
         try {
             initializeEventTable();
             initializeUserTable();
+            initIcons();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
+
+    private void initIcons() {
+        Text addTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.REFRESH,"24");
+        addTypeButton.setOnMouseClicked(refreshData);
+
+        buttonBox.getChildren().add(addTypeButton);
+    }
+
+    EventHandler refreshData = new EventHandler() {
+        @Override
+        public void handle(javafx.event.Event event) {
+            try {
+                manageEventsModel.refreshData();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     private void initializeUserTable() throws SQLException {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -91,6 +114,8 @@ public class CoordinatorController implements Initializable {
     }
 
     public void refreshEventTable() throws SQLException {
+        manageEventsModel.refreshData();
+        coordinatorTableView.refresh();
         coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
 
@@ -141,7 +166,7 @@ public class CoordinatorController implements Initializable {
         if (selectedEvent==null)
             return;
         try {
-            editEventModel.tryToDeleteEvent(selectedEvent);
+            manageEventsModel.tryToDeleteEvent(selectedEvent);
         } catch (UserException e) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Error");
@@ -153,7 +178,7 @@ public class CoordinatorController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == continueButton)
-                editEventModel.deleteEvent(selectedEvent);
+                manageEventsModel.deleteEvent(selectedEvent);
         }
         refreshEventTable();
     }
@@ -250,5 +275,6 @@ public class CoordinatorController implements Initializable {
         }
         coordinatorTableView.setItems(FXCollections.observableArrayList(events));
     }
+
 }
 

@@ -36,14 +36,6 @@ public class EditEventModel {
         eventManager.editTicketTypesForEvent(event,ticketTypes);
     }
 
-    public void deleteEvent(Event e) {
-        try {
-            eventManager.deleteEvent(e);
-        } catch (Exception | UserException exception) {
-            System.out.println(exception);
-        }
-
-    }
 
     public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
         return FXCollections.observableArrayList(eventManager.getAllTicketTypesForEvent(e));
@@ -59,10 +51,5 @@ public class EditEventModel {
         return totalSeatCount;
     }
 
-    public void tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException {
-        eventManager.tryToDeleteEvent(selectedEvent);
-    }
 
-    public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) {
-    }
 }

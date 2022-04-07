@@ -112,11 +112,14 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public void tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException {
-        if(ticketDAO.checkIfTicketsSold(selectedEvent))
-            throw new UserException("Ticket's to event have been sold \n" +
-                "Click continue to delete anyways",new Exception());
-        else deleteEvent(selectedEvent);
+    public boolean tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException {
+        if(ticketDAO.checkIfTicketsSold(selectedEvent)){
+            return true;
+        }
+        else{
+            deleteEvent(selectedEvent);
+            return false;
+        }
     }
 
     @Override

@@ -79,7 +79,7 @@ public class Main extends Application {
         if(layoutChosen.get().equals("coordinator")) {
             FXMLLoader loaderCoordinator = new FXMLLoader();
             loaderCoordinator.setLocation(getClass().getResource("CoordinatorView.fxml"));
-            HBox coordinatorDisplay = loaderCoordinator.load();
+            GridPane coordinatorDisplay = loaderCoordinator.load();
             coordinatorDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             coordinatorDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(coordinatorDisplay);
