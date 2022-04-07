@@ -32,6 +32,8 @@ import java.util.*;
 
 public class CoordinatorController implements Initializable {
     @FXML
+    private HBox buttonBox;
+    @FXML
     private TextField userSearchField;
     @FXML
     private TextField eventSearchField;
@@ -91,7 +93,6 @@ public class CoordinatorController implements Initializable {
     public void refreshEventTable() throws SQLException {
         coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
-
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();

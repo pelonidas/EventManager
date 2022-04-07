@@ -204,8 +204,7 @@ public class CreateEventViewController implements Initializable {
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
-        model.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
-
+        manageEventsModel.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
 
         coordinatorController.refreshEventTable();
         final Node source = (Node) actionEvent.getSource();

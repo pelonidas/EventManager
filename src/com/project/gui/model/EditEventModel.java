@@ -31,9 +31,6 @@ public class EditEventModel {
         return DateTimeConverter.parseDate(date);
     }
 
-    public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
-        eventManager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
-    }
     public void updateEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
         eventManager.editEvent(event, title ,dateAndTime, location, description, seatsAvailable);
         eventManager.editTicketTypesForEvent(event,ticketTypes);
@@ -64,5 +61,8 @@ public class EditEventModel {
 
     public void tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException {
         eventManager.tryToDeleteEvent(selectedEvent);
+    }
+
+    public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) {
     }
 }

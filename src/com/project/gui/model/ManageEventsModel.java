@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 
 public class ManageEventsModel {
 
@@ -35,10 +37,6 @@ public class ManageEventsModel {
         return allEvents;
     }
 
-    public void addEvent(Event event){
-        allEvents.add(event);
-    }
-
     public ObservableList<Customer> getAllUsers() throws SQLException {
         return allUsers;
     }
@@ -49,5 +47,9 @@ public class ManageEventsModel {
 
     public Ticket buyTicketForUser(Event selectedEvent, TicketType selectedTicketType, Customer selectedCustomer) throws SQLException {
         return manager.createTicket(selectedTicketType,selectedCustomer,selectedEvent);
+    }
+
+    public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
+        allEvents.add(manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes));
     }
 }
