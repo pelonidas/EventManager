@@ -96,7 +96,7 @@ public class TicketDAO {
     }
 
 
-    public void checkIfTicketsSold(Event event) throws SQLException, UserException {
+    public boolean checkIfTicketsSold(Event event) throws SQLException, UserException {
         try(Connection connection = dbConnector.getConnection()){
             String sql = "SELECT * \n" +
                     "FROM tickets\n" +
@@ -105,8 +105,10 @@ public class TicketDAO {
             preparedStatement.setInt(1,event.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
-                throw new UserException("Ticket's to event have been sold \n" +
-                                        "Click continue to delete anyways",new Exception());
+                return true;
+            return false;
+
+
         }
     }
 

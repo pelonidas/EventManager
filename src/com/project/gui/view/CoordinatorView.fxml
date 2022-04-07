@@ -51,7 +51,7 @@
             <Insets bottom="25.0" top="25.0" />
          </padding>
       </VBox>
-      <VBox prefHeight="550.0" prefWidth="180.0" spacing="5.0">
+      <VBox prefHeight="550.0" prefWidth="231.0" spacing="5.0">
          <children>
             <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Participants">
                <font>
@@ -78,14 +78,14 @@
             <Insets top="25.0" />
          </padding>
       </VBox>
-      <VBox prefHeight="550.0" prefWidth="350.0" spacing="5.0">
+      <VBox prefHeight="550.0" prefWidth="302.0" spacing="5.0">
          <children>
             <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers" wrappingWidth="127.353515625">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="8.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </Text>
             <TextField fx:id="userSearchField" onKeyPressed="#searchUser" />

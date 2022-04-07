@@ -151,7 +151,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public void checkIfTicketsSold(Event selectedEvent) throws SQLException, UserException {
+    public void tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException {
         dalController.checkIfTicketsSold(selectedEvent);
     }
 }

@@ -8,13 +8,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" spacing="5.0" stylesheets="@../../MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1049.0" spacing="5.0" stylesheets="@../../MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <children>
       <VBox prefHeight="550.0" prefWidth="500.0" spacing="5.0">
          <children>
@@ -42,7 +41,6 @@
                   <Button mnemonicParsing="false" onAction="#handleCreateEvent" text="Create Event" />
                   <Button mnemonicParsing="false" onAction="#handleEditButton" text="Edit Event" />
                   <Button mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete Event" />
-                  <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Buy a ticket" />
                </buttons>
                <VBox.margin>
                   <Insets top="25.0" />
@@ -50,10 +48,37 @@
             </ButtonBar>
          </children>
          <padding>
-            <Insets bottom="25.0" left="25.0" top="25.0" />
+            <Insets bottom="25.0" top="25.0" />
          </padding>
       </VBox>
-      <VBox prefHeight="550.0" prefWidth="279.0" spacing="5.0">
+      <VBox prefHeight="550.0" prefWidth="231.0" spacing="5.0">
+         <children>
+            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Participants">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="userSearchField1" onKeyPressed="#searchUser" />
+            <TableView prefHeight="365.0" prefWidth="176.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <VBox alignment="CENTER_RIGHT" prefHeight="78.0" prefWidth="176.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Scan Ticket" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="25.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="550.0" prefWidth="302.0" spacing="5.0">
          <children>
             <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers" wrappingWidth="127.353515625">
                <font>
@@ -71,47 +96,46 @@
                   <TableColumn fx:id="emailColumn" prefWidth="79.99992370605469" text="Email" />
               </columns>
             </TableView>
-            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Ticket types">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Text>
-            <ListView fx:id="ticketTypeList" prefHeight="130.0" prefWidth="270.0" />
+            <HBox spacing="10.0">
+               <children>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Ticket types">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <ListView fx:id="ticketTypeList" prefHeight="130.0" prefWidth="270.0" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="detailsTextarea" editable="false" prefHeight="130.0" prefWidth="365.0" styleClass="border-primary" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <ButtonBar prefHeight="66.0" prefWidth="482.0">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#handleManageButton" text="Manage users" />
+                  <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Buy a ticket" />
+              </buttons>
+            </ButtonBar>
          </children>
          <padding>
-            <Insets bottom="25.0" top="25.0" />
-         </padding>
-      </VBox>
-      <VBox prefHeight="550.0" prefWidth="240.0" spacing="5.0" HBox.hgrow="ALWAYS">
-         <children>
-            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <TextArea fx:id="detailsTextarea" editable="false" prefHeight="414.0" prefWidth="211.0" styleClass="border-primary" />
-            <BorderPane prefHeight="79.0" prefWidth="221.0" VBox.vgrow="ALWAYS">
-               <bottom>
-                  <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleManageButton" text="Manage users" />
-                    </buttons>
-                     <BorderPane.margin>
-                        <Insets bottom="25.0" />
-                     </BorderPane.margin>
-                  </ButtonBar>
-               </bottom>
-            </BorderPane>
-         </children>
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-         <padding>
-            <Insets right="25.0" top="25.0" />
+            <Insets top="25.0" />
          </padding>
       </VBox>
    </children>
+   <padding>
+      <Insets left="10.0" right="10.0" />
+   </padding>
 </HBox>
