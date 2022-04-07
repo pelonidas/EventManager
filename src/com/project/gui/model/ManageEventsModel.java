@@ -78,4 +78,8 @@ public class ManageEventsModel {
             throw new UserException("Ticket's to event have been sold \n" +
                     "Click continue to delete anyways",new Exception());
     }
+
+    public ObservableList<Customer> getParticipantsForEvent(Event e) throws Exception {
+        return FXCollections.observableArrayList(manager.getAllCustomersFromSameEvent(e.getId()));
+    }
 }

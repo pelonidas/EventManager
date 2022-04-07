@@ -1,8 +1,6 @@
 package com.project.dal;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Event;
-import com.project.be.Ticket;
 import com.project.be.TicketType;
 import com.project.dal.connectorDAO.DBConnector;
 
@@ -128,8 +126,6 @@ public class TicketCategoryDAO  {
         }
     }
 
-
-    //TODO make work
     public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
         List<TicketType> newTicketTypes = new ArrayList<>();
         List<TicketType> outDatedTicketTypes = getAllTicketTypesForEvent(event);
@@ -139,8 +135,12 @@ public class TicketCategoryDAO  {
         for (TicketType ticketType : ticketTypes) {
             if (ticketType.getId()==0)
                 newTicketTypes.add(ticketType);
-            else if(ticketAlreadyExists(ticketType,outDatedTicketTypes))
-                toBeUpdated.add(ticketType);
+            else if(ticketAlreadyExists(ticketType,outDatedTicketTypes)){
+                TicketType checkedTicketType = checkIfViableSeatCount(ticketType);
+                System.out.println(checkedTicketType.getSeatsAvailable());
+                toBeUpdated.add(checkedTicketType);
+            }
+
         }
 
         for (TicketType outDatedTicketType : outDatedTicketTypes) {
@@ -159,6 +159,47 @@ public class TicketCategoryDAO  {
         createMultipleTicketTypes(newTicketTypes,event.getId());
 
 
+    }
+
+    private TicketType checkIfViableSeatCount(TicketType ticketType) throws SQLException {
+        int oldTypeSeatCount = getOldTypeSeatCount(ticketType.getId());
+
+        TicketType checkedTicket = ticketType;
+
+        if (oldTypeSeatCount == ticketType.getSeatsAvailable()){
+            return checkedTicket;
+        }
+
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT COUNT(*) as [count]\n" +
+                    "FROM tickets\n" +
+                    "WHERE ticket_category_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,ticketType.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int soldTicketsOfType = 0;
+            if (resultSet.next())
+                soldTicketsOfType = resultSet.getInt("count");
+            System.out.println(soldTicketsOfType);
+            if (checkedTicket.getSeatsAvailable()<=soldTicketsOfType)
+                checkedTicket.setSeatsAvailable(soldTicketsOfType);
+            return checkedTicket;
+        }
+    }
+
+    private int getOldTypeSeatCount(int id) throws SQLException {
+        int oldSeatCount = 0;
+        try(Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT seats_available\n" +
+                    "FROM categories_ticket\n" +
+                    "WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                oldSeatCount = resultSet.getInt("seats_available");
+        }
+        return oldSeatCount;
     }
 
     private void updateTicketType(TicketType ticketType) throws SQLException {
