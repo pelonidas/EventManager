@@ -37,6 +37,14 @@ import java.util.*;
 
 public class CoordinatorController implements Initializable {
     @FXML
+    private TextField userSearchField1;
+    @FXML
+    private TableView<Customer> participantTable;
+    @FXML
+    private TableColumn participantName;
+    @FXML
+    private TableColumn participantSurname;
+    @FXML
     private HBox buttonBox;
     @FXML
     private TextField userSearchField;
@@ -68,11 +76,17 @@ public class CoordinatorController implements Initializable {
         try {
             initializeEventTable();
             initializeUserTable();
+            initializeParticipantTable();
             initIcons();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void initializeParticipantTable() {
+        participantName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        participantSurname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     }
 
     private void initIcons() {
@@ -139,12 +153,17 @@ public class CoordinatorController implements Initializable {
 
     }
 
-    public void handleTableview(MouseEvent mouseEvent) throws SQLException {
+    public void handleTableview(MouseEvent mouseEvent) throws Exception {
         Event e = getSelectedEvent();
         if (e==null)
             return;
         updateEventInfo(e);
         loadEventTickets(e);
+        loadEventParticipants(e);
+    }
+
+    private void loadEventParticipants(Event e) throws Exception {
+        participantTable.setItems(manageEventsModel.getParticipantsForEvent(e));
     }
 
     private void loadEventTickets(Event e) throws SQLException {

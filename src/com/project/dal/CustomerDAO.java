@@ -139,13 +139,10 @@ public class CustomerDAO {
                 int id = resultSet.getInt("id");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
-                String userName = resultSet.getString("user_name");
-                String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                Date birthDay = resultSet.getDate("birth_date");
-                int category = resultSet.getInt("category");
+                int phoneNumber = resultSet.getInt("phone_number");
 
-                Customer customer = new Customer(id, firstName, lastName, userName, password, email, birthDay, category);
+                Customer customer = new Customer(id,firstName,lastName,email,phoneNumber);
                 allCustomersFromSameEvent.add(customer);
 
             }

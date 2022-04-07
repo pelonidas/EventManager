@@ -69,10 +69,10 @@
          </font>
       </Text>
       <TextField fx:id="userSearchField1" onKeyPressed="#searchUser" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <TableView prefHeight="353.0" prefWidth="154.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+      <TableView fx:id="participantTable" prefHeight="353.0" prefWidth="154.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
          <columns>
-            <TableColumn prefWidth="75.0" text="First name" />
-            <TableColumn prefWidth="75.0" text="Last name" />
+            <TableColumn fx:id="participantName" prefWidth="75.0" text="First name" />
+            <TableColumn fx:id="participantSurname" prefWidth="75.0" text="Last name" />
          </columns>
       </TableView>
       <VBox alignment="CENTER" prefHeight="78.0" prefWidth="176.0" GridPane.columnIndex="4" GridPane.rowIndex="7">

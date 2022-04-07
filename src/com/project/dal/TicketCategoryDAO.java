@@ -126,8 +126,6 @@ public class TicketCategoryDAO  {
         }
     }
 
-
-    //TODO make work
     public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
         List<TicketType> newTicketTypes = new ArrayList<>();
         List<TicketType> outDatedTicketTypes = getAllTicketTypesForEvent(event);
