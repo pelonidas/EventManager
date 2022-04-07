@@ -18,7 +18,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.print.PrinterJob;
+import javafx.print.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -29,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.print.PageFormat;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -234,6 +235,12 @@ public class CoordinatorController implements Initializable {
     private void printTicket(Ticket createdTicket, Customer selectedCustomer, TicketType selectedTicketType, Event selectedEvent) throws IOException, WriterException {
         PrinterJob printer = PrinterJob.createPrinterJob();
 
+        PrinterAttributes pa = printer.getPrinter().getPrinterAttributes();
+        Paper paper = pa.getDefaultPaper();
+
+        PageLayout pageLayout = printer.getPrinter().createPageLayout(paper,PageOrientation.PORTRAIT,0,0,0,0);
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/TicketRedesign.fxml"));
         loader.load();
 
@@ -243,7 +250,7 @@ public class CoordinatorController implements Initializable {
 
         if (printer!=null){
             printer.showPrintDialog(ticketTypeList.getScene().getWindow());
-            printer.printPage(rootNode);
+            printer.printPage(pageLayout,rootNode);
             printer.endJob();
         }
 

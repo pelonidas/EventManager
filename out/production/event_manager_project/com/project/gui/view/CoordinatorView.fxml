@@ -112,8 +112,8 @@
                   <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextArea fx:id="detailsTextarea" editable="false" styleClass="border-primary" GridPane.rowIndex="1" />
-                  <ListView fx:id="ticketTypeList" prefHeight="100.0" prefWidth="169.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextArea fx:id="detailsTextarea" editable="false" styleClass="border-primary" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ListView fx:id="ticketTypeList" prefHeight="100.0" prefWidth="169.0" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
                         <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">

@@ -52,8 +52,10 @@ public class TicketController {
     public void setFields(Ticket createdTicket, Customer selectedCustomer, TicketType selectedTicketType, Event selectedEvent) throws WriterException {
         eventNameLabel.setText(selectedEvent.getTitle());
         eventNameLabelMini.setText(selectedEvent.getTitle());
-        eventDateLabel.setText(selectedEvent.getDateAndTime().toString());//idk about this one
-        eventTimeLabel.setText(selectedEvent.getDateAndTime().toString());
+        String[] splitDateAndTime = selectedEvent.getDateAndTime().toString().split(" ");
+
+        eventDateLabel.setText(splitDateAndTime[0]);//idk about this one
+        eventTimeLabel.setText(splitDateAndTime[1]);
 
         admissionTypeLabel.setText(selectedTicketType.getTitle());
         benefitsLabel.setText(selectedTicketType.getBenefits());
