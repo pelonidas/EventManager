@@ -19,7 +19,7 @@ public class CamTest extends Application {
 
         // note this is in init as it **must not** be called on the FX Application Thread:
 
-        Webcam cam = Webcam.getWebcams().get(0);
+        Webcam cam = Webcam.getWebcams().get(3);
         service = new WebCamService(cam);
     }
 
@@ -51,8 +51,6 @@ public class CamTest extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-
 
     public static void main(String[] args) {
         launch(args);

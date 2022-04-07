@@ -77,7 +77,7 @@ public class CoordinatorController implements Initializable {
     }
 
     public void refreshEventTable() throws SQLException {
-        //coordinatorTableView.getItems().clear();
+        coordinatorTableView.getItems().clear();
         coordinatorTableView.refresh();
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
@@ -134,7 +134,7 @@ public class CoordinatorController implements Initializable {
             return;
         try {
             editEventModel.checkIfTicketsSold(selectedEvent);
-            //refreshEventTable();
+            refreshEventTable();
         } catch (UserException e) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Error");
