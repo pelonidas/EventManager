@@ -5,6 +5,7 @@ import com.project.be.*;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.Mail;
 import com.project.gui.model.LogInModel;
+import com.project.gui.model.ManageEvents;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -105,8 +106,7 @@ public class LogInController implements Initializable {
     private final DoubleProperty fontSizeDhaLabel = new SimpleDoubleProperty(20);
     private final DoubleProperty fontSizeSmallLabel = new SimpleDoubleProperty(13);
 
-
-
+    private ManageEvents manageEvents;
 
     public void setMainApp(Main main) {
         this.main = main;
@@ -116,6 +116,7 @@ public class LogInController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             logInModel = new LogInModel();
+            manageEvents = new ManageEvents();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,7 +129,7 @@ public class LogInController implements Initializable {
             allAdmins= FXCollections.observableArrayList();
             allAdmins.setAll(logInModel.getAllAdmins());
             allEvents=FXCollections.observableArrayList();
-            allEvents.setAll(logInModel.getAllEvents());
+            allEvents.setAll(manageEvents.getAllEvents());
         } catch (SQLException | UserException e) {
             e.printStackTrace();
         }

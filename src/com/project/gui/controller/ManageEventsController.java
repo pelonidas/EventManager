@@ -2,6 +2,8 @@ package com.project.gui.controller;
 
 import com.project.be.Coordinator;
 import com.project.be.Customer;
+import com.project.bll.exceptions.UserException;
+import com.project.gui.model.ManageEvents;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import javafx.collections.FXCollections;
@@ -48,7 +50,7 @@ public class ManageEventsController implements Initializable {
     @FXML
     private TableView<com.project.be.Event> eventsTable;
     Main main;
-    private ManageEventsModel manageEventsModel;
+    private ManageEvents manageEventsModel;
     private  ObservableList <com.project.be.Event> allEvents =FXCollections.observableArrayList();
 
     private com.project.be.Event eventSelected;
@@ -82,11 +84,11 @@ public class ManageEventsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /**try {
-            manageEventsModel = new ManageEventsModel();
-        } catch (IOException | SQLException e) {
+        try {
+            manageEventsModel = new ManageEvents();
+        } catch (IOException  e) {
             e.printStackTrace();
-        }*/
+        }
 
         eventsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -116,10 +118,10 @@ public class ManageEventsController implements Initializable {
 
     }
 
-    public void deleteEvent(ActionEvent actionEvent) {
-        /*manageEventsModel.deleteEvent(getEventSelected());
+    public void deleteEvent(ActionEvent actionEvent) throws SQLException, UserException {
+        manageEventsModel.deleteEvent(getEventSelected());
         allEvents.remove(getEventSelected());
-        populateEventsTableView();*/
+        populateEventsTableView();
     }
 
     public com.project.be.Event getEventSelected() {
