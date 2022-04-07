@@ -2,6 +2,7 @@ package com.project.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Coordinator;
+import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.dal.connectorDAO.DBConnector;
 
@@ -33,6 +34,7 @@ public class EventDAO {
                         resultSet.getString("description"),
                         resultSet.getInt("seats_available"));
                 event.setAllCoordinators(getAllCoordinatorsEvent(event));
+                event.setParticipants(getAllCustomers(event));
                 allEvents.add(event);
 
             }
@@ -136,6 +138,31 @@ public class EventDAO {
             }
         }
         return allCoordinatorsEvent;
+    }
+
+    private List<Customer>getAllCustomers(Event event)throws SQLException{
+        List<Customer>allCustomers= new ArrayList<>();
+        try (Connection connection = dbConnector.getConnection()){
+            String sql0= "SELECT * FROM tickets WHERE event_id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql0);
+            preparedStatement.setInt(1,event.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                int customerId = resultSet.getInt("customer_id");
+                String sql="SELECT * FROM users WHERE id= ?";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql);
+                preparedStatement1.setInt(1,customerId);
+                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                while (resultSet1.next()){
+                    allCustomers.add(new Customer(customerId,
+                            resultSet1.getString("first_name"),
+                            resultSet1.getString("last_name"),
+                            resultSet1.getString("email"),
+                            resultSet1.getInt("phone_number")));
+                }
+            }
+        }
+        return allCustomers;
     }
 
 

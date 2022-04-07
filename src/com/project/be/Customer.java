@@ -43,7 +43,6 @@ public class Customer extends User{
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName() + " " + getUserName()
-                + " " + getEmail() + " " + getPhoneNumber();
+        return getFirstName() + getLastName();
     }
 }

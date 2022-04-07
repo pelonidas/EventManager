@@ -101,15 +101,15 @@ public class Main extends Application {
         if(layoutChosen.get().equals("events")) {
             FXMLLoader loaderEvent = new FXMLLoader();
             loaderEvent.setLocation(getClass().getResource("ManageEvents.fxml"));
-            VBox eventsDisplay = loaderEvent.load();
+            GridPane eventsDisplay = loaderEvent.load();
             ManageEventsController controller = loaderEvent.getController();
             eventsDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             eventsDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             controller.setMain(this);
             rootLayout.getChildren().add(eventsDisplay);
             primaryStage.setTitle("Manage events window");
-            primaryStage.setHeight(430);
-            primaryStage.setWidth(490);
+            primaryStage.setHeight(488);
+            primaryStage.setWidth(675);
         }
 
         if(layoutChosen.get().equals("users")) {
@@ -127,8 +127,8 @@ public class Main extends Application {
             controller.setUpCustomersTable();
             rootLayout.getChildren().add(usersDisplay);
             primaryStage.setTitle("Manage users window");
-            primaryStage.setHeight(426);
-            primaryStage.setWidth(516);
+            primaryStage.setHeight(530);
+            primaryStage.setWidth(512);
         }
 
         // Show the scene containing the root layout.

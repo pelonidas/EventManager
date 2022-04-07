@@ -154,7 +154,7 @@ public class LogInController implements Initializable {
         rightBigBox.prefWidthProperty().bind(bigBox.widthProperty().multiply(45).divide(100));
         leftPane.prefHeightProperty().bind(bigBox.heightProperty());
         rightPane.prefHeightProperty().bind(bigBox.heightProperty());
-
+        /*
         fontSizeBigLabel.bind(leftPane.heightProperty().divide(100000).multiply(5128));
         fontSizeDhaLabel.bind(leftPane.heightProperty().divide(100000).multiply(4662));
         fontSizeSmallLabel.bind(leftPane.heightProperty().divide(100).multiply(3));
@@ -180,6 +180,8 @@ public class LogInController implements Initializable {
 
         //signUpButton.prefHeightProperty().bind(leftPane.heightProperty().divide(100000).multiply(246));
         ///signUpButton.prefWidthProperty().bind(leftPane.widthProperty().divide(1000000).multiply(678));
+
+         */
 
 
     }

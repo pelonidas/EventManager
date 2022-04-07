@@ -4,17 +4,22 @@ import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,11 +27,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageEventsController implements Initializable {
     public VBox mainBox;
+    @FXML
+    private ListView<Customer> listParticipants;
     @FXML
     private TextField searchFilterEvents;
     @FXML
@@ -36,11 +44,11 @@ public class ManageEventsController implements Initializable {
     @FXML
     private TableColumn<Event,Integer> ticketsAvailableColumn;
     @FXML
-    private TableColumn<Event, String> coordinatorColumn;
-    @FXML
     private TableView<com.project.be.Event> eventsTable;
     Main main;
     private ManageEventsModel manageEventsModel;
+
+    private com.project.be.Event eventSelected;
 
     @FXML
     private void backView(ActionEvent actionEvent) {
@@ -56,17 +64,6 @@ public class ManageEventsController implements Initializable {
         this.main = main;
     }
 
-    public void newEvent(ActionEvent actionEvent) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/com/project/gui/view/NewEditEvent.fxml"));
-        root = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("New Event");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
     public void logOut(ActionEvent actionEvent) throws Exception {
         main.initLogin();
     }
@@ -76,7 +73,6 @@ public class ManageEventsController implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         ticketsAvailableColumn.setCellValueFactory(new PropertyValueFactory<>("seatsAvailable"));
-        coordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("allCoordinatorsString"));
 
         eventsTable.setItems(manageEventsModel.getAllEvents());
     }
@@ -89,9 +85,27 @@ public class ManageEventsController implements Initializable {
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
+        eventsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                setEventSelected(eventsTable.getSelectionModel().getSelectedItem());
+                ObservableList<Customer> allParticipants;
+                allParticipants= FXCollections.observableArrayList();
+                allParticipants.addAll(eventSelected.getParticipants());
+                listParticipants.setItems(allParticipants);
+            }
+        });
 
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
+    }
+
+    public com.project.be.Event getEventSelected() {
+        return eventSelected;
+    }
+
+    public void setEventSelected(com.project.be.Event eventSelected) {
+        this.eventSelected = eventSelected;
     }
 }

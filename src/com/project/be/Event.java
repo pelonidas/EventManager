@@ -12,7 +12,7 @@ public class Event {
     private Date dateAndTime;
     private String location;
     private String description;
-    private List<User> participants;
+    private List<Customer> participants;
     private int maxCapacity;
     private int seatsAvailable;
     private List<Coordinator>allCoordinators;
@@ -86,11 +86,11 @@ public class Event {
         this.description = description;
     }
 
-    public List<User> getParticipants() {
+    public List<Customer> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<User> participants) {
+    public void setParticipants(List<Customer> participants) {
         this.participants = participants;
     }
 
