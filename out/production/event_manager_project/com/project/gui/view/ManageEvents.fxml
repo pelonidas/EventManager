@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-<VBox fx:id="mainBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="490.0" stylesheets="@/ManageEvents.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
+<GridPane prefHeight="488.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="14.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="739.0" minWidth="10.0" prefWidth="646.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="15.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="63.0" minHeight="0.0" prefHeight="8.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="132.0" minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="383.0" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="283.0" minHeight="1.0" prefHeight="7.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="283.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="283.0" minHeight="5.0" prefHeight="9.0" vgrow="SOMETIMES" />
+   </rowConstraints>
    <children>
-      <SplitPane dividerPositions="0.45799180327868855" prefHeight="60.0" prefWidth="490.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="57.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="1.0" prefWidth="15.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="165.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="10.0" prefWidth="212.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="248.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="searchFilterEvents" alignment="CENTER" GridPane.columnIndex="2" />
+            <Label text="Search" />
+            <HBox alignment="CENTER" GridPane.columnIndex="4">
                <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="-37.0" layoutY="-23.0" prefHeight="54.5" prefWidth="220.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <VBox prefHeight="57.0" prefWidth="10.0" />
-                        <Label text="Search" />
-                        <HBox prefHeight="55.0" prefWidth="11.0" />
-                        <TextField fx:id="searchFilterEvents" alignment="CENTER" prefHeight="26.0" prefWidth="152.0" />
-                     </children>
-                  </HBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All participants" />
                </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <HBox alignment="CENTER_RIGHT" layoutX="-17.0" layoutY="-36.0" prefHeight="54.5" prefWidth="261.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <JFXButton onAction="#deleteEvent" text="Delete" />
-                        <JFXButton onAction="#newEvent" text="Add event" />
-                        <JFXButton text="Show participants" />
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-      <TableView fx:id="eventsTable" prefHeight="302.0" prefWidth="600.0">
-        <columns>
-          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Event" />
-          <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="Description" />
-            <TableColumn fx:id="ticketsAvailableColumn" prefWidth="113.0" text="Tickets available" />
-            <TableColumn fx:id="coordinatorColumn" prefWidth="75.0" text="Coordinator" />
-        </columns>
-      </TableView>
-      <SplitPane dividerPositions="0.21413934426229508" prefHeight="42.0" prefWidth="490.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <HBox alignment="BOTTOM_LEFT" layoutY="-19.0" prefHeight="39.0" prefWidth="142.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <JFXButton text="Show stats" />
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <HBox alignment="BOTTOM_RIGHT" layoutY="-50.0" prefHeight="39.0" prefWidth="339.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <JFXButton onAction="#logOut" text="Log out" />
-                        <JFXButton onAction="#backView" text="Back" />
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+            </HBox>
+         </children>
+      </GridPane>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.0" minWidth="10.0" prefWidth="394.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="0.0" prefWidth="14.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="243.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TableView fx:id="eventsTable">
+               <columns>
+                  <TableColumn fx:id="titleColumn" prefWidth="57.0" text="Event" />
+                  <TableColumn fx:id="dateColumn" prefWidth="68.0" text="Date" />
+                  <TableColumn fx:id="locationColumn" prefWidth="87.0" text="Location" />
+                  <TableColumn fx:id="descriptionColumn" prefWidth="78.0" text="Description" />
+                  <TableColumn fx:id="ticketsAvailableColumn" prefWidth="102.0" text="Tickets available" />
+               </columns>
+            </TableView>
+            <ListView fx:id="listParticipants" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ButtonBar GridPane.columnIndex="1">
+               <buttons>
+                  <JFXButton onAction="#backView" text="Back" />
+                  <JFXButton onAction="#logOut" text="Log out" />
+               </buttons>
+            </ButtonBar>
+            <JFXButton text="Delete event" />
+         </children>
+      </GridPane>
    </children>
-</VBox>
+</GridPane>
