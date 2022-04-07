@@ -3,6 +3,7 @@ package com.project.gui.model;
 import com.project.be.Admin;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
+import com.project.be.Event;
 import com.project.bll.exceptions.UserException;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
@@ -29,5 +30,9 @@ public class LogInModel {
 
     public List<Admin> getAllAdmins() throws SQLException, UserException {
         return EMFacade.getAllAdmins();
+    }
+
+    public List<Event> getAllEvents() throws SQLException {
+        return EMFacade.getAllEvents();
     }
 }

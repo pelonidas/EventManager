@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManageEventsController implements Initializable {
@@ -47,6 +49,7 @@ public class ManageEventsController implements Initializable {
     private TableView<com.project.be.Event> eventsTable;
     Main main;
     private ManageEventsModel manageEventsModel;
+    private  ObservableList <com.project.be.Event> allEvents =FXCollections.observableArrayList();
 
     private com.project.be.Event eventSelected;
 
@@ -67,38 +70,56 @@ public class ManageEventsController implements Initializable {
     public void logOut(ActionEvent actionEvent) throws Exception {
         main.initLogin();
     }
-    private void populateEventsTableView() throws SQLException {
+    public void populateEventsTableView() {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         ticketsAvailableColumn.setCellValueFactory(new PropertyValueFactory<>("seatsAvailable"));
 
-        eventsTable.setItems(manageEventsModel.getAllEvents());
+        eventsTable.setItems(getAllEvents());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            manageEventsModel= new ManageEventsModel();
-            populateEventsTableView();
+        /**try {
+            manageEventsModel = new ManageEventsModel();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+
         eventsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 setEventSelected(eventsTable.getSelectionModel().getSelectedItem());
                 ObservableList<Customer> allParticipants;
                 allParticipants= FXCollections.observableArrayList();
-                allParticipants.addAll(eventSelected.getParticipants());
+                try {
+                    allParticipants.addAll(eventSelected.getParticipants());
+                }catch (NullPointerException ignored){}
                 listParticipants.setItems(allParticipants);
+            }
+        });
+
+        searchFilterEvents.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                ObservableList<com.project.be.Event>search = FXCollections.observableArrayList();
+                for(com.project.be.Event event1 : allEvents){
+                    if (event1.getTitle().contains(searchFilterEvents.getText().toLowerCase(Locale.ROOT)))
+                        search.add(event1);
+                }
+                eventsTable.setItems(search);
+
             }
         });
 
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
+        /*manageEventsModel.deleteEvent(getEventSelected());
+        allEvents.remove(getEventSelected());
+        populateEventsTableView();*/
     }
 
     public com.project.be.Event getEventSelected() {
@@ -107,5 +128,13 @@ public class ManageEventsController implements Initializable {
 
     public void setEventSelected(com.project.be.Event eventSelected) {
         this.eventSelected = eventSelected;
+    }
+
+    public ObservableList<com.project.be.Event> getAllEvents() {
+        return allEvents;
+    }
+
+    public void setAllEvents(ObservableList<com.project.be.Event> allEvents) {
+        this.allEvents = allEvents;
     }
 }

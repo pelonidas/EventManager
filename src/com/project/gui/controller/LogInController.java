@@ -1,10 +1,7 @@
 package com.project.gui.controller;
 
 import com.jfoenix.controls.JFXCheckBox;
-import com.project.be.Admin;
-import com.project.be.Coordinator;
-import com.project.be.Customer;
-import com.project.be.User;
+import com.project.be.*;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.Mail;
 import com.project.gui.model.LogInModel;
@@ -100,6 +97,8 @@ public class LogInController implements Initializable {
     private ObservableList<Customer> allCustomers;
     private ObservableList<Coordinator> allCoordinators;
     private ObservableList<Admin> allAdmins;
+    private ObservableList<Event> allEvents;
+
     private boolean connected= false;
 
     private final DoubleProperty fontSizeBigLabel = new SimpleDoubleProperty(22);
@@ -128,6 +127,8 @@ public class LogInController implements Initializable {
             allCoordinators.setAll(logInModel.getAllCoordinators());
             allAdmins= FXCollections.observableArrayList();
             allAdmins.setAll(logInModel.getAllAdmins());
+            allEvents=FXCollections.observableArrayList();
+            allEvents.setAll(logInModel.getAllEvents());
         } catch (SQLException | UserException e) {
             e.printStackTrace();
         }
@@ -262,5 +263,13 @@ public class LogInController implements Initializable {
 
     public void sendMail(ActionEvent actionEvent) throws Exception {
         Mail.sendMail("amine.aouina.lp.4@gmail.com");
+    }
+
+    public ObservableList<Event> getAllEvents() {
+        return allEvents;
+    }
+
+    public void setAllEvents(ObservableList<Event> allEvents) {
+        this.allEvents = allEvents;
     }
 }

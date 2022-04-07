@@ -3,6 +3,7 @@ package com.project.gui.view;
 import com.project.be.Admin;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
+import com.project.be.Event;
 import com.project.gui.controller.*;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,6 +27,7 @@ public class Main extends Application {
     private ObservableList<Customer>allCustomers;
     private ObservableList<Coordinator>allCoordinators;
     private ObservableList<Admin>allAdmins;
+    private ObservableList<Event>allEvents;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -46,13 +48,24 @@ public class Main extends Application {
 
         LogInController controller = loader.getController();
         controller.setMainApp(this);
-        allCustomers= FXCollections.observableArrayList();
-        allCoordinators= FXCollections.observableArrayList();
-        allAdmins= FXCollections.observableArrayList();
 
-        allCoordinators.setAll(controller.getAllCoordinators());
-        allAdmins.setAll(controller.getAllAdmins());
-        allCustomers.setAll(controller.getAllCustomers());
+        if (allCoordinators==null){
+            allCoordinators= FXCollections.observableArrayList();
+            allCoordinators.setAll(controller.getAllCoordinators());
+        }
+        if (allAdmins==null){
+            allAdmins= FXCollections.observableArrayList();
+            allAdmins.setAll(controller.getAllAdmins());
+        }
+        if (allCustomers==null){
+            allCustomers= FXCollections.observableArrayList();
+            allCustomers.setAll(controller.getAllCustomers());
+           }
+
+        if (allEvents==null){
+            allEvents=FXCollections.observableArrayList();
+            allEvents.setAll(controller.getAllEvents());
+        }
 
         primaryStage.setTitle("Main window");
         primaryStage.show();
@@ -106,6 +119,8 @@ public class Main extends Application {
             eventsDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             eventsDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             controller.setMain(this);
+            controller.setAllEvents(allEvents);
+            controller.populateEventsTableView();
             rootLayout.getChildren().add(eventsDisplay);
             primaryStage.setTitle("Manage events window");
             primaryStage.setHeight(488);

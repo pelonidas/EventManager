@@ -41,8 +41,10 @@ public class Customer extends User{
         this.eventHistory = eventHistory;
     }
 
+
+
     @Override
     public String toString() {
-        return getFirstName() + getLastName();
+        return "full name: "+getFirstName() +" "+ getLastName()+", email: "+getEmail()+", phone: " +getPhoneNumber()+".";
     }
 }

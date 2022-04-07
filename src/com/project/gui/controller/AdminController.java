@@ -25,8 +25,6 @@ public class AdminController implements Initializable{
     private HBox usersBox;
     private Main main;
 
-
-
     public void setMainApp(Main main) {
         this.main=main;
     }

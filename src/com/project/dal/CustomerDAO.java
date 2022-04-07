@@ -33,11 +33,14 @@ public class CustomerDAO {
                 statement.setInt(1,id);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()){
-                    allCustomers.add(new Customer(resultSet.getInt("id"),
+                    Customer customer = new Customer(resultSet.getInt("id"),
                             resultSet.getString("first_name"),
                             resultSet.getString("last_name"),
                             resultSet.getString("email"),
-                            resultSet.getInt("phone_number")));
+                            resultSet.getInt("phone_number"));
+                    customer.setMyEvents((ArrayList<Event>) getCustomerEventHistory(customer));
+                    allCustomers.add(customer);
+
             }
             }
         }

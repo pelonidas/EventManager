@@ -104,6 +104,10 @@ public class ManageUsersViewController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 setSelectedCustomer(customersTable.getSelectionModel().getSelectedItem());
+                ObservableList< com.project.be.Event> allEvents;
+                allEvents= FXCollections.observableArrayList();
+                allEvents.addAll(getSelectedCustomer().getMyEvents());
+                eventsListView.setItems(allEvents);
             }
         });
 

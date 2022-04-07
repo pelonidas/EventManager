@@ -87,7 +87,7 @@
                   <JFXButton onAction="#logOut" text="Log out" />
                </buttons>
             </ButtonBar>
-            <JFXButton text="Delete event" />
+            <JFXButton onAction="#deleteEvent" text="Delete event" />
          </children>
       </GridPane>
    </children>
