@@ -9,10 +9,12 @@ import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
+import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,7 +39,14 @@ import java.util.*;
 
 public class CoordinatorController implements Initializable {
     @FXML
-    private TextField userSearchField1;
+    private TextField eventSearchFilter;
+    @FXML
+    private TextField allCustomersFilter0;
+    @FXML
+    private TextField participantsFilter;
+    @FXML
+    private Text allCustomersFilter;
+
     @FXML
     private TableView<Customer> participantTable;
     @FXML
@@ -46,10 +55,6 @@ public class CoordinatorController implements Initializable {
     private TableColumn participantSurname;
     @FXML
     private HBox buttonBox;
-    @FXML
-    private TextField userSearchField;
-    @FXML
-    private TextField eventSearchField;
     @FXML
     private TableView<Customer> userTable;
     @FXML
@@ -62,6 +67,28 @@ public class CoordinatorController implements Initializable {
     private TableColumn<Event, String> name, attendance, location, date;
     private ManageEventsModel manageEventsModel;
     private EditEventModel editEventModel;
+    private ObservableList<Event> allEvents =FXCollections.observableArrayList();
+    private ObservableList<Customer> allCustomers =FXCollections.observableArrayList();
+
+    private Main main;
+    private com.project.be.Event eventSelected;
+
+    public ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+
+    public void setAllCustomers(ObservableList<Customer> allCustomers) {
+        this.allCustomers = allCustomers;
+    }
+
+    public ObservableList<Event> getAllEvents() {
+        return allEvents;
+    }
+
+    public void setAllEvents(ObservableList<Event> allEvents) {
+        this.allEvents = allEvents;
+    }
+
     @FXML
     private TextArea detailsTextarea;
     private DateTimeConverter dateTimeConverter = new DateTimeConverter();
@@ -73,15 +100,51 @@ public class CoordinatorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            initializeEventTable();
-            initializeUserTable();
-            initializeParticipantTable();
+        initializeParticipantTable();
+        coordinatorTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setEventSelected(coordinatorTableView.getSelectionModel().getSelectedItem());
+                    ObservableList<Customer>allParticipants;
+                    allParticipants = FXCollections.observableArrayList();
+                    allParticipants.addAll(getSelectedEvent().getParticipants());
+                    participantTable.setItems(allParticipants);
+                }
+            });
             initIcons();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+        allCustomersFilter0.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                ObservableList<Customer>search = FXCollections.observableArrayList();
+                for(Customer customer : allCustomers){
+                    if (customer.getFirstName().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT)))
+                        search.add(customer);}
+                userTable.setItems(search);
+            }
+        });
+
+        participantsFilter.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                ObservableList<Customer>search = FXCollections.observableArrayList();
+                for(Customer customer : getSelectedEvent().getParticipants()){
+                    if (customer.getFirstName().toLowerCase().contains(participantsFilter.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(participantsFilter.getText().toLowerCase(Locale.ROOT)))
+                        search.add(customer);}
+                participantTable.setItems(search);
+            }
+        });
+
+        eventSearchFilter.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                ObservableList<Event>search = FXCollections.observableArrayList();
+                for(Event event1 : allEvents ){
+                    if (event1.getTitle().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT)))
+                        search.add(event1);}
+                coordinatorTableView.setItems(search);
+            }
+        });
     }
 
     private void initializeParticipantTable() {
@@ -107,7 +170,7 @@ public class CoordinatorController implements Initializable {
         }
     };
 
-    private void initializeUserTable() throws SQLException {
+    public void initializeUserTable() throws SQLException {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -115,7 +178,7 @@ public class CoordinatorController implements Initializable {
         refreshUserTable();
     }
 
-    private void initializeEventTable() throws SQLException {
+    public void initializeEventTable() throws SQLException {
         name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
         date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -125,13 +188,15 @@ public class CoordinatorController implements Initializable {
     }
 
     private void refreshUserTable() throws SQLException {
-        userTable.setItems(manageEventsModel.getAllUsers());
+        userTable.setItems(getAllCustomers());
     }
+
+
 
     public void refreshEventTable() throws SQLException {
         manageEventsModel.refreshData();
         coordinatorTableView.refresh();
-        coordinatorTableView.setItems(manageEventsModel.getAllEvents());
+        coordinatorTableView.setItems(getAllEvents());
     }
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
@@ -288,23 +353,16 @@ public class CoordinatorController implements Initializable {
         return userTable.getSelectionModel().getSelectedItem();
     }
 
-    public void searchUser(KeyEvent keyEvent) throws SQLException {
-        List<Customer> customers = new ArrayList<>();
-        for (Customer customer : manageEventsModel.getAllUsers()) {
-            if (customer.toString().toLowerCase(Locale.ROOT).contains(userSearchField.getText().toLowerCase(Locale.ROOT)))
-                customers.add(customer);
-        }
-        userTable.setItems(FXCollections.observableArrayList(customers));
+    public void setMain(Main main) {
+        this.main=main;
     }
 
-    public void searchEvent(KeyEvent keyEvent) throws SQLException {
-        List<Event> events = new ArrayList<>();
-        for (Event event : manageEventsModel.getAllEvents()) {
-            if (event.toString().toLowerCase(Locale.ROOT).contains(eventSearchField.getText().toLowerCase(Locale.ROOT)))
-                events.add(event);
-        }
-        coordinatorTableView.setItems(FXCollections.observableArrayList(events));
+    public Event getEventSelected() {
+        return eventSelected;
     }
 
+    public void setEventSelected(Event eventSelected) {
+        this.eventSelected = eventSelected;
+    }
 }
 

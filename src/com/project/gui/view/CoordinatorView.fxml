@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="0.0" prefWidth="12.0" />
@@ -43,7 +43,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <TextField fx:id="eventSearchField" onKeyPressed="#searchEvent" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="eventSearchFilter" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <TableView fx:id="coordinatorTableView" onMouseClicked="#handleTableview" prefHeight="162.0" prefWidth="497.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <columns>
             <TableColumn fx:id="name" prefWidth="75.0" text="Name of the event" />
@@ -68,7 +68,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <TextField fx:id="userSearchField1" onKeyPressed="#searchUser" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <TextField fx:id="participantsFilter" GridPane.columnIndex="4" GridPane.rowIndex="3" />
       <TableView fx:id="participantTable" prefHeight="353.0" prefWidth="154.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
          <columns>
             <TableColumn fx:id="participantName" prefWidth="75.0" text="First name" />
@@ -80,7 +80,7 @@
             <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Scan Ticket" />
          </children>
       </VBox>
-      <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers" GridPane.columnIndex="6" GridPane.rowIndex="2">
+      <Text fx:id="allCustomersFilter" fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers" GridPane.columnIndex="6" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -142,6 +142,6 @@
             <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Buy a ticket" />
          </buttons>
       </ButtonBar>
-      <TextField fx:id="userSearchField11" onKeyPressed="#searchUser" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+      <TextField fx:id="allCustomersFilter0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
    </children>
 </GridPane>
