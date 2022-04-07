@@ -149,8 +149,12 @@ public class CoordinatorController implements Initializable {
         stage.show();
     }
 
-    public void handleManageButton(ActionEvent event) throws SQLException {
-
+    public void handleManageButton(ActionEvent event) throws SQLException, IOException {
+        Parent root =  FXMLLoader.load(getClass().getResource("../view/ManageUsersCoord.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void handleTableview(MouseEvent mouseEvent) throws Exception {
