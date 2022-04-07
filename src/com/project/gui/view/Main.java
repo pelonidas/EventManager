@@ -75,7 +75,6 @@ public class Main extends Application {
             primaryStage.setTitle("Admin window");
             primaryStage.setHeight(220);
             primaryStage.setWidth(314);
-
         }
         if(layoutChosen.get().equals("coordinator")) {
             FXMLLoader loaderCoordinator = new FXMLLoader();
@@ -85,6 +84,8 @@ public class Main extends Application {
             coordinatorDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(coordinatorDisplay);
             primaryStage.setTitle("coordinator window");
+            primaryStage.setHeight(600);
+            primaryStage.setWidth(1000);
         }
 
         if(layoutChosen.get().equals("customer")) {
