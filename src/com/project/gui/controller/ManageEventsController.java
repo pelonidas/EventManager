@@ -132,34 +132,35 @@ public class ManageEventsController implements Initializable {
             @Override
             public Integer fromString(String string) {
                 try {
-                    Integer.parseInt(string);
-                } catch (NumberFormatException nfe) {
-                    test = -1;
+                    test = Integer.parseInt(string);
+                }catch (NumberFormatException nfe){
+                    test =-1;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
                     alert.setHeaderText("Number format exception");
-                    alert.setContentText("Please find a number for available seats");
+                    alert.setContentText("Please find a number available seats.");
                     alert.showAndWait();
                 }
                 return test;
             }
         }));
         ticketsAvailableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Event, Integer>>() {
-                                                   @Override
-                                                   public void handle(TableColumn.CellEditEvent<Event, Integer> event) {
-                                                       com.project.be.Event event0 = event.getRowValue();
-                                                       if (test>=0){
-                                                       event0.setSeatsAvailable((event.getNewValue()));
-                                                       try {
-                                                           manageEventsModel.editEvent(event0);
-                                                       } catch (SQLException e) {
-                                                           e.printStackTrace();
-                                                       }
-                                                   }
-                                                   }
-                                               });
-                eventsTable.setItems(getAllEvents());
-
+            @Override
+            public void handle(TableColumn.CellEditEvent<Event, Integer> event) {
+                Event event1 = event.getRowValue();
+                if (test>=0){
+                event1.setSeatsAvailable(event.getNewValue());
+                try {
+                    manageEventsModel.editEvent(event1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                test= 1;
+                eventsTable.refresh();}}
+        });
+        eventsTable.setItems(getAllEvents());
     }
 
     @Override

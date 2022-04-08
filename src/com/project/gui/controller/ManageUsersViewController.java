@@ -23,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +43,7 @@ public class ManageUsersViewController implements Initializable {
     private TableColumn<Coordinator,String> FNameCoordinatorColumn,LNameCoordinatorColumn,UNameCoordinatorColumn,PassWordCoordinatorColumn,EmailCoordinatorColumn;
 
     @FXML
-    private TableColumn<Customer,Integer> phoneNumberCoordinatorColumn;
+    private TableColumn<Coordinator,Integer> phoneNumberCoordinatorColumn;
     @FXML
     private TableView<Customer> customersTable;
     @FXML
@@ -56,6 +57,7 @@ public class ManageUsersViewController implements Initializable {
 
     private Customer selectedCustomer;
     private Coordinator selectedCoordinator;
+    private Integer test =1;
 
     public Customer getSelectedCustomer() {
         return selectedCustomer;
@@ -260,18 +262,43 @@ public class ManageUsersViewController implements Initializable {
         });
 
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        /*phoneNumberColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, Integer>>() {
+        phoneNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer object) {
+                return String.valueOf(object);
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                try {
+                    test = Integer.parseInt(string);
+                }catch (NumberFormatException nfe){
+                    test =-1;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Number format exception");
+                    alert.setContentText("Please find a number for your coordinator.");
+                    alert.showAndWait();
+                }
+                return test;
+            }
+        }));
+        phoneNumberColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, Integer>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<Customer, Integer> event) {
                 Customer customer = event.getRowValue();
+                if (test>=0){
                 customer.setPhoneNumber(event.getNewValue());
                 try {
                     customerModel.editCustomer(customer);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }
-        });*/
+            }else {
+                    test= 1;
+                    customersTable.refresh();
+                }}
+        });
         customersTable.setItems(getAllCustomers());
     }
     public void setUpCoordinatorsTable() {
@@ -349,19 +376,45 @@ public class ManageUsersViewController implements Initializable {
             }
         });
         phoneNumberCoordinatorColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        /*phoneNumberCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        phoneNumberCoordinatorColumn.setOnEditCommit(new EventHandler<>() {
+        phoneNumberCoordinatorColumn.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<Coordinator, String> event) {
-                Coordinator coordinator = event.getRowValue();
-                coordinator.setFirstName(event.getNewValue());
+            public String toString(Integer object) {
+                return String.valueOf(object);
+            }
+
+            @Override
+            public Integer fromString(String string) {
                 try {
-                    customerModel.editCoordinator(coordinator);
+                    test =Integer.parseInt(string);
+                }catch (NumberFormatException nfe){
+                    test =-1;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Number format exception");
+                    alert.setContentText("Please find a number for your coordinator.");
+                    alert.showAndWait();
+                }
+                return test;
+            }
+        }));
+        phoneNumberCoordinatorColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Coordinator, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Coordinator, Integer> event) {
+                Coordinator coordinator = event.getRowValue();
+                if (test>=0){
+                coordinator.setPhoneNumber(event.getNewValue());
+                try {
+                    coordinatorModel.editCoordinator(coordinator);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-        });*/
+            else {
+                test =1;
+                coordinatorsTable.refresh();}
+            }
+
+        });
         coordinatorsTable.setItems(getAllCoordinators());
     }
 
