@@ -31,8 +31,8 @@ public class EditEventModel {
         return DateTimeConverter.parseDate(date);
     }
 
-    public void updateEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
-        eventManager.editEvent(event, title ,dateAndTime, location, description, seatsAvailable);
+    public void updateEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+        eventManager.editEvent(event);
         eventManager.editTicketTypesForEvent(event,ticketTypes);
     }
 

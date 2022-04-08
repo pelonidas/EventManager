@@ -163,4 +163,36 @@ public class Main extends Application {
     public void setLayoutChosen(String layoutChosen) {
         this.layoutChosen.set(layoutChosen);
     }
+
+    public ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+
+    public void setAllCustomers(ObservableList<Customer> allCustomers) {
+        this.allCustomers = allCustomers;
+    }
+
+    public ObservableList<Coordinator> getAllCoordinators() {
+        return allCoordinators;
+    }
+
+    public void setAllCoordinators(ObservableList<Coordinator> allCoordinators) {
+        this.allCoordinators = allCoordinators;
+    }
+
+    public ObservableList<Admin> getAllAdmins() {
+        return allAdmins;
+    }
+
+    public void setAllAdmins(ObservableList<Admin> allAdmins) {
+        this.allAdmins = allAdmins;
+    }
+
+    public ObservableList<Event> getAllEvents() {
+        return allEvents;
+    }
+
+    public void setAllEvents(ObservableList<Event> allEvents) {
+        this.allEvents = allEvents;
+    }
 }

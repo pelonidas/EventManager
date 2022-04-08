@@ -30,4 +30,8 @@ public class ManageEvents {
     public void deleteEvent(Event event) throws SQLException, UserException {
         EMFacade.deleteEvent(event);
     }
+
+    public void editEvent(Event event0) throws SQLException {
+        EMFacade.editEvent(event0);
+    }
 }

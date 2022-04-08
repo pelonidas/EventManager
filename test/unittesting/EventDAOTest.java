@@ -44,7 +44,7 @@ class EventDAOTest {
 
         //Act - the method run
         Event eventActual = eventDAO.createEvent(eventName,date,location,description,seatCount);
-        Event updatedEventActual = eventDAO.editEvent(eventActual, updatedTitle, date, updatedLocation, updatedDescription, seatCount);
+        Event updatedEventActual = eventDAO.editEvent(eventActual);
         eventDAO.deleteEvent(updatedEventActual);
         Event deletedEventActual = eventDAO.getEventByID(eventActual.getId());
 

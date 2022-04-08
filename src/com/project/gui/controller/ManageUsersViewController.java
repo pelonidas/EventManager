@@ -183,7 +183,7 @@ public class ManageUsersViewController implements Initializable {
     public void deleteCoordinator(ActionEvent actionEvent) throws SQLException {
         setSelectedCoordinator(coordinatorsTable.getSelectionModel().getSelectedItem());
         coordinatorModel.deleteCoordinator(getSelectedCoordinator());
-        allCustomers.remove(getSelectedCustomer());
+        allCoordinators.remove(getSelectedCoordinator());
         setUpCoordinatorsTable();
     }
 
@@ -247,7 +247,7 @@ public class ManageUsersViewController implements Initializable {
         });*/
         customersTable.setItems(getAllCustomers());
     }
-    public void setUpCoordinatorsTable() throws SQLException {
+    public void setUpCoordinatorsTable() {
 
         coordinatorsTable.setEditable(true);
 

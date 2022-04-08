@@ -45,8 +45,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Event editEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
-        return eventDAO.editEvent(event,title,dateAndTime,location,description,seatsAvailable);
+    public Event editEvent(Event event) throws SQLException {
+        return eventDAO.editEvent(event);
     }
 
     @Override

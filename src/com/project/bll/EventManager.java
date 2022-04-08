@@ -45,9 +45,9 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public Event editEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
+    public Event editEvent(Event event) throws SQLException {
         if (event != null)
-            return dalController.editEvent(event, title, dateAndTime, location, description, seatsAvailable);
+            return dalController.editEvent(event);
         return null;
     }
 

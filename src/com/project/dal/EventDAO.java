@@ -96,15 +96,15 @@ public class EventDAO {
         }
     }
 
-    public Event editEvent(Event event, String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
+    public Event editEvent(Event event) throws SQLException {
         try (Connection connection = dbConnector.getConnection()) {
             String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?  WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, title);
-            preparedStatement.setTimestamp(2,new Timestamp(dateAndTime.getTime()));
-            preparedStatement.setString(3, location);
-            preparedStatement.setString(4, description);
-            preparedStatement.setInt(5, seatsAvailable);
+            preparedStatement.setString(1, event.getTitle());
+            preparedStatement.setTimestamp(2,new Timestamp(event.getDateAndTime().getTime()));
+            preparedStatement.setString(3, event.getLocation());
+            preparedStatement.setString(4, event.getDescription());
+            preparedStatement.setInt(5, event.getSeatsAvailable());
             preparedStatement.setInt(6, event.getId());
 
             preparedStatement.execute();

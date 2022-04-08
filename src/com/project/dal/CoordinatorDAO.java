@@ -96,14 +96,15 @@ public class CoordinatorDAO {
                 PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
                 preparedStatement0.setInt(1,coordinator.getId());
                 preparedStatement0.executeUpdate();
-                String sql = "DELETE FROM users WHERE id= ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setInt(1,coordinator.getId());
-                preparedStatement.executeUpdate();
                 String sql1 = "DELETE FROM credentials WHERE user_id= ?";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
                 preparedStatement1.setInt(1,coordinator.getId());
                 preparedStatement1.executeUpdate();
+                String sql = "DELETE FROM users WHERE id= ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1,coordinator.getId());
+                preparedStatement.executeUpdate();
+
         }
     }
     public Coordinator editCoordinators(Coordinator coordinator) throws SQLException{

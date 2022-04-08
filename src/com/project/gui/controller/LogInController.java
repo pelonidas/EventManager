@@ -226,7 +226,7 @@ public class LogInController implements Initializable {
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
-
+        main.setAllCoordinators(allCoordinators);
         try {
             for (Admin admin: allAdmins){
                 if (admin.getUserName().equals(userName.getText())&&admin.getPassWord().equals(passWord.getText())){
@@ -269,6 +269,8 @@ public class LogInController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
+        SignUpController signUpController = loader.getController();
+        signUpController.setLogInController(this);
         Stage stage = new Stage();
         stage.setTitle("Sign Up");
         stage.setScene(new Scene(root));

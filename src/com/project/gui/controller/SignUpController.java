@@ -77,6 +77,7 @@ public class SignUpController implements Initializable {
     @FXML
     private HBox genderHBox;
     private ManageUsersViewController manageUsersViewController;
+    private LogInController logInController;
 
     public void setManageUsersViewController(ManageUsersViewController manageUsersViewController) {
         this.manageUsersViewController = manageUsersViewController;
@@ -151,8 +152,11 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
                 coordinatorModel.editCoordinator(coordinator);
-                manageUsersViewController.getAllCoordinators().add(coordinator);
-                manageUsersViewController.setUpCoordinatorsTable();
+                logInController.getAllCoordinators().add(coordinator);
+                try {
+                    manageUsersViewController.getAllCoordinators().add(coordinator);
+                    manageUsersViewController.setUpCoordinatorsTable();
+                }catch (NullPointerException ignored){}
              }
         }
         else {
@@ -203,5 +207,13 @@ public class SignUpController implements Initializable {
     public void checkTheBox() {
         termsConditions.setSelected(true);
         termsConditions.setDisable(true);
+    }
+
+    public LogInController getLogInController() {
+        return logInController;
+    }
+
+    public void setLogInController(LogInController logInController) {
+        this.logInController = logInController;
     }
 }
