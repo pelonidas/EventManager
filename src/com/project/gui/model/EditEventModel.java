@@ -38,7 +38,8 @@ public class EditEventModel {
 
 
     public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
-        return FXCollections.observableArrayList(eventManager.getAllTicketTypesForEvent(e));
+         List<TicketType> ticketTypeList = eventManager.getAllTicketTypesForEvent(e);
+         return FXCollections.observableArrayList(ticketTypeList);
     }
 
     public int getTotalSeatCount(ObservableList<TicketType> items, int seatsAvailable) {

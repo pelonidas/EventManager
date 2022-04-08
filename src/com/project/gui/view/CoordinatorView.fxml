@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="0.0" prefWidth="12.0" />
@@ -44,7 +44,7 @@
          </font>
       </Text>
       <TextField fx:id="eventSearchFilter" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <TableView fx:id="coordinatorTableView" onMouseClicked="#handleTableview" prefHeight="162.0" prefWidth="497.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <TableView fx:id="coordinatorTableView" onMouseClicked="#handleSelectEvent" prefHeight="162.0" prefWidth="497.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <columns>
             <TableColumn fx:id="name" prefWidth="75.0" text="Name of the event" />
             <TableColumn fx:id="attendance" prefWidth="75.0" text="Attendance" />

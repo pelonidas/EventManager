@@ -52,12 +52,13 @@ public class TicketDAO {
         if(!ticketsStillAvailable(ticketType))
             return ticket;
         try (Connection connection = dbConnector.getConnection()){
-          String sql = "INSERT INTO tickets VALUES (?,?,?,?)";
+          String sql = "INSERT INTO tickets VALUES (?,?,?,?,?)";
           PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
           preparedStatement.setInt(1,event.getId());
           preparedStatement.setInt(2,customer.getId());
           preparedStatement.setString(4,qr_code);
           preparedStatement.setInt(3,ticketType.getId());
+          preparedStatement.setInt(5,1);
           ResultSet resultSet = preparedStatement.executeQuery();
           while (resultSet.next()){
               ticket= new Ticket(resultSet.getInt(1),event,customer,qr_code);

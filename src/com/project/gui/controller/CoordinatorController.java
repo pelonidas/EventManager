@@ -101,16 +101,6 @@ public class CoordinatorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeParticipantTable();
-        coordinatorTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    setEventSelected(coordinatorTableView.getSelectionModel().getSelectedItem());
-                    ObservableList<Customer>allParticipants;
-                    allParticipants = FXCollections.observableArrayList();
-                    allParticipants.addAll(getSelectedEvent().getParticipants());
-                    participantTable.setItems(allParticipants);
-                }
-            });
             initIcons();
 
         allCustomersFilter0.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -188,7 +178,7 @@ public class CoordinatorController implements Initializable {
     }
 
     private void refreshUserTable() throws SQLException {
-        userTable.setItems(getAllCustomers());
+        userTable.setItems(manageEventsModel.getAllUsers());
     }
 
 
@@ -196,7 +186,7 @@ public class CoordinatorController implements Initializable {
     public void refreshEventTable() throws SQLException {
         manageEventsModel.refreshData();
         coordinatorTableView.refresh();
-        coordinatorTableView.setItems(getAllEvents());
+        coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
@@ -222,21 +212,14 @@ public class CoordinatorController implements Initializable {
         stage.show();
     }
 
-    public void handleTableview(MouseEvent mouseEvent) throws Exception {
-        Event e = getSelectedEvent();
-        if (e==null)
-            return;
-        updateEventInfo(e);
-        loadEventTickets(e);
-        loadEventParticipants(e);
-    }
+
 
     private void loadEventParticipants(Event e) throws Exception {
         participantTable.setItems(manageEventsModel.getParticipantsForEvent(e));
     }
 
     private void loadEventTickets(Event e) throws SQLException {
-        ticketTypeList.setItems(manageEventsModel.getTicketsForEvent(e));
+        ticketTypeList.setItems(editEventModel.getTicketTypesForEvent(e));
     }
 
     private void updateEventInfo(Event e) {
@@ -363,6 +346,15 @@ public class CoordinatorController implements Initializable {
 
     public void setEventSelected(Event eventSelected) {
         this.eventSelected = eventSelected;
+    }
+
+    public void handleSelectEvent(MouseEvent mouseEvent) throws Exception {
+        Event e = getSelectedEvent();
+        if (e==null)
+            return;
+        updateEventInfo(e);
+        loadEventTickets(e);
+        loadEventParticipants(e);
     }
 }
 
