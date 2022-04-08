@@ -18,8 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -114,12 +116,38 @@ public class ManageUsersViewController implements Initializable {
         if (getSelectedCustomer()!=null)
         eventsListView.getItems().addAll(getSelectedCustomer().getEventHistory());
 
+        customersTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.BACK_SPACE)){
+                    try {
+                        deleteCustomer(new ActionEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        coordinatorsTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.BACK_SPACE)){
+                    try {
+                        deleteCoordinator(new ActionEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         searchFilterCustomer.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
                 for(Customer customer : allCustomers){
-                    if (customer.getFirstName().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)))
+                    if (customer.getFirstName().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(searchFilterCustomer.getText())||customer.getEmail().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)))
                         search.add(customer);}
                     customersTable.setItems(search);
 
@@ -131,10 +159,9 @@ public class ManageUsersViewController implements Initializable {
             public void handle(KeyEvent event) {
                 ObservableList<Coordinator>search = FXCollections.observableArrayList();
                 for(Coordinator coordinator : allCoordinators){
-                    if (coordinator.getFirstName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getLastName().toLowerCase(Locale.ROOT).contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)))
+                    if (coordinator.getFirstName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getLastName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||String.valueOf(coordinator.getPhoneNumber()).contains(filterSearchCoordinator.getText())||coordinator.getEmail().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getUserName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getPassWord().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)))
                         search.add(coordinator);}
                 coordinatorsTable.setItems(search);
-
             }
         });
     }

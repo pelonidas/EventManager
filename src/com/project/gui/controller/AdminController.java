@@ -9,16 +9,26 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable{
+    @FXML
+    private GridPane gridPane;
     @FXML
     private HBox eventsBox;
     @FXML
@@ -57,7 +67,35 @@ public class AdminController implements Initializable{
         usersIcon.setFill(Paint.valueOf("white"));
         usersBox.getChildren().add(usersIcon);
 
+        gridPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.BACK_SPACE)){
+                    try {
+                        logOut(new ActionEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        gridPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ESCAPE)){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText("Are you sure you want to quit ?");
+                    alert.showAndWait();
+                    if (alert.showAndWait().get() == ButtonType.OK) {
+                        System.exit(0);
+                    }
+                }
+            }
+        });
     }
+
+
 
     public void logOut(ActionEvent actionEvent) throws Exception {
         main.initLogin();

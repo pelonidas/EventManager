@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -90,6 +91,13 @@ public class SignUpController implements Initializable {
     private CustomerModel customerModel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        pressEnter(firstName);
+        pressEnter(lastName);
+        pressEnter(userName);
+        pressEnter(email);
+        pressEnter(phoneNumber);
+        pressEnter(password);
+
         phoneNumber.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -216,4 +224,20 @@ public class SignUpController implements Initializable {
     public void setLogInController(LogInController logInController) {
         this.logInController = logInController;
     }
+
+    private void pressEnter(TextField textField) {
+        textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ESCAPE)){
+                    try {
+                        closeWindow(new ActionEvent());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                }
+            }
+        });
+    }
+
 }

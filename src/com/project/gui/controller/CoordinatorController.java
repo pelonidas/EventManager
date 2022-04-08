@@ -108,7 +108,7 @@ public class CoordinatorController implements Initializable {
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
                 for(Customer customer : allCustomers){
-                    if (customer.getFirstName().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT)))
+                    if (customer.getFirstName().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(allCustomersFilter0.getText())||customer.getEmail().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT)))
                         search.add(customer);}
                 userTable.setItems(search);
             }
@@ -119,7 +119,7 @@ public class CoordinatorController implements Initializable {
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
                 for(Customer customer : getSelectedEvent().getParticipants()){
-                    if (customer.getFirstName().toLowerCase().contains(participantsFilter.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(participantsFilter.getText().toLowerCase(Locale.ROOT)))
+                    if (customer.getFirstName().toLowerCase().contains(participantsFilter.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(participantsFilter.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(participantsFilter.getText())||customer.getEmail().toLowerCase().contains(participantsFilter.getText().toLowerCase(Locale.ROOT)))
                         search.add(customer);}
                 participantTable.setItems(search);
             }
@@ -130,7 +130,7 @@ public class CoordinatorController implements Initializable {
             public void handle(KeyEvent event) {
                 ObservableList<Event>search = FXCollections.observableArrayList();
                 for(Event event1 : allEvents ){
-                    if (event1.getTitle().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT)))
+                    if (event1.getTitle().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getLocation().toLowerCase().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getDateAndTime().toString().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT)))
                         search.add(event1);}
                 coordinatorTableView.setItems(search);
             }
