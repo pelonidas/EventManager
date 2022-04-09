@@ -179,4 +179,21 @@ public class CustomerDAO {
         }
         return customerEventHistory;
     }
+    public Customer getCustomer(int id) throws SQLException{
+        Customer customer=null;
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM users WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                 customer = new Customer(resultSet.getInt("id"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("phone_number"));
+            }
+        }
+        return customer;
+    }
 }

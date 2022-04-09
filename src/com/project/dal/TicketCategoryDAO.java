@@ -233,5 +233,22 @@ public class TicketCategoryDAO  {
             preparedStatement.executeUpdate();
         }
     }
+    public TicketType getTicketType(int id)throws SQLException{
+        TicketType ticketType = null;
+        try (Connection connection = dbConnector.getConnection()){
+            String sql ="SELECT * FROM categories_ticket WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()){
+                ticketType = new TicketType(resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("benefits"),
+                        resultSet.getInt("price"),
+                        resultSet.getInt("seats_available"));
+            }
+        }
+        return ticketType;
+    }
 
 }

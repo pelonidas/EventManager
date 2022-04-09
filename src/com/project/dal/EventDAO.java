@@ -6,6 +6,7 @@ import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.dal.connectorDAO.DBConnector;
 
+import javax.swing.plaf.SliderUI;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -163,6 +164,25 @@ public class EventDAO {
             }
         }
         return allCustomers;
+    }
+
+    public Event getEvent(int id)throws SQLException {
+        Event event = null;
+        try (Connection connection = dbConnector.getConnection()){
+            String sql = "SELECT * FROM events WHERE id =?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                event = new Event(resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getTimestamp("date"),
+                        resultSet.getString("location"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("seats_available"));
+            }
+        }
+        return event;
     }
 
 

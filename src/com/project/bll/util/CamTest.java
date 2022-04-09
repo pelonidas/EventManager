@@ -1,5 +1,4 @@
 package com.project.bll.util;
-
 import com.github.sarxos.webcam.Webcam;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
@@ -8,6 +7,8 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.project.be.Ticket;
+import com.project.dal.TicketDAO;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -27,16 +27,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 public class CamTest extends Application {
 
     private WebCamService service ;
     private Webcam cam;
     private Result result;
+    TicketDAO ticketDAO;
+    Ticket ticket;
+    JFXComboBox<Webcam> jfxComboBox;
 
     @Override
-    public void init() {
-        JFXComboBox<Webcam> jfxComboBox = new JFXComboBox<>();
+    public void init() throws IOException {
+        ticketDAO= new TicketDAO();
+        jfxComboBox = new JFXComboBox<>();
+        jfxComboBox.setPromptText("Select your camera");
         jfxComboBox.getItems().addAll(Webcam.getWebcams());
 
         cam = jfxComboBox.getSelectionModel().getSelectedItem();
@@ -81,10 +87,20 @@ public class CamTest extends Application {
                     BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(bf)));
                      result = new MultiFormatReader().decode(bitmap);
                 }catch (Exception ignored){}
+                try {
+                    ticket = ticketDAO.getTicket(result.getText());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (ticket!=null){
+                    if (ticket.isValid()){
+                        System.out.println("valid ticket, customer="+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
+                    }else System.out.println("ticket not valid anymore"+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle());
+                }else System.out.println("not valid qr code");
             }
-
         });
 
+        buttonBar.getButtons().add(jfxComboBox);
         buttonBar.getButtons().add(startStop);
         buttonBar.getButtons().add(scan_qr_code);
 

@@ -4,6 +4,8 @@ public class Ticket {
     private Event event;
     private Customer customer;
     private int id ;
+    private boolean isValid;
+    private TicketType ticketType;
 
     private String code; //the code used for generating barcode and qr code
 
@@ -12,6 +14,22 @@ public class Ticket {
         this.id=id;
         this.customer= customer;
         this.code = code;
+    }
+    public Ticket(int id,Event  event,Customer customer,String code,Boolean isValid){
+        this.event=event;
+        this.id=id;
+        this.customer= customer;
+        this.code = code;
+        this.isValid=isValid;
+    }
+
+    public Ticket(int id,Event  event,Customer customer,String code,Boolean isValid,TicketType ticketType){
+        this.event=event;
+        this.id=id;
+        this.customer= customer;
+        this.code = code;
+        this.isValid=isValid;
+        this.ticketType=ticketType;
     }
 
     public Event getEvent() {
@@ -45,5 +63,21 @@ public class Ticket {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
     }
 }

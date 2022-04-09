@@ -1,5 +1,6 @@
 package com.project.dal;
 
+import com.google.zxing.Result;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.*;
 import com.project.bll.exceptions.UserException;
@@ -12,8 +13,14 @@ import java.util.List;
 
 public class TicketDAO {
     DBConnector dbConnector;
+    EventDAO eventDAO;
+    CustomerDAO customerDAO;
+    TicketCategoryDAO ticketCategoryDAO;
     public TicketDAO() throws IOException {
         dbConnector = new DBConnector();
+         eventDAO= new EventDAO();
+         customerDAO= new CustomerDAO();
+         ticketCategoryDAO= new TicketCategoryDAO();
     }
     /**
      * Retrieve the history of any customer
@@ -121,5 +128,24 @@ public class TicketDAO {
             preparedStatement.setInt(1,event.getId());
             preparedStatement.executeUpdate();
         }
+    }
+    public Ticket getTicket (String qrCode)throws SQLException{
+        Ticket ticket= null;
+        try (Connection connection = dbConnector.getConnection()){
+            String sql= "SELECT * FROM tickets WHERE qr_code= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,qrCode);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()){
+                ticket = new Ticket(resultSet.getInt("id"),
+                        eventDAO.getEvent(resultSet.getInt("event_id")),
+                        customerDAO.getCustomer(resultSet.getInt("customer_id")),
+                        qrCode
+                        ,resultSet.getBoolean("ticket_validity"),
+                        ticketCategoryDAO.getTicketType(resultSet.getInt("ticket_category_id"))
+                        );
+            }
+        }
+        return ticket;
     }
 }
