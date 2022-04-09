@@ -182,11 +182,8 @@ public class CoordinatorController implements Initializable {
         userTable.setItems(manageEventsModel.getAllUsers());
     }
 
-
-
     public void refreshEventTable() throws SQLException {
         manageEventsModel.refreshData();
-        coordinatorTableView.refresh();
         coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
 

@@ -7,6 +7,7 @@ import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -52,13 +53,30 @@ public class ManageEventsModel {
     }
 
     public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
-        Event createdEvent = manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
-        allEvents.add(createdEvent);
-
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Event createdEvent = manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
+                    allEvents.add(createdEvent);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void refreshData() throws SQLException {
-        loadData();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    loadData();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void deleteEvent(Event e) {
