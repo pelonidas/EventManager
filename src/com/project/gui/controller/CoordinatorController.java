@@ -6,6 +6,7 @@ import com.project.be.Event;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
 import com.project.bll.exceptions.UserException;
+import com.project.bll.util.CamTest;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
@@ -355,6 +356,11 @@ public class CoordinatorController implements Initializable {
         updateEventInfo(e);
         loadEventTickets(e);
         loadEventParticipants(e);
+    }
+
+    public void handleScanQrCode(ActionEvent actionEvent) {
+        CamTest camTest = new CamTest();
+        camTest.start(new Stage());
     }
 }
 
