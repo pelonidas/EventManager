@@ -195,15 +195,20 @@ public class CoordinatorController implements Initializable {
 
         CreateEventViewController alertDialogController = loader.getController();
         alertDialogController.setCoordinatorController(this);
+        alertDialogController.setModel(editEventModel);
+        alertDialogController.setManageEventsModel(manageEventsModel);
 
         Stage stage = new Stage();
-        stage.setTitle("New/Edit Song");
+        stage.setTitle("New/Edit Event");
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     public void handleManageButton(ActionEvent event) throws SQLException, IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("../view/ManageUsersCoord.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("\"../view/ManageUsersCoord.fxml\""));
+        Parent root =  loader.load();
+
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -265,6 +270,9 @@ public class CoordinatorController implements Initializable {
 
         EditEventController editEventController = loader.getController();
         editEventController.setCoordinatorController(this);
+        editEventController.setModel(editEventModel);
+
+
 
         try {
             editEventController.setEventToBeUpdated(selectedEvent);

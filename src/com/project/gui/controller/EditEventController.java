@@ -50,7 +50,10 @@ public class EditEventController implements Initializable {
     CoordinatorController coordinatorController;
 
     public EditEventController() throws IOException{
-        model = new EditEventModel();
+    }
+
+    public void setModel(EditEventModel model) {
+        this.model = model;
     }
 
     public void setCoordinatorController(CoordinatorController coordinatorController){
