@@ -80,11 +80,16 @@ public class ManageEventsModel {
     }
 
     public void deleteEvent(Event e) {
-        try {
-            manager.deleteEvent(e);
-        } catch (Exception | UserException exception) {
-            System.out.println(exception);
-        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    manager.deleteEvent(e);
+                } catch (Exception | UserException exception) {
+                    System.out.println(exception);
+                }
+            }
+        });
         allEvents.remove(e);
 
     }

@@ -13,6 +13,7 @@ import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -181,7 +182,18 @@ public class CoordinatorController implements Initializable {
     }
 
     public void refreshEventTable() throws SQLException {
-        manageEventsModel.refreshData();
+        Thread loadEventsThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    manageEventsModel.refreshData();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        loadEventsThread.start();
+
         coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
 
@@ -253,7 +265,7 @@ public class CoordinatorController implements Initializable {
             if (result.get() == continueButton)
                 manageEventsModel.deleteEvent(selectedEvent);
         }
-        refreshEventTable();
+        //refreshEventTable();
     }
 
     public void handleEditButton(ActionEvent event) throws IOException {
@@ -270,14 +282,11 @@ public class CoordinatorController implements Initializable {
         editEventController.setCoordinatorController(this);
         editEventController.setModel(editEventModel);
 
-
-
         try {
             editEventController.setEventToBeUpdated(selectedEvent);
         } catch (Exception exception) {
             System.out.println(exception);
         }
-
 
         Stage stage = new Stage();
         stage.setTitle("New/Edit Event");
