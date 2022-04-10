@@ -95,6 +95,7 @@ public class ManageEventsModel {
         else
             throw new UserException("Ticket's to event have been sold \n" +
                     "Click continue to delete anyways",new Exception());
+
     }
 
     public ObservableList<Customer> getParticipantsForEvent(Event e) throws Exception {

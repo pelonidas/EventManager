@@ -205,7 +205,10 @@ public class CoordinatorController implements Initializable {
     }
 
     public void handleManageButton(ActionEvent event) throws SQLException, IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("../view/ManageUsersCoord.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("\"../view/ManageUsersCoord.fxml\""));
+        Parent root =  loader.load();
+
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
