@@ -34,18 +34,24 @@ public class CamTest extends Application {
     private WebCamService service ;
     private Webcam cam;
     private Result result;
-    TicketDAO ticketDAO;
     Ticket ticket;
     JFXComboBox<Webcam> jfxComboBox;
 
+    public CamTest() throws IOException {
+    }
+
     @Override
     public void init() throws IOException {
-        ticketDAO= new TicketDAO();
         jfxComboBox = new JFXComboBox<>();
         jfxComboBox.setPromptText("Select your camera");
         jfxComboBox.getItems().addAll(Webcam.getWebcams());
-
-        cam = jfxComboBox.getSelectionModel().getSelectedItem();
+        jfxComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                cam = jfxComboBox.getSelectionModel().getSelectedItem();
+            }
+        });
+        cam = Webcam.getDefault();
         service = new WebCamService(cam);
     }
 
@@ -69,6 +75,12 @@ public class CamTest extends Application {
         WebCamView view = new WebCamView(service);
         ButtonBar buttonBar = new ButtonBar();
         JFXButton scan_qr_code = new JFXButton("Scan qr code");
+
+
+        buttonBar.getButtons().add(jfxComboBox);
+        buttonBar.getButtons().add(startStop);
+        buttonBar.getButtons().add(scan_qr_code);
+
         scan_qr_code.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -85,11 +97,13 @@ public class CamTest extends Application {
                 try {
                     BufferedImage bf = ImageIO.read(new FileInputStream(path));
                     BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(bf)));
-                     result = new MultiFormatReader().decode(bitmap);
+                    result = new MultiFormatReader().decode(bitmap);
                 }catch (Exception ignored){}
+                System.out.println(result.getText());
                 try {
+                    TicketDAO ticketDAO = new TicketDAO();
                     ticket = ticketDAO.getTicket(result.getText());
-                } catch (SQLException e) {
+                } catch (SQLException | IOException e) {
                     e.printStackTrace();
                 }
                 if (ticket!=null){
@@ -97,16 +111,14 @@ public class CamTest extends Application {
                         System.out.println("valid ticket, customer="+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
                     }else System.out.println("ticket not valid anymore"+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle());
                 }else System.out.println("not valid qr code");
+                result=null;
             }
         });
 
-        buttonBar.getButtons().add(jfxComboBox);
-        buttonBar.getButtons().add(startStop);
-        buttonBar.getButtons().add(scan_qr_code);
 
         BorderPane root = new BorderPane(view.getView());
         BorderPane.setAlignment(startStop, Pos.CENTER);
-        BorderPane.setMargin(startStop, new Insets(5));
+        BorderPane.setMargin(buttonBar, new Insets(5));
         root.setBottom(buttonBar);
 
         Scene scene = new Scene(root);

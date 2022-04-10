@@ -355,7 +355,7 @@ public class CoordinatorController implements Initializable {
         loadEventParticipants(e);
     }
 
-    public void handleScanQrCode(ActionEvent actionEvent) {
+    public void handleScanQrCode(ActionEvent actionEvent) throws IOException {
         CamTest camTest = new CamTest();
         camTest.start(new Stage());
     }
