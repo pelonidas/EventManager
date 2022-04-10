@@ -77,7 +77,7 @@
       </TableView>
       <VBox alignment="CENTER" prefHeight="78.0" prefWidth="176.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Scan Ticket" />
+            <Button mnemonicParsing="false" onAction="#handleScanQrCode" text="Scan Ticket" />
          </children>
       </VBox>
       <Text fx:id="allCustomersFilter" fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers" GridPane.columnIndex="6" GridPane.rowIndex="2">

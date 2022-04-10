@@ -52,14 +52,20 @@ public class CreateEventViewController implements Initializable {
 
 
     public CreateEventViewController() throws IOException, SQLException {
-        manageEventsModel = new ManageEventsModel();
-        model = new EditEventModel();
+        //manageEventsModel = new ManageEventsModel();
+        //model = new EditEventModel();
     }
     public void setCoordinatorController(CoordinatorController coordinatorController){
         this.coordinatorController = coordinatorController;
     }
 
+    public void setModel(EditEventModel model) {
+        this.model = model;
+    }
 
+    public void setManageEventsModel(ManageEventsModel manageEventsModel) {
+        this.manageEventsModel = manageEventsModel;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

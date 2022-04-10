@@ -195,9 +195,11 @@ public class CoordinatorController implements Initializable {
 
         CreateEventViewController alertDialogController = loader.getController();
         alertDialogController.setCoordinatorController(this);
+        alertDialogController.setModel(editEventModel);
+        alertDialogController.setManageEventsModel(manageEventsModel);
 
         Stage stage = new Stage();
-        stage.setTitle("New/Edit Song");
+        stage.setTitle("New/Edit Event");
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -265,6 +267,9 @@ public class CoordinatorController implements Initializable {
 
         EditEventController editEventController = loader.getController();
         editEventController.setCoordinatorController(this);
+        editEventController.setModel(editEventModel);
+
+
 
         try {
             editEventController.setEventToBeUpdated(selectedEvent);
