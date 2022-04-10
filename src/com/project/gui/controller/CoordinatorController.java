@@ -68,27 +68,10 @@ public class CoordinatorController implements Initializable {
     private TableColumn<Event, String> name, attendance, location, date;
     private ManageEventsModel manageEventsModel;
     private EditEventModel editEventModel;
-    private ObservableList<Event> allEvents =FXCollections.observableArrayList();
-    private ObservableList<Customer> allCustomers =FXCollections.observableArrayList();
 
     private Main main;
     private com.project.be.Event eventSelected;
 
-    public ObservableList<Customer> getAllCustomers() {
-        return allCustomers;
-    }
-
-    public void setAllCustomers(ObservableList<Customer> allCustomers) {
-        this.allCustomers = allCustomers;
-    }
-
-    public ObservableList<Event> getAllEvents() {
-        return allEvents;
-    }
-
-    public void setAllEvents(ObservableList<Event> allEvents) {
-        this.allEvents = allEvents;
-    }
 
     @FXML
     private TextArea detailsTextarea;
@@ -102,15 +85,26 @@ public class CoordinatorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeParticipantTable();
-            initIcons();
+        initIcons();
+        try {
+            initializeEventTable();
+            initializeUserTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         allCustomersFilter0.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
-                for(Customer customer : allCustomers){
-                    if (customer.getFirstName().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(allCustomersFilter0.getText())||customer.getEmail().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT)))
-                        search.add(customer);}
+                try {
+                    for(Customer customer : manageEventsModel.getAllUsers()){
+                        if (customer.getFirstName().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(allCustomersFilter0.getText())||customer.getEmail().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT)))
+                            search.add(customer);}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 userTable.setItems(search);
             }
         });
@@ -130,9 +124,13 @@ public class CoordinatorController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Event>search = FXCollections.observableArrayList();
-                for(Event event1 : allEvents ){
-                    if (event1.getTitle().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getLocation().toLowerCase().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getDateAndTime().toString().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT)))
-                        search.add(event1);}
+                try {
+                    for(Event event1 : manageEventsModel.getAllEvents() ){
+                        if (event1.getTitle().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getLocation().toLowerCase().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getDateAndTime().toString().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT)))
+                            search.add(event1);}
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 coordinatorTableView.setItems(search);
             }
         });

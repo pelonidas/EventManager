@@ -89,10 +89,6 @@ public class Main extends Application {
             GridPane coordinatorDisplay = loaderCoordinator.load();
             CoordinatorController controller = loaderCoordinator.getController();
             controller.setMain(this);
-            controller.setAllCustomers(allCustomers);
-            controller.setAllEvents(allEvents);
-            controller.initializeEventTable();
-            controller.initializeUserTable();
             coordinatorDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             coordinatorDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(coordinatorDisplay);
