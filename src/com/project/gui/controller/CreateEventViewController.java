@@ -2,7 +2,6 @@ package com.project.gui.controller;
 
 
 import com.project.be.TicketType;
-import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -46,7 +45,6 @@ public class CreateEventViewController implements Initializable {
     private ListView<TicketType> ticketTypeList;
 
 
-    private EditEventModel model;
     private ManageEventsModel manageEventsModel;
     CoordinatorController coordinatorController;
 
@@ -57,10 +55,6 @@ public class CreateEventViewController implements Initializable {
     }
     public void setCoordinatorController(CoordinatorController coordinatorController){
         this.coordinatorController = coordinatorController;
-    }
-
-    public void setModel(EditEventModel model) {
-        this.model = model;
     }
 
     public void setManageEventsModel(ManageEventsModel manageEventsModel) {
@@ -143,7 +137,7 @@ public class CreateEventViewController implements Initializable {
             String ticketTypeBenefits = ticketBenefitsTxt.getText();
             int seatsAvailable = Integer.parseInt(ticketTypeCount.getText());
 
-            eventCapacityTxt.setText(String.valueOf(model.getTotalSeatCount(ticketTypeList.getItems(),seatsAvailable)));
+            eventCapacityTxt.setText(String.valueOf(manageEventsModel.getTotalSeatCount(ticketTypeList.getItems(),seatsAvailable)));
 
             ticketTypeList.getItems().add(new TicketType(0,ticketTypeName,ticketTypeBenefits,ticketTypePrice,seatsAvailable));
 
@@ -204,7 +198,7 @@ public class CreateEventViewController implements Initializable {
         String time = hours+":"+minutes;
 
         String eventTitle = eventTitleTxt.getText();
-        Date dateAndTime = model.parse_convertDateTime(date + " " + time);
+        Date dateAndTime = manageEventsModel.parse_convertDateTime(date + " " + time);
         Integer capacity = Integer.parseInt(eventCapacityTxt.getText());
         String location = eventLocationTxt.getText();
         String description = eventNotesTxt.getText();

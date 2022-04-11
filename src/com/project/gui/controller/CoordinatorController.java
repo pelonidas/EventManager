@@ -8,12 +8,10 @@ import com.project.be.TicketType;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.CamTest;
 import com.project.bll.util.DateTimeConverter;
-import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +31,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.print.PageFormat;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -68,8 +65,6 @@ public class CoordinatorController implements Initializable {
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
     private ManageEventsModel manageEventsModel;
-    private EditEventModel editEventModel;
-
     private Main main;
     private com.project.be.Event eventSelected;
 
@@ -80,7 +75,6 @@ public class CoordinatorController implements Initializable {
 
     public CoordinatorController() throws IOException, SQLException {
         manageEventsModel = new ManageEventsModel();
-        editEventModel = new EditEventModel();
     }
 
     @Override
@@ -205,7 +199,6 @@ public class CoordinatorController implements Initializable {
 
         CreateEventViewController alertDialogController = loader.getController();
         alertDialogController.setCoordinatorController(this);
-        alertDialogController.setModel(editEventModel);
         alertDialogController.setManageEventsModel(manageEventsModel);
 
         Stage stage = new Stage();
@@ -232,7 +225,7 @@ public class CoordinatorController implements Initializable {
     }
 
     private void loadEventTickets(Event e) throws SQLException {
-        ticketTypeList.setItems(editEventModel.getTicketTypesForEvent(e));
+        ticketTypeList.setItems(manageEventsModel.getTicketTypesForEvent(e));
     }
 
     private void updateEventInfo(Event e) {
@@ -280,7 +273,7 @@ public class CoordinatorController implements Initializable {
 
         EditEventController editEventController = loader.getController();
         editEventController.setCoordinatorController(this);
-        editEventController.setModel(editEventModel);
+        editEventController.setModel(manageEventsModel);
 
         try {
             editEventController.setEventToBeUpdated(selectedEvent);

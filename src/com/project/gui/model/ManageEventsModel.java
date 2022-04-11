@@ -5,6 +5,7 @@ import com.project.be.*;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
+import com.project.bll.util.DateTimeConverter;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
 import javafx.application.Platform;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -105,5 +107,34 @@ public class ManageEventsModel {
 
     public ObservableList<Customer> getParticipantsForEvent(Event e) throws Exception {
         return FXCollections.observableArrayList(manager.getAllCustomersFromSameEvent(e.getId()));
+    }
+
+    public Date parse_convertDateTime(String dateTime) {
+        return DateTimeConverter.parse_convertDateTime(dateTime);
+    }
+
+    public LocalDate parseDate(String date){
+        return DateTimeConverter.parseDate(date);
+    }
+
+    public void updateEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+        manager.editEvent(event);
+        manager.editTicketTypesForEvent(event,ticketTypes);
+    }
+
+
+    public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
+        List<TicketType> ticketTypeList = manager.getAllTicketTypesForEvent(e);
+        return FXCollections.observableArrayList(ticketTypeList);
+    }
+
+    public int getTotalSeatCount(ObservableList<TicketType> items, int seatsAvailable) {
+        int totalSeatCount = 0;
+        for (TicketType item : items) {
+            totalSeatCount+=item.getSeatsAvailable();
+        }
+        totalSeatCount+=seatsAvailable;
+
+        return totalSeatCount;
     }
 }

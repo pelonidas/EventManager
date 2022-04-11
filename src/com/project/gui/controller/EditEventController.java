@@ -1,7 +1,6 @@
 package com.project.gui.controller;
 
 import com.project.be.TicketType;
-import com.project.gui.model.EditEventModel;
 import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -45,14 +44,14 @@ public class EditEventController implements Initializable {
     private ListView<TicketType> ticketTypeList;
 
 
-    private EditEventModel model;
+    private ManageEventsModel model;
     private com.project.be.Event e;
     CoordinatorController coordinatorController;
 
     public EditEventController() throws IOException{
     }
 
-    public void setModel(EditEventModel model) {
+    public void setModel(ManageEventsModel model) {
         this.model = model;
     }
 
