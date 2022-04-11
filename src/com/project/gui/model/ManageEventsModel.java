@@ -34,7 +34,6 @@ public class ManageEventsModel {
 
     private void loadData() throws SQLException {
         allEvents.setAll(manager.getAllEvents());
-
         allUsers.setAll(manager.getAllCustomers());
     }
 
@@ -79,6 +78,7 @@ public class ManageEventsModel {
                 }
             }
         });
+
     }
 
     public void deleteEvent(Event e) {
@@ -136,5 +136,9 @@ public class ManageEventsModel {
         totalSeatCount+=seatsAvailable;
 
         return totalSeatCount;
+    }
+
+    public void editEvent(Event event) throws SQLException {
+        manager.editEvent(event);
     }
 }

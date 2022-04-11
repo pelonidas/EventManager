@@ -1,10 +1,8 @@
 package com.project.gui.controller;
 
-import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.bll.exceptions.UserException;
-import com.project.gui.model.ManageEvents;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import javafx.beans.value.ChangeListener;
@@ -14,10 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -52,7 +47,7 @@ public class ManageEventsController implements Initializable {
     @FXML
     private TableView<com.project.be.Event> eventsTable;
     Main main;
-    private ManageEvents manageEventsModel;
+    private ManageEventsModel manageEventsModel;
     private  ObservableList <com.project.be.Event> allEvents =FXCollections.observableArrayList();
 
     private com.project.be.Event eventSelected;
@@ -166,8 +161,8 @@ public class ManageEventsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            manageEventsModel = new ManageEvents();
-        } catch (IOException  e) {
+            manageEventsModel = new ManageEventsModel();
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 

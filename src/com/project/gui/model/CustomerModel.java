@@ -23,10 +23,10 @@ public class CustomerModel {
     public CustomerModel() throws IOException {
         EMFacade = new DALController();//DELETE THIS LATER
         eventManager = EventManager.getInstance();
+        allCustomers = FXCollections.observableArrayList();
     }
 
     public ObservableList<com.project.be.Customer> getAllCustomers() throws SQLException {
-        allCustomers= FXCollections.observableArrayList();
         allCustomers.addAll(EMFacade.getAllCustomers());
         return allCustomers;
     }

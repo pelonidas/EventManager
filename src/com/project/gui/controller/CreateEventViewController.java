@@ -190,6 +190,11 @@ public class CreateEventViewController implements Initializable {
 
 
     public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {
+        if (eventDate.getValue()==null || hoursBox.getSelectionModel().getSelectedItem() == null
+            || minutesBox.getSelectionModel().getSelectedItem() == null || eventCapacityTxt.getText().isEmpty()
+            ||eventLocationTxt.getText().isEmpty() || eventNotesTxt.getText().isEmpty() || eventTitleTxt.getText().isEmpty()
+            || ticketTypeList.getItems().isEmpty())
+            return;
         String date = eventDate.getValue().toString();
 
         String hours = hoursBox.getSelectionModel().getSelectedItem().toString();

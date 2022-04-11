@@ -176,17 +176,7 @@ public class CoordinatorController implements Initializable {
     }
 
     public void refreshEventTable() throws SQLException {
-        Thread loadEventsThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    manageEventsModel.refreshData();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        loadEventsThread.start();
+        manageEventsModel.refreshData();
 
         coordinatorTableView.setItems(manageEventsModel.getAllEvents());
     }
@@ -208,7 +198,7 @@ public class CoordinatorController implements Initializable {
     }
 
     public void handleManageButton(ActionEvent event) throws SQLException, IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("\"../view/ManageUsersCoord.fxml\""));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/ManageUsersCoord.fxml"));
         Parent root =  loader.load();
 
 

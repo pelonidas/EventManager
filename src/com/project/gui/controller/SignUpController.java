@@ -9,6 +9,7 @@ import com.project.be.User;
 import com.project.bll.exceptions.UserException;
 import com.project.gui.model.CoordinatorModel;
 import com.project.gui.model.CustomerModel;
+import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 
@@ -38,6 +39,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 public class SignUpController implements Initializable {
 
@@ -98,6 +101,15 @@ public class SignUpController implements Initializable {
         pressEnter(phoneNumber);
         pressEnter(password);
 
+
+        try {
+            coordinatorModel = initializeCoordinatorModel.call();
+            customerModel = initializeCustomerModel.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         phoneNumber.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -117,13 +129,9 @@ public class SignUpController implements Initializable {
         emailHBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.ENVELOPE));
         phoneBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcons.PHONE));
 
-        try {
-            coordinatorModel = new CoordinatorModel();
-            customerModel = new CustomerModel();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
+
 
     public void closeWindow(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -162,8 +170,8 @@ public class SignUpController implements Initializable {
                 coordinatorModel.editCoordinator(coordinator);
                 logInController.getAllCoordinators().add(coordinator);
                 try {
-                    manageUsersViewController.getAllCoordinators().add(coordinator);
-                    manageUsersViewController.setUpCoordinatorsTable();
+                    coordinatorModel.getAllCoordinators().add(coordinator);
+                    //manageUsersViewController.setUpCoordinatorsTable();
                 }catch (NullPointerException ignored){}
              }
         }
@@ -187,8 +195,7 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
                 customerModel.editCustomer(customer);
-                manageUsersViewController.getAllCustomers().add(customer);
-                manageUsersViewController.setUpCustomersTable();
+                customerModel.getAllCustomers().add(customer);
         }
 }
         if(coordinator!=null || customer!=null){
@@ -239,5 +246,19 @@ public class SignUpController implements Initializable {
             }
         });
     }
+
+    Callable<CoordinatorModel> initializeCoordinatorModel = new Callable<CoordinatorModel>() {
+        @Override
+        public CoordinatorModel call() throws Exception {
+            return new CoordinatorModel();
+        }
+    };
+
+    Callable<CustomerModel> initializeCustomerModel = new Callable<CustomerModel>() {
+        @Override
+        public CustomerModel call() throws Exception {
+            return new CustomerModel();
+        }
+    };
 
 }

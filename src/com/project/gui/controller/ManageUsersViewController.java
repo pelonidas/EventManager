@@ -186,6 +186,8 @@ public class ManageUsersViewController implements Initializable {
 
     public void deleteCustomer(ActionEvent actionEvent) throws SQLException {
         setSelectedCustomer(customersTable.getSelectionModel().getSelectedItem());
+        if (getAllCustomers()==null)
+            return;
         customerModel.deleteCustomer(getSelectedCustomer());
         allCustomers.remove(getSelectedCustomer());
         setUpCustomersTable();

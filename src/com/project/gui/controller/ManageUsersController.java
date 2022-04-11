@@ -70,7 +70,7 @@ public class ManageUsersController implements Initializable {
         root = loader.load();
         SignUpController controller = loader.getController();
         controller.setCoordinator(false);
-        //controller.disableUsernamePassword();
+        controller.disableUsernamePassword();
         Stage stage = new Stage();
         stage.setTitle("New customer");
         stage.setScene(new Scene(root));
