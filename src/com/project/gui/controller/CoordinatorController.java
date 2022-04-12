@@ -72,7 +72,7 @@ public class CoordinatorController implements Initializable {
     private ManageEventsModel manageEventsModel;
     private CustomerModel customerModel;
 
-    public CoordinatorController() throws IOException, SQLException {
+    public CoordinatorController() throws IOException, SQLException, UserException {
         manageEventsModel = new ManageEventsModel();
         customerModel = new CustomerModel();
     }
@@ -163,15 +163,15 @@ public class CoordinatorController implements Initializable {
     }
 
     public void initializeEventTable() throws SQLException {
-        name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
-        date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
+        name.setCellValueFactory(new PropertyValueFactory<>("title"));
+        date.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        coordinatorTableView.setItems(allEvents);
+        coordinatorTableView.setItems(getAllEvents());
+        coordinatorTableView.refresh();
+
     }
-
-
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -220,10 +220,11 @@ public class CoordinatorController implements Initializable {
                 );
     }
 
-    public void handleDeleteButton(ActionEvent event) throws SQLException {
+    public void handleDeleteButton(ActionEvent event) throws Exception {
         Event selectedEvent = getSelectedEvent();
         if (selectedEvent==null)
             return;
+        int index = coordinatorTableView.getSelectionModel().getSelectedIndex();
         try {
             manageEventsModel.tryToDeleteEvent(selectedEvent);
             getAllEvents().remove(selectedEvent);
@@ -243,7 +244,13 @@ public class CoordinatorController implements Initializable {
             }
         }
         initializeEventTable();
-
+        if (index > 0) {
+             selectedEvent = coordinatorTableView.getItems().get(index - 1);
+            updateEventInfo(selectedEvent);
+            loadEventTickets(selectedEvent);
+            loadEventParticipants(selectedEvent);
+        } else
+            participantTable.getItems().clear();
     }
 
     public void handleEditButton(ActionEvent event) throws IOException {
@@ -347,7 +354,8 @@ public class CoordinatorController implements Initializable {
     }
 
     @FXML
-    private void handleLogOut(ActionEvent actionEvent) {
+    private void handleLogOut(ActionEvent actionEvent) throws Exception {
+        main.initLogin();
     }
 
     public ObservableList<Customer> getAllCustomers() {
@@ -364,6 +372,12 @@ public class CoordinatorController implements Initializable {
 
     public void setAllEvents(ObservableList<Event> allEvents) {
         this.allEvents = allEvents;
+    }
+
+    public void updateDetails(Event e) throws Exception {
+        updateEventInfo(e);
+        loadEventTickets(e);
+        loadEventParticipants(e);
     }
 }
 

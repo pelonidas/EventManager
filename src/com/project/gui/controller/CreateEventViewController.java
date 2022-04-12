@@ -16,11 +16,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -66,6 +68,7 @@ public class CreateEventViewController implements Initializable {
         initIcons();
         initValidators();
         initTimeBoxes();
+        setLimitsDatePicker(eventDate);
     }
 
     private void initTimeBoxes() {
@@ -223,5 +226,19 @@ public class CreateEventViewController implements Initializable {
         final Node source = (Node) actionEvent.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+    private void setLimitsDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(empty || item.compareTo(LocalDate.now()) < 0);
+                    }
+                };
+            }
+        });
     }
 }

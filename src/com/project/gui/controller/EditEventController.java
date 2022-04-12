@@ -14,10 +14,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,7 +47,7 @@ public class EditEventController implements Initializable {
 
 
     private ManageEventsModel model;
-    private com.project.be.Event e;
+    private com.project.be.Event thisEvent;
     CoordinatorController coordinatorController;
 
     public EditEventController() throws IOException{
@@ -59,7 +61,7 @@ public class EditEventController implements Initializable {
         this.coordinatorController = coordinatorController;
     }
     public void setEventToBeUpdated(com.project.be.Event e) throws SQLException {
-        this.e = e;
+        this.thisEvent = e;
         eventTitleTxt.setText(e.getTitle());
         eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
         eventLocationTxt.setText(e.getLocation());
@@ -87,6 +89,7 @@ public class EditEventController implements Initializable {
         initIcons();
         initValidators();
         initTimeBoxes();
+        setLimitsDatePicker(eventDate);
     }
 
     private void initTimeBoxes() {
@@ -225,7 +228,7 @@ public class EditEventController implements Initializable {
     });
 
 
-    public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {
+    public void handleSaveEvent(ActionEvent actionEvent) throws Exception {
         String date = eventDate.getValue().toString();
 
         String hours = hoursBox.getSelectionModel().getSelectedItem().toString();
@@ -235,19 +238,43 @@ public class EditEventController implements Initializable {
 
         String eventTitle = eventTitleTxt.getText();
         Date dateAndTime = model.parse_convertDateTime(date + " " + time);
-        Integer capacity = Integer.parseInt(eventCapacityTxt.getText());
+        int capacity = Integer.parseInt(eventCapacityTxt.getText());
         String location = eventLocationTxt.getText();
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
-        model.updateEvent(e, ticketTypes);
 
-        coordinatorController.initializeEventTable();
+        for (com.project.be.Event event : coordinatorController.getAllEvents()){
+            if (event.equals(thisEvent)){
+                event.setTitle(eventTitle);
+                event.setSeatsAvailable(capacity);
+                event.setLocation(location);
+                event.setDescription(description);
+                event.setDateAndTime(sqlDate);
 
+                model.updateEvent(event, ticketTypes);
+                coordinatorController.initializeEventTable();
+                coordinatorController.updateDetails(thisEvent);
+            }
+        }
 
         final Node source = (Node) actionEvent.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+    private void setLimitsDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(empty || item.compareTo(LocalDate.now()) < 0);
+                    }
+                };
+            }
+        });
     }
 }
