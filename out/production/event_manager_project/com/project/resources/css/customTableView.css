@@ -5,7 +5,6 @@
 }
 .table-view .column-header-background .label {
     -fx-font-size: 11px;
-<<<<<<< HEAD
     -fx-text-fill: white;
 }
 
@@ -14,10 +13,6 @@
 .table-view .column-header-background .filler {
     -fx-background-color: #223146;
 }
-=======
-}
-
->>>>>>> fe95a28548c57f4685fbdbe2b0c825c79f9ba7b4
 .table-view:empty {
     -fx-background-color: white;
 }

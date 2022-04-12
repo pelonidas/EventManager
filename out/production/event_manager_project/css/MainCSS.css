@@ -36,27 +36,20 @@
     -fx-background-color: #FCC800;
     -fx-border-radius: 10px;
     -fx-text-fill: white;
-<<<<<<< HEAD
 }
 .btn-primary:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
     -fx-cursor: hand;
-=======
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
->>>>>>> fe95a28548c57f4685fbdbe2b0c825c79f9ba7b4
 }
 .btn-red {
     -fx-background-color: #ED4036;
     -fx-border-radius: 10px;
     -fx-text-fill: white;
 }
-<<<<<<< HEAD
 .btn-red:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
     -fx-cursor: hand;
 }
-=======
->>>>>>> fe95a28548c57f4685fbdbe2b0c825c79f9ba7b4
 
 /*.border-primary {*/
 /*    -fx-border-color: #0598ff;*/
