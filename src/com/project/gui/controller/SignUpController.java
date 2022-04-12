@@ -173,7 +173,7 @@ public class SignUpController implements Initializable {
                     alert.showAndWait();
                 }
                 coordinatorModel.editCoordinator(coordinator);
-                logInController.getAllCoordinators().add(coordinator);
+                coordinatorModel.getAllCoordinators().add(coordinator);
                 try {
                     coordinatorModel.getAllCoordinators().add(coordinator);
                 }catch (NullPointerException ignored){}

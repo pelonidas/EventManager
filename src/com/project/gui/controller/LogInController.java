@@ -69,10 +69,8 @@ public class LogInController implements Initializable {
     private Admin admin;
     // to be implemented : List<User>allUsers;
 
-    private ObservableList<Customer> allCustomers;
     private ObservableList<Coordinator> allCoordinators;
     private ObservableList<Admin> allAdmins;
-    private ObservableList<Event> allEvents;
 
     private boolean connected= false;
 
@@ -88,64 +86,9 @@ public class LogInController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             logInModel = new LogInModel();
-            ManageEventsModel manageEventsModel = new ManageEventsModel();
-        } catch (IOException | SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        allCustomers= FXCollections.observableArrayList();
-        allCoordinators= FXCollections.observableArrayList();
-        allAdmins= FXCollections.observableArrayList();
-        allEvents=FXCollections.observableArrayList();
-
-        Thread loadCustomerData= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    allCustomers.setAll(logInModel.getAllCustomers());
-                } catch (SQLException | UserException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Thread loadCoordinatorData= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    allCoordinators.setAll(logInModel.getAllCoordinators());
-                } catch (SQLException | UserException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Thread loadAdminData= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    allAdmins.setAll(logInModel.getAllAdmins());
-                } catch (SQLException | UserException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        Thread loadEventsData= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    allEvents.setAll(logInModel.getAllEvents());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        loadCustomerData.start();
-        loadCoordinatorData.start();
-        loadAdminData.start();
-        loadEventsData.start();
 
 
         Text usersIcons = GlyphsDude.createIcon(FontAwesomeIcons.USERS, "35px");
@@ -201,13 +144,13 @@ public class LogInController implements Initializable {
         passWord.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)){
-                    if (userName.getText().isEmpty()){
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    if (userName.getText().isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Alert");
                         alert.setHeaderText("Please enter a username");
-                        alert.showAndWait();}
-                    else
+                        alert.showAndWait();
+                    } else
                         try {
                             logIn(new ActionEvent());
                         } catch (Exception e) {
@@ -220,34 +163,24 @@ public class LogInController implements Initializable {
         userName.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)){
-                    if (passWord.getText().isEmpty()){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Alert");
-                    alert.setHeaderText("Please enter a password");
-                    alert.showAndWait();}
-                    else
-                    try {
-                        logIn(new ActionEvent());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    if (passWord.getText().isEmpty()) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Alert");
+                        alert.setHeaderText("Please enter a password");
+                        alert.showAndWait();
+                    } else
+                        try {
+                            logIn(new ActionEvent());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                 }
             }
         });
-
-        try {
-            loadCustomerData.join();
-            loadCoordinatorData.join();
-            loadEventsData.join();
-            loadAdminData.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
-        main.setAllCoordinators(allCoordinators);
         try {
             for (Admin admin: allAdmins){
                 if (admin.getUserName().equals(userName.getText())&&admin.getPassWord().equals(passWord.getText())){
@@ -299,14 +232,17 @@ public class LogInController implements Initializable {
         stage.show();
     }
 
-    public synchronized ObservableList<Customer> getAllCustomers() {
-        return allCustomers;
+    public void sendMail(ActionEvent actionEvent) throws Exception {
+        Mail.sendMail("amine.aouina.lp.4@gmail.com");
     }
 
     public ObservableList<Coordinator> getAllCoordinators() {
         return allCoordinators;
     }
 
+    public void setAllCoordinators(ObservableList<Coordinator> allCoordinators) {
+        this.allCoordinators = allCoordinators;
+    }
 
     public ObservableList<Admin> getAllAdmins() {
         return allAdmins;
@@ -315,17 +251,4 @@ public class LogInController implements Initializable {
     public void setAllAdmins(ObservableList<Admin> allAdmins) {
         this.allAdmins = allAdmins;
     }
-
-    public void sendMail(ActionEvent actionEvent) throws Exception {
-        Mail.sendMail("amine.aouina.lp.4@gmail.com");
-    }
-
-    public synchronized ObservableList<Event> getAllEvents() {
-        return allEvents;
-    }
-
-    public void setAllEvents(ObservableList<Event> allEvents) {
-        this.allEvents = allEvents;
-    }
-
 }

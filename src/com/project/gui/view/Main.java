@@ -26,7 +26,8 @@ public class Main extends Application {
     private ObservableList<Coordinator>allCoordinators;
     private ObservableList<Admin>allAdmins;
     private ObservableList<Event>allEvents;
-    private Boolean launchProgram=false;
+    private Boolean launchProgram=true;
+    MainController mainController;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,7 +37,6 @@ public class Main extends Application {
         initLogin();
     }
     public void initLogin() throws Exception {
-        launchProgram=true;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("LogInView.fxml"));
         Parent root = loader.load();
@@ -52,15 +52,21 @@ public class Main extends Application {
 
 
         if (launchProgram){
+            mainController = new MainController();
+            mainController.loadData();
+
             allCoordinators= FXCollections.observableArrayList();
             allAdmins= FXCollections.observableArrayList();
             allCustomers= FXCollections.observableArrayList();
             allEvents=FXCollections.observableArrayList();
 
-            allCoordinators.setAll(controller.getAllCoordinators());
-            allAdmins.setAll(controller.getAllAdmins());
-            allCustomers.setAll(controller.getAllCustomers());
-            allEvents.setAll(controller.getAllEvents());}
+            allCoordinators.setAll(mainController.getAllCoordinators());
+            allAdmins.setAll(mainController.getAllAdmins());
+            allCustomers.setAll(mainController.getAllCustomers());
+            allEvents.setAll(mainController.getAllEvents());}
+
+        controller.setAllAdmins(allAdmins);
+        controller.setAllCoordinators(allCoordinators);
 
         launchProgram=false;
         primaryStage.setTitle("Main window");

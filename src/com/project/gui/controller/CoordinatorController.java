@@ -80,7 +80,6 @@ public class CoordinatorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeParticipantTable();
-//        initIcons();
         try {
             initializeEventTable();
             initializeUserTable();

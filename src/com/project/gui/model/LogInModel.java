@@ -29,9 +29,7 @@ public class LogInModel {
         return manager.getAllCustomers();
     }
 
-    public List<Admin> getAllAdmins() throws SQLException, UserException {
-        return manager.getAllAdmins();
-    }
+
 
     public List<Event> getAllEvents() throws SQLException {
         return manager.getAllEvents();
