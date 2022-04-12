@@ -6,8 +6,6 @@ import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.DateTimeConverter;
-import com.project.dal.facadeDAO.DALController;
-import com.project.dal.facadeDAO.IDALFacade;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

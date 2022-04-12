@@ -36,7 +36,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-            <TextField fx:id="searchFilterCustomer" prefHeight="26.0" prefWidth="270.0" GridPane.columnIndex="1" />
+            <TextField fx:id="searchFilterCustomer" onKeyReleased="#handleSortCustomers" prefHeight="26.0" prefWidth="270.0" GridPane.columnIndex="1" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All events" />
@@ -54,7 +54,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="customersTable">
+            <TableView fx:id="customersTable" onMouseClicked="#handleSelectUser">
                <columns>
                   <TableColumn fx:id="fNameColumn" prefWidth="75.0" text="first name" />
                   <TableColumn fx:id="lNameColumn" prefWidth="75.0" text="last name" />

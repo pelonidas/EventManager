@@ -341,7 +341,8 @@ public class CoordinatorController implements Initializable {
         this.main=main;
     }
 
-    public void handleSelectEvent(MouseEvent mouseEvent) throws Exception {
+    @FXML
+    private void handleSelectEvent(MouseEvent mouseEvent) throws Exception {
         Event e = getSelectedEvent();
         if (e==null)
             return;

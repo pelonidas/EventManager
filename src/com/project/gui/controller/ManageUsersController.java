@@ -3,6 +3,7 @@ package com.project.gui.controller;
 import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.gui.model.CustomerModel;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,12 +14,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageUsersController implements Initializable {
@@ -146,6 +151,29 @@ public class ManageUsersController implements Initializable {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         customersTable.setItems(customerModel.getAllCustomers());
+    }
+
+    private void refreshUsers() throws SQLException {
+        customersTable.setItems(customerModel.getAllCustomers());
+    }
+
+    public void handleSortCustomers(KeyEvent keyEvent) throws SQLException {
+        String query = searchFilterCustomer.getText();
+        if (query.isEmpty()){
+            refreshUsers();
+            return;
+        }
+
+        List<Customer> matchingUsers = new ArrayList<>();
+        for (Customer customer : customerModel.getAllCustomers()) {
+            if (customer.toString().contains(query))
+                matchingUsers.add(customer);
+        }
+        customersTable.setItems(FXCollections.observableArrayList(matchingUsers));
+    }
+
+    @FXML
+    private void handleSelectUser(MouseEvent mouseEvent) {
     }
 }
 
