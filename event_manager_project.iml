@@ -42,5 +42,6 @@
     <orderEntry type="library" name="webcam-capture-driver-ipcam-0.3.11" level="project" />
     <orderEntry type="library" name="github.sarxos.webcam.capture.driver.v4l4j" level="project" />
     <orderEntry type="library" name="github.sarxos.fasm.compiler.plugin" level="project" />
+    <orderEntry type="library" name="apache.commons.dbcp2" level="project" />
   </component>
 </module>
