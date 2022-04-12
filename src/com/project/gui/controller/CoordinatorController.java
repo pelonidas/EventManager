@@ -159,7 +159,7 @@ public class CoordinatorController implements Initializable {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        refreshUserTable();
+        userTable.setItems(allCustomers);
     }
 
     public void initializeEventTable() throws SQLException {
@@ -168,18 +168,10 @@ public class CoordinatorController implements Initializable {
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        refreshEventTable();
-    }
-
-    public void refreshUserTable() throws SQLException {
-        userTable.setItems(allCustomers);
-    }
-
-    public void refreshEventTable() throws SQLException {
-        //manageEventsModel.refreshData();
-
         coordinatorTableView.setItems(allEvents);
     }
+
+
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -234,6 +226,7 @@ public class CoordinatorController implements Initializable {
             return;
         try {
             manageEventsModel.tryToDeleteEvent(selectedEvent);
+            getAllEvents().remove(selectedEvent);
         } catch (UserException e) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Error");
@@ -244,10 +237,13 @@ public class CoordinatorController implements Initializable {
 
             Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.get() == continueButton)
+            if (result.get() == continueButton){
                 manageEventsModel.deleteEvent(selectedEvent);
+                getAllEvents().remove(selectedEvent);
+            }
         }
-        //refreshEventTable();
+        initializeEventTable();
+
     }
 
     public void handleEditButton(ActionEvent event) throws IOException {

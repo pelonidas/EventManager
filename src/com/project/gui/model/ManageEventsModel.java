@@ -51,18 +51,22 @@ public class ManageEventsModel {
         return manager.createTicket(selectedTicketType,selectedCustomer,selectedEvent);
     }
 
-    public void createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
-        Platform.runLater(new Runnable() {
+    public com.project.be.Event createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
+        com.project.be.Event createdEvent;
+        createdEvent = manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
+        allEvents.add(createdEvent);
+        /**Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Event createdEvent = manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
-                    allEvents.add(createdEvent);
+                     createdEvent = manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
+                     allEvents.add(createdEvent);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
+        return createdEvent;
     }
 
     public void refreshData() throws SQLException {

@@ -5,6 +5,7 @@ import com.project.be.TicketType;
 import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -43,7 +44,6 @@ public class CreateEventViewController implements Initializable {
 
     @FXML
     private ListView<TicketType> ticketTypeList;
-
 
     private ManageEventsModel manageEventsModel;
     CoordinatorController coordinatorController;
@@ -187,8 +187,6 @@ public class CreateEventViewController implements Initializable {
     });
 
 
-
-
     public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {
         if (eventDate.getValue()==null || hoursBox.getSelectionModel().getSelectedItem() == null
             || minutesBox.getSelectionModel().getSelectedItem() == null || eventCapacityTxt.getText().isEmpty()
@@ -209,9 +207,12 @@ public class CreateEventViewController implements Initializable {
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
-        manageEventsModel.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+        com.project.be.Event newEvent = manageEventsModel.createEvent(eventTitle,dateAndTime,location,description,capacity,ticketTypes);
+        coordinatorController.getAllEvents().add(newEvent);
+        coordinatorController.initializeEventTable();
+        manageEventsModel.getAllEvents().add(newEvent);
 
-        coordinatorController.refreshEventTable();
+
         final Node source = (Node) actionEvent.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

@@ -243,7 +243,7 @@ public class EditEventController implements Initializable {
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
         model.updateEvent(e, ticketTypes);
 
-        coordinatorController.refreshEventTable();
+        coordinatorController.initializeEventTable();
 
 
         final Node source = (Node) actionEvent.getSource();

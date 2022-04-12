@@ -36,7 +36,7 @@ public class EventManager implements IEventManager{
         Event event = dalController.createEvent(title,dateAndTime,location,description,seatsAvailable);
         if (event!=null)
             dalController.createMultipleTicketTypes(ticketTypes,event.getId());
-        return null;
+        return event;
     }
 
     @Override

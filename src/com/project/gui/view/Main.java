@@ -93,8 +93,8 @@ public class Main extends Application {
             controller.setMain(this);
             controller.setAllCustomers(allCustomers);
             controller.setAllEvents(allEvents);
-            controller.refreshEventTable();
-            controller.refreshUserTable();
+            controller.initializeEventTable();
+            controller.initializeUserTable();
             coordinatorDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             coordinatorDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(coordinatorDisplay);
