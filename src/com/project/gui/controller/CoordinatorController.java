@@ -63,11 +63,14 @@ public class CoordinatorController implements Initializable {
     private TableView<Event> coordinatorTableView;
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
+
     @FXML
     private TextArea detailsTextarea;
+    private DateTimeConverter dateTimeConverter = new DateTimeConverter();
 
     private ManageEventsModel manageEventsModel;
     private CustomerModel customerModel;
+    private Main main;
 
     public CoordinatorController() throws IOException, SQLException {
         manageEventsModel = new ManageEventsModel();
