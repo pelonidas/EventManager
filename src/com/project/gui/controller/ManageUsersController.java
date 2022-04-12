@@ -43,7 +43,7 @@ public class ManageUsersController implements Initializable {
 
     CustomerModel customerModel;
 
-    public ManageUsersController() throws IOException {
+    public ManageUsersController() throws IOException, SQLException {
         customerModel = new CustomerModel();
     }
 
@@ -68,7 +68,9 @@ public class ManageUsersController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
+
         SignUpController controller = loader.getController();
+        controller.setCustomerModel(customerModel);
         controller.setCoordinator(false);
         controller.disableUsernamePassword();
         Stage stage = new Stage();

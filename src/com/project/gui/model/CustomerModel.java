@@ -15,24 +15,40 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class CustomerModel {
-    IDALFacade EMFacade;//DELETE THIS LATER
     IEventManager eventManager;
     ObservableList<com.project.be.Customer> allCustomers;
     ObservableList<com.project.be.Customer> sameEventCustomers;
 
-    public CustomerModel() throws IOException {
-        EMFacade = new DALController();//DELETE THIS LATER
+    public CustomerModel() throws IOException, SQLException {
         eventManager = EventManager.getInstance();
         allCustomers = FXCollections.observableArrayList();
+        loadData();
+    }
+
+    private void loadData() throws SQLException {
+        allCustomers.setAll(eventManager.getAllCustomers());
+
+        /*Thread loadCustomersThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    allCustomers.setAll(eventManager.getAllCustomers());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        loadCustomersThread.start();
+
+         */
     }
 
     public ObservableList<com.project.be.Customer> getAllCustomers() throws SQLException {
-        allCustomers.addAll(EMFacade.getAllCustomers());
         return allCustomers;
     }
 
     public Customer createCustomer(String firstName, String lastName, String email, int phoneNumber) throws SQLException, UserException {
-        return EMFacade.createCustomer(firstName,lastName,email,phoneNumber);
+        return eventManager.createCustomer(firstName,lastName,email,phoneNumber);
     }
 
     public ObservableList<com.project.be.Customer> getAllCustomersOnSameEvent(int id) throws Exception {

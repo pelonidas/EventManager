@@ -101,7 +101,7 @@ public class ManageUsersViewController implements Initializable {
         try {
             coordinatorModel = new CoordinatorModel();
             customerModel = new CustomerModel();
-        } catch (IOException  e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
         customersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -173,11 +173,13 @@ public class ManageUsersViewController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
+
         SignUpController controller = loader.getController();
+        controller.setCustomerModel(customerModel);
+        controller.setCoordinatorModel(coordinatorModel);
         controller.setCoordinator(false);
         controller.checkTheBox();
         controller.disableUsernamePassword();
-        controller.setManageUsersViewController(this);
         Stage stage = new Stage();
         stage.setTitle("New customer");
         stage.setScene(new Scene(root));
@@ -203,7 +205,8 @@ public class ManageUsersViewController implements Initializable {
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
         SignUpController controller = loader.getController();
-        controller.setManageUsersViewController(this);
+        controller.setCoordinatorModel(coordinatorModel);
+        controller.setCustomerModel(customerModel);
         controller.checkTheBox();
         Stage stage = new Stage();
         stage.setTitle("New Coordinator");

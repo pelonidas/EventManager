@@ -78,7 +78,6 @@ public class ManageEventsModel {
                 }
             }
         });
-
     }
 
     public void deleteEvent(Event e) {

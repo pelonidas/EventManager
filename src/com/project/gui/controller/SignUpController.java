@@ -80,18 +80,23 @@ public class SignUpController implements Initializable {
     private HBox emailHBox;
     @FXML
     private HBox genderHBox;
-    private ManageUsersViewController manageUsersViewController;
     private LogInController logInController;
 
-    public void setManageUsersViewController(ManageUsersViewController manageUsersViewController) {
-        this.manageUsersViewController = manageUsersViewController;
-    }
 
     private boolean coordinator = true;
 
     private static final String[] items ={"Coordinator", "Customer"};
     private CoordinatorModel coordinatorModel;
     private CustomerModel customerModel;
+
+    public void setCoordinatorModel(CoordinatorModel coordinatorModel) {
+        this.coordinatorModel = coordinatorModel;
+    }
+
+    public void setCustomerModel(CustomerModel customerModel) {
+        this.customerModel = customerModel;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         pressEnter(firstName);
@@ -104,7 +109,7 @@ public class SignUpController implements Initializable {
 
         try {
             coordinatorModel = initializeCoordinatorModel.call();
-            customerModel = initializeCustomerModel.call();
+            //customerModel = initializeCustomerModel.call();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,7 +176,6 @@ public class SignUpController implements Initializable {
                 logInController.getAllCoordinators().add(coordinator);
                 try {
                     coordinatorModel.getAllCoordinators().add(coordinator);
-                    //manageUsersViewController.setUpCoordinatorsTable();
                 }catch (NullPointerException ignored){}
              }
         }
