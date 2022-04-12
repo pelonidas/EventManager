@@ -20,6 +20,7 @@
 
 .root {
     -fx-font-family: "Comfortaa";
+    -fx-background-color: white;
 }
 .text-primary {
     /*-fx-fill: var(--primary);*/

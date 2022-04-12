@@ -1,0 +1,12 @@
+.table-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
+}
+.table-view .column-header-background .label {
+    -fx-font-size: 11px;
+}
+
+.table-view:empty {
+    -fx-background-color: white;
+}
