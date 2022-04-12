@@ -108,9 +108,7 @@ public class EventDAO {
             preparedStatement.setInt(5, event.getSeatsAvailable());
             preparedStatement.setInt(6, event.getId());
 
-            preparedStatement.execute();
-
-            event = getEventByID(event.getId());
+            preparedStatement.executeUpdate();
         }
         return event;
     }

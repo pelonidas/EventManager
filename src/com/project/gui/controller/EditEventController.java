@@ -47,7 +47,7 @@ public class EditEventController implements Initializable {
 
 
     private ManageEventsModel model;
-    private com.project.be.Event e;
+    private com.project.be.Event thisEvent;
     CoordinatorController coordinatorController;
 
     public EditEventController() throws IOException{
@@ -61,7 +61,7 @@ public class EditEventController implements Initializable {
         this.coordinatorController = coordinatorController;
     }
     public void setEventToBeUpdated(com.project.be.Event e) throws SQLException {
-        this.e = e;
+        this.thisEvent = e;
         eventTitleTxt.setText(e.getTitle());
         eventCapacityTxt.setText(String.valueOf(e.getSeatsAvailable()));
         eventLocationTxt.setText(e.getLocation());
@@ -228,7 +228,7 @@ public class EditEventController implements Initializable {
     });
 
 
-    public void handleSaveEvent(ActionEvent actionEvent) throws SQLException {
+    public void handleSaveEvent(ActionEvent actionEvent) throws Exception {
         String date = eventDate.getValue().toString();
 
         String hours = hoursBox.getSelectionModel().getSelectedItem().toString();
@@ -238,22 +238,26 @@ public class EditEventController implements Initializable {
 
         String eventTitle = eventTitleTxt.getText();
         Date dateAndTime = model.parse_convertDateTime(date + " " + time);
-        Integer capacity = Integer.parseInt(eventCapacityTxt.getText());
+        int capacity = Integer.parseInt(eventCapacityTxt.getText());
         String location = eventLocationTxt.getText();
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
 
         java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
-        e.setTitle(eventTitle);
-        e.setMaxCapacity(capacity);
-        e.setLocation(location);
-        e.setDescription(description);
-        e.setDateAndTime(sqlDate);
 
-        model.updateEvent(e, ticketTypes);
+        for (com.project.be.Event event : coordinatorController.getAllEvents()){
+            if (event.equals(thisEvent)){
+                event.setTitle(eventTitle);
+                event.setSeatsAvailable(capacity);
+                event.setLocation(location);
+                event.setDescription(description);
+                event.setDateAndTime(sqlDate);
 
-        coordinatorController.initializeEventTable();
-
+                model.updateEvent(event, ticketTypes);
+                coordinatorController.initializeEventTable();
+                coordinatorController.updateDetails(thisEvent);
+            }
+        }
 
         final Node source = (Node) actionEvent.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();

@@ -163,15 +163,15 @@ public class CoordinatorController implements Initializable {
     }
 
     public void initializeEventTable() throws SQLException {
-        name.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getTitle()));
-        date.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getDateAndTime().toString()));
+        name.setCellValueFactory(new PropertyValueFactory<>("title"));
+        date.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
         attendance.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        coordinatorTableView.setItems(allEvents);
+        coordinatorTableView.setItems(getAllEvents());
+        coordinatorTableView.refresh();
+
     }
-
-
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -372,6 +372,12 @@ public class CoordinatorController implements Initializable {
 
     public void setAllEvents(ObservableList<Event> allEvents) {
         this.allEvents = allEvents;
+    }
+
+    public void updateDetails(Event e) throws Exception {
+        updateEventInfo(e);
+        loadEventTickets(e);
+        loadEventParticipants(e);
     }
 }
 
