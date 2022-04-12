@@ -80,7 +80,7 @@ public class CoordinatorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeParticipantTable();
-        initIcons();
+//        initIcons();
         try {
             initializeEventTable();
             initializeUserTable();
@@ -136,12 +136,12 @@ public class CoordinatorController implements Initializable {
         participantSurname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     }
 
-    private void initIcons() {
-        Text addTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.REFRESH,"24");
-        addTypeButton.setOnMouseClicked(refreshData);
-
-        buttonBox.getChildren().add(addTypeButton);
-    }
+//    private void initIcons() {
+//        Text addTypeButton = GlyphsDude.createIcon(FontAwesomeIcons.REFRESH,"24");
+//        addTypeButton.setOnMouseClicked(refreshData);
+//
+//        buttonBox.getChildren().add(addTypeButton);
+//    }
 
     EventHandler refreshData = new EventHandler() {
         @Override

@@ -4,11 +4,51 @@
 
 /* primary: #223146 */
 /* secondary */
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+/*--primary: #223146;*/
+/*--secondary: #FCC800;*/
+/*red: #ED4036*/
+@font-face {
+    font-family: Comfortaa;
+    font-weight: 400;
+    src: url("./fonts/Comfortaa-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: Comfortaa;
+    font-weight: 700;
+    src: url("./fonts/Comfortaa-Bold.ttf") format("truetype");
+}
+
 .root {
-    --primary: #223146;
-    --secondary: #FCC800;
-    -fx-font-family: 'Comfortaa', cursive;
+    -fx-font-family: "Comfortaa";
+    -fx-background-color: white;
+}
+.text-primary {
+    /*-fx-fill: var(--primary);*/
+}
+.font-xl {
+    -fx-font-family: Comfortaa;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-fill: #223146;
+}
+/**/
+.btn-primary {
+    -fx-background-color: #FCC800;
+    -fx-border-radius: 10px;
+    -fx-text-fill: white;
+}
+.btn-primary:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
+.btn-red {
+    -fx-background-color: #ED4036;
+    -fx-border-radius: 10px;
+    -fx-text-fill: white;
+}
+.btn-red:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
+    -fx-cursor: hand;
 }
 
 /*.border-primary {*/

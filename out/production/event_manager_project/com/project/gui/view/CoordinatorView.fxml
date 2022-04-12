@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ListView?>
@@ -8,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,7 +16,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="487.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<GridPane prefHeight="487.0" prefWidth="898.0" style="-fx-background-color: white;" stylesheets="@../../resources/css/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="0.0" prefWidth="12.0" />
@@ -39,62 +40,50 @@
       <RowConstraints maxHeight="243.0" minHeight="9.0" prefHeight="13.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All events" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font-xl" text="All events" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Comfortaa Regular" size="12.0" />
          </font>
       </Text>
-      <TextField fx:id="eventSearchFilter" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <TableView fx:id="coordinatorTableView" onMouseClicked="#handleSelectEvent" prefHeight="162.0" prefWidth="497.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <TextField fx:id="eventSearchFilter" stylesheets="@../../resources/css/customTextField.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TableView fx:id="coordinatorTableView" onMouseClicked="#handleSelectEvent" prefHeight="162.0" prefWidth="497.0" stylesheets="@../../resources/css/customTableView.css" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <columns>
             <TableColumn fx:id="name" prefWidth="75.0" text="Event" />
             <TableColumn fx:id="location" prefWidth="75.0" text="Location" />
             <TableColumn fx:id="date" prefWidth="116.5" text="Date" />
-            <TableColumn fx:id="attendance" prefWidth="101.60000000000002" text="Attendance" />
+            <TableColumn fx:id="attendance" prefWidth="101.60000000000002" text="Description" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ButtonBar buttonMinWidth="60.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <ButtonBar buttonMinWidth="100.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
          <buttons>
-            <Button mnemonicParsing="false" onAction="#handleCreateEvent" text="Create Event" />
-            <Button mnemonicParsing="false" onAction="#handleEditButton" text="Edit Event" />
-            <Button mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete Event" />
-            <HBox fx:id="buttonBox" alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="100.0" />
+            <Button mnemonicParsing="false" onAction="#handleCreateEvent" styleClass="btn-primary" text="Create Event" />
+            <Button mnemonicParsing="false" onAction="#handleEditButton" styleClass="btn-primary" text="Edit Event" />
+            <Button mnemonicParsing="false" onAction="#handleDeleteButton" styleClass="btn-primary" text="Delete Event" />
          </buttons>
       </ButtonBar>
-      <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Participants" GridPane.columnIndex="4" GridPane.rowIndex="2">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font-xl" text="Participants" GridPane.columnIndex="4" GridPane.rowIndex="2">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Comfortaa Regular" size="13.0" />
          </font>
       </Text>
-      <TextField fx:id="participantsFilter" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <TableView fx:id="participantTable" prefHeight="353.0" prefWidth="154.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
+      <TextField fx:id="participantsFilter" stylesheets="@../../resources/css/customTextField.css" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <TableView fx:id="participantTable" prefHeight="353.0" prefWidth="154.0" stylesheets="@../../resources/css/customTableView.css" GridPane.columnIndex="4" GridPane.rowIndex="5">
          <columns>
             <TableColumn fx:id="participantName" prefWidth="75.0" text="First name" />
             <TableColumn fx:id="participantSurname" prefWidth="77.60002288818359" text="Last name" />
          </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <VBox alignment="CENTER" prefHeight="78.0" prefWidth="176.0" GridPane.columnIndex="4" GridPane.rowIndex="7">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleScanQrCode" text="Scan Ticket" />
+            <Button mnemonicParsing="false" onAction="#handleScanQrCode" styleClass="btn-primary" text="Scan Ticket" />
          </children>
       </VBox>
-      <HBox alignment="CENTER_LEFT" GridPane.columnIndex="6" GridPane.rowIndex="2">
-         <children>
-            <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="All customers">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Button mnemonicParsing="false" onAction="#handleLogOut" text="Log out">
-               <HBox.margin>
-                  <Insets left="160.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
       <GridPane GridPane.columnIndex="6" GridPane.rowIndex="5">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -104,12 +93,15 @@
             <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="userTable" prefHeight="223.0" prefWidth="347.0">
+            <TableView fx:id="userTable" prefHeight="223.0" prefWidth="347.0" stylesheets="@../../resources/css/customTableView.css">
                <columns>
                   <TableColumn fx:id="nameColumn" prefWidth="95.20001524686813" text="First name" />
                   <TableColumn fx:id="lastNameColumn" minWidth="0.0" prefWidth="87.20001220703125" text="Last name" />
                   <TableColumn fx:id="emailColumn" prefWidth="108.80005798339846" text="Email" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <GridPane prefHeight="105.0" prefWidth="293.0" GridPane.rowIndex="1">
                <columnConstraints>
@@ -122,8 +114,8 @@
                   <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextArea fx:id="detailsTextarea" editable="false" styleClass="border-primary" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ListView fx:id="ticketTypeList" prefHeight="100.0" prefWidth="169.0" GridPane.rowIndex="1" />
+                  <TextArea fx:id="detailsTextarea" editable="false" stylesheets="@../../resources/css/customTextArea.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ListView fx:id="ticketTypeList" prefHeight="100.0" prefWidth="169.0" stylesheets="@../../resources/css/customListView.css" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
                         <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
@@ -146,12 +138,27 @@
             </GridPane>
          </children>
       </GridPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+         <left>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font-xl" text="All customers" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Comfortaa Regular" size="13.0" />
+               </font>
+            </Text>
+         </left>
+         <right>
+            <Button mnemonicParsing="false" onAction="#handleLogOut" prefHeight="24.0" prefWidth="103.0" styleClass="btn-red" text="Log out" textAlignment="RIGHT" textFill="WHITE" textOverrun="CLIP" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
       <ButtonBar nodeOrientation="LEFT_TO_RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="7">
          <buttons>
-            <Button mnemonicParsing="false" onAction="#handleManageButton" prefHeight="26.0" prefWidth="109.0" text="Manage users" />
-            <Button mnemonicParsing="false" onAction="#handleBuyTicket" text="Buy a ticket" />
+            <Button mnemonicParsing="false" onAction="#handleManageButton" prefHeight="26.0" prefWidth="139.0" styleClass="btn-primary" text="Manage users">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#handleBuyTicket" styleClass="btn-primary" text="Buy a ticket" />
          </buttons>
       </ButtonBar>
-      <TextField fx:id="allCustomersFilter" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+      <TextField fx:id="allCustomersFilter" stylesheets="@../../resources/css/customTextField.css" GridPane.columnIndex="6" GridPane.rowIndex="3" />
    </children>
 </GridPane>
