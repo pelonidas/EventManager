@@ -1,4 +1,5 @@
 package com.project.gui.controller;
+
 import com.project.be.Admin;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
@@ -21,7 +22,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -40,24 +40,24 @@ public class ManageUsersViewController implements Initializable {
     @FXML
     private TableView<Coordinator> coordinatorsTable;
     @FXML
-    private TableColumn<Coordinator,String> FNameCoordinatorColumn,LNameCoordinatorColumn,UNameCoordinatorColumn,PassWordCoordinatorColumn,EmailCoordinatorColumn;
+    private TableColumn<Coordinator, String> FNameCoordinatorColumn, LNameCoordinatorColumn, UNameCoordinatorColumn, PassWordCoordinatorColumn, EmailCoordinatorColumn;
 
     @FXML
-    private TableColumn<Coordinator,Integer> phoneNumberCoordinatorColumn;
+    private TableColumn<Coordinator, Integer> phoneNumberCoordinatorColumn;
     @FXML
     private TableView<Customer> customersTable;
     @FXML
-    private TableColumn<Customer,String> FNameColumn, LNameColumn,EmailColumn;
+    private TableColumn<Customer, String> FNameColumn, LNameColumn, EmailColumn;
     @FXML
     private TableColumn<Customer, Integer> phoneNumberColumn;
 
-    private  ObservableList <Customer> allCustomers =FXCollections.observableArrayList();
-    private  ObservableList <Coordinator>allCoordinators=FXCollections.observableArrayList();
-    private ObservableList<Admin> allAdmins= FXCollections.observableArrayList();
+    private ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private ObservableList<Coordinator> allCoordinators = FXCollections.observableArrayList();
+    private ObservableList<Admin> allAdmins = FXCollections.observableArrayList();
 
     private Customer selectedCustomer;
     private Coordinator selectedCoordinator;
-    private Integer test =1;
+    private Integer test = 1;
 
     public Customer getSelectedCustomer() {
         return selectedCustomer;
@@ -83,6 +83,7 @@ public class ManageUsersViewController implements Initializable {
     Main main;
     private CoordinatorModel coordinatorModel;
     private CustomerModel customerModel;
+
     public void backView(ActionEvent actionEvent) {
         main.setLayoutChosen("admin");
         try {
@@ -96,32 +97,27 @@ public class ManageUsersViewController implements Initializable {
     public void setMain(Main main) {
         this.main = main;
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            coordinatorModel = new CoordinatorModel();
-            customerModel = new CustomerModel();
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
         customersTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 setSelectedCustomer(customersTable.getSelectionModel().getSelectedItem());
-                ObservableList< com.project.be.Event> allEvents;
-                allEvents= FXCollections.observableArrayList();
+                ObservableList<com.project.be.Event> allEvents;
+                allEvents = FXCollections.observableArrayList();
                 allEvents.addAll(getSelectedCustomer().getMyEvents());
                 eventsListView.setItems(allEvents);
             }
         });
 
-        if (getSelectedCustomer()!=null)
-        eventsListView.getItems().addAll(getSelectedCustomer().getEventHistory());
+        if (getSelectedCustomer() != null)
+            eventsListView.getItems().addAll(getSelectedCustomer().getEventHistory());
 
         customersTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.BACK_SPACE)){
+                if (event.getCode().equals(KeyCode.BACK_SPACE)) {
                     try {
                         deleteCustomer(new ActionEvent());
                     } catch (Exception e) {
@@ -134,7 +130,7 @@ public class ManageUsersViewController implements Initializable {
         coordinatorsTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.BACK_SPACE)){
+                if (event.getCode().equals(KeyCode.BACK_SPACE)) {
                     try {
                         deleteCoordinator(new ActionEvent());
                     } catch (Exception e) {
@@ -147,11 +143,12 @@ public class ManageUsersViewController implements Initializable {
         searchFilterCustomer.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                ObservableList<Customer>search = FXCollections.observableArrayList();
-                for(Customer customer : allCustomers){
-                    if (customer.getFirstName().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(searchFilterCustomer.getText())||customer.getEmail().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)))
-                        search.add(customer);}
-                    customersTable.setItems(search);
+                ObservableList<Customer> search = FXCollections.observableArrayList();
+                for (Customer customer : allCustomers) {
+                    if (customer.getFirstName().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)) || customer.getLastName().toLowerCase(Locale.ROOT).contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)) || String.valueOf(customer.getPhoneNumber()).contains(searchFilterCustomer.getText()) || customer.getEmail().toLowerCase().contains(searchFilterCustomer.getText().toLowerCase(Locale.ROOT)))
+                        search.add(customer);
+                }
+                customersTable.setItems(search);
 
             }
         });
@@ -159,10 +156,11 @@ public class ManageUsersViewController implements Initializable {
         filterSearchCoordinator.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                ObservableList<Coordinator>search = FXCollections.observableArrayList();
-                for(Coordinator coordinator : allCoordinators){
-                    if (coordinator.getFirstName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getLastName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||String.valueOf(coordinator.getPhoneNumber()).contains(filterSearchCoordinator.getText())||coordinator.getEmail().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getUserName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT))||coordinator.getPassWord().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)))
-                        search.add(coordinator);}
+                ObservableList<Coordinator> search = FXCollections.observableArrayList();
+                for (Coordinator coordinator : allCoordinators) {
+                    if (coordinator.getFirstName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)) || coordinator.getLastName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)) || String.valueOf(coordinator.getPhoneNumber()).contains(filterSearchCoordinator.getText()) || coordinator.getEmail().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)) || coordinator.getUserName().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)) || coordinator.getPassWord().toLowerCase().contains(filterSearchCoordinator.getText().toLowerCase(Locale.ROOT)))
+                        search.add(coordinator);
+                }
                 coordinatorsTable.setItems(search);
             }
         });
@@ -188,7 +186,7 @@ public class ManageUsersViewController implements Initializable {
 
     public void deleteCustomer(ActionEvent actionEvent) throws SQLException {
         setSelectedCustomer(customersTable.getSelectionModel().getSelectedItem());
-        if (getAllCustomers()==null)
+        if (getAllCustomers() == null)
             return;
         customerModel.deleteCustomer(getSelectedCustomer());
         allCustomers.remove(getSelectedCustomer());
@@ -277,8 +275,8 @@ public class ManageUsersViewController implements Initializable {
             public Integer fromString(String string) {
                 try {
                     test = Integer.parseInt(string);
-                }catch (NumberFormatException nfe){
-                    test =-1;
+                } catch (NumberFormatException nfe) {
+                    test = -1;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
                     alert.setHeaderText("Number format exception");
@@ -292,20 +290,22 @@ public class ManageUsersViewController implements Initializable {
             @Override
             public void handle(TableColumn.CellEditEvent<Customer, Integer> event) {
                 Customer customer = event.getRowValue();
-                if (test>=0){
-                customer.setPhoneNumber(event.getNewValue());
-                try {
-                    customerModel.editCustomer(customer);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }else {
-                    test= 1;
+                if (test >= 0) {
+                    customer.setPhoneNumber(event.getNewValue());
+                    try {
+                        customerModel.editCustomer(customer);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    test = 1;
                     customersTable.refresh();
-                }}
+                }
+            }
         });
         customersTable.setItems(getAllCustomers());
     }
+
     public void setUpCoordinatorsTable() {
 
         coordinatorsTable.setEditable(true);
@@ -390,9 +390,9 @@ public class ManageUsersViewController implements Initializable {
             @Override
             public Integer fromString(String string) {
                 try {
-                    test =Integer.parseInt(string);
-                }catch (NumberFormatException nfe){
-                    test =-1;
+                    test = Integer.parseInt(string);
+                } catch (NumberFormatException nfe) {
+                    test = -1;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
                     alert.setHeaderText("Number format exception");
@@ -406,17 +406,17 @@ public class ManageUsersViewController implements Initializable {
             @Override
             public void handle(TableColumn.CellEditEvent<Coordinator, Integer> event) {
                 Coordinator coordinator = event.getRowValue();
-                if (test>=0){
-                coordinator.setPhoneNumber(event.getNewValue());
-                try {
-                    coordinatorModel.editCoordinator(coordinator);
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                if (test >= 0) {
+                    coordinator.setPhoneNumber(event.getNewValue());
+                    try {
+                        coordinatorModel.editCoordinator(coordinator);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    test = 1;
+                    coordinatorsTable.refresh();
                 }
-            }
-            else {
-                test =1;
-                coordinatorsTable.refresh();}
             }
 
         });

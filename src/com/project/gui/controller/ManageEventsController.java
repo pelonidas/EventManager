@@ -18,37 +18,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManageEventsController implements Initializable {
-    public VBox mainBox;
     @FXML
     private ListView<Customer> listParticipants;
     @FXML
     private TextField searchFilterEvents;
     @FXML
-    private TableColumn<com.project.be.Event,String> titleColumn,locationColumn,descriptionColumn;
+    private TableColumn<com.project.be.Event, String> titleColumn, locationColumn, descriptionColumn;
     @FXML
     private TableColumn<com.project.be.Event, LocalDate> dateColumn;
     @FXML
-    private TableColumn<com.project.be.Event,Integer> ticketsAvailableColumn;
+    private TableColumn<com.project.be.Event, Integer> ticketsAvailableColumn;
     @FXML
     private TableView<com.project.be.Event> eventsTable;
     Main main;
     private ManageEventsModel manageEventsModel;
-    private  ObservableList <com.project.be.Event> allEvents =FXCollections.observableArrayList();
+    private ObservableList<com.project.be.Event> allEvents = FXCollections.observableArrayList();
 
     private com.project.be.Event eventSelected;
     private Integer test = 1;
@@ -71,6 +63,7 @@ public class ManageEventsController implements Initializable {
     public void logOut(ActionEvent actionEvent) throws Exception {
         main.initLogin();
     }
+
     public void populateEventsTableView() {
         eventsTable.setEditable(true);
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -128,8 +121,8 @@ public class ManageEventsController implements Initializable {
             public Integer fromString(String string) {
                 try {
                     test = Integer.parseInt(string);
-                }catch (NumberFormatException nfe){
-                    test =-1;
+                } catch (NumberFormatException nfe) {
+                    test = -1;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
                     alert.setHeaderText("Number format exception");
@@ -143,28 +136,24 @@ public class ManageEventsController implements Initializable {
             @Override
             public void handle(TableColumn.CellEditEvent<Event, Integer> event) {
                 Event event1 = event.getRowValue();
-                if (test>=0){
-                event1.setSeatsAvailable(event.getNewValue());
-                try {
-                    manageEventsModel.editEvent(event1);
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                if (test >= 0) {
+                    event1.setSeatsAvailable(event.getNewValue());
+                    try {
+                        manageEventsModel.editEvent(event1);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    test = 1;
+                    eventsTable.refresh();
                 }
             }
-            else {
-                test= 1;
-                eventsTable.refresh();}}
         });
         eventsTable.setItems(getAllEvents());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            manageEventsModel = new ManageEventsModel();
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
 
         ticketsAvailableColumn.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -181,10 +170,11 @@ public class ManageEventsController implements Initializable {
             public void handle(MouseEvent event) {
                 setEventSelected(eventsTable.getSelectionModel().getSelectedItem());
                 ObservableList<Customer> allParticipants;
-                allParticipants= FXCollections.observableArrayList();
+                allParticipants = FXCollections.observableArrayList();
                 try {
                     allParticipants.addAll(eventSelected.getParticipants());
-                }catch (NullPointerException ignored){}
+                } catch (NullPointerException ignored) {
+                }
                 listParticipants.setItems(allParticipants);
             }
         });
@@ -192,8 +182,8 @@ public class ManageEventsController implements Initializable {
         searchFilterEvents.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                ObservableList<com.project.be.Event>search = FXCollections.observableArrayList();
-                for(com.project.be.Event event1 : allEvents){
+                ObservableList<com.project.be.Event> search = FXCollections.observableArrayList();
+                for (com.project.be.Event event1 : allEvents) {
                     if (event1.getTitle().contains(searchFilterEvents.getText().toLowerCase(Locale.ROOT)))
                         search.add(event1);
                 }
