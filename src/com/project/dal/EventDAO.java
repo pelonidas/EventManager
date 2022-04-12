@@ -25,7 +25,8 @@ public class EventDAO {
 
     public List<Event> getAllEvents() throws SQLException {
         List<Event> allEvents = new ArrayList<>();
-        try (Connection connection = dbConnector.getConnection()) {
+        Connection connection =  dataSource.getConnection();
+        //try (Connection connection = dbConnector.getConnection()) {
             String sql = "SELECT * FROM events e";
             Statement statement = connection.createStatement();
             statement.execute(sql);
@@ -42,7 +43,7 @@ public class EventDAO {
                 allEvents.add(event);
 
             }
-        }
+        //}
         return allEvents;
     }
 

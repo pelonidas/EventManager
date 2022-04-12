@@ -36,12 +36,19 @@
     -fx-background-color: #FCC800;
     -fx-border-radius: 10px;
     -fx-text-fill: white;
+}
+.btn-primary:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
+    -fx-cursor: hand;
 }
 .btn-red {
     -fx-background-color: #ED4036;
     -fx-border-radius: 10px;
     -fx-text-fill: white;
+}
+.btn-red:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
+    -fx-cursor: hand;
 }
 
 /*.border-primary {*/

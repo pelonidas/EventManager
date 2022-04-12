@@ -10,7 +10,7 @@ public class DBCPDataSource {
     private static BasicDataSource ds = new BasicDataSource();
 
     static {
-        ds.setUrl("jdbc:sqlserver://localhost:1433;databaseName=Event_Manager;integratedSecurity=true");
+        ds.setUrl("jdbc:sqlserver://10.176.111.31;database=Event_Manager;");
         ds.setUsername("CSe21B_26");
         ds.setPassword("CSe21B_26");
         ds.setMinIdle(5);
