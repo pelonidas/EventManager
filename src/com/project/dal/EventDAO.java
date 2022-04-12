@@ -4,6 +4,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.dal.connectorDAO.DBCPDataSource;
 import com.project.dal.connectorDAO.DBConnector;
 
 import javax.swing.plaf.SliderUI;
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class EventDAO {
     DBConnector dbConnector;
+    DBCPDataSource dataSource;
 
     public EventDAO() throws IOException {
         dbConnector = new DBConnector();
+        dataSource = new DBCPDataSource();
     }
 
     public List<Event> getAllEvents() throws SQLException {
