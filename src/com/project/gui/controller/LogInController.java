@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.project.be.*;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.Mail;
+import com.project.gui.model.CoordinatorModel;
 import com.project.gui.model.LogInModel;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
@@ -265,6 +266,7 @@ public class LogInController implements Initializable {
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
         SignUpController signUpController = loader.getController();
+        signUpController.setCoordinatorModel(new CoordinatorModel());
         signUpController.setLogInController(this);
         Stage stage = new Stage();
         stage.setTitle("Sign Up");

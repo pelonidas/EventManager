@@ -50,6 +50,12 @@ public interface IEventManager {
     List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException;
 
 
+    /**
+     * Admins
+     * @return
+     */
+    List<Admin> getAllAdmins() throws SQLException, UserException;
+
 
     /**
      * logIn credentials

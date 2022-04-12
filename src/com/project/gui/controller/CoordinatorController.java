@@ -8,6 +8,7 @@ import com.project.be.TicketType;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.CamTest;
 import com.project.bll.util.DateTimeConverter;
+import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -40,11 +41,9 @@ public class CoordinatorController implements Initializable {
     @FXML
     private TextField eventSearchFilter;
     @FXML
-    private TextField allCustomersFilter0;
+    private TextField allCustomersFilter;
     @FXML
     private TextField participantsFilter;
-    @FXML
-    private Text allCustomersFilter;
 
     @FXML
     private TableView<Customer> participantTable;
@@ -64,17 +63,15 @@ public class CoordinatorController implements Initializable {
     private TableView<Event> coordinatorTableView;
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
-    private ManageEventsModel manageEventsModel;
-    private Main main;
-    private com.project.be.Event eventSelected;
-
-
     @FXML
     private TextArea detailsTextarea;
-    private DateTimeConverter dateTimeConverter = new DateTimeConverter();
+
+    private ManageEventsModel manageEventsModel;
+    private CustomerModel customerModel;
 
     public CoordinatorController() throws IOException, SQLException {
         manageEventsModel = new ManageEventsModel();
+        customerModel = new CustomerModel();
     }
 
     @Override
@@ -88,14 +85,17 @@ public class CoordinatorController implements Initializable {
             e.printStackTrace();
         }
 
+        setupFilters();
+    }
 
-        allCustomersFilter0.setOnKeyReleased(new EventHandler<KeyEvent>() {
+    private void setupFilters() {
+        allCustomersFilter.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
                 try {
-                    for(Customer customer : manageEventsModel.getAllUsers()){
-                        if (customer.getFirstName().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(allCustomersFilter0.getText())||customer.getEmail().toLowerCase().contains(allCustomersFilter0.getText().toLowerCase(Locale.ROOT)))
+                    for(Customer customer : customerModel.getAllCustomers()){
+                        if (customer.getFirstName().toLowerCase().contains(allCustomersFilter.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(allCustomersFilter.getText())||customer.getEmail().toLowerCase().contains(allCustomersFilter.getText().toLowerCase(Locale.ROOT)))
                             search.add(customer);}
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -107,8 +107,11 @@ public class CoordinatorController implements Initializable {
         participantsFilter.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+                Event selectedEvent = coordinatorTableView.getSelectionModel().getSelectedItem();
+                if (selectedEvent==null)
+                    return;
                 ObservableList<Customer>search = FXCollections.observableArrayList();
-                for(Customer customer : getSelectedEvent().getParticipants()){
+                for(Customer customer : selectedEvent.getParticipants()){
                     if (customer.getFirstName().toLowerCase().contains(participantsFilter.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(participantsFilter.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(participantsFilter.getText())||customer.getEmail().toLowerCase().contains(participantsFilter.getText().toLowerCase(Locale.ROOT)))
                         search.add(customer);}
                 participantTable.setItems(search);
@@ -172,7 +175,7 @@ public class CoordinatorController implements Initializable {
     }
 
     private void refreshUserTable() throws SQLException {
-        userTable.setItems(manageEventsModel.getAllUsers());
+        userTable.setItems(customerModel.getAllCustomers());
     }
 
     public void refreshEventTable() throws SQLException {
@@ -200,7 +203,6 @@ public class CoordinatorController implements Initializable {
     public void handleManageButton(ActionEvent event) throws SQLException, IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/ManageUsersCoord.fxml"));
         Parent root =  loader.load();
-
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -336,14 +338,6 @@ public class CoordinatorController implements Initializable {
         this.main=main;
     }
 
-    public Event getEventSelected() {
-        return eventSelected;
-    }
-
-    public void setEventSelected(Event eventSelected) {
-        this.eventSelected = eventSelected;
-    }
-
     public void handleSelectEvent(MouseEvent mouseEvent) throws Exception {
         Event e = getSelectedEvent();
         if (e==null)
@@ -353,9 +347,14 @@ public class CoordinatorController implements Initializable {
         loadEventParticipants(e);
     }
 
-    public void handleScanQrCode(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleScanQrCode(ActionEvent actionEvent) throws IOException {
         CamTest camTest = new CamTest();
         camTest.start(new Stage());
+    }
+
+    @FXML
+    private void handleLogOut(ActionEvent actionEvent) {
     }
 }
 

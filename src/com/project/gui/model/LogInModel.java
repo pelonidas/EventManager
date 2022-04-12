@@ -4,6 +4,7 @@ import com.project.be.Admin;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.bll.EventManager;
 import com.project.bll.exceptions.UserException;
 import com.project.dal.facadeDAO.DALController;
 import com.project.dal.facadeDAO.IDALFacade;
@@ -15,24 +16,24 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class LogInModel {
-    IDALFacade EMFacade;
+    EventManager manager;
 
     public LogInModel() throws IOException {
-        EMFacade = new DALController();
+        manager = EventManager.getInstance();
     }
     public List<Coordinator> getAllCoordinators() throws SQLException, UserException {
-        return EMFacade.getAllCoordinators();
+        return manager.getAllCoordinators();
     }
 
     public List<Customer> getAllCustomers() throws SQLException, UserException {
-        return EMFacade.getAllCustomers();
+        return manager.getAllCustomers();
     }
 
     public List<Admin> getAllAdmins() throws SQLException, UserException {
-        return EMFacade.getAllAdmins();
+        return manager.getAllAdmins();
     }
 
     public List<Event> getAllEvents() throws SQLException {
-        return EMFacade.getAllEvents();
+        return manager.getAllEvents();
     }
 }

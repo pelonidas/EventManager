@@ -4,6 +4,7 @@ import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.gui.model.CustomerModel;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,7 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,16 +30,16 @@ public class ManageUsersController implements Initializable {
     private TableView<Customer> customersTable;
 
     @FXML
-    private TableColumn<?, ?> fNameColumn;
+    private TableColumn<Customer,String> fNameColumn;
 
     @FXML
-    private TableColumn<?, ?> lNameColumn;
+    private TableColumn<Customer,String> lNameColumn;
 
     @FXML
-    private TableColumn<?, ?> emailColumn;
+    private TableColumn<Customer,String> emailColumn;
 
     @FXML
-    private TableColumn<?, ?> phoneNumberColumn;
+    private TableColumn<Customer,String> phoneNumberColumn;
 
     @FXML
     private ListView<Event> eventsListView;
@@ -46,6 +49,7 @@ public class ManageUsersController implements Initializable {
     public ManageUsersController() throws IOException, SQLException {
         customerModel = new CustomerModel();
     }
+
 
     @FXML
     private void deleteCustomer(ActionEvent actionEvent) throws SQLException {
@@ -57,10 +61,7 @@ public class ManageUsersController implements Initializable {
         customersTable.getItems().remove(selectedCustomer);
     }
 
-    @FXML
-    void editCustomer(ActionEvent event) {
 
-    }
 
     @FXML
     private void newCustomer(ActionEvent actionEvent) throws IOException {
@@ -83,9 +84,60 @@ public class ManageUsersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             initCustomerTable();
+            setupCustomerTable();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupCustomerTable() {
+        customersTable.setEditable(true);
+        fNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        fNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        fNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Customer, String> event) {
+                Customer customer = event.getRowValue();
+                customer.setFirstName(event.getNewValue());
+                try {
+                    customerModel.editCustomer(customer);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        lNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        lNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lNameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Customer, String> event) {
+                Customer customer = event.getRowValue();
+                customer.setLastName(event.getNewValue());
+                try {
+                    customerModel.editCustomer(customer);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Customer, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Customer, String> event) {
+                Customer customer = event.getRowValue();
+                customer.setEmail(event.getNewValue());
+
+                try {
+                    customerModel.editCustomer(customer);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     private void initCustomerTable() throws SQLException {

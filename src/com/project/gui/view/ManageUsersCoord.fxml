@@ -78,7 +78,6 @@
                <buttons>
                   <JFXButton onAction="#deleteCustomer" text="Delete" />
                   <JFXButton onAction="#newCustomer" prefHeight="26.0" text="Add customer" />
-                  <JFXButton onAction="#editCustomer" text="Edit customer" />
                </buttons>
             </ButtonBar>
             <ButtonBar prefHeight="42.0" prefWidth="223.0" GridPane.columnIndex="1" />
