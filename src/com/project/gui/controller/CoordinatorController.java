@@ -72,7 +72,7 @@ public class CoordinatorController implements Initializable {
     private ManageEventsModel manageEventsModel;
     private CustomerModel customerModel;
 
-    public CoordinatorController() throws IOException, SQLException {
+    public CoordinatorController() throws IOException, SQLException, UserException {
         manageEventsModel = new ManageEventsModel();
         customerModel = new CustomerModel();
     }
@@ -220,10 +220,11 @@ public class CoordinatorController implements Initializable {
                 );
     }
 
-    public void handleDeleteButton(ActionEvent event) throws SQLException {
+    public void handleDeleteButton(ActionEvent event) throws Exception {
         Event selectedEvent = getSelectedEvent();
         if (selectedEvent==null)
             return;
+        int index = coordinatorTableView.getSelectionModel().getSelectedIndex();
         try {
             manageEventsModel.tryToDeleteEvent(selectedEvent);
             getAllEvents().remove(selectedEvent);
@@ -243,7 +244,13 @@ public class CoordinatorController implements Initializable {
             }
         }
         initializeEventTable();
-
+        if (index > 0) {
+             selectedEvent = coordinatorTableView.getItems().get(index - 1);
+            updateEventInfo(selectedEvent);
+            loadEventTickets(selectedEvent);
+            loadEventParticipants(selectedEvent);
+        } else
+            participantTable.getItems().clear();
     }
 
     public void handleEditButton(ActionEvent event) throws IOException {
@@ -347,7 +354,8 @@ public class CoordinatorController implements Initializable {
     }
 
     @FXML
-    private void handleLogOut(ActionEvent actionEvent) {
+    private void handleLogOut(ActionEvent actionEvent) throws Exception {
+        main.initLogin();
     }
 
     public ObservableList<Customer> getAllCustomers() {
