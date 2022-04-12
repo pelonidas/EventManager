@@ -63,14 +63,14 @@ public class CoordinatorController implements Initializable {
     private TableView<Event> coordinatorTableView;
     @FXML
     private TableColumn<Event, String> name, attendance, location, date;
-
     @FXML
     private TextArea detailsTextarea;
-    private DateTimeConverter dateTimeConverter = new DateTimeConverter();
+    private Main main;
+    private ObservableList<Customer> allCustomers;
+    private ObservableList<Event> allEvents;
 
     private ManageEventsModel manageEventsModel;
     private CustomerModel customerModel;
-    private Main main;
 
     public CoordinatorController() throws IOException, SQLException {
         manageEventsModel = new ManageEventsModel();
@@ -96,13 +96,10 @@ public class CoordinatorController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Customer>search = FXCollections.observableArrayList();
-                try {
-                    for(Customer customer : customerModel.getAllCustomers()){
+                    for(Customer customer : getAllCustomers()){
                         if (customer.getFirstName().toLowerCase().contains(allCustomersFilter.getText().toLowerCase(Locale.ROOT))||customer.getLastName().toLowerCase(Locale.ROOT).contains(allCustomersFilter.getText().toLowerCase(Locale.ROOT))||String.valueOf(customer.getPhoneNumber()).contains(allCustomersFilter.getText())||customer.getEmail().toLowerCase().contains(allCustomersFilter.getText().toLowerCase(Locale.ROOT)))
                             search.add(customer);}
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
                 userTable.setItems(search);
             }
         });
@@ -125,13 +122,10 @@ public class CoordinatorController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 ObservableList<Event>search = FXCollections.observableArrayList();
-                try {
-                    for(Event event1 : manageEventsModel.getAllEvents() ){
+                    for(Event event1 : getAllEvents() ){
                         if (event1.getTitle().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getLocation().toLowerCase().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT))||event1.getDateAndTime().toString().contains(eventSearchFilter.getText().toLowerCase(Locale.ROOT)))
                             search.add(event1);}
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
                 coordinatorTableView.setItems(search);
             }
         });
@@ -177,14 +171,14 @@ public class CoordinatorController implements Initializable {
         refreshEventTable();
     }
 
-    private void refreshUserTable() throws SQLException {
-        userTable.setItems(customerModel.getAllCustomers());
+    public void refreshUserTable() throws SQLException {
+        userTable.setItems(allCustomers);
     }
 
     public void refreshEventTable() throws SQLException {
-        manageEventsModel.refreshData();
+        //manageEventsModel.refreshData();
 
-        coordinatorTableView.setItems(manageEventsModel.getAllEvents());
+        coordinatorTableView.setItems(allEvents);
     }
 
     public void handleCreateEvent(ActionEvent event) throws IOException {
@@ -203,7 +197,7 @@ public class CoordinatorController implements Initializable {
         stage.show();
     }
 
-    public void handleManageButton(ActionEvent event) throws SQLException, IOException {
+    public void handleManageButton(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/ManageUsersCoord.fxml"));
         Parent root =  loader.load();
 
@@ -341,8 +335,7 @@ public class CoordinatorController implements Initializable {
         this.main=main;
     }
 
-    @FXML
-    private void handleSelectEvent(MouseEvent mouseEvent) throws Exception {
+    public void handleSelectEvent(MouseEvent mouseEvent) throws Exception {
         Event e = getSelectedEvent();
         if (e==null)
             return;
@@ -359,6 +352,22 @@ public class CoordinatorController implements Initializable {
 
     @FXML
     private void handleLogOut(ActionEvent actionEvent) {
+    }
+
+    public ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+
+    public void setAllCustomers(ObservableList<Customer> allCustomers) {
+        this.allCustomers = allCustomers;
+    }
+
+    public ObservableList<Event> getAllEvents() {
+        return allEvents;
+    }
+
+    public void setAllEvents(ObservableList<Event> allEvents) {
+        this.allEvents = allEvents;
     }
 }
 

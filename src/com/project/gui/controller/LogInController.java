@@ -1,6 +1,5 @@
 package com.project.gui.controller;
 
-import com.jfoenix.controls.JFXCheckBox;
 import com.project.be.*;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.Mail;
@@ -39,28 +38,6 @@ import java.util.ResourceBundle;
 
 
 public class LogInController implements Initializable {
-    @FXML
-    private Hyperlink forgotPassword;
-    @FXML
-    private JFXCheckBox rememberMe;
-    @FXML
-    private HBox signUpBox;
-    @FXML
-    private Button signUpButton;
-    @FXML
-    private Label welcomeLabel0;
-    @FXML
-    private Label welcomeLabel1;
-    @FXML
-    private Label welcomeLabel2;
-    @FXML
-    private Label welcomeLabel3;
-    @FXML
-    private Label dhaLabel;
-    @FXML
-    private Text userLogInLabel;
-    @FXML
-    private Label eventManagementLabel;
     @FXML
     private GridPane rightPane;
     @FXML
@@ -103,8 +80,6 @@ public class LogInController implements Initializable {
     private final DoubleProperty fontSizeDhaLabel = new SimpleDoubleProperty(20);
     private final DoubleProperty fontSizeSmallLabel = new SimpleDoubleProperty(13);
 
-    private ManageEventsModel manageEventsModel;
-
     public void setMainApp(Main main) {
         this.main = main;
     }
@@ -113,23 +88,65 @@ public class LogInController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             logInModel = new LogInModel();
-            manageEventsModel = new ManageEventsModel();
+            ManageEventsModel manageEventsModel = new ManageEventsModel();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
-        try {
-            allCustomers= FXCollections.observableArrayList();
-            allCustomers.setAll(logInModel.getAllCustomers());
-            allCoordinators= FXCollections.observableArrayList();
-            allCoordinators.setAll(logInModel.getAllCoordinators());
-            allAdmins= FXCollections.observableArrayList();
-            allAdmins.setAll(logInModel.getAllAdmins());
-            allEvents=FXCollections.observableArrayList();
-            allEvents.setAll(manageEventsModel.getAllEvents());
-        } catch (SQLException | UserException e) {
-            e.printStackTrace();
-        }
+        allCustomers= FXCollections.observableArrayList();
+        allCoordinators= FXCollections.observableArrayList();
+        allAdmins= FXCollections.observableArrayList();
+        allEvents=FXCollections.observableArrayList();
+
+        Thread loadCustomerData= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    allCustomers.setAll(logInModel.getAllCustomers());
+                } catch (SQLException | UserException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Thread loadCoordinatorData= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    allCoordinators.setAll(logInModel.getAllCoordinators());
+                } catch (SQLException | UserException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Thread loadAdminData= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    allAdmins.setAll(logInModel.getAllAdmins());
+                } catch (SQLException | UserException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Thread loadEventsData= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    allEvents.setAll(logInModel.getAllEvents());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        loadCustomerData.start();
+        loadCoordinatorData.start();
+        loadAdminData.start();
+        loadEventsData.start();
+
 
         Text usersIcons = GlyphsDude.createIcon(FontAwesomeIcons.USERS, "35px");
         usersIcons.setFill(Paint.valueOf("#0598ff"));
@@ -146,7 +163,6 @@ public class LogInController implements Initializable {
         Text calendarIcon = GlyphsDude.createIcon(FontAwesomeIcons.CALENDAR, "35px");
         calendarIcon.setFill(Paint.valueOf("white"));
         calenderIcon.getChildren().add(calendarIcon);
-
 
 
         leftBigBox.prefWidthProperty().bind(bigBox.widthProperty().multiply(55).divide(100));
@@ -219,6 +235,15 @@ public class LogInController implements Initializable {
                 }
             }
         });
+
+        try {
+            loadCustomerData.join();
+            loadCoordinatorData.join();
+            loadEventsData.join();
+            loadAdminData.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logIn(ActionEvent actionEvent) throws Exception {
@@ -274,21 +299,14 @@ public class LogInController implements Initializable {
         stage.show();
     }
 
-    public ObservableList<Customer> getAllCustomers() {
+    public synchronized ObservableList<Customer> getAllCustomers() {
         return allCustomers;
-    }
-
-    public void setAllCustomers(ObservableList<Customer> allCustomers) {
-        this.allCustomers = allCustomers;
     }
 
     public ObservableList<Coordinator> getAllCoordinators() {
         return allCoordinators;
     }
 
-    public void setAllCoordinators(ObservableList<Coordinator> allCoordinators) {
-        this.allCoordinators = allCoordinators;
-    }
 
     public ObservableList<Admin> getAllAdmins() {
         return allAdmins;
@@ -302,11 +320,12 @@ public class LogInController implements Initializable {
         Mail.sendMail("amine.aouina.lp.4@gmail.com");
     }
 
-    public ObservableList<Event> getAllEvents() {
+    public synchronized ObservableList<Event> getAllEvents() {
         return allEvents;
     }
 
     public void setAllEvents(ObservableList<Event> allEvents) {
         this.allEvents = allEvents;
     }
+
 }

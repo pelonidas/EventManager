@@ -49,6 +49,8 @@ public class Main extends Application {
         LogInController controller = loader.getController();
         controller.setMainApp(this);
 
+
+
         if (launchProgram){
             allCoordinators= FXCollections.observableArrayList();
             allAdmins= FXCollections.observableArrayList();
@@ -89,6 +91,10 @@ public class Main extends Application {
             GridPane coordinatorDisplay = loaderCoordinator.load();
             CoordinatorController controller = loaderCoordinator.getController();
             controller.setMain(this);
+            controller.setAllCustomers(allCustomers);
+            controller.setAllEvents(allEvents);
+            controller.refreshEventTable();
+            controller.refreshUserTable();
             coordinatorDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             coordinatorDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(coordinatorDisplay);
