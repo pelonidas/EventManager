@@ -38,14 +38,14 @@ public interface IEventManager {
     List<Ticket>getAllTickets(Customer customer)throws SQLException;
     void deleteTicket(Ticket ticket)throws SQLException;
     Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException;
-    void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException;
+    void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException;
     boolean tryToDeleteEvent(Event selectedEvent) throws SQLException, UserException;
     /**
      * Ticket Category
      */
     List<TicketType> getAllTicketTypes ()throws SQLException;
     TicketType editTicketType(TicketType ticketType,String title,double price, String benefits,int seatsAvailable) throws SQLException;
-    void deleteTicketType(TicketType ticketType)throws SQLException;
+    void deleteTicketType(TicketType ticketType) throws SQLException, UserException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
     List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException;
 

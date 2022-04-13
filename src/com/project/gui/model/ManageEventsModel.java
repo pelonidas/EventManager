@@ -107,7 +107,7 @@ public class ManageEventsModel {
         return DateTimeConverter.parseDate(date);
     }
 
-    public void updateEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+    public void updateEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException {
         manager.editEvent(event);
         manager.editTicketTypesForEvent(event,ticketTypes);
     }

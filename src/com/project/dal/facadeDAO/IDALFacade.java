@@ -51,9 +51,9 @@ public interface IDALFacade {
      */
     List<TicketType> getAllTicketTypes ()throws SQLException;
     TicketType editTicketType(TicketType ticketType,String title,double price, String benefits,int seatsAvailable) throws SQLException;
-    void deleteTicketType(TicketType ticketType)throws SQLException;
+    void deleteTicketType(TicketType ticketType) throws SQLException, UserException;
     void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException;
-    void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException;
+    void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException;
 
 
     Coordinator logInCoordinatorCredentials(String userName)throws SQLException,UserException;

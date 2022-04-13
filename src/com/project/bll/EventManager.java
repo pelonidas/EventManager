@@ -124,7 +124,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public void deleteTicketType(TicketType ticketType) throws SQLException {
+    public void deleteTicketType(TicketType ticketType) throws SQLException, UserException {
         dalController.deleteTicketType(ticketType);
     }
 
@@ -149,7 +149,7 @@ public class EventManager implements IEventManager{
     }
 
     @Override
-    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException {
         dalController.editTicketTypesForEvent(event,ticketTypes);
     }
 

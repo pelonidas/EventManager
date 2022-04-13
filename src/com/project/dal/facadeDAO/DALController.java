@@ -134,7 +134,7 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public void deleteTicketType(TicketType ticketType) throws SQLException {
+    public void deleteTicketType(TicketType ticketType) throws SQLException, UserException {
         ticketCategoryDAO.deleteTicketType(ticketType);
     }
 
@@ -167,7 +167,7 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException {
         ticketCategoryDAO.editTicketTypesForEvent(event,ticketTypes);
     }
 

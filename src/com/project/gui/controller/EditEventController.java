@@ -1,6 +1,7 @@
 package com.project.gui.controller;
 
 import com.project.be.TicketType;
+import com.project.bll.exceptions.UserException;
 import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -236,7 +237,8 @@ public class EditEventController implements Initializable {
     });
 
 
-    public void handleSaveEvent(ActionEvent actionEvent) throws Exception {
+    //TODO handle user exception
+    public void handleSaveEvent(ActionEvent actionEvent) throws Exception, UserException {
         String date = eventDate.getValue().toString();
 
         String hours = hoursBox.getSelectionModel().getSelectedItem().toString();

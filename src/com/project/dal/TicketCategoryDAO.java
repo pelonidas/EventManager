@@ -3,6 +3,7 @@ package com.project.dal;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.project.be.Event;
 import com.project.be.TicketType;
+import com.project.bll.exceptions.UserException;
 import com.project.dal.connectorDAO.DBCPDataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,13 +71,15 @@ public class TicketCategoryDAO {
         return ticketType;
     }
 
-    public void deleteTicketType(TicketType ticketType) throws SQLException,SQLServerException {
+    public void deleteTicketType(TicketType ticketType) throws SQLException, UserException {
         try (Connection connection = dataSource.getConnection()){
         String sql = "DELETE FROM categories_ticket WHERE id= ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, ticketType.getId());
         preparedStatement.executeUpdate();}
-
+        catch (SQLServerException e){
+            throw new UserException("Ticket type already sold \n could not delete",e);
+        }
     }
 
 
@@ -125,7 +128,7 @@ public class TicketCategoryDAO {
         return ticketsForEvent;
     }
 
-    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
+    public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException {
         List<TicketType> newTicketTypes = new ArrayList<>();
         List<TicketType> outDatedTicketTypes = getAllTicketTypesForEvent(event);
         List<TicketType> toBeDeleted = new ArrayList<>();
