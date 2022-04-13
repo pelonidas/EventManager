@@ -198,16 +198,14 @@ public class CoordinatorController implements Initializable {
     private void loadEventParticipants(Event e) throws Exception {
         ObservableList<Customer> allParticipants;
         allParticipants = FXCollections.observableArrayList();
-        if(e.getParticipants()!=null)
-            allParticipants.addAll(e.getParticipants());
+        allParticipants.addAll(e.getParticipants());
         participantTable.setItems(allParticipants);
     }
 
     private void loadEventTickets(Event e) throws SQLException {
         ObservableList<TicketType> allTicketTypes;
         allTicketTypes = FXCollections.observableArrayList();
-        if (e.getAllTicketTypes()!=null)
-            allTicketTypes.addAll(e.getAllTicketTypes());
+        allTicketTypes.addAll(e.getAllTicketTypes());
         ticketTypeList.setItems(allTicketTypes);
     }
 
