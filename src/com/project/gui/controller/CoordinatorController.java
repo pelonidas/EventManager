@@ -80,13 +80,8 @@ public class CoordinatorController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeParticipantTable();
-        try {
-            initializeEventTable();
-            initializeUserTable();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        initializeEventTable();
+        initializeUserTable();
         setupFilters();
     }
 
@@ -142,7 +137,7 @@ public class CoordinatorController implements Initializable {
 //        buttonBox.getChildren().add(addTypeButton);
 //    }
 
-    EventHandler refreshData = new EventHandler() {
+    /*EventHandler refreshData = new EventHandler() {
         @Override
         public void handle(javafx.event.Event event) {
             try {
@@ -151,9 +146,9 @@ public class CoordinatorController implements Initializable {
                 e.printStackTrace();
             }
         }
-    };
+    };*/
 
-    public void initializeUserTable() throws SQLException {
+    public void initializeUserTable()  {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -161,7 +156,7 @@ public class CoordinatorController implements Initializable {
         userTable.setItems(allCustomers);
     }
 
-    public void initializeEventTable() throws SQLException {
+    public void initializeEventTable()  {
         name.setCellValueFactory(new PropertyValueFactory<>("title"));
         date.setCellValueFactory(new PropertyValueFactory<>("dateAndTime"));
         location.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -201,11 +196,17 @@ public class CoordinatorController implements Initializable {
 
 
     private void loadEventParticipants(Event e) throws Exception {
-        participantTable.setItems(manageEventsModel.getParticipantsForEvent(e));
+        ObservableList<Customer> allParticipants;
+        allParticipants = FXCollections.observableArrayList();
+        allParticipants.addAll(e.getParticipants());
+        participantTable.setItems(allParticipants);
     }
 
     private void loadEventTickets(Event e) throws SQLException {
-        ticketTypeList.setItems(manageEventsModel.getTicketTypesForEvent(e));
+        ObservableList<TicketType> allTicketTypes;
+        allTicketTypes = FXCollections.observableArrayList();
+        allTicketTypes.addAll(e.getAllTicketTypes());
+        ticketTypeList.setItems(allTicketTypes);
     }
 
     private void updateEventInfo(Event e) {

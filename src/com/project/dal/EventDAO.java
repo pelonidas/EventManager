@@ -3,6 +3,7 @@ package com.project.dal;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
 import com.project.be.Event;
+import com.project.be.TicketType;
 import com.project.dal.connectorDAO.DBCPDataSource;
 import java.io.IOException;
 import java.sql.*;
@@ -19,7 +20,7 @@ public class EventDAO {
 
     public List<Event> getAllEvents() throws SQLException {
         List<Event> allEvents = new ArrayList<>();
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql = "SELECT * FROM events e";
         Statement statement = connection.createStatement();
         statement.execute(sql);
@@ -31,17 +32,34 @@ public class EventDAO {
                     resultSet.getString("location"),
                     resultSet.getString("description"),
                     resultSet.getInt("seats_available"));
-            event.setAllCoordinators(getAllCoordinatorsEvent(event,connection));
-            event.setParticipants(getAllCustomers(event,connection));
+
+            event.setAllCoordinators(getAllCoordinatorsEvent(event, connection));
+            event.setParticipants(getAllCustomers(event, connection));
             allEvents.add(event);
 
+            TicketType ticketType;
+            List<TicketType> allTicketTypes = new ArrayList<>();
+            String sql0 = "SELECT * FROM categories_ticket WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql0);
+            preparedStatement.setInt(1, event.getId());
+            ResultSet resultSet0 = preparedStatement.executeQuery();
+            while (resultSet0.next()) {
+                ticketType = new TicketType(resultSet.getInt("id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("benefits"),
+                        resultSet.getInt("price"),
+                        resultSet.getInt("seats_available"));
+                allTicketTypes.add(ticketType);
+            }
+            event.setAllTicketTypes(allTicketTypes);
+        }
         }
         return allEvents;
     }
 
     public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
         Event event = null;
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql = "INSERT INTO events VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setString(1, title);
@@ -56,51 +74,51 @@ public class EventDAO {
         while (resultSet.next()) {
             int generatedID = resultSet.getInt(1);
             event = getEventByID(generatedID);
-        }
+        }}
         return event;
     }
 
     public Event getEventByID(int id) throws SQLException {
         Event event = null;
-        Connection connection = dataSource.getConnection();
-        String sql = "SELECT * FROM events WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            event = new Event(
-                    id,
-                    resultSet.getString("title"),
-                    resultSet.getDate("date"),
-                    resultSet.getString("location"),
-                    resultSet.getString("description"),
-                    resultSet.getInt("seats_available"));
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "SELECT * FROM events WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                event = new Event(
+                        id,
+                        resultSet.getString("title"),
+                        resultSet.getDate("date"),
+                        resultSet.getString("location"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("seats_available"));
+            }
         }
-
         return event;
     }
 
     public void deleteEvent(Event event) throws SQLException {
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql = "DELETE FROM events WHERE id= ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, event.getId());
         preparedStatement.executeUpdate();
-    }
+    }}
 
     public Event editEvent(Event event) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?  WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1, event.getTitle());
-        preparedStatement.setTimestamp(2, new Timestamp(event.getDateAndTime().getTime()));
-        preparedStatement.setString(3, event.getLocation());
-        preparedStatement.setString(4, event.getDescription());
-        preparedStatement.setInt(5, event.getSeatsAvailable());
-        preparedStatement.setInt(6, event.getId());
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE events SET title = ?, date = ?,location = ?, description= ? ,[seats_available] = ?  WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, event.getTitle());
+            preparedStatement.setTimestamp(2, new Timestamp(event.getDateAndTime().getTime()));
+            preparedStatement.setString(3, event.getLocation());
+            preparedStatement.setString(4, event.getDescription());
+            preparedStatement.setInt(5, event.getSeatsAvailable());
+            preparedStatement.setInt(6, event.getId());
 
-        preparedStatement.executeUpdate();
-
+            preparedStatement.executeUpdate();
+        }
         return event;
     }
 
@@ -155,7 +173,7 @@ public class EventDAO {
 
     public Event getEvent(int id) throws SQLException {
         Event event = null;
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql = "SELECT * FROM events WHERE id =?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
@@ -167,9 +185,7 @@ public class EventDAO {
                     resultSet.getString("location"),
                     resultSet.getString("description"),
                     resultSet.getInt("seats_available"));
-        }
+        }}
         return event;
     }
-
-
-}
+    }

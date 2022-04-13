@@ -17,6 +17,7 @@ public class Event {
     private int seatsAvailable;
     private List<Coordinator>allCoordinators;
     private String allCoordinatorsString;
+    List<TicketType>allTicketTypes;
 
     public Event(int id, String title, Date dateAndTime, String location, String description) {
         this.id = id;
@@ -141,5 +142,13 @@ public class Event {
     @Override
     public int hashCode() {
         return Objects.hash(title, location, description);
+    }
+
+    public List<TicketType> getAllTicketTypes() {
+        return allTicketTypes;
+    }
+
+    public void setAllTicketTypes(List<TicketType> allTicketTypes) {
+        this.allTicketTypes = allTicketTypes;
     }
 }

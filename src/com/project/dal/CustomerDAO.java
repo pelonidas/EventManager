@@ -22,7 +22,7 @@ public class CustomerDAO {
 
     public List<Customer> getAllCustomers() throws SQLException {
         List<Customer> allCustomers = new ArrayList<>();
-        Connection connection = dbcpDataSource.getConnection();
+        try (Connection connection = dbcpDataSource.getConnection()){
         String sql0 = "SELECT * FROM categories_users WHERE category=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql0);
         preparedStatement.setString(1, "customer");
@@ -40,9 +40,9 @@ public class CustomerDAO {
                         resultSet.getString("last_name"),
                         resultSet.getString("email"),
                         resultSet.getInt("phone_number"));
-                customer.setMyEvents((ArrayList<Event>) getCustomerEventHistory(customer,connection));
+                customer.setMyEvents((ArrayList<Event>) getCustomerEventHistory(customer, connection));
                 allCustomers.add(customer);
-
+            }
             }
         }
 
@@ -53,33 +53,33 @@ public class CustomerDAO {
         exceptionCreation(firstName, lastName, email, phoneNumber);
         Customer customer = null;
         int idCategory = 0;
-        Connection connection = dbcpDataSource.getConnection();
-        String sql0 = "SELECT * FROM categories_users WHERE category=?";
-        PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
-        preparedStatement0.setString(1, "customer");
-        ResultSet resultSet = preparedStatement0.executeQuery();
-        while (resultSet.next()) {
-            idCategory = resultSet.getInt("id");
+        try (Connection connection = dbcpDataSource.getConnection()) {
+            String sql0 = "SELECT * FROM categories_users WHERE category=?";
+            PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+            preparedStatement0.setString(1, "customer");
+            ResultSet resultSet = preparedStatement0.executeQuery();
+            while (resultSet.next()) {
+                idCategory = resultSet.getInt("id");
+            }
+            String sql = "INSERT INTO users VALUES(?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setString(3, email);
+            preparedStatement.setInt(5, phoneNumber);
+            preparedStatement.setInt(4, idCategory);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
+            while (resultSet1.next()) {
+                int id = resultSet1.getInt(1);
+                customer = new Customer(id, firstName, lastName, email, phoneNumber);
+            }
         }
-        String sql = "INSERT INTO users VALUES(?,?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1, firstName);
-        preparedStatement.setString(2, lastName);
-        preparedStatement.setString(3, email);
-        preparedStatement.setInt(5, phoneNumber);
-        preparedStatement.setInt(4, idCategory);
-        preparedStatement.executeUpdate();
-        ResultSet resultSet1 = preparedStatement.getGeneratedKeys();
-        while (resultSet1.next()) {
-            int id = resultSet1.getInt(1);
-            customer = new Customer(id, firstName, lastName, email, phoneNumber);
-        }
-
         return customer;
     }
 
     public void deleteCustomer(Customer customer) throws SQLException {
-        Connection connection = dbcpDataSource.getConnection();
+        try (Connection connection = dbcpDataSource.getConnection()){
         String sql1 = "DELETE FROM tickets WHERE customer_id = ?";
         PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
         preparedStatement1.setInt(1, customer.getId());
@@ -88,20 +88,20 @@ public class CustomerDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, customer.getId());
         preparedStatement.executeUpdate();
-    }
+    }}
 
     public Customer editCustomer(Customer customer) throws SQLException {
-        Connection connection = dbcpDataSource.getConnection();
-        String sql = "UPDATE users SET first_name = ?, last_name = ? ,email = ?, phone_number = ? WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, customer.getFirstName());
-        preparedStatement.setString(2, customer.getLastName());
-        preparedStatement.setString(3, customer.getEmail());
-        preparedStatement.setInt(4, customer.getPhoneNumber());
-        preparedStatement.setInt(5, customer.getId());
+        try (Connection connection = dbcpDataSource.getConnection()) {
+            String sql = "UPDATE users SET first_name = ?, last_name = ? ,email = ?, phone_number = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, customer.getFirstName());
+            preparedStatement.setString(2, customer.getLastName());
+            preparedStatement.setString(3, customer.getEmail());
+            preparedStatement.setInt(4, customer.getPhoneNumber());
+            preparedStatement.setInt(5, customer.getId());
 
-        preparedStatement.executeUpdate();
-
+            preparedStatement.executeUpdate();
+        }
         return customer;
     }
 
@@ -133,7 +133,7 @@ public class CustomerDAO {
 
     public List<Customer> getAllCustomersFromSameEvent(int eventId) throws Exception {
         List<Customer> allCustomersFromSameEvent = new ArrayList<>();
-        Connection connection = dbcpDataSource.getConnection();
+        try (Connection connection = dbcpDataSource.getConnection()){
         String sql = "SELECT * " +
                 "  FROM users " +
                 "  JOIN tickets ON users.id = tickets.customer_id " +
@@ -151,7 +151,7 @@ public class CustomerDAO {
 
             Customer customer = new Customer(id, firstName, lastName, email, phoneNumber);
             allCustomersFromSameEvent.add(customer);
-
+        }
         }
         return allCustomersFromSameEvent;
     }
@@ -183,19 +183,19 @@ public class CustomerDAO {
 
     public Customer getCustomer(int id) throws SQLException {
         Customer customer = null;
-        Connection connection = dbcpDataSource.getConnection();
-        String sql = "SELECT * FROM users WHERE id= ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            customer = new Customer(resultSet.getInt("id"),
-                    resultSet.getString("first_name"),
-                    resultSet.getString("last_name"),
-                    resultSet.getString("email"),
-                    resultSet.getInt("phone_number"));
+        try (Connection connection = dbcpDataSource.getConnection()) {
+            String sql = "SELECT * FROM users WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                customer = new Customer(resultSet.getInt("id"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("phone_number"));
+            }
         }
-
         return customer;
     }
 }

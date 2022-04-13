@@ -4,6 +4,8 @@ import com.project.be.TicketType;
 import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -74,7 +76,11 @@ public class EditEventController implements Initializable {
 
         eventDate.setValue(model.parseDate(splitDateTime[0]));
 
-        ticketTypeList.setItems(model.getTicketTypesForEvent(e));
+        ObservableList<TicketType> allTicketTypes;
+        allTicketTypes = FXCollections.observableArrayList();
+        allTicketTypes.addAll(e.getAllTicketTypes());
+        ticketTypeList.setItems(allTicketTypes);
+        ticketTypeList.setItems(allTicketTypes);
     }
 
     @FXML

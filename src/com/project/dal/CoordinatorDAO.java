@@ -22,7 +22,7 @@ public class CoordinatorDAO {
 
     public List<Coordinator> getAllCoordinators() throws SQLException {
         List<Coordinator> allCoordinators = new ArrayList<>();
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql0 = "SELECT * FROM categories_users WHERE category=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql0);
         preparedStatement.setString(1, "coordinator");
@@ -50,6 +50,7 @@ public class CoordinatorDAO {
                 }
             }
         }
+        }
         return allCoordinators;
     }
 
@@ -57,7 +58,7 @@ public class CoordinatorDAO {
         exceptionCreation(firstName, lastName, userName, passWord, email);
         Coordinator coordinator = null;
         int idCategory = 0;
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql0 = "SELECT * FROM categories_users WHERE category=?";
         PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
         preparedStatement0.setString(1, "coordinator");
@@ -86,49 +87,50 @@ public class CoordinatorDAO {
             preparedStatement1.executeUpdate();
 
             coordinator = new Coordinator(id, firstName, lastName, userName, passWord, email, phoneNumber);
-
+        }
         }
         return coordinator;
     }
 
     public void deleteCoordinator(Coordinator coordinator) throws SQLException {
 
-        Connection connection = dataSource.getConnection();
-        String sql0 = "DELETE FROM event_coordinator WHERE coordinator_id = ?";
-        PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
-        preparedStatement0.setInt(1, coordinator.getId());
-        preparedStatement0.executeUpdate();
-        String sql1 = "DELETE FROM credentials WHERE user_id= ?";
-        PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
-        preparedStatement1.setInt(1, coordinator.getId());
-        preparedStatement1.executeUpdate();
-        String sql = "DELETE FROM users WHERE id= ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, coordinator.getId());
-        preparedStatement.executeUpdate();
-
+        try (Connection connection = dataSource.getConnection()) {
+            String sql0 = "DELETE FROM event_coordinator WHERE coordinator_id = ?";
+            PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+            preparedStatement0.setInt(1, coordinator.getId());
+            preparedStatement0.executeUpdate();
+            String sql1 = "DELETE FROM credentials WHERE user_id= ?";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+            preparedStatement1.setInt(1, coordinator.getId());
+            preparedStatement1.executeUpdate();
+            String sql = "DELETE FROM users WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, coordinator.getId());
+            preparedStatement.executeUpdate();
+        }
     }
 
     public Coordinator editCoordinators(Coordinator coordinator) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE id = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, coordinator.getFirstName());
-        preparedStatement.setString(2, coordinator.getLastName());
-        preparedStatement.setString(3, coordinator.getEmail());
-        preparedStatement.setInt(4, coordinator.getPhoneNumber());
-        preparedStatement.setInt(5, coordinator.getId());
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, coordinator.getFirstName());
+            preparedStatement.setString(2, coordinator.getLastName());
+            preparedStatement.setString(3, coordinator.getEmail());
+            preparedStatement.setInt(4, coordinator.getPhoneNumber());
+            preparedStatement.setInt(5, coordinator.getId());
 
-        preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
-        String sql1 = "UPDATE credentials SET user_name = ?, password = ? WHERE user_id = ?";
-        PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
-        preparedStatement1.setString(1, coordinator.getUserName());
-        preparedStatement1.setString(2, coordinator.getPassWord());
-        preparedStatement1.setInt(3, coordinator.getId());
-        preparedStatement1.executeUpdate();
+            String sql1 = "UPDATE credentials SET user_name = ?, password = ? WHERE user_id = ?";
+            PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+            preparedStatement1.setString(1, coordinator.getUserName());
+            preparedStatement1.setString(2, coordinator.getPassWord());
+            preparedStatement1.setInt(3, coordinator.getId());
+            preparedStatement1.executeUpdate();
 
-        return coordinator;
+            return coordinator;
+        }
     }
 
     private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email) throws UserException, SQLException {
@@ -170,13 +172,14 @@ public class CoordinatorDAO {
     }
 
     private Boolean userNameTaken(String userName) throws SQLException {
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql = "SELECT * FROM credentials WHERE user_name=? ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, userName);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             return true;
+        }
         }
         return false;
     }

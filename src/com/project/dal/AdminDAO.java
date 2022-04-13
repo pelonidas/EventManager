@@ -14,17 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDAO {
-    DBConnector dbConnector;
     DBCPDataSource dataSource;
 
     public AdminDAO() throws IOException {
-        dbConnector = new DBConnector();
         dataSource = DBCPDataSource.getInstance();
     }
 
     public List<Admin> getAllAdmins() throws SQLException, UserException {
         List<Admin> allAdmins = new ArrayList<>();
-        Connection connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()){
         String sql = "SELECT * FROM categories_users WHERE category=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, "admin");
@@ -51,6 +49,7 @@ public class AdminDAO {
                             resultSet1.getInt("phone_number")));
                 }
             }
+        }
         }
         return allAdmins;
     }
