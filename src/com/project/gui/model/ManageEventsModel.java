@@ -46,6 +46,7 @@ public class ManageEventsModel {
     public com.project.be.Event createEvent(String eventTitle, Date dateAndTime, String location, String description, Integer capacity, List<TicketType> ticketTypes) throws SQLException {
         com.project.be.Event createdEvent;
         createdEvent = manager.createEvent(eventTitle, dateAndTime, location, description, capacity, ticketTypes);
+        createdEvent.setAllTicketTypes(ticketTypes);
         allEvents.add(createdEvent);
         /**Platform.runLater(new Runnable() {
             @Override

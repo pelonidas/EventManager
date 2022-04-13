@@ -39,7 +39,7 @@ public class EventDAO {
 
             TicketType ticketType;
             List<TicketType> allTicketTypes = new ArrayList<>();
-            String sql0 = "SELECT * FROM categories_ticket WHERE id= ?";
+            String sql0 = "SELECT * FROM categories_ticket WHERE event_ID= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql0);
             preparedStatement.setInt(1, event.getId());
             ResultSet resultSet0 = preparedStatement.executeQuery();

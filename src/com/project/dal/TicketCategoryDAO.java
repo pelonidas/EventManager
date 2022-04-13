@@ -82,10 +82,10 @@ public class TicketCategoryDAO {
      * TODO make it create these ticket types for this specific event only
      *
      * @param ticketTypes
-     * @param id
+     * @param eventId
      * @throws SQLException
      */
-    public void createMultipleTicketTypes(List<TicketType> ticketTypes, int id) throws SQLException {
+    public void createMultipleTicketTypes(List<TicketType> ticketTypes, int eventId) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO categories_ticket VALUES(?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -94,10 +94,9 @@ public class TicketCategoryDAO {
                 preparedStatement.setDouble(2, ticketType.getPrice());
                 preparedStatement.setString(3, ticketType.getBenefits());
                 preparedStatement.setInt(4, ticketType.getSeatsAvailable());
-                preparedStatement.setInt(5, id);
-                preparedStatement.addBatch();
+                preparedStatement.setInt(5, eventId);
+                preparedStatement.executeUpdate();
             }
-            preparedStatement.executeBatch();
         }
     }
 

@@ -3,7 +3,6 @@ package com.project.dal;
 import com.project.be.Admin;
 import com.project.bll.exceptions.UserException;
 import com.project.dal.connectorDAO.DBCPDataSource;
-import com.project.dal.connectorDAO.DBConnector;
 
 import java.io.IOException;
 import java.sql.Connection;

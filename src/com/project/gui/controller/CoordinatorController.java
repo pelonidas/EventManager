@@ -203,7 +203,7 @@ public class CoordinatorController implements Initializable {
         participantTable.setItems(allParticipants);
     }
 
-    private void loadEventTickets(Event e) throws SQLException {
+    private void loadEventTickets(Event e) {
         ObservableList<TicketType> allTicketTypes;
         allTicketTypes = FXCollections.observableArrayList();
         if (e.getAllTicketTypes()!=null)
