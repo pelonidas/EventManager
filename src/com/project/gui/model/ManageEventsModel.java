@@ -39,14 +39,6 @@ public class ManageEventsModel {
         return allEvents;
     }
 
-    public ObservableList<Customer> getAllUsers() throws SQLException {
-        return allUsers;
-    }
-
-    public ObservableList getTicketsForEvent(Event e) throws SQLException {
-        return FXCollections.observableArrayList(manager.getAllTicketTypesForEvent(e));
-    }
-
     public Ticket buyTicketForUser(Event selectedEvent, TicketType selectedTicketType, Customer selectedCustomer) throws SQLException {
         return manager.createTicket(selectedTicketType,selectedCustomer,selectedEvent);
     }
@@ -69,7 +61,7 @@ public class ManageEventsModel {
         return createdEvent;
     }
 
-    public void refreshData() throws SQLException {
+    /**public void refreshData() throws SQLException {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -80,7 +72,7 @@ public class ManageEventsModel {
                 }
             }
         });
-    }
+    }*/
 
     public void deleteEvent(Event e) {
         Platform.runLater(new Runnable() {
@@ -106,10 +98,6 @@ public class ManageEventsModel {
 
     }
 
-    public ObservableList<Customer> getParticipantsForEvent(Event e) throws Exception {
-        return FXCollections.observableArrayList(manager.getAllCustomersFromSameEvent(e.getId()));
-    }
-
     public Date parse_convertDateTime(String dateTime) {
         return DateTimeConverter.parse_convertDateTime(dateTime);
     }
@@ -121,12 +109,6 @@ public class ManageEventsModel {
     public void updateEvent(Event event, List<TicketType> ticketTypes) throws SQLException {
         manager.editEvent(event);
         manager.editTicketTypesForEvent(event,ticketTypes);
-    }
-
-
-    public ObservableList<TicketType> getTicketTypesForEvent(Event e) throws SQLException {
-        List<TicketType> ticketTypeList = manager.getAllTicketTypesForEvent(e);
-        return FXCollections.observableArrayList(ticketTypeList);
     }
 
     public int getTotalSeatCount(ObservableList<TicketType> items, int seatsAvailable) {

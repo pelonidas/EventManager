@@ -1,17 +1,13 @@
 package com.project.gui.controller;
 
 import com.project.be.*;
-import com.project.bll.exceptions.UserException;
 import com.project.bll.util.Mail;
 import com.project.gui.model.CoordinatorModel;
-import com.project.gui.model.LogInModel;
-import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,7 +29,6 @@ import org.controlsfx.control.textfield.CustomPasswordField;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -62,8 +57,6 @@ public class LogInController implements Initializable {
     @FXML
     private CustomPasswordField passWord;
 
-    LogInModel logInModel;
-
     private Main main;
 
     private Admin admin;
@@ -84,12 +77,6 @@ public class LogInController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            logInModel = new LogInModel();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
         Text usersIcons = GlyphsDude.createIcon(FontAwesomeIcons.USERS, "35px");
         usersIcons.setFill(Paint.valueOf("#0598ff"));

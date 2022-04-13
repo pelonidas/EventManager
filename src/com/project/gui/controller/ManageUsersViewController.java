@@ -84,14 +84,17 @@ public class ManageUsersViewController implements Initializable {
     private CoordinatorModel coordinatorModel;
     private CustomerModel customerModel;
 
-    public void backView(ActionEvent actionEvent) {
+    public void backView(ActionEvent actionEvent) throws SQLException, IOException {
         main.setLayoutChosen("admin");
         try {
             main.initRootLayout();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        customerModel = new CustomerModel();
+        coordinatorModel = new CoordinatorModel();
     }
+
 
 
     public void setMain(Main main) {

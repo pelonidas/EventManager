@@ -4,14 +4,11 @@ import com.project.be.*;
 import com.project.bll.EventManager;
 import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
-import com.project.dal.facadeDAO.DALController;
-import com.project.dal.facadeDAO.IDALFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class CustomerModel {
@@ -56,7 +53,6 @@ public class CustomerModel {
         sameEventCustomers.addAll(eventManager.getAllCustomersFromSameEvent(id));
         return sameEventCustomers;
     }
-
 
     public ObservableList<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException {
         List<TicketType> ticketTypes = eventManager.getAllTicketTypesForEvent(selectedEvent);
