@@ -44,7 +44,7 @@ public class EventDAO {
             preparedStatement.setInt(1, event.getId());
             ResultSet resultSet0 = preparedStatement.executeQuery();
             while (resultSet0.next()) {
-                ticketType = new TicketType(resultSet.getInt("id"),
+                ticketType = new TicketType(resultSet0.getInt("id"),
                         resultSet0.getString("title"),
                         resultSet0.getString("benefits"),
                         resultSet0.getInt("price"),
@@ -57,7 +57,7 @@ public class EventDAO {
         return allEvents;
     }
 
-    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
+    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
         Event event = null;
         try (Connection connection = dataSource.getConnection()){
         String sql = "INSERT INTO events VALUES(?,?,?,?,?)";
@@ -75,7 +75,24 @@ public class EventDAO {
             int generatedID = resultSet.getInt(1);
             event = getEventByID(generatedID);
         }}
+        createMultipleTicketTypes(ticketTypes,event.getId());
+        event.setAllTicketTypes(getAllTicketTypesForEvent(event));
         return event;
+    }
+
+    public void createMultipleTicketTypes(List<TicketType> ticketTypes, int eventId) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "INSERT INTO categories_ticket VALUES(?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (TicketType ticketType : ticketTypes) {
+                preparedStatement.setString(1, ticketType.getTitle());
+                preparedStatement.setDouble(2, ticketType.getPrice());
+                preparedStatement.setString(3, ticketType.getBenefits());
+                preparedStatement.setInt(4, ticketType.getSeatsAvailable());
+                preparedStatement.setInt(5, eventId);
+                preparedStatement.executeUpdate();
+            }
+        }
     }
 
     public Event getEventByID(int id) throws SQLException {
@@ -89,7 +106,7 @@ public class EventDAO {
                 event = new Event(
                         id,
                         resultSet.getString("title"),
-                        resultSet.getDate("date"),
+                        resultSet.getTimestamp("date"),
                         resultSet.getString("location"),
                         resultSet.getString("description"),
                         resultSet.getInt("seats_available"));
@@ -188,4 +205,26 @@ public class EventDAO {
         }}
         return event;
     }
+
+    public List<TicketType> getAllTicketTypesForEvent(Event selectedEvent) throws SQLException {
+        List<TicketType> ticketsForEvent = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection()){
+            String sql = "SELECT * FROM categories_ticket\n" +
+                    "WHERE event_ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, selectedEvent.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String title = resultSet.getString("title");
+                String benefits = resultSet.getString("benefits");
+                double price = resultSet.getDouble("price");
+                int seatsAvaible = resultSet.getInt("seats_available");
+                int id = resultSet.getInt("id");
+
+                TicketType ticketType = new TicketType(id, title, benefits, price, seatsAvaible);
+                ticketsForEvent.add(ticketType);
+            }}
+        return ticketsForEvent;
     }
+}

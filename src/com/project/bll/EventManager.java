@@ -33,9 +33,7 @@ public class EventManager implements IEventManager{
 
     @Override
     public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
-        Event event = dalController.createEvent(title,dateAndTime,location,description,seatsAvailable);
-        if (event!=null)
-            dalController.createMultipleTicketTypes(ticketTypes,event.getId());
+        Event event = dalController.createEvent(title,dateAndTime,location,description,seatsAvailable,ticketTypes);
         return event;
     }
 

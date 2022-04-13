@@ -33,8 +33,8 @@ public class DALController implements IDALFacade {
     }
 
     @Override
-    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable) throws SQLException {
-        return eventDAO.createEvent(title,dateAndTime,location,description,seatsAvailable);
+    public Event createEvent(String title, Date dateAndTime, String location, String description, int seatsAvailable, List<TicketType> ticketTypes) throws SQLException {
+        return eventDAO.createEvent(title,dateAndTime,location,description,seatsAvailable,ticketTypes);
     }
 
     @Override

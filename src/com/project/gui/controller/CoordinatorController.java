@@ -209,6 +209,10 @@ public class CoordinatorController implements Initializable {
         if (e.getAllTicketTypes()!=null)
             allTicketTypes.addAll(e.getAllTicketTypes());
         ticketTypeList.setItems(allTicketTypes);
+
+        for (TicketType allTicketType : e.getAllTicketTypes()) {
+            System.out.println(allTicketType.getId());
+        }
     }
 
     private void updateEventInfo(Event e) {
