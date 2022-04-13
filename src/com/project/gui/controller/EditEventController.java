@@ -207,7 +207,6 @@ public class EditEventController implements Initializable {
             TicketType selectedTicketType = ticketTypeList.getSelectionModel().getSelectedItem();
             if (selectedTicketType==null)
                 return;
-            System.out.println(selectedTicketType.getPrice());
             ticketTypeTxt.setText(selectedTicketType.getTitle());
             ticketPriceTxt.setText(String.valueOf(selectedTicketType.getPrice()));
             ticketTypeCount.setText(String.valueOf(selectedTicketType.getSeatsAvailable()));
