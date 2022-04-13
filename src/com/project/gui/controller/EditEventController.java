@@ -21,7 +21,10 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -242,13 +245,11 @@ public class EditEventController implements Initializable {
         String time = hours+":"+minutes;
 
         String eventTitle = eventTitleTxt.getText();
-        Date dateAndTime = model.parse_convertDateTime(date + " " + time);
+        LocalDateTime localDateTime = model.parseDateTime(date + " " + time);
         int capacity = Integer.parseInt(eventCapacityTxt.getText());
         String location = eventLocationTxt.getText();
         String description = eventNotesTxt.getText();
         List<TicketType> ticketTypes = ticketTypeList.getItems();
-
-        java.sql.Date sqlDate = new java.sql.Date(dateAndTime.getTime());
 
         for (com.project.be.Event event : coordinatorController.getAllEvents()){
             if (event.equals(thisEvent)){
@@ -256,9 +257,12 @@ public class EditEventController implements Initializable {
                 event.setSeatsAvailable(capacity);
                 event.setLocation(location);
                 event.setDescription(description);
-                event.setDateAndTime(sqlDate);
+                event.setDateAndTime(Timestamp.valueOf(localDateTime));
 
                 model.updateEvent(event, ticketTypes);
+
+                event.setAllTicketTypes(model.getTicketTypesForEvent(event));
+
                 coordinatorController.initializeEventTable();
                 coordinatorController.updateDetails(thisEvent);
             }

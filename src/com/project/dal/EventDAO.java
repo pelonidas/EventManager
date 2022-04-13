@@ -81,6 +81,8 @@ public class EventDAO {
     }
 
     public void createMultipleTicketTypes(List<TicketType> ticketTypes, int eventId) throws SQLException {
+        if (ticketTypes==null)
+            return;
         try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO categories_ticket VALUES(?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -136,7 +138,7 @@ public class EventDAO {
 
             preparedStatement.executeUpdate();
         }
-        return event;
+        return getEventByID(event.getId());
     }
 
     private List<Coordinator> getAllCoordinatorsEvent(Event event,Connection connection) throws SQLException {

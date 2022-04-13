@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -123,5 +124,13 @@ public class ManageEventsModel {
 
     public void editEvent(Event event) throws SQLException {
         manager.editEvent(event);
+    }
+
+    public LocalDateTime parseDateTime(String s) {
+        return DateTimeConverter.parseDateTime(s);
+    }
+
+    public List<TicketType> getTicketTypesForEvent(Event event) throws SQLException {
+        return manager.getAllTicketTypesForEvent(event);
     }
 }

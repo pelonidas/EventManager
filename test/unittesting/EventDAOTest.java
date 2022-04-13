@@ -44,7 +44,9 @@ class EventDAOTest {
 
         //Act - the method run
         Event eventActual = eventDAO.createEvent(eventName,date,location,description,seatCount, null);
-        Event updatedEventActual = eventDAO.editEvent(eventActual);
+
+        updatedEventExpected.setId(eventActual.getId());
+        Event updatedEventActual = eventDAO.editEvent(updatedEventExpected);
         eventDAO.deleteEvent(updatedEventActual);
         Event deletedEventActual = eventDAO.getEventByID(eventActual.getId());
 
@@ -53,7 +55,7 @@ class EventDAOTest {
         assertAll("Test the CRUD operations of the event data access object",
                 () -> assertEquals(eventExpected,eventActual),
                 () -> assertEquals(updatedEventExpected,updatedEventActual),
-                () -> assertEquals(null,deletedEventActual));
+                () -> assertEquals(deletedEventExpected,deletedEventActual));
 
     }
 }
