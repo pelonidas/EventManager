@@ -45,10 +45,10 @@ public class EventDAO {
             ResultSet resultSet0 = preparedStatement.executeQuery();
             while (resultSet0.next()) {
                 ticketType = new TicketType(resultSet.getInt("id"),
-                        resultSet.getString("title"),
-                        resultSet.getString("benefits"),
-                        resultSet.getInt("price"),
-                        resultSet.getInt("seats_available"));
+                        resultSet0.getString("title"),
+                        resultSet0.getString("benefits"),
+                        resultSet0.getInt("price"),
+                        resultSet0.getInt("seats_available"));
                 allTicketTypes.add(ticketType);
             }
             event.setAllTicketTypes(allTicketTypes);
