@@ -1,5 +1,6 @@
 package com.project.bll.util;
 
+import com.github.sarxos.webcam.Webcam;
 import com.project.be.Ticket;
 import com.project.dal.TicketDAO;
 
@@ -33,7 +34,7 @@ public class WebcamQRCodeExample2 extends JFrame {
 
                     @Override
                     public void run() {
-                        try (QrCapture qr = new QrCapture()) {
+                        try (QrCapture qr = new QrCapture(Webcam.getDefault())) {
                             try {
                                 TicketDAO ticketDAO = new TicketDAO();
                                  ticket = ticketDAO.getTicket(qr.getResult());

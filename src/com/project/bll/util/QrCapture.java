@@ -28,7 +28,7 @@ public class QrCapture extends JFrame implements Closeable {
     private Result result = null;
     private Exchanger<String> exchanger = new Exchanger<String>();
 
-    public QrCapture() {
+    public QrCapture(Webcam webcam) {
 
         super();
 
@@ -44,7 +44,7 @@ public class QrCapture extends JFrame implements Closeable {
             }
         });
 
-        webcam = Webcam.getDefault();
+        this.webcam = webcam;
         webcam.setViewSize(WebcamResolution.QVGA.getSize());
         webcam.open();
 

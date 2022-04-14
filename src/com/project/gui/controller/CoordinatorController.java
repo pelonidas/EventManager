@@ -1,6 +1,8 @@
 package com.project.gui.controller;
 
+import com.github.sarxos.webcam.Webcam;
 import com.google.zxing.WriterException;
+import com.jfoenix.controls.JFXComboBox;
 import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.Ticket;
@@ -40,6 +42,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class CoordinatorController implements Initializable {
+    @FXML
+    private JFXComboBox<Webcam> selectCamera;
     @FXML
     private TextField eventSearchFilter;
     @FXML
@@ -87,6 +91,12 @@ public class CoordinatorController implements Initializable {
         initializeEventTable();
         initializeUserTable();
         setupFilters();
+//        selectCamera.getItems().addAll(Webcam.getWebcams());
+        selectCamera.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                scanQrCode();
+            }});
     }
 
     private void setupFilters() {
@@ -353,13 +363,12 @@ public class CoordinatorController implements Initializable {
         loadEventParticipants(e);
     }
 
-    @FXML
-    private void handleScanQrCode(ActionEvent actionEvent) throws IOException {
+    private void scanQrCode() {
         final Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
-                try (QrCapture qr = new QrCapture()) {
+                try (QrCapture qr = new QrCapture(selectCamera.getSelectionModel().getSelectedItem())) {
                     try {
                         TicketDAO ticketDAO = new TicketDAO();
                         ticket = ticketDAO.getTicket(qr.getResult());
