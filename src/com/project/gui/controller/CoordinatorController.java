@@ -8,6 +8,8 @@ import com.project.be.TicketType;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.CamTest;
 import com.project.bll.util.DateTimeConverter;
+import com.project.bll.util.QrCapture;
+import com.project.dal.TicketDAO;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
@@ -71,6 +73,8 @@ public class CoordinatorController implements Initializable {
 
     private ManageEventsModel manageEventsModel;
     private CustomerModel customerModel;
+    private Ticket ticket;
+
 
     public CoordinatorController() throws IOException, SQLException, UserException {
         manageEventsModel = new ManageEventsModel();
@@ -351,8 +355,51 @@ public class CoordinatorController implements Initializable {
 
     @FXML
     private void handleScanQrCode(ActionEvent actionEvent) throws IOException {
-        CamTest camTest = new CamTest();
-        camTest.start(new Stage());
+        final Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try (QrCapture qr = new QrCapture()) {
+                    try {
+                        TicketDAO ticketDAO = new TicketDAO();
+                        ticket = ticketDAO.getTicket(qr.getResult());
+                    } catch (SQLException | IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (ticket!=null){
+                        Alert alert;
+                        if (ticket.isValid()){
+                            alert = new Alert(Alert.AlertType.NONE);
+                            alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+                            alert.setGraphic((GlyphsDude.createIcon(FontAwesomeIcons.CERTIFICATE)));
+                            alert.setTitle("Valid ticket");
+                            alert.setHeaderText(ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName());
+                            alert.setContentText("Event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
+
+
+                        }else{
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error dialog");
+                            alert.setHeaderText("Qr code is used");
+                            alert.setContentText("Ticket is already sold");
+                            alert.showAndWait();
+
+                            //System.out.println("ticket not valid anymore"+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle());
+                        }
+                    }else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error dialog");
+                        alert.setHeaderText("Invalid qr code");
+                        alert.setContentText("Ticket not available");
+                        alert.showAndWait();
+                    }
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            };
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     @FXML
