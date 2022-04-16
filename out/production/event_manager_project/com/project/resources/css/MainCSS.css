@@ -7,19 +7,19 @@
 /*--primary: #223146;*/
 /*--secondary: #FCC800;*/
 /*red: #ED4036*/
-@font-face {
-    font-family: Comfortaa;
-    font-weight: 400;
-    src: url("./fonts/Comfortaa-Regular.ttf") format("truetype");
-}
-@font-face {
-    font-family: Comfortaa;
-    font-weight: 700;
-    src: url("./fonts/Comfortaa-Bold.ttf") format("truetype");
-}
+/*@font-face {*/
+/*    font-family: Comfortaa;*/
+/*    font-weight: 400;*/
+/*    src: url("./fonts/Comfortaa-Regular.ttf") format("truetype");*/
+/*}*/
+/*@font-face {*/
+/*    font-family: Comfortaa;*/
+/*    font-weight: 700;*/
+/*    src: url("./fonts/Comfortaa-Bold.ttf") format("truetype");*/
+/*}*/
 
 .root {
-    -fx-font-family: "Comfortaa";
+    -fx-font-family: "Comfortaa-Regular.ttf";
     -fx-background-color: white;
 }
 .text-primary {
