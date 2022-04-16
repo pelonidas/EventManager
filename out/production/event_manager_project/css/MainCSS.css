@@ -19,8 +19,8 @@
 /*}*/
 
 .root {
-    -fx-font-family: "Comfortaa-Regular.ttf";
-    -fx-background-color: white;
+    -fx-font-family: Comfortaa;
+    -fx-background-color: #fff;
 }
 .text-primary {
     /*-fx-fill: var(--primary);*/
@@ -35,7 +35,7 @@
 .btn-primary {
     -fx-background-color: #FCC800;
     -fx-border-radius: 10px;
-    -fx-text-fill: white;
+    -fx-text-fill: #fff;
 }
 .btn-primary:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
@@ -44,7 +44,7 @@
 .btn-red {
     -fx-background-color: #ED4036;
     -fx-border-radius: 10px;
-    -fx-text-fill: white;
+    -fx-text-fill: #fff;
 }
 .btn-red:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
