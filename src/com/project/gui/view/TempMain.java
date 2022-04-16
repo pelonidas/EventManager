@@ -21,7 +21,7 @@ public class TempMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Font.loadFont(
-                TempMain.class.getResource("Comfortaa-Regular.ttf").toExternalForm(), 10
+                TempMain.class.getResource("fonts/Comfortaa-Regular.ttf").toExternalForm(), 10
         );
         Parent root = FXMLLoader.load(getClass().getResource("CoordinatorView.fxml"));
 //        try {
