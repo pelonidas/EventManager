@@ -24,14 +24,7 @@ public class TempMain extends Application {
                 TempMain.class.getResource("fonts/Comfortaa-Regular.ttf").toExternalForm(), 10
         );
         Parent root = FXMLLoader.load(getClass().getResource("CoordinatorView.fxml"));
-//        try {
-//            GraphicsEnvironment ge =
-//                    GraphicsEnvironment.getLocalGraphicsEnvironment();
-//            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("../resources/fonts/Comfortaa-Regular.ttf")));
-//        } catch (IOException | FontFormatException e) {
-//            //Handle exception
-//            System.out.println("Font couldn't be loaded");
-//        }
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
