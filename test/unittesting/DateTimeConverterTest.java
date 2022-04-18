@@ -3,6 +3,7 @@ package unittesting;
 import com.project.bll.util.DateTimeConverter;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -26,5 +27,16 @@ class DateTimeConverterTest {
                 () -> assertEquals(expectedValue,actualValue),
                 () -> assertEquals(expectedFalseDate,actualFalseDate));
 
+    }
+
+    @Test
+    void formatDateTest(){
+
+        String inputString = "2000-01-01";//yyyy-MM-dd date pattern
+        LocalDate expectedDate = LocalDate.of(2000,1,1);
+
+        LocalDate actualDate = DateTimeConverter.parseDate(inputString);
+
+        assertEquals(expectedDate,actualDate);
     }
 }
