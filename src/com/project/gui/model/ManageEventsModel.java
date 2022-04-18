@@ -22,6 +22,8 @@ public class ManageEventsModel {
     IEventManager manager;
     ObservableList<com.project.be.Event> allEvents ;
     ObservableList<Customer> allUsers;
+    private static ManageEventsModel manageEventsModel = null;
+
 
     public ManageEventsModel() throws IOException, SQLException {
         manager = EventManager.getInstance();
@@ -132,5 +134,12 @@ public class ManageEventsModel {
 
     public List<TicketType> getTicketTypesForEvent(Event event) throws SQLException {
         return manager.getAllTicketTypesForEvent(event);
+    }
+
+    public static ManageEventsModel getInstance() throws IOException, SQLException {
+        if (manageEventsModel == null)
+            manageEventsModel = new ManageEventsModel();
+
+        return manageEventsModel;
     }
 }

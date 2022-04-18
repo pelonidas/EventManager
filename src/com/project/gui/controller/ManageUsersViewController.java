@@ -91,8 +91,8 @@ public class ManageUsersViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        customerModel = new CustomerModel();
-        coordinatorModel = new CoordinatorModel();
+        customerModel = CustomerModel.getInstance();
+        coordinatorModel = CoordinatorModel.getInstance();
     }
 
 

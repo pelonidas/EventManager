@@ -7,11 +7,6 @@ import com.project.be.User;
 import com.project.bll.util.DateTimeConverter;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
-import javafx.beans.property.Property;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,8 +71,8 @@ public class CustomerController implements Initializable {
     private User user;
 
     public CustomerController() throws Exception {
-        this.manageEventsModel = new ManageEventsModel();
-        this.customerModel = new CustomerModel();
+        this.manageEventsModel = ManageEventsModel.getInstance();
+        this.customerModel = CustomerModel.getInstance();
     }
 
     @Override

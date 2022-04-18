@@ -17,7 +17,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,7 +51,7 @@ public class ManageUsersController implements Initializable {
     CustomerModel customerModel;
 
     public ManageUsersController() throws IOException, SQLException {
-        customerModel = new CustomerModel();
+        customerModel = CustomerModel.getInstance();
     }
 
 

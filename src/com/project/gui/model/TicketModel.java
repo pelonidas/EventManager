@@ -5,9 +5,14 @@ import com.project.be.Ticket;
 import com.project.bll.util.BarCodeGen;
 import javafx.scene.image.Image;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class TicketModel {
 
     BarCodeGen codeGen;
+    private static TicketModel ticketModel = null;
+
 
     public TicketModel(){
         codeGen = new BarCodeGen();
@@ -29,5 +34,11 @@ public class TicketModel {
     public Image getBarCode(Ticket createdTicket) throws WriterException {
         String code = createdTicket.getCode();
         return codeGen.generateBarCode(code);
+    }
+    public static TicketModel getInstance() throws IOException, SQLException {
+        if (ticketModel == null)
+            ticketModel = new TicketModel();
+
+        return ticketModel;
     }
 }

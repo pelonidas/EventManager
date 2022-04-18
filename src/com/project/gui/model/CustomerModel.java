@@ -15,6 +15,8 @@ public class CustomerModel {
     IEventManager eventManager;
     ObservableList<com.project.be.Customer> allCustomers;
     ObservableList<com.project.be.Customer> sameEventCustomers;
+    private static CustomerModel customerModel = null;
+
 
     public CustomerModel() throws IOException, SQLException {
         eventManager = EventManager.getInstance();
@@ -73,5 +75,11 @@ public class CustomerModel {
 
     public void editCoordinator(Coordinator coordinator) throws SQLException {
         eventManager.editCoordinator(coordinator);
+    }
+    public static CustomerModel getInstance() throws IOException, SQLException {
+        if (customerModel == null)
+            customerModel = new CustomerModel();
+
+        return customerModel;
     }
 }

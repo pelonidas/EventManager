@@ -11,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class TicketController {
 
     @FXML
@@ -44,8 +47,8 @@ public class TicketController {
 
     TicketModel model;
 
-    public TicketController(){
-        model = new TicketModel();
+    public TicketController() throws SQLException, IOException {
+        model = TicketModel.getInstance();
     }
 
 

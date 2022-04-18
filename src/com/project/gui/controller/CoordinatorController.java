@@ -8,8 +8,6 @@ import com.project.be.Event;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
 import com.project.bll.exceptions.UserException;
-import com.project.bll.util.CamTest;
-import com.project.bll.util.DateTimeConverter;
 import com.project.bll.util.QrCapture;
 import com.project.dal.TicketDAO;
 import com.project.gui.model.CustomerModel;
@@ -17,7 +15,6 @@ import com.project.gui.model.ManageEventsModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,7 +30,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -57,8 +53,7 @@ public class CoordinatorController implements Initializable {
     private TableColumn participantName;
     @FXML
     private TableColumn participantSurname;
-    @FXML
-    private HBox buttonBox;
+
     @FXML
     private TableView<Customer> userTable;
     @FXML
@@ -80,9 +75,9 @@ public class CoordinatorController implements Initializable {
     private Ticket ticket;
 
 
-    public CoordinatorController() throws IOException, SQLException, UserException {
-        manageEventsModel = new ManageEventsModel();
-        customerModel = new CustomerModel();
+    public CoordinatorController() throws IOException, SQLException {
+        manageEventsModel = ManageEventsModel.getInstance();
+        customerModel = CustomerModel.getInstance();
     }
 
     @Override

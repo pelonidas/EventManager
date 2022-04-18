@@ -5,18 +5,14 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.project.be.Coordinator;
 import com.project.be.Customer;
-import com.project.be.User;
 import com.project.bll.exceptions.UserException;
 import com.project.gui.model.CoordinatorModel;
 import com.project.gui.model.CustomerModel;
-import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,19 +24,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import org.hibernate.mapping.Value;
 
-import java.awt.event.KeyAdapter;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public class SignUpController implements Initializable {
 

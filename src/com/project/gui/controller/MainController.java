@@ -26,10 +26,10 @@ public class MainController {
     private ObservableList<Admin> allAdmins;
     private ObservableList<Event> allEvents;
     public MainController() throws SQLException, IOException {
-        customerModel = new CustomerModel();
-        coordinatorModel = new CoordinatorModel();
-        adminModel = new AdminModel();
-        manageEventsModel = new ManageEventsModel();
+        customerModel = CustomerModel.getInstance();
+        coordinatorModel = CoordinatorModel.getInstance();
+        adminModel = AdminModel.getInstance();
+        manageEventsModel = ManageEventsModel.getInstance();
     }
 
     public void loadData(){

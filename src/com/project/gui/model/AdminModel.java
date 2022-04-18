@@ -2,6 +2,7 @@ package com.project.gui.model;
 
 import com.project.be.Admin;
 import com.project.bll.EventManager;
+import com.project.bll.IEventManager;
 import com.project.bll.exceptions.UserException;
 
 import java.io.IOException;
@@ -9,7 +10,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AdminModel {
-    EventManager manager;
+    IEventManager manager;
+    private static AdminModel adminModel = null;
+
 
     public AdminModel() throws IOException {
         manager = EventManager.getInstance();
@@ -17,5 +20,11 @@ public class AdminModel {
 
     public List<Admin> getAllAdmins() throws SQLException, UserException {
         return manager.getAllAdmins();
+    }
+    public static AdminModel getInstance() throws IOException {
+        if (adminModel == null)
+            adminModel = new AdminModel();
+
+        return adminModel;
     }
 }

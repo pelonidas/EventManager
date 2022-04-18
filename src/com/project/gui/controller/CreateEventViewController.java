@@ -5,7 +5,6 @@ import com.project.be.TicketType;
 import com.project.gui.model.ManageEventsModel;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -18,10 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -39,9 +36,6 @@ public class CreateEventViewController implements Initializable {
     private DatePicker eventDate;
 
     @FXML
-    private Spinner<?> eventDurationTxt;
-
-    @FXML
     private VBox ticketManagementButtons;
 
     @FXML
@@ -51,9 +45,9 @@ public class CreateEventViewController implements Initializable {
     CoordinatorController coordinatorController;
 
 
-    public CreateEventViewController() throws IOException, SQLException {
-        //manageEventsModel = new ManageEventsModel();
-        //model = new EditEventModel();
+    public CreateEventViewController() {
+        /**manageEventsModel = new ManageEventsModel();
+        /model = new EditEventModel();*/
     }
     public void setCoordinatorController(CoordinatorController coordinatorController){
         this.coordinatorController = coordinatorController;
