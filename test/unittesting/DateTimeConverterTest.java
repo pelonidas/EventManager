@@ -13,7 +13,6 @@ class DateTimeConverterTest {
 
     @Test
     void formatDateTimeTest(){
-
         String expectedValue = "2002-05-03 22:22";// pattern yyyy-MM-dd HH:mm
         String expectedFalseDate = null;
 
@@ -26,7 +25,6 @@ class DateTimeConverterTest {
         assertAll("Test for formatting LocalDateTime to String",
                 () -> assertEquals(expectedValue,actualValue),
                 () -> assertEquals(expectedFalseDate,actualFalseDate));
-
     }
 
     @Test
@@ -37,6 +35,7 @@ class DateTimeConverterTest {
 
         LocalDate actualDate = DateTimeConverter.parseDate(inputString);
 
-        assertEquals(expectedDate,actualDate);
+        assertAll("Test for correct formatting of local date from a string",
+                () -> assertEquals(expectedDate,actualDate));
     }
 }

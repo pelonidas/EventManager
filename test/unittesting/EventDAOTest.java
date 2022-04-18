@@ -36,8 +36,6 @@ class EventDAOTest {
 
         Event updatedEventExpected = new Event(1,updatedTitle,date,updatedLocation,updatedDescription,seatCount);
 
-        updatedEventExpected.setTitle(updatedTitle);
-
         //Deletion of event
         Event deletedEventExpected = null;
 
