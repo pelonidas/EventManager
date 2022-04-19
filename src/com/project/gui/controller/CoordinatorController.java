@@ -379,14 +379,12 @@ public class CoordinatorController implements Initializable {
                             alert.setTitle("Valid ticket");
                             alert.setHeaderText(ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName());
                             alert.setContentText("Event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
-                            scanQrCode();
                         }else{
                             alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error dialog");
                             alert.setHeaderText("Qr code is used");
                             alert.setContentText("Ticket is already sold");
                             alert.showAndWait();
-                            scanQrCode();
                         }
                     }else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -394,7 +392,6 @@ public class CoordinatorController implements Initializable {
                         alert.setHeaderText("Invalid qr code");
                         alert.setContentText("Ticket not available");
                         alert.showAndWait();
-                        scanQrCode();
                     }
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
