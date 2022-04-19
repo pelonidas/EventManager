@@ -44,8 +44,12 @@ public class WebcamQRCodeExample2 extends JFrame {
                             if (ticket!=null){
                                 if (ticket.isValid()){
                                     System.out.println("valid ticket, customer="+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
-                                }else System.out.println("ticket not valid anymore"+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle());
-                            }else System.out.println("not valid qr code");
+                                    new WebcamQRCodeExample2();
+                                }else {System.out.println("ticket not valid anymore"+ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+", event: "+ticket.getEvent().getTitle());
+                           new WebcamQRCodeExample2();     }
+                            }else {System.out.println("not valid qr code");
+                            new WebcamQRCodeExample2();}
+
                         } catch (InterruptedException ex) {
                             ex.printStackTrace();
                         }
