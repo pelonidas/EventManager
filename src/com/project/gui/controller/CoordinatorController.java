@@ -12,6 +12,7 @@ import com.project.bll.util.QrCapture;
 import com.project.dal.TicketDAO;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
+import com.project.gui.model.TicketModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
@@ -73,6 +74,7 @@ public class CoordinatorController implements Initializable {
     private ManageEventsModel manageEventsModel;
     private CustomerModel customerModel;
     private Ticket ticket;
+    private TicketModel ticketModel;
 
 
     public CoordinatorController() throws IOException, SQLException {
@@ -359,39 +361,57 @@ public class CoordinatorController implements Initializable {
     }
 
     private void scanQrCode() {
+        Alert alert;
         final Thread thread = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 try (QrCapture qr = new QrCapture(selectCamera.getSelectionModel().getSelectedItem())) {
                     try {
-                        TicketDAO ticketDAO = new TicketDAO();
-                        ticket = ticketDAO.getTicket(qr.getResult());
+                        TicketModel ticketModel = TicketModel.getInstance();
+                        ticket = ticketModel.getTicket(qr.getResult());
                     } catch (SQLException | IOException e) {
                         e.printStackTrace();
                     }
                     if (ticket!=null){
-                        Alert alert;
                         if (ticket.isValid()){
-                            alert = new Alert(Alert.AlertType.NONE);
+                            ticket.setValid(false);
+                            Thread threadUpdate = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        ticketModel.updateTicket(ticket);
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                            threadUpdate.start();
+
+                            /**alert = new Alert(Alert.AlertType.NONE);
                             alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
                             alert.setGraphic((GlyphsDude.createIcon(FontAwesomeIcons.CERTIFICATE)));
                             alert.setTitle("Valid ticket");
                             alert.setHeaderText(ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName());
-                            alert.setContentText("Event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
+                            alert.setContentText("Event: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());*/
+
+                            System.out.println("Valid ticket:\n"+"Customer "+ ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+"\nEvent: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
                         }else{
-                            alert = new Alert(Alert.AlertType.ERROR);
+                            /**alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error dialog");
                             alert.setHeaderText("Qr code is used");
                             alert.setContentText("Ticket is already sold");
-                            alert.showAndWait();
+                            alert.showAndWait();*/
+                            System.out.println("Ticket is already sold:\n"+"Customer "+ ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+"\nEvent: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
                         }
                     }else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        /**Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error dialog");
                         alert.setHeaderText("Invalid qr code");
                         alert.setContentText("Ticket not available");
-                        alert.showAndWait();
+                        alert.showAndWait();*/
+                        System.out.println("Invalid qr code:\n"+"Customer "+ ticket.getCustomer().getFirstName()+" "+ticket.getCustomer().getLastName()+"\nEvent: "+ticket.getEvent().getTitle()+", ticket type: "+ticket.getTicketType().getTitle());
+
                     }
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();

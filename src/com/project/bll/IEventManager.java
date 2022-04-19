@@ -56,6 +56,10 @@ public interface IEventManager {
      */
     List<Admin> getAllAdmins() throws SQLException, UserException;
 
+    Ticket getTicket(String qrCode) throws SQLException;
+
+    void updateTicket(Ticket ticket) throws SQLException;
+
 
     /**
      * logIn credentials

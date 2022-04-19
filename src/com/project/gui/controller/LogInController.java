@@ -211,7 +211,7 @@ public class LogInController implements Initializable {
         loader.setLocation(getClass().getResource("/com/project/gui/view/SignUp.fxml"));
         root = loader.load();
         SignUpController signUpController = loader.getController();
-        signUpController.setCoordinatorModel(new CoordinatorModel());
+        signUpController.setCoordinatorModel(CoordinatorModel.getInstance());
         signUpController.setLogInController(this);
         Stage stage = new Stage();
         stage.setTitle("Sign Up");

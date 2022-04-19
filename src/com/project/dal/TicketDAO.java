@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TicketDAO {
-    DBCPDataSource dataSource = null;
+    DBCPDataSource dataSource;
     EventDAO eventDAO;
     CustomerDAO customerDAO;
     TicketCategoryDAO ticketCategoryDAO;
@@ -142,4 +142,15 @@ public class TicketDAO {
         }}
         return ticket;
     }
+
+    public void updateTicket(Ticket ticket) throws SQLException{
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE tickets SET ticket_validity=? WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setInt(2,ticket.getId());
+            preparedStatement.executeUpdate();
+        }
+    }
+
 }

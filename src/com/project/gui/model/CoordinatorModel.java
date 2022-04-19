@@ -16,7 +16,7 @@ public class CoordinatorModel {
     private static CoordinatorModel coordinatorModel = null;
 
 
-    public CoordinatorModel() throws IOException {
+    private CoordinatorModel() throws IOException {
         manager = EventManager.getInstance();
     }
 

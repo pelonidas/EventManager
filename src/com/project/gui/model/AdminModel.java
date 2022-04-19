@@ -14,7 +14,7 @@ public class AdminModel {
     private static AdminModel adminModel = null;
 
 
-    public AdminModel() throws IOException {
+    private AdminModel() throws IOException {
         manager = EventManager.getInstance();
     }
 

@@ -18,7 +18,7 @@ public class CustomerModel {
     private static CustomerModel customerModel = null;
 
 
-    public CustomerModel() throws IOException, SQLException {
+    private CustomerModel() throws IOException, SQLException {
         eventManager = EventManager.getInstance();
         allCustomers = FXCollections.observableArrayList();
         loadData();

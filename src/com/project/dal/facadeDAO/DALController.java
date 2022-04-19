@@ -167,6 +167,16 @@ public class DALController implements IDALFacade {
     }
 
     @Override
+    public Ticket getTicket(String qrCode) throws SQLException {
+        return ticketDAO.getTicket(qrCode);
+    }
+
+    @Override
+    public void updateTicket(Ticket ticket) throws SQLException {
+         ticketDAO.updateTicket(ticket);
+    }
+
+    @Override
     public void editTicketTypesForEvent(Event event, List<TicketType> ticketTypes) throws SQLException, UserException {
         ticketCategoryDAO.editTicketTypesForEvent(event,ticketTypes);
     }

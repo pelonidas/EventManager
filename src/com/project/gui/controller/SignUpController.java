@@ -243,14 +243,14 @@ public class SignUpController implements Initializable {
     Callable<CoordinatorModel> initializeCoordinatorModel = new Callable<CoordinatorModel>() {
         @Override
         public CoordinatorModel call() throws Exception {
-            return new CoordinatorModel();
+            return CoordinatorModel.getInstance();
         }
     };
 
     Callable<CustomerModel> initializeCustomerModel = new Callable<CustomerModel>() {
         @Override
         public CustomerModel call() throws Exception {
-            return new CustomerModel();
+            return CustomerModel.getInstance();
         }
     };
 

@@ -23,7 +23,7 @@ public class QrCapture extends JFrame implements Closeable {
 
     private static final long serialVersionUID = 1L;
 
-    private Webcam webcam = null;
+    private Webcam webcam;
     private BufferedImage image = null;
     private Result result = null;
     private Exchanger<String> exchanger = new Exchanger<String>();
@@ -82,16 +82,13 @@ public class QrCapture extends JFrame implements Closeable {
         try {
             result = new MultiFormatReader().decode(toBinaryBitmap(image));
         } catch (NotFoundException e) {
-            return; // fall thru, it means there is no QR code in image
+            return;
         }
 
         if (result != null) {
             try {
                 exchanger.exchange(result.getText());
-            } catch (InterruptedException e) {
-                return;
-            } finally {
-                dispose();
+            } catch (InterruptedException ignored) {
             }
         }
     }

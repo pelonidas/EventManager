@@ -144,6 +144,16 @@ public class EventManager implements IEventManager{
     }
 
     @Override
+    public Ticket getTicket(String qrCode) throws SQLException {
+        return dalController.getTicket(qrCode);
+    }
+
+    @Override
+    public void updateTicket(Ticket ticket) throws SQLException {
+         dalController.updateTicket(ticket);
+    }
+
+    @Override
     public Ticket createTicket(TicketType ticketType, User user, Event selectedEvent) throws SQLException{
         return dalController.createTicket(ticketType,user,selectedEvent);
     }

@@ -25,7 +25,7 @@ public class ManageEventsModel {
     private static ManageEventsModel manageEventsModel = null;
 
 
-    public ManageEventsModel() throws IOException, SQLException {
+    private ManageEventsModel() throws IOException, SQLException {
         manager = EventManager.getInstance();
         allEvents = FXCollections.observableArrayList();
         allUsers = FXCollections.observableArrayList();
