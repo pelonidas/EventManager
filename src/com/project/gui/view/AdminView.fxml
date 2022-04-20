@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="319.0" style="-fx-background-color: #0598ff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.AdminController">
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="319.0" stylesheets="@../../resources/css/MainCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.AdminController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="36.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="285.0" />
@@ -18,13 +19,16 @@
   <rowConstraints>
     <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="137.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Welcome to your event manager" textFill="WHITE" GridPane.columnIndex="1">
+      <Label styleClass="font-xl" text="Welcome to your event manager" GridPane.columnIndex="1">
          <font>
             <Font size="20.0" />
          </font>
+         <GridPane.margin>
+            <Insets bottom="15.0" />
+         </GridPane.margin>
       </Label>
       <GridPane prefHeight="104.0" prefWidth="295.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <columnConstraints>
@@ -34,34 +38,37 @@
         <rowConstraints>
           <RowConstraints maxHeight="56.0" minHeight="8.0" prefHeight="38.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" prefHeight="26.0" prefWidth="138.0" text="Manage" textFill="WHITE" GridPane.rowIndex="1">
+            <Label prefHeight="26.0" prefWidth="138.0" styleClass="font-xl" text="Manage" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <JFXButton onAction="#manageUsers" style="-fx-background-color: white;" text="Users" textFill="#0598ff" />
+                  <JFXButton onAction="#manageUsers" styleClass="btn-primary" text="Users" textFill="#0598ff" />
                   <VBox prefHeight="43.0" prefWidth="20.0" />
                   <HBox fx:id="usersBox" alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="34.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <JFXButton onAction="#manageEvents" style="-fx-background-color: white;" text="Events" textFill="#0598ff" />
+                  <JFXButton onAction="#manageEvents" styleClass="btn-primary" text="Events" textFill="#0598ff" />
                   <VBox prefHeight="40.0" prefWidth="20.0" />
                   <HBox fx:id="eventsBox" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="35.0" />
                </children>
             </HBox>
          </children>
       </GridPane>
-      <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <JFXButton onAction="#logOut" style="-fx-background-color: white;" text="LogOut" textFill="#0598ff" />
+            <JFXButton onAction="#logOut" styleClass="btn-red" text="LogOut" textFill="#0598ff" />
          </children>
       </HBox>
    </children>
+   <padding>
+      <Insets bottom="20.0" top="20.0" />
+   </padding>
 </GridPane>
