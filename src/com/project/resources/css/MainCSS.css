@@ -39,6 +39,13 @@
     -fx-font-weight: 700;
     -fx-text-fill: #223146;
 }
+
+.font-2xl {
+    -fx-font-family: Comfortaa;
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #223146;
+}
 /**/
 .btn-primary {
     -fx-background-color: #FCC800;
