@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="488.0" prefWidth="675.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
+<GridPane prefHeight="488.0" prefWidth="675.0" stylesheets="@../../resources/css/MainCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.ManageEventsController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="14.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="739.0" minWidth="10.0" prefWidth="646.0" />
@@ -41,11 +41,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="searchFilterEvents" alignment="CENTER" GridPane.columnIndex="2" />
-            <Label text="Search" />
+            <TextField fx:id="searchFilterEvents" alignment="CENTER" stylesheets="@../../resources/css/customTextField.css" GridPane.columnIndex="2" />
+            <Label prefHeight="20.0" prefWidth="57.0" styleClass="font-md" text="Search" />
             <HBox alignment="CENTER" GridPane.columnIndex="4">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All participants" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font-xl" text="All participants" />
                </children>
             </HBox>
          </children>
@@ -60,7 +60,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="eventsTable">
+            <TableView fx:id="eventsTable" stylesheets="@../../resources/css/customTableView.css">
                <columns>
                   <TableColumn fx:id="titleColumn" prefWidth="57.0" text="Event" />
                   <TableColumn fx:id="dateColumn" prefWidth="68.0" text="Date" />
@@ -69,7 +69,7 @@
                   <TableColumn fx:id="ticketsAvailableColumn" prefWidth="102.0" text="Tickets available" />
                </columns>
             </TableView>
-            <ListView fx:id="listParticipants" GridPane.columnIndex="2" />
+            <ListView fx:id="listParticipants" stylesheets="@../../resources/css/customListView.css" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -83,11 +83,11 @@
          <children>
             <ButtonBar GridPane.columnIndex="1">
                <buttons>
-                  <JFXButton onAction="#backView" text="Back" />
-                  <JFXButton onAction="#logOut" text="Log out" />
+                  <JFXButton onAction="#backView" styleClass="btn-primary" text="Back" />
+                  <JFXButton onAction="#logOut" styleClass="btn-red" text="Log out" />
                </buttons>
             </ButtonBar>
-            <JFXButton onAction="#deleteEvent" text="Delete event" />
+            <JFXButton onAction="#deleteEvent" styleClass="btn-red" text="Delete event" />
          </children>
       </GridPane>
    </children>

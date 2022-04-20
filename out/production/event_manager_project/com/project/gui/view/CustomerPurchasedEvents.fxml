@@ -17,10 +17,13 @@
                <children>
                   <VBox prefHeight="37.0" prefWidth="547.0">
                      <children>
-                        <Label text="My events">
+                        <Label styleClass="font-xl" text="My events">
                            <font>
-                              <Font size="24.0" />
+                              <Font size="33.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
                         </Label>
                         <Line endX="431.2928466796875" startX="-100.0" />
                      </children>

@@ -7,11 +7,9 @@
 /*--primary: #223146;*/
 /*--secondary: #FCC800;*/
 /*red: #ED4036*/
-/*@font-face {*/
-/*    font-family: Comfortaa;*/
-/*    font-weight: 400;*/
-/*    src: url("./fonts/Comfortaa-Regular.ttf") format("truetype");*/
-/*}*/
+@font-face {
+    src: url("Comfortaa-Regular.ttf");
+}
 /*@font-face {*/
 /*    font-family: Comfortaa;*/
 /*    font-weight: 700;*/
@@ -19,17 +17,32 @@
 /*}*/
 
 .root {
-    -fx-font-family: Comfortaa;
+    -fx-font-family: 'Comfortaa';
     -fx-background-color: #fff;
 }
 .text-primary {
     /*-fx-fill: var(--primary);*/
 }
-.font-xl {
+
+.font-md {
     -fx-font-family: Comfortaa;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #223146;
+}
+
+.font-xl {
+    -fx-font-family: 'Comfortaa';
     -fx-font-size: 16px;
     -fx-font-weight: 700;
-    -fx-fill: #223146;
+    -fx-text-fill: #223146;
+}
+
+.font-2xl {
+    -fx-font-family: Comfortaa;
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #223146;
 }
 /**/
 .btn-primary {

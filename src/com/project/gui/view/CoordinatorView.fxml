@@ -61,7 +61,7 @@
       </TableView>
       <ButtonBar buttonMinWidth="100.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
          <buttons>
-            <Button mnemonicParsing="false" onAction="#handleCreateEvent" styleClass="btn-primary" text="Create Event" />
+            <Button mnemonicParsing="false" onAction="#handleCreateEvent" prefHeight="25.0" prefWidth="135.0" styleClass="btn-primary" text="Create Event" />
             <Button mnemonicParsing="false" onAction="#handleEditButton" styleClass="btn-primary" text="Edit Event" />
             <Button mnemonicParsing="false" onAction="#handleDeleteButton" styleClass="btn-primary" text="Delete Event" />
          </buttons>
@@ -93,7 +93,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Scan qr code" textFill="#223146" />
+                  <Label styleClass="font-xs" text="Scan qr code" textFill="#223146" />
                   <JFXComboBox fx:id="selectCamera" focusColor="#fcc800" promptText="Select camera" unFocusColor="#223146" GridPane.columnIndex="2" />
                </children>
             </GridPane>
@@ -133,7 +133,7 @@
                   <ListView fx:id="ticketTypeList" prefHeight="100.0" prefWidth="169.0" stylesheets="@../../resources/css/customListView.css" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Details">
+                        <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font-xl" text="Details">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -142,7 +142,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-xl" text="Ticket types">
+                        <Text fill="#023047" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="font-xl" text="Ticket types">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
