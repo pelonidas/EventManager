@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="487.0" prefWidth="898.0" style="-fx-background-color: white;" stylesheets="@../../resources/css/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
+<GridPane prefHeight="487.0" prefWidth="898.0" style="-fx-background-color: white;" stylesheets="@../../resources/css/MainCSS.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.gui.controller.CoordinatorController">
 
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="0.0" prefWidth="0.0" />
@@ -93,8 +93,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Scan qr code" />
-                  <JFXComboBox fx:id="selectCamera" promptText="Select camera" GridPane.columnIndex="2" />
+                  <Label text="Scan qr code" textFill="#223146" />
+                  <JFXComboBox fx:id="selectCamera" focusColor="#fcc800" promptText="Select camera" unFocusColor="#223146" GridPane.columnIndex="2" />
                </children>
             </GridPane>
          </children>
