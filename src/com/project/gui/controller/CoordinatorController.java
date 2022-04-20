@@ -7,15 +7,13 @@ import com.project.be.Customer;
 import com.project.be.Event;
 import com.project.be.Ticket;
 import com.project.be.TicketType;
+import com.project.bll.util.SendMailOutlook;
 import com.project.bll.exceptions.UserException;
 import com.project.bll.util.QrCapture;
-import com.project.dal.TicketDAO;
 import com.project.gui.model.CustomerModel;
 import com.project.gui.model.ManageEventsModel;
 import com.project.gui.model.TicketModel;
 import com.project.gui.view.Main;
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -88,12 +86,12 @@ public class CoordinatorController implements Initializable {
         initializeEventTable();
         initializeUserTable();
         setupFilters();
-        selectCamera.getItems().addAll(Webcam.getWebcams());
+        /*selectCamera.getItems().addAll(Webcam.getWebcams());
         selectCamera.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 scanQrCode();
-            }});
+            }});*/
     }
 
     private void setupFilters() {
@@ -300,21 +298,31 @@ public class CoordinatorController implements Initializable {
         Customer selectedCustomer = getSelectedCustomer();
         TicketType selectedTicketType = getSelectedTicketType();
 
-        if (selectedEvent!=null && selectedCustomer!=null && selectedTicketType!=null)
-            buyTicket(selectedEvent,selectedCustomer,selectedTicketType,selectedEvent);
+        if (selectedEvent!=null && selectedCustomer!=null && selectedTicketType!=null){
+            Ticket ticket = buyTicket(selectedEvent,selectedCustomer,selectedTicketType,selectedEvent);
+            sendMail(ticket);
+        }
     }
 
-    private void buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType, Event event) throws SQLException, IOException, WriterException {
+    private void sendMail(Ticket ticket) throws IOException, WriterException {
+        SendMailOutlook sendMail = new SendMailOutlook();
+        sendMail.captureAndSaveDisplay(ticket);
+        sendMail.openOutlook(ticket);
+    }
+
+    private Ticket buyTicket(Event selectedEvent, Customer selectedCustomer, TicketType selectedTicketType, Event event) throws SQLException, IOException, WriterException {
+        HBox rootNode=null;
         Ticket createdTicket = manageEventsModel.buyTicketForUser(selectedEvent,selectedTicketType,selectedCustomer);
 
         if (createdTicket!=null)
-            printTicket(createdTicket,selectedCustomer,selectedTicketType,event);
+            rootNode = printTicket(createdTicket,selectedCustomer,selectedTicketType,event);
         else
-            System.out.println("tickettype sold out");
+            System.out.println("ticketType sold out");
+        return ticket;
         //TODO handle tickets ran out
     }
 
-    private void printTicket(Ticket createdTicket, Customer selectedCustomer, TicketType selectedTicketType, Event selectedEvent) throws IOException, WriterException {
+    private HBox printTicket(Ticket createdTicket, Customer selectedCustomer, TicketType selectedTicketType, Event selectedEvent) throws IOException, WriterException {
         PrinterJob printer = PrinterJob.createPrinterJob();
 
         PrinterAttributes pa = printer.getPrinter().getPrinterAttributes();
@@ -335,7 +343,7 @@ public class CoordinatorController implements Initializable {
             printer.printPage(pageLayout,rootNode);
             printer.endJob();
         }
-
+        return rootNode;
 
     }
 

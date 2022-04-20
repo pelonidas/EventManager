@@ -1,7 +1,7 @@
 package com.project.gui.controller;
 
 import com.project.be.*;
-import com.project.bll.util.Mail;
+import com.project.bll.util.SendMailGmail;
 import com.project.gui.model.CoordinatorModel;
 import com.project.gui.view.Main;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -220,7 +220,7 @@ public class LogInController implements Initializable {
     }
 
     public void sendMail(ActionEvent actionEvent) throws Exception {
-        Mail.sendMail("amine.aouina.lp.4@gmail.com");
+        SendMailGmail.sendMail("amine.aouina.lp.4@gmail.com");
     }
 
     public ObservableList<Coordinator> getAllCoordinators() {

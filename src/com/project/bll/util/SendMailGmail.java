@@ -5,7 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class Mail {
+public class SendMailGmail {
     public static void sendMail (String recipient) throws Exception {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth",true);

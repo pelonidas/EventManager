@@ -1,10 +1,12 @@
-package com.project.bll;
+package com.project.bll.util;
 
+import com.google.zxing.WriterException;
 import com.project.be.Ticket;
+import com.project.gui.controller.TicketController;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.HBox;
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
@@ -14,39 +16,32 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SendMail {
-    AnchorPane anchorPane;
-    Ticket ticketSold;
+public class SendMailOutlook {
+    public void captureAndSaveDisplay(Ticket ticket) throws IOException, WriterException {
 
-    public void captureAndSaveDisplay(){
-        FileChooser fileChooser = new FileChooser();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/TicketRedesign.fxml"));
+        loader.load();
 
-        //Set extension filter
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("png files (*.png)", "*.png"));
+        TicketController ticketController = loader.getController();
+        ticketController.setFields(ticket,ticket.getCustomer(),ticket.getTicketType(),ticket.getEvent());
+        HBox rootNode = ticketController.getRoot();
 
-        //Prompt user to select a file
-        //File file = fileChooser.showSaveDialog(null);
 
-        String fileName = "resources/TempTickets/"+ticketSold.getId()+".png";
+        String fileName = "resources/TempTickets/"+ticket.getId()+".png";
         File file = new File(fileName);
-        if(file != null){
-            try {
+
+
                 //Pad the capture area
-                WritableImage writableImage = new WritableImage((int)anchorPane.getWidth() + 20,
-                        (int)anchorPane.getHeight() + 20);
-                anchorPane.snapshot(null, writableImage);
+                WritableImage writableImage = new WritableImage((int)rootNode.getWidth() + 20,
+                        (int)rootNode.getHeight() + 20);
+                rootNode.snapshot(null, writableImage);
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                 //Write the snapshot to the chosen file
                 ImageIO.write(renderedImage, "png", file);
 
-            } catch (IOException ex) { ex.printStackTrace(); }
-        }
-    }
-    public void setAnchorPane(AnchorPane anchorPane) {
-        this.anchorPane=anchorPane;
     }
 
-    public String getOutlook() {
+    private String getOutlook() {
         try {
             Process p = Runtime.getRuntime()
                     .exec(new String[]{"cmd.exe", "/c", "assoc", ".pst"});
@@ -86,13 +81,13 @@ public class SendMail {
         System.out.println("Could not find Outlook: \n" + errorMessage);
     }
 
-    public void openOutlook()
+    public void openOutlook(Ticket ticket)
     {
         String outlook = getOutlook();
         Runtime rt = Runtime.getRuntime();
 
         try {
-            String attachment = "resources/TempTickets/"+ticketSold.getId()+".png";
+            String attachment = "resources/TempTickets/"+ticket.getId()+".png";
             String subject = "Ticket%20Email"; //%20 is used in place of a space
             String email = "cchesberg@gmail.com"; //participant.getEmail();
             String emailSubjectCombined = email+"?subject="+subject;
