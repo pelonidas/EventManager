@@ -43,7 +43,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
                 </TableView>
-                <Label text="Upcoming">
+                <Label styleClass="font-xl" text="Upcoming">
                     <GridPane.margin>
                         <Insets left="10.0" />
                     </GridPane.margin>
@@ -51,9 +51,9 @@
                         <Font size="21.0" />
                     </font>
                 </Label>
-                <Label text="Additional info" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                <Label styleClass="font-xl" text="Additional info" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                     <GridPane.margin>
-                        <Insets bottom="5.0" left="10.0" />
+                        <Insets bottom="10.0" left="10.0" />
                     </GridPane.margin>
                     <font>
                         <Font size="21.0" />
@@ -81,12 +81,12 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </TextArea>
-            <Label text="Other participants" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Label styleClass="font-xl" text="Other participants" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <font>
                   <Font size="21.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets bottom="10.0" left="10.0" />
                </GridPane.margin>
             </Label>
             <TableView fx:id="tableViewParticipantsOnClickedEvent" prefHeight="155.0" prefWidth="387.0" stylesheets="@../../resources/css/customTableView.css" GridPane.rowIndex="4">

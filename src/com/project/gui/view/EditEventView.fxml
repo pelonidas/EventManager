@@ -105,14 +105,18 @@
                     <children>
                         <VBox alignment="CENTER" prefHeight="77.0" prefWidth="195.0" spacing="5.0">
                             <children>
+                        <HBox prefHeight="100.0">
+                           <children>
+                                        <TextField fx:id="ticketTypeTxt" promptText="Ticket type" stylesheets="@../../resources/css/customTextField.css" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
                                 <HBox prefHeight="28.0" prefWidth="185.0" spacing="5.0">
                                     <children>
-                                        <TextField fx:id="ticketTypeTxt" promptText="Ticket type" />
-                                        <TextField fx:id="ticketPriceTxt" prefHeight="26.0" prefWidth="104.0" promptText="price" />
-                              <TextField fx:id="ticketTypeCount" prefHeight="26.0" prefWidth="118.0" promptText="count" />
+                                        <TextField fx:id="ticketPriceTxt" prefHeight="26.0" prefWidth="104.0" promptText="price" stylesheets="@../../resources/css/customTextField.css" />
+                              <TextField fx:id="ticketTypeCount" prefHeight="26.0" prefWidth="118.0" promptText="count" stylesheets="@../../resources/css/customTextField.css" />
                                     </children>
                                 </HBox>
-                                <TextField fx:id="ticketBenefitsTxt" prefHeight="26.0" prefWidth="166.0" promptText="ticket benefits" />
+                                <TextField fx:id="ticketBenefitsTxt" prefHeight="26.0" prefWidth="166.0" promptText="ticket benefits" stylesheets="@../../resources/css/customTextField.css" />
                             </children>
                         </VBox>
                         <VBox fx:id="ticketManagementButtons" alignment="CENTER" prefHeight="56.0" prefWidth="42.0" spacing="10.0" />
