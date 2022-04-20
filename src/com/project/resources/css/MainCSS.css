@@ -25,6 +25,14 @@
 .text-primary {
     /*-fx-fill: var(--primary);*/
 }
+
+.font-md {
+    -fx-font-family: Comfortaa;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #223146;
+}
+
 .font-xl {
     -fx-font-family: Comfortaa;
     -fx-font-size: 16px;
