@@ -8,7 +8,10 @@
 /*--secondary: #FCC800;*/
 /*red: #ED4036*/
 @font-face {
-    src: url("Comfortaa-Regular.ttf");
+    src: url("fonts/Comfortaa-Regular.ttf");
+}
+@font-face {
+    src: url("fonts/Comfortaa-Bold.ttf");
 }
 /*@font-face {*/
 /*    font-family: Comfortaa;*/
@@ -24,22 +27,24 @@
     /*-fx-fill: var(--primary);*/
 }
 
+.font-xs {
+    -fx-font-size: 9px;
+    -fx-text-fill: #223146;
+}
+
 .font-md {
-    -fx-font-family: Comfortaa;
     -fx-font-size: 11px;
-    -fx-font-weight: 700;
     -fx-text-fill: #223146;
 }
 
 .font-xl {
     -fx-font-family: 'Comfortaa';
+    -fx-font-weight: 900;
     -fx-font-size: 16px;
-    -fx-font-weight: 700;
     -fx-text-fill: #223146;
 }
 
 .font-2xl {
-    -fx-font-family: Comfortaa;
     -fx-font-size: 24px;
     -fx-font-weight: 700;
     -fx-text-fill: #223146;
@@ -49,6 +54,7 @@
     -fx-background-color: #FCC800;
     -fx-border-radius: 10px;
     -fx-text-fill: #fff;
+    -fx-font-weight: 900;
 }
 .btn-primary:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
@@ -58,6 +64,7 @@
     -fx-background-color: #ED4036;
     -fx-border-radius: 10px;
     -fx-text-fill: #fff;
+    -fx-font-weight: 900;
 }
 .btn-red:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 0);
