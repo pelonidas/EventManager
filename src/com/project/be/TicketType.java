@@ -46,7 +46,7 @@ public class TicketType {
 
     @Override
     public String toString() {
-        return title + " "  + benefits;
+        return title + " "  + price + " " + benefits;
     }
 
     public int getSeatsAvailable() {
