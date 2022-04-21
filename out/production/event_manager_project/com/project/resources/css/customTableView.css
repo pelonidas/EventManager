@@ -1,3 +1,10 @@
+@font-face {
+    src: url("fonts/Comfortaa-Regular.ttf");
+}
+@font-face {
+    src: url("fonts/Comfortaa-Bold.ttf");
+}
+
 .table-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -6,6 +13,7 @@
 .table-view .column-header-background .label {
     -fx-font-size: 11px;
     -fx-text-fill: white;
+    -fx-font-family: 'Comfortaa';
     -fx-font-weight: 900;
 }
 
@@ -13,6 +21,20 @@
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
     -fx-background-color: #223146;
+}
+.table-row-cell:selected {
+    -fx-background-color: #223146;
+}
+.table-row-cell:selected .text {
+    -fx-fill: #fff ;
+    -fx-font-family: 'Comfortaa';
+
+}
+
+.table-row-cell .text {
+    -fx-fill: #223146 ;
+    -fx-font-family: 'Comfortaa';
+
 }
 .table-view:empty {
     -fx-background-color: white;
