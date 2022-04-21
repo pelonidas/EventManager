@@ -55,7 +55,7 @@ public class LogInController implements Initializable {
     @FXML
     private TextField userName;
     @FXML
-    private CustomPasswordField passWord;
+    private PasswordField passWord;
 
     private Main main;
 
