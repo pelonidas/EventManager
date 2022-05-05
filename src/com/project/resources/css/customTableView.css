@@ -33,7 +33,7 @@
 
 .table-row-cell .text {
     -fx-fill: #223146 ;
-    -fx-font-family: 'Comfortaa';
+    -fx-font-family: 'Comfortaa'
 
 }
 .table-view:empty {
